@@ -2,9 +2,9 @@
 October 26, 2020
 
 ## Overview
-The goal of the FileExplorer is to build a generic file explorer. This is a prototype! The emphasis of this project is on the lessons learned during the development process and documentation phase. The end result does not require a huge amount of polish but should look reasonably similar and function as closely as possible unless otherwise noted in this specification.
+The goal of the FileExplorer project is to build and learn from a generic file explorer. This is a prototype! The emphasis of this project is on the lessons learned during the development process and documentation phase. The end result does not require a huge amount of polish but should look reasonably similar and function as closely as possible unless otherwise noted in this specification.
 
-The goal of building the Calculator is to explore the strengths and weaknesses of the framework you are using. The app should be built once to figure out your approach.  Once complete, build the app again while recording your screen.  Finally, document the app creation process in a step-by-step manner (similar to a recipe - what would someone else need to know to build the app in its entirety - configuration, code, testing, etc.).
+The goal of building the File Explorer is to explore the strengths and weaknesses of the framework you are using. The app should be built once to figure out your approach.  Once complete, build the app again while recording your screen.  Finally, document the app creation process in a step-by-step manner (similar to a recipe - what would someone else need to know to build the app in its entirety - configuration, code, testing, etc.).
 
 
 ## Requirements
@@ -28,9 +28,9 @@ The file list area should be 4 columns featuring the Name, Date Modified, Type, 
 ## Deliverables
 ### Project Items
 
-Complete source code for your working calculator.  Include a compiled executable if applicable or instructions for executing the code if not.
-A video capture of the second build process.  This must be in real-time (not sped up) and executed manually (without auto-typing or other speed features).  The intent is to get a realistic view of the effort required to make this calculator by a competent programmer.
-A document with step-by-step instructions that walk someone unfamiliar with your development environment, tools, and language through the process of building this calculator to its full functionality.  This document can be a .docx, .pdf, or Google Document format.  Markdown usage is preferred.
+Complete source code for your working file explorer.  Include a compiled executable if applicable or instructions for executing the code if not.
+A video capture of the second build process.  This must be in real-time (not sped up) and executed manually (without auto-typing or other speed features).  The intent is to get a realistic view of the effort required to make this file explorer by a competent programmer.
+A document with step-by-step instructions that walk someone unfamiliar with your development environment, tools, and language through the process of building this file explorer to its full functionality.  This document can be a .docx, .pdf, or Google Document format.  Markdown usage is preferred.
 
 ### Iterative Feedback
 Please provide feedback to us during the development process so we can help speed up the development. We have many many years of experience and are here to help you get the project done as fast as possible.
