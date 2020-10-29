@@ -1,0 +1,27 @@
+select {
+    margin: 20px;
+    width: 150px;
+    padding: 5px 35px 5px 5px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    height: 34px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+  }
+  
+  /* CAUTION: IE hackery ahead */
+  select::-ms-expand { 
+      display: none; /* remove default arrow on ie10 and ie11 */
+  }
+  
+  /* target Internet Explorer 9 to undo the custom arrow */
+  @media screen and (min-width:0\0) {
+      select {
+          background:none\9;
+          padding: 5px\9;
+      } 
+  }
+  
+  
