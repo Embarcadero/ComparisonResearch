@@ -1,5 +1,5 @@
 # File Explorer
-October 26, 2020
+October 29, 2020
 
 ## Overview
 The goal of the FileExplorer project is to build and learn from a generic file explorer. This is a prototype! The emphasis of this project is on the lessons learned during the development process and documentation phase. The end result does not require a huge amount of polish but should look reasonably similar and function as closely as possible unless otherwise noted in this specification.
