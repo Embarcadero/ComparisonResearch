@@ -1,0 +1,35 @@
+# Screen Capture
+October 29, 2020
+
+## Overview
+The goal of the Screen Capture project is to build an application that lets the user capture a screen of their choice, resize and crop the captures, and save or export the result.  This application will also show the user a history of recent captures with timestamps and allow for them to be loaded and modified.  This is a prototype! The emphasis of this project is on the lessons learned during the development process and documentation phase. The end result does not require a huge amount of polish but should look reasonably similar and function as closely as possible unless otherwise noted in this specification.
+The goal of building the Screen Capture app is to explore the strengths and weaknesses of the framework you are using. The app should be built once to figure out your approach.  Once complete, build the app again while recording your screen.  Finally, document the app creation process in a step-by-step manner (similar to a recipe - what would someone else need to know to build the app in its entirety - configuration, code, testing, etc.).
+
+
+## Requirements
+### Layout
+The Screenshot App will show available screens to capture on the top third of the window.  Any screen the user selects will be displayed in the lower two-thirds of the window.  Once the user presses the capture button, the application will change into an editor with buttons that enable resizing, cropping, saving, and exporting.  At any point, the user can select a toolbar option to view their recent capture history which will replace the current screen view in the top third of the window and allow the user to scroll through time stamped captures and select one for editing/saving/exporting.
+
+
+### Theme
+The Screenshot App should look similar to the window shown below. 
+
+![](https://github.com/Embarcadero/ComparisonResearch/blob/main/screenshot-history/screenCaptureApp.png)
+
+
+## Deliverables
+### Project Items
+
+1. Complete source code for your working Screen Capture app.  Include a compiled executable if applicable or instructions for executing the code if not.
+2. A video capture of the second build process.  This must be in real-time (not sped up) and executed manually (without auto-typing or other speed features).  The intent is to get a realistic view of the effort required to make this Screen Capture app by a competent programmer.
+3. A document with step-by-step instructions that walk someone unfamiliar with your development environment, tools, and language through the process of building this Screen Capture app to its full functionality.  This document can be a .docx, .pdf, or Google Document format.  Markdown usage is preferred.
+
+
+
+### Iterative Feedback
+Please provide feedback to us during the development process so we can help speed up the development. We have many many years of experience and are here to help you get the project done as fast as possible.
+
+## Helpful Tips
+### Electron Specific
+[This GitHub repo](https://github.com/hokein/electron-sample-apps/tree/master/desktop-capture) can be used for code reference. 
+
