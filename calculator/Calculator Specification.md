@@ -42,9 +42,9 @@ The calculator must imitate Windows 10 calculator function to the maximum extent
 ## Deliverables
 ### Project Items
 
-Complete source code for your working calculator.  Include a compiled executable if applicable or instructions for executing the code if not.
-A video capture of the second build process.  This must be in real-time (not sped up) and executed manually (without auto-typing or other speed features).  The intent is to get a realistic view of the effort required to make this calculator by a competent programmer.
-A document with step-by-step instructions that walk someone unfamiliar with your development environment, tools, and language through the process of building this calculator to its full functionality.  This document can be a .docx, .pdf, or Google Document format.  Markdown usage is preferred.
+1. Complete source code for your working calculator.  Include a compiled executable if applicable or instructions for executing the code if not.
+2. A video capture of the second build process.  This must be in real-time (not sped up) and executed manually (without auto-typing or other speed features).  The intent is to get a realistic view of the effort required to make this calculator by a competent programmer.
+3. A document with step-by-step instructions that walk someone unfamiliar with your development environment, tools, and language through the process of building this calculator to its full functionality.  This document can be a .docx, .pdf, or Google Document format.  Markdown usage is preferred.
 
 ### Iterative Feedback
 Please provide feedback to us during the development process so we can help speed up the development. We have many many years of experience and are here to help you get the project done as fast as possible.
