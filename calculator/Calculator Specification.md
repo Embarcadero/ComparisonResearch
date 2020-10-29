@@ -11,6 +11,8 @@ Your goal while building the Calculator is to explore the strengths and weakness
 The Calculator should feature a look similar to the below. Note the brighter color palette for number, digit, and sign buttons, darker pallet for operator/function buttons, and dark grey pallet for the display field.  The “equals” button is a cornflower blue shade.  All buttons but the equals button change to a darker grey shade when the mouse rolls over and becomes darker again when clicked.  The equals button has the same behavior but in blue shades.  
 Note that the window and controls are semi transparent.
 
+!(ComparisonResearch/calculator/Windows 10 Calculator.PNG)
+
 ### Transparency
 The calculator window should be semi-transparent if it will not take more than 5 hours to add that feature.
 
