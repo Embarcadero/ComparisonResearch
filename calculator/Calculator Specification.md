@@ -55,7 +55,7 @@ If building the Delphi version you can reference [this project](https://delphi.f
 
 ### Electron Specific
 
-For basic calculator functionality it should be enough to create this as a pure web app in a sandboxed browser window. Include clipboard functionality.
+For basic calculator functionality it should be enough to create this as a pure web app in a sandboxed browser window. Including clipboard functionality.
 
 You can reference [this project](https://www.youtube.com/watch?v=La87CRt6CpY).
 
