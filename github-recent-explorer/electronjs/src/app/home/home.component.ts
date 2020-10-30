@@ -14,20 +14,28 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
-  getURL(language, sort) {
-    let url = 'https://api.github.com/search/repositories?q=language:'+language+'+created&sort=stars&order='+sort;
+  getURL(language, sort, created) {
+    if (created != '') {
+      created = 'created:>' + created;
+    }
+    let url = 'https://api.github.com/search/repositories?q=language:'+language+'+'+created+'&sort=stars&order='+sort;
     return url;
   }
 
-  getGithubRecent(language, sort) {
-    let url = this.getURL(language, sort);
+  getGithubRecent(language, sort, created) {
+    if (!created) 
+      created = '';
+    if (!sort) 
+      sort = 'asc';
+    let url = this.getURL(language, sort, created);
+    console.log('search url: ', url);
     return this.http.get(url);
   }
 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        this.getGithubRecent(params.language, params.sort)
+        this.getGithubRecent(params.language, params.sort, params.created)
           .subscribe(data => {
             this.repos = data['items'];
           })
