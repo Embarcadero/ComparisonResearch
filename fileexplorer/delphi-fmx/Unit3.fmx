@@ -1,0 +1,79 @@
+object Form3: TForm3
+  Left = 0
+  Top = 0
+  Caption = 'Form3'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object WinMenu: TMenuBar
+    Size.Width = 640.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object WinMenuFile: TMenuItem
+      Text = 'File'
+      object WinMenuRun: TMenuItem
+        Locked = True
+        Text = 'Run'
+      end
+      object WinMenuBrowseForFolder: TMenuItem
+        Locked = True
+        Text = 'BrowseForFolder'
+      end
+      object WinMenuExit: TMenuItem
+        Locked = True
+        Text = 'Exit'
+      end
+    end
+    object WinMenuEdit: TMenuItem
+      Text = 'Edit'
+      object WinMenuCopy: TMenuItem
+        Locked = True
+        Text = 'Copy'
+      end
+    end
+    object WinMenuWindow: TMenuItem
+      Text = 'Window'
+      object WinMenuArrange: TMenuItem
+        Locked = True
+        Text = 'Arrange'
+      end
+    end
+  end
+  object MacMenu: TMainMenu
+    Left = 304
+    Top = 224
+    object MacMenuFile: TMenuItem
+      Text = 'File'
+      object MacMenuBrowseForFolder: TMenuItem
+        Locked = True
+        Text = 'BrowseForFolder'
+      end
+      object MacMenuRun: TMenuItem
+        Locked = True
+        Text = 'Run'
+      end
+      object MacMenuExit: TMenuItem
+        Locked = True
+        Text = 'Exit'
+      end
+    end
+    object MacMenuEdit: TMenuItem
+      Text = 'Edit'
+      object MacMenuCopy: TMenuItem
+        Locked = True
+        Text = 'Copy'
+      end
+    end
+    object MacMenuWindow: TMenuItem
+      Text = 'Window'
+      object MacMenuArrange: TMenuItem
+        Locked = True
+        Text = 'Arrange'
+      end
+    end
+  end
+end
