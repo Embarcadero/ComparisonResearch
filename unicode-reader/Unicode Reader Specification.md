@@ -25,74 +25,34 @@ https://blogs.embarcadero.com/es/feed/
 ## Schemas
 The schemas aren’t set in stone. If you think something doesn’t make sense or needs to be changed (added or removed), let us know so we can keep the schema in sync across different platforms.
 
-### Feeds Schema
-```
--- ----------------------------
--- Table structure for rssfeeds
--- ----------------------------
+### Channels Schema
 
-    FieldDefs = <
-      item
-        Name = 'Id'
-        DataType = ftAutoInc
-      end
-      item
-        Name = 'DateTime'
-        DataType = ftDateTime
-      end
-      item
-        Name = 'Title'
-        DataType = ftWideString
-        Size = 512
-      end
-      item
-        Name = 'Link'
-        DataType = ftWideString
-        Size = 1024
-      end
-      item
-        Name = 'Description'
-        DataType = ftWideMemo
-      end
-      item
-        Name = 'Author'
-        DataType = ftWideString
-        Size = 256
-      end
-      item
-        Name = 'Guid'
-        DataType = ftWideString
-        Size = 512
-      end
-      item
-        Name = 'Feed'
-        DataType = ftWideString
-        Size = 128
-      end>
+```sql
+create table channels (
+    id serial,
+    title varchar(1024) not null,
+    description text not null,
+    link varchar(2048) not null,
+    constraint channels_pk primary key (id)
+);
 ```
-### Posts Schema
 
-```
-SET FOREIGN_KEY_CHECKS=0;
+### Articles Schema
 
--- ----------------------------
--- Table structure for rsscontent
--- ----------------------------
-DROP TABLE IF EXISTS `rsscontent`;
-CREATE TABLE `rsscontent` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `title` varchar(1024) DEFAULT NULL,
-  `tstamp` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `description` mediumtext,
-  `link` varchar(1024) DEFAULT NULL,
-  `source` varchar(255) DEFAULT NULL,
-  `hash` varchar(255) DEFAULT NULL,
-  `viewed` int DEFAULT '0',
-  `rank` int DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uniquehash` (`hash`)
-) ENGINE=InnoDB AUTO_INCREMENT=1577 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-SET FOREIGN_KEY_CHECKS=1;
+```sql
+create table articles (
+    id serial,
+    title varchar(1024) not null,
+    description text not null,
+    link varchar(2048) not null,
+    is_read boolean default false,
+    timestamp timestamp default now(),
+    channel integer not null,
+    constraint articles_pk primary key (id),
+    constraint channels_fk foreign key (channel)
+        references channels (id)
+        on delete cascade
+);
 ```
 
 ## Requirements
@@ -121,4 +81,18 @@ Please provide feedback to us during the development process so we can help spee
 
 ## Helpful Tips
 ### Electron Specific
+
 The data layer of this application should be implemented with the main process and a renderer process in mind. For raw access to the data layer the [pg library](https://www.npmjs.com/package/pg) is the de facto standard.
+
+#### Electron Forge
+
+To abstract away some of the common headaches of distributing and updating an application. Whether it be through an "app store" or not.
+[Electron Forge](https://www.electronforge.io) could be used as it is very easy to get started with and it provides a lot of features out of the box.
+Updates can be published through either update.electronjs.org (if the application is public and meets all the criteria) or custom update servers.
+[Electron Forge](https://www.electronforge.io) provides an easy to use system for either one (publish targets).
+
+To get started:
+
+```sh
+npx create-electron-app unicode-reader
+```

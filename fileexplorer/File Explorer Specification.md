@@ -56,5 +56,15 @@ Here are two similar projects. Check and see how they built it and then you can 
 https://medium.com/quasar-framework/building-an-electron-file-explorer-with-quasar-and-vue-7bf94f1bbf6
 https://github.com/hokein/electron-sample-apps/tree/master/file-explorer
 
+#### Electron Forge
 
+To abstract away some of the common headaches of distributing and updating an application. Whether it be through an "app store" or not.
+[Electron Forge](https://www.electronforge.io) could be used as it is very easy to get started with and it provides a lot of features out of the box.
+Updates can be published through either update.electronjs.org (if the application is public and meets all the criteria) or custom update servers.
+[Electron Forge](https://www.electronforge.io) provides an easy to use system for either one (publish targets).
 
+To get started:
+
+```sh
+npx create-electron-app file-explorer
+```

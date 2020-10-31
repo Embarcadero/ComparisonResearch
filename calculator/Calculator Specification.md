@@ -59,4 +59,15 @@ For basic calculator functionality it should be enough to create this as a pure 
 
 You can reference [this project](https://www.youtube.com/watch?v=La87CRt6CpY).
 
+#### Electron Forge
 
+To abstract away some of the common headaches of distributing and updating an application. Whether it be through an "app store" or not.
+[Electron Forge](https://www.electronforge.io) could be used as it is very easy to get started with and it provides a lot of features out of the box.
+Updates can be published through either update.electronjs.org (if the application is public and meets all the criteria) or custom update servers.
+[Electron Forge](https://www.electronforge.io) provides an easy to use system for either one (publish targets).
+
+To get started:
+
+```sh
+npx create-electron-app calculator
+```
