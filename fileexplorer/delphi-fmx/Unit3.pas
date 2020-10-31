@@ -19,11 +19,9 @@ type
     WinMenuCopy: TMenuItem;
     WinMenuWindow: TMenuItem;
     WinMenuArrange: TMenuItem;
-    ActionList1: TActionList;
     MenuItem1: TMenuItem;
     Layout1: TLayout;
     Edit1: TEdit;
-    FileExit1: TFileExit;
     Edit2: TEdit;
     Layout2: TLayout;
     TreeView1: TTreeView;
@@ -32,8 +30,12 @@ type
     Header1: THeader;
     Grid1: TGrid;
     TabControl1: TTabControl;
-    TabItem1: TTabItem;
-    TabItem2: TTabItem;
+    tiWindows: TTabItem;
+    tiDesktop: TTabItem;
+    hiName: THeaderItem;
+    hiDateModified: THeaderItem;
+    hiType: THeaderItem;
+    hiSize: THeaderItem;
   private
     { Private declarations }
   public
@@ -46,5 +48,7 @@ var
 implementation
 
 {$R *.fmx}
+
+uses uDM;
 
 end.

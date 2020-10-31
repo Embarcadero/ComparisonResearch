@@ -24,7 +24,7 @@ object Form3: TForm3
         Text = 'Browse for folder'#8230
       end
       object MenuItem1: TMenuItem
-        Action = FileExit1
+        Action = DataModule2.FileExit1
         Enabled = True
         Locked = True
         ImageIndex = -1
@@ -61,6 +61,7 @@ object Form3: TForm3
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Left
       TabOrder = 0
+      Text = 'c:\Windows\'
       Position.X = 10.000000000000000000
       Position.Y = 10.000000000000000000
       Size.Width = 100.000000000000000000
@@ -71,6 +72,7 @@ object Form3: TForm3
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Client
       TabOrder = 1
+      Hint = 'Search Windows'
       Margins.Left = 10.000000000000000000
       Size.Width = 510.000000000000000000
       Size.Height = 21.000000000000000000
@@ -122,6 +124,41 @@ object Form3: TForm3
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
+        object hiName: THeaderItem
+          Size.Width = 200.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          Text = 'Name'
+          TextSettings.HorzAlign = Leading
+        end
+        object hiDateModified: THeaderItem
+          Position.X = 200.000000000000000000
+          Size.Width = 89.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          Text = 'Date modified'
+          TextSettings.HorzAlign = Leading
+        end
+        object hiType: THeaderItem
+          Position.X = 289.000000000000000000
+          Size.Width = 80.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          Text = 'Type'
+          TextSettings.HorzAlign = Leading
+        end
+        object hiSize: THeaderItem
+          Position.X = 369.000000000000000000
+          Size.Width = 80.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          Text = 'Size'
+          TextSettings.HorzAlign = Leading
+        end
       end
       object Grid1: TGrid
         Align = Client
@@ -142,7 +179,7 @@ object Form3: TForm3
     Size.Width = 640.000000000000000000
     Size.Height = 27.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 5
     TabPosition = Bottom
     Sizes = (
@@ -150,19 +187,7 @@ object Form3: TForm3
       1s
       640s
       1s)
-    object TabItem1: TTabItem
-      CustomIcon = <
-        item
-        end>
-      IsSelected = True
-      Size.Width = 69.000000000000000000
-      Size.Height = 26.000000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = ''
-      TabOrder = 0
-      Text = 'TabItem1'
-    end
-    object TabItem2: TTabItem
+    object tiWindows: TTabItem
       CustomIcon = <
         item
         end>
@@ -172,15 +197,23 @@ object Form3: TForm3
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'TabItem2'
+      Text = 'Windows'
+      ExplicitSize.cx = 69.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
     end
-  end
-  object ActionList1: TActionList
-    Left = 32
-    Top = 392
-    object FileExit1: TFileExit
-      Category = 'File'
-      Hint = 'Quit|Quits the application'
+    object tiDesktop: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 64.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'Desktop'
+      ExplicitSize.cx = 69.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
     end
   end
 end

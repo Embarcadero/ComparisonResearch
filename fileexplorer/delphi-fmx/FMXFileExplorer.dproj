@@ -5,7 +5,7 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Linux64</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>38043</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>FMXFileExplorer.dpr</MainSource>
@@ -267,6 +267,11 @@
             <Form>Form3</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uDM.pas">
+            <Form>DataModule2</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -336,6 +341,12 @@
                 </DeployFile>
                 <DeployFile LocalName="$(BDS)\Redist\iossimulator\libpcre.dylib" Class="DependencyModule">
                     <Platform Name="iOSSimulator">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Linux64\Debug\FMXFileExplorer" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Linux64">
+                        <RemoteName>FMXFileExplorer</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
