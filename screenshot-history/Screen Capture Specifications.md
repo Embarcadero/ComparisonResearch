@@ -31,5 +31,21 @@ Please provide feedback to us during the development process so we can help spee
 
 ## Helpful Tips
 ### Electron Specific
+
+The data layer of this application should be implemented with the main process and a renderer process in mind.
+For the data access portion of the application the [SQLite](https://www.npmjs.com/package/sqlite) library provides a lot of flexibility. It uses a promise based API and wraps any implementation of your choice.
+
 [This GitHub repo](https://github.com/hokein/electron-sample-apps/tree/master/desktop-capture) can be used for code reference. 
 
+#### Electron Forge
+
+To abstract away some of the common headaches of distributing and updating an application. Whether it be through an "app store" or not.
+[Electron Forge](https://www.electronforge.io) could be used as it is very easy to get started with and it provides a lot of features out of the box.
+Updates can be published through either update.electronjs.org (if the application is public and meets all the criteria) or custom update servers.
+[Electron Forge](https://www.electronforge.io) provides an easy to use system for either one (publish targets).
+
+To get started:
+
+```sh
+npx create-electron-app screenshot-history
+```
