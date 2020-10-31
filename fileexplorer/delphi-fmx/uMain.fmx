@@ -1,0 +1,219 @@
+object Form3: TForm3
+  Left = 0
+  Top = 0
+  Caption = 'Form3'
+  ClientHeight = 464
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object WinMenu: TMenuBar
+    Size.Width = 640.000000000000000000
+    Size.Height = 24.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object WinMenuFile: TMenuItem
+      Text = 'File'
+      object WinMenuRun: TMenuItem
+        Locked = True
+        Text = 'Run'
+      end
+      object WinMenuBrowseForFolder: TMenuItem
+        Locked = True
+        Text = 'Browse for folder'#8230
+      end
+      object MenuItem1: TMenuItem
+        Action = DataModule2.FileExit1
+        Enabled = True
+        Locked = True
+        ImageIndex = -1
+      end
+    end
+    object WinMenuEdit: TMenuItem
+      Text = 'Edit'
+      object WinMenuCopy: TMenuItem
+        Locked = True
+        ShortCut = 16451
+        Text = 'Copy'
+      end
+    end
+    object WinMenuWindow: TMenuItem
+      Text = 'Window'
+      object WinMenuArrange: TMenuItem
+        Locked = True
+        Text = 'Arrange'
+      end
+    end
+  end
+  object Layout1: TLayout
+    Align = Top
+    Padding.Left = 10.000000000000000000
+    Padding.Top = 10.000000000000000000
+    Padding.Right = 10.000000000000000000
+    Padding.Bottom = 10.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 41.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object Edit1: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Left
+      TabOrder = 0
+      Text = 'c:\Windows\'
+      Position.X = 10.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 21.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit2: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Client
+      TabOrder = 1
+      Hint = 'Search Windows'
+      Margins.Left = 10.000000000000000000
+      Size.Width = 510.000000000000000000
+      Size.Height = 21.000000000000000000
+      Size.PlatformDefault = False
+    end
+  end
+  object Layout2: TLayout
+    Align = Client
+    Padding.Left = 10.000000000000000000
+    Padding.Top = 10.000000000000000000
+    Padding.Right = 10.000000000000000000
+    Padding.Bottom = 10.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 372.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object TreeView1: TTreeView
+      Align = Left
+      Position.X = 10.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 352.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Viewport.Width = 96.000000000000000000
+      Viewport.Height = 348.000000000000000000
+    end
+    object Splitter1: TSplitter
+      Align = Left
+      Cursor = crHSplit
+      MinSize = 20.000000000000000000
+      Position.X = 110.000000000000000000
+      Position.Y = 10.000000000000000000
+      ShowGrip = False
+      Size.Width = 3.000000000000000000
+      Size.Height = 352.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Layout3: TLayout
+      Align = Client
+      Size.Width = 517.000000000000000000
+      Size.Height = 352.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      object Header1: THeader
+        Sides = [Top, Left, Bottom, Right]
+        Align = Top
+        Size.Width = 517.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object hiName: THeaderItem
+          Size.Width = 200.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          Text = 'Name'
+          TextSettings.HorzAlign = Leading
+        end
+        object hiDateModified: THeaderItem
+          Position.X = 200.000000000000000000
+          Size.Width = 89.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          Text = 'Date modified'
+          TextSettings.HorzAlign = Leading
+        end
+        object hiType: THeaderItem
+          Position.X = 289.000000000000000000
+          Size.Width = 80.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          Text = 'Type'
+          TextSettings.HorzAlign = Leading
+        end
+        object hiSize: THeaderItem
+          Position.X = 369.000000000000000000
+          Size.Width = 80.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          Text = 'Size'
+          TextSettings.HorzAlign = Leading
+        end
+      end
+      object Grid1: TGrid
+        Align = Client
+        CanFocus = True
+        ClipChildren = True
+        Size.Width = 517.000000000000000000
+        Size.Height = 335.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Viewport.Width = 513.000000000000000000
+        Viewport.Height = 310.000000000000000000
+      end
+    end
+  end
+  object TabControl1: TTabControl
+    Align = Bottom
+    Position.Y = 437.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 27.000000000000000000
+    Size.PlatformDefault = False
+    TabIndex = 1
+    TabOrder = 5
+    TabPosition = Bottom
+    Sizes = (
+      640s
+      1s
+      640s
+      1s)
+    object tiWindows: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 69.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'Windows'
+      ExplicitSize.cx = 69.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+    end
+    object tiDesktop: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 64.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'Desktop'
+      ExplicitSize.cx = 69.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+    end
+  end
+end
