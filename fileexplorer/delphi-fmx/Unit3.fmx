@@ -2,7 +2,7 @@ object Form3: TForm3
   Left = 0
   Top = 0
   Caption = 'Form3'
-  ClientHeight = 480
+  ClientHeight = 464
   ClientWidth = 640
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -21,17 +21,20 @@ object Form3: TForm3
       end
       object WinMenuBrowseForFolder: TMenuItem
         Locked = True
-        Text = 'BrowseForFolder'
+        Text = 'Browse for folder'#8230
       end
-      object WinMenuExit: TMenuItem
+      object MenuItem1: TMenuItem
+        Action = FileExit1
+        Enabled = True
         Locked = True
-        Text = 'Exit'
+        ImageIndex = -1
       end
     end
     object WinMenuEdit: TMenuItem
       Text = 'Edit'
       object WinMenuCopy: TMenuItem
         Locked = True
+        ShortCut = 16451
         Text = 'Copy'
       end
     end
@@ -43,37 +46,141 @@ object Form3: TForm3
       end
     end
   end
-  object MacMenu: TMainMenu
-    Left = 304
-    Top = 224
-    object MacMenuFile: TMenuItem
-      Text = 'File'
-      object MacMenuBrowseForFolder: TMenuItem
-        Locked = True
-        Text = 'BrowseForFolder'
+  object Layout1: TLayout
+    Align = Top
+    Padding.Left = 10.000000000000000000
+    Padding.Top = 10.000000000000000000
+    Padding.Right = 10.000000000000000000
+    Padding.Bottom = 10.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 41.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object Edit1: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Left
+      TabOrder = 0
+      Position.X = 10.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 21.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Edit2: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Client
+      TabOrder = 1
+      Margins.Left = 10.000000000000000000
+      Size.Width = 510.000000000000000000
+      Size.Height = 21.000000000000000000
+      Size.PlatformDefault = False
+    end
+  end
+  object Layout2: TLayout
+    Align = Client
+    Padding.Left = 10.000000000000000000
+    Padding.Top = 10.000000000000000000
+    Padding.Right = 10.000000000000000000
+    Padding.Bottom = 10.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 372.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object TreeView1: TTreeView
+      Align = Left
+      Position.X = 10.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 352.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Viewport.Width = 96.000000000000000000
+      Viewport.Height = 348.000000000000000000
+    end
+    object Splitter1: TSplitter
+      Align = Left
+      Cursor = crHSplit
+      MinSize = 20.000000000000000000
+      Position.X = 110.000000000000000000
+      Position.Y = 10.000000000000000000
+      ShowGrip = False
+      Size.Width = 3.000000000000000000
+      Size.Height = 352.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Layout3: TLayout
+      Align = Client
+      Size.Width = 517.000000000000000000
+      Size.Height = 352.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      object Header1: THeader
+        Sides = [Top, Left, Bottom, Right]
+        Align = Top
+        Size.Width = 517.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
       end
-      object MacMenuRun: TMenuItem
-        Locked = True
-        Text = 'Run'
-      end
-      object MacMenuExit: TMenuItem
-        Locked = True
-        Text = 'Exit'
+      object Grid1: TGrid
+        Align = Client
+        CanFocus = True
+        ClipChildren = True
+        Size.Width = 517.000000000000000000
+        Size.Height = 335.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Viewport.Width = 513.000000000000000000
+        Viewport.Height = 310.000000000000000000
       end
     end
-    object MacMenuEdit: TMenuItem
-      Text = 'Edit'
-      object MacMenuCopy: TMenuItem
-        Locked = True
-        Text = 'Copy'
-      end
+  end
+  object TabControl1: TTabControl
+    Align = Bottom
+    Position.Y = 437.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 27.000000000000000000
+    Size.PlatformDefault = False
+    TabIndex = 0
+    TabOrder = 5
+    TabPosition = Bottom
+    Sizes = (
+      640s
+      1s
+      640s
+      1s)
+    object TabItem1: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 69.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'TabItem1'
     end
-    object MacMenuWindow: TMenuItem
-      Text = 'Window'
-      object MacMenuArrange: TMenuItem
-        Locked = True
-        Text = 'Arrange'
-      end
+    object TabItem2: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 69.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'TabItem2'
+    end
+  end
+  object ActionList1: TActionList
+    Left = 32
+    Top = 392
+    object FileExit1: TFileExit
+      Category = 'File'
+      Hint = 'Quit|Quits the application'
     end
   end
 end
