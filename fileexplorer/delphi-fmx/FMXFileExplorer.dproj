@@ -263,7 +263,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Unit3.pas">
+        <DCCReference Include="uMain.pas">
             <Form>Form3</Form>
             <FormType>fmx</FormType>
         </DCCReference>

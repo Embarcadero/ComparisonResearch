@@ -3,7 +3,7 @@ program FMXFileExplorer;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  Unit3 in 'Unit3.pas' {Form3},
+  uMain in 'uMain.pas' {Form3},
   uDM in 'uDM.pas' {DataModule2: TDataModule};
 
 {$R *.res}
