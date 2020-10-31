@@ -1,14 +1,14 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item menu-open">
-            <ul class="nav nav-treeview">
-              <li class="nav-item" *ngFor="let menu of menus">
-                <a [routerLink]="[menu.routerLink]" [queryParams]="{language: [menu.language]}" class="nav-link">
-                  <i class="{{menu.icon}}"></i>
-                  <p>{{menu.name}}</p>
-                </a>
-              </li>
-            </ul>
-          </li>    
+          <ul class="nav nav-treeview">
+            <li class="nav-item" *ngFor="let menu of menus">
+              <a [routerLink]="[menu.routerLink]" [queryParams]="{language: [menu.language]}" class="nav-link">
+                <i class="{{menu.icon}}"></i>
+                <p>{{menu.name}}</p>
+              </a>
+            </li>
+          </ul>
+        </li>    
     </ul>        
 </nav>
