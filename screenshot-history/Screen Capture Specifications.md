@@ -37,6 +37,8 @@ For the data access portion of the application the [SQLite](https://www.npmjs.co
 
 [This GitHub repo](https://github.com/hokein/electron-sample-apps/tree/master/desktop-capture) can be used for code reference. 
 
+[Semi transparency window demo](https://www.electronjs.org/apps/glass-browser) can be used for code reference.
+
 #### Electron Forge
 
 To abstract away some of the common headaches of distributing and updating an application. Whether it be through an "app store" or not.
