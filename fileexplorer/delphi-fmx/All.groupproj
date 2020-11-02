@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{DAB92812-E87C-4C80-86BF-2312A1827C62}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\..\..\FileExplorer\FileExplorer.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FMXFileExplorer.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="FileExplorer">
+        <MSBuild Projects="..\..\..\FileExplorer\FileExplorer.dproj"/>
+    </Target>
+    <Target Name="FileExplorer:Clean">
+        <MSBuild Projects="..\..\..\FileExplorer\FileExplorer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FileExplorer:Make">
+        <MSBuild Projects="..\..\..\FileExplorer\FileExplorer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FMXFileExplorer">
+        <MSBuild Projects="FMXFileExplorer.dproj"/>
+    </Target>
+    <Target Name="FMXFileExplorer:Clean">
+        <MSBuild Projects="FMXFileExplorer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FMXFileExplorer:Make">
+        <MSBuild Projects="FMXFileExplorer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="FileExplorer;FMXFileExplorer"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="FileExplorer:Clean;FMXFileExplorer:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="FileExplorer:Make;FMXFileExplorer:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
