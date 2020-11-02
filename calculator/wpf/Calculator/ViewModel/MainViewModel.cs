@@ -45,7 +45,7 @@ namespace Calculator.ViewModel
             get { return _expression; }
             set { _expression = value; OnPropertyChanged(nameof(Expression)); }
         }
-        
+
         public string FirstOperand
         {
             get { return _firstOperand; }
@@ -118,12 +118,12 @@ namespace Calculator.ViewModel
                     }
                     break;
                 default:
-                    //if (LastOperation == "=")
-                    //{
-                    //    Display = "0";
-                    //    Expression = string.Empty;
-                    //    FirstOperand = string.Empty;
-                    //}
+                    if (LastOperation == "=")
+                    {
+                        Display = "0";
+                        Expression = string.Empty;
+                        FirstOperand = string.Empty;
+                    }
                     if (Display == "0" || newDisplayRequired)
                         Display = digit;
                     else
@@ -148,20 +148,15 @@ namespace Calculator.ViewModel
                         CalculateResult();
                         Display = result;
                     }
-                    if (Expression.Length > 0)
-                    {
-                        var str = Expression.Last();
-                        if (str == Convert.ToChar("="))
-                        {
-                            Expression = Expression.Replace("=", operation);
-                        }
-                    }
                 }
                 else
                 {
-                    SecondOperand = Display;
-                    Operation = operation == "=" ? LastOperation : operation;
-                    CalculateResult();
+                    if (newDisplayRequired == false)
+                    {
+                        SecondOperand = Display;
+                        Operation = operation == "=" ? LastOperation : operation;
+                        CalculateResult();
+                    }
                     if (Operation != "sqr" && Operation != "%" && Operation != "√" && Operation != "1/x")
                     {
                         LastOperation = operation;
@@ -172,6 +167,7 @@ namespace Calculator.ViewModel
                     else
                         Display = result;
                 }
+
                 var number = string.IsNullOrEmpty(SecondOperand) ? FirstOperand : SecondOperand;
                 switch (operation)
                 {
@@ -210,6 +206,15 @@ namespace Calculator.ViewModel
                             Expression = Expression + operation;
                         }
                         break;
+                }
+                if (Expression.Length > 0)
+                {
+                    var str = Expression.Last();
+                    if (str == Convert.ToChar("=") || str == Convert.ToChar("+") || str == Convert.ToChar("-")
+                        || str == Convert.ToChar("×") || str == Convert.ToChar("÷"))
+                    {
+                        Expression = Expression.Substring(0, Expression.Length - 1) + operation;
+                    }
                 }
             }
             catch (Exception e)
