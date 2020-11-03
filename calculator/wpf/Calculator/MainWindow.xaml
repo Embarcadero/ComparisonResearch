@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
         xmlns:viewmodel="clr-namespace:Calculator.ViewModel"
-        Title="Calculator" Height="510" Width="550" FocusManager.FocusedElement="{Binding ElementName=_buttonResult}">
+        Title="Calculator" Height="510" Width="550" FocusManager.FocusedElement="{Binding ElementName=_buttonResult}" MinHeight="550" MinWidth="370">
     <Window.DataContext>
         <viewmodel:MainViewModel/>
     </Window.DataContext>
@@ -134,7 +134,9 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
+        
         <TextBlock Text="Standard" FontSize="20" FontWeight="SemiBold" Margin="20 10 0 0"/>
+        
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -142,7 +144,7 @@
             </Grid.RowDefinitions>
             <TextBox x:Name="InputTextBox" IsReadOnly="True" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" TextWrapping="WrapWithOverflow" Foreground="LightSlateGray" Text="{Binding Expression,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" FontSize="15"></TextBox>
             <TextBlock x:Name="DisplayTextBox" Grid.Row="1"  Background="Transparent" TextWrapping="WrapWithOverflow" FontSize="45" FontWeight="Bold" TextAlignment="Right" 
-                     Text="{Binding Display,Mode=TwoWay, StringFormat='$###,###.##',UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                     Text="{Binding Display, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
         </Grid>
 
         <Grid Grid.Row="2">

@@ -19,6 +19,7 @@ namespace Calculator.ViewModel
         private string _lastOperation;
         private string _secondOperand;
         private string _operation;
+        private string currentOperation = string.Empty;
         #endregion
 
         #region Constructor
@@ -79,7 +80,6 @@ namespace Calculator.ViewModel
         #region Private Method
         private void OnDigitButtonPress(string digit)
         {
-
             switch (digit)
             {
                 case "C":
@@ -93,7 +93,29 @@ namespace Calculator.ViewModel
                     break;
                 case "Del":
                     if (Display.Length > 1)
-                        Display = Display.Substring(0, Display.Length - 1);
+                    {
+                        if (!string.IsNullOrEmpty(LastOperation))
+                        {
+                            if (LastOperation != "=")
+                            {
+                                if (LastOperation != "+" && LastOperation != "-" && LastOperation != "×" && LastOperation != "÷")
+                                    Display = Display.Substring(0, Display.Length - 1);
+                                else
+                                {
+                                    if (!newDisplayRequired)
+                                        Display = Display.Substring(0, Display.Length - 1);
+                                    else
+                                        return;
+                                }
+                            }
+                            else
+                                Expression = string.Empty;
+                        }
+                        else
+                        {
+                            Display = Display.Substring(0, Display.Length - 1);
+                        }
+                    }
                     else Display = "0";
                     break;
                 case "+/-":
@@ -118,7 +140,7 @@ namespace Calculator.ViewModel
                     }
                     break;
                 default:
-                    if (LastOperation == "=")
+                    if (newDisplayRequired && currentOperation == "=")
                     {
                         Display = "0";
                         Expression = string.Empty;
@@ -138,6 +160,7 @@ namespace Calculator.ViewModel
         {
             try
             {
+                currentOperation = operation;
                 if (string.IsNullOrEmpty(FirstOperand) || LastOperation == "=")
                 {
                     FirstOperand = Display;
@@ -151,12 +174,10 @@ namespace Calculator.ViewModel
                 }
                 else
                 {
-                    if (newDisplayRequired == false)
-                    {
-                        SecondOperand = Display;
-                        Operation = operation == "=" ? LastOperation : operation;
-                        CalculateResult();
-                    }
+                    SecondOperand = Display;
+                    Operation = operation == "=" ? LastOperation : operation;
+                    CalculateResult();
+
                     if (Operation != "sqr" && Operation != "%" && Operation != "√" && Operation != "1/x")
                     {
                         LastOperation = operation;
@@ -286,6 +307,7 @@ namespace Calculator.ViewModel
                 throw;
             }
         }
+
         #endregion
     }
 }
