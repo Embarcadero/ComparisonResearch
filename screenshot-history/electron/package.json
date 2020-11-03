@@ -5,7 +5,7 @@
   "description": "Screenshot History build using electron",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "ng build --base-href  && electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -45,7 +45,6 @@
     }
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
     "@angular/animations": "~10.0.6",
     "@angular/common": "~10.0.6",
     "@angular/compiler": "~10.0.6",
@@ -54,6 +53,8 @@
     "@angular/platform-browser": "~10.0.6",
     "@angular/platform-browser-dynamic": "~10.0.6",
     "@angular/router": "~10.0.6",
+    "@types/electron": "^1.6.10",
+    "electron-squirrel-startup": "^1.0.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
