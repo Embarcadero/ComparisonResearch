@@ -80,6 +80,12 @@ The Unicode Reader should offer a Light theme and a Dark theme. The Dark theme s
 Please provide feedback to us during the development process so we can help speed up the development. We have many many years of experience and are here to help you get the project done as fast as possible.
 
 ## Helpful Tips
+
+### Delphi Specific
+
+Can review code form here which already aggregates RSS feeds into a TFDMemTable.
+<https://github.com/FMXExpress/Cross-Platform-Samples/tree/master/95-NewsReaderApp>
+
 ### Electron Specific
 
 The data layer of this application should be implemented with the main process and a renderer process in mind. For raw access to the data layer the [pg library](https://www.npmjs.com/package/pg) is the de facto standard.
