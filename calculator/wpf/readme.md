@@ -105,8 +105,10 @@ Note: architectural pattern is MVVM.
 							BorderBrush: Transparent 
 							BorderThickness: 0 								
 							TextWrapping: WrapWithOverflow
-							Foreground: LightSlateGray
-								(Set All Property)
+								(Set All Property in textbox)
+								
+							Foreground: Black(Second textbox)	
+							Foreground: LightSlateGray (First textbox)	
 				3)Third Row:
 					Add Grid:	
 						In which add 6 rows and 4 Columns:
@@ -127,6 +129,15 @@ Note: architectural pattern is MVVM.
 						button binding
 						Button:(CE, C, Backspace, +/-, .)
 							command:DigitButtonPressCommand
+						
+						CommandParameter:
+							Button "Backspace" = CommandParameter = del
+							Button "x²" = CommandParameter = sqr
+							Button "²√x" = CommandParameter = ²√x
+							Button "CE" = CommandParameter = CE
+							Button "C" = CommandParameter = C
+							Button "+/-" = CommandParameter = +/-
+							Button "." = CommandParameter = .	
 		
 Here the design part is completed.
  
@@ -138,11 +149,11 @@ Here the design part is completed.
 	
 	2)MainViewModel:
 		
-		Create two command	
+		Create two command:	
 			1)DigitButtonPressCommand
 			2)OperationButtonPressCommand
 		
-		Create two property		
+		Create property:		
 			1)Display
 			2)Expression
 			3)FirstOperand
@@ -356,7 +367,7 @@ Here the design part is completed.
 				else
 					oper = Operation == "=" ? Operation : LastOperation;
 				
-			
+			(using switch case)
 			1)Button:(+, -, ÷, ×)
 				if (!string.IsNullOrEmpty(SecondOperand))
 					result = (Convert.ToDouble(FirstOperand) + Convert.ToDouble(SecondOperand)).ToString();
