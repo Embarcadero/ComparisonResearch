@@ -50,7 +50,7 @@
         <Style TargetType="Window">
             <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=DisplayTextBox}" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding UserName}" Value="{x:Null}">
+                <DataTrigger Binding="{Binding Display}" Value="{x:Null}">
                     <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=DisplayTextBox}" />
                 </DataTrigger>
             </Style.Triggers>
