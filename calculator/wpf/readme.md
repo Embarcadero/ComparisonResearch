@@ -149,6 +149,11 @@ Here the design part is completed.
 	
 	2)MainViewModel:
 		
+		Bind Xaml to viewmodel in xaml:
+			<Window.DataContext>
+				<viewmodel:MainViewModel/>
+			</Window.DataContext>
+		
 		Create two command:	
 			1)DigitButtonPressCommand
 			2)OperationButtonPressCommand
