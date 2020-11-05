@@ -11,7 +11,7 @@ namespace Calculator.ViewModel
     public class MainViewModel : BaseViewModel
     {
         #region Private member
-        private bool newDisplayRequired = false;
+        private bool IsOperation = false;
         private string result = string.Empty;
         private string _display;
         private string _expression;
@@ -20,6 +20,7 @@ namespace Calculator.ViewModel
         private string _secondOperand;
         private string _operation;
         private string currentOperation = string.Empty;
+        private bool IsBODMASOperation = false;
         #endregion
 
         #region Constructor
@@ -102,7 +103,7 @@ namespace Calculator.ViewModel
                                     Display = Display.Substring(0, Display.Length - 1);
                                 else
                                 {
-                                    if (!newDisplayRequired)
+                                    if (!IsOperation)
                                         Display = Display.Substring(0, Display.Length - 1);
                                     else
                                         return;
@@ -140,20 +141,21 @@ namespace Calculator.ViewModel
                     }
                     break;
                 default:
-                    if (newDisplayRequired && currentOperation == "=")
+                    if (IsOperation && currentOperation == "=")
                     {
                         Display = "0";
                         Expression = string.Empty;
                         FirstOperand = string.Empty;
                     }
-                    if (Display == "0" || newDisplayRequired)
+                    if (Display == "0" || IsOperation)
                         Display = digit;
                     else
                         Display = Display + digit;
                     break;
 
             }
-            newDisplayRequired = false;
+            IsOperation = false;
+            IsBODMASOperation = false;
         }
 
         private void OnOperationButtonPress(string operation)
@@ -171,24 +173,29 @@ namespace Calculator.ViewModel
                         CalculateResult();
                         Display = result;
                     }
+                    IsBODMASOperation = true;
                 }
                 else
                 {
-                    SecondOperand = Display;
-                    Operation = operation == "=" ? LastOperation : operation;
-                    CalculateResult();
-
-                    if (Operation != "sqr" && Operation != "%" && Operation != "√" && Operation != "1/x")
+                    
+                    if (!IsBODMASOperation || operation == "sqr" || operation == "√" || operation == "1/x" || operation == "%")
                     {
-                        LastOperation = operation;
-                        FirstOperand = result;
-                    }
-                    if (result == "Infinity")
-                        Display = "Overflow";
-                    else
-                        Display = result;
-                }
+                        SecondOperand = Display;
+                        Operation = operation == "=" ? LastOperation : operation;
+                        CalculateResult();
 
+                        if (Operation != "sqr" && Operation != "%" && Operation != "√" && Operation != "1/x")
+                        {
+                            LastOperation = operation;
+                            FirstOperand = result;
+                            IsBODMASOperation = true;
+                        }
+                        if (result == "Infinity")
+                            Display = "Overflow";
+                        else
+                            Display = result;
+                    }
+                }
                 var number = string.IsNullOrEmpty(SecondOperand) ? FirstOperand : SecondOperand;
                 switch (operation)
                 {
@@ -217,7 +224,7 @@ namespace Calculator.ViewModel
                         break;
 
                     default:
-                        if (newDisplayRequired == false)
+                        if (IsOperation == false)
                         {
                             Expression = Expression + number + operation;
                         }
@@ -243,7 +250,7 @@ namespace Calculator.ViewModel
                 Display = e.ToString();
             }
             Operation = string.Empty;
-            newDisplayRequired = true;
+            IsOperation = true;
         }
 
         public void CalculateResult()
@@ -283,6 +290,7 @@ namespace Calculator.ViewModel
                         try
                         {
                             result = Math.Round(Convert.ToDouble(FirstOperand) * Convert.ToDouble(SecondOperand) / 100).ToString();
+                            IsBODMASOperation = false;
                         }
                         catch (Exception e)
                         {
@@ -291,12 +299,15 @@ namespace Calculator.ViewModel
                         break;
                     case ("1/x"):
                         result = (1 / (Convert.ToDouble(Display))).ToString();
+                        IsBODMASOperation = false;
                         break;
                     case ("sqr"):
                         result = Math.Pow(Convert.ToDouble(number), 2).ToString();
+                        IsBODMASOperation = false;
                         break;
                     case ("√"):
                         result = Math.Sqrt(Convert.ToDouble(Display)).ToString();
+                        IsBODMASOperation = false;
                         break;
 
                 }
@@ -306,6 +317,7 @@ namespace Calculator.ViewModel
                 result = "Error whilst calculating";
                 throw;
             }
+
         }
 
         #endregion
