@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CapturerService } from './capturer.service';
+import { ComService } from './com.service';
 
 describe('CapturerService', () => {
-  let service: CapturerService;
+  let service: ComService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CapturerService);
+    service = TestBed.inject(ComService);
   });
 
   it('should be created', () => {

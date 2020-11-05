@@ -4,7 +4,7 @@ import { IpcRenderer } from 'electron';
 @Injectable({
   providedIn: 'root'
 })
-export class CapturerService {
+export class ComService {
   private _ipc: IpcRenderer | undefined = void 0;
 
   constructor() { 

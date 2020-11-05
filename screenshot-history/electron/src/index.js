@@ -1,4 +1,5 @@
 const { app, desktopCapturer, BrowserWindow, ipcMain } = require('electron');
+import { WinService } from './win_service';
 const path = require('path');
 const url = require("url");
 
@@ -22,12 +23,12 @@ const createWindow = () => {
       slashes: true
     })
   );
-  // mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
-  let windows = [];
-  // mainWindow.webContents.send("getWindows", windows);
+  // 
+  let winService = new WinService();
+  winService.getSCWindows();
 };
 
 app.on('ready', createWindow);
@@ -43,6 +44,7 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on("windowList", (event, test) => {
-  console.log('--> ', test);
+ipcMain.on('pingFromNg', (event, test) => {
+  console.log('pingFromNg --> ', test);
 });
+

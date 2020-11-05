@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CapturerService } from './capturer.service';
+import { ComService } from './com.service';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +9,17 @@ import { CapturerService } from './capturer.service';
 export class AppComponent implements OnInit {
   title = 'screenshot-history';
 
-  constructor(private capturer: CapturerService) {
-    this.capturer.on('pong', (event: Electron.IpcMessageEvent) => {
-      console.log('pong');
+  constructor(private com: ComService) {
+    this.com.on('pongFromElectron', (event: Electron.IpcMessageEvent) => {
+      console.log('pongFromElectron.. ', event);
     });
 
-    this.capturer.send('ping');
+    // this.com.send('pingFromNg', 'test');
   }
 
+
   ngOnInit(): void {
-    // this.capturer.sendWindows();
+
   }
   
 }
