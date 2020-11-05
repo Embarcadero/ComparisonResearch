@@ -15,7 +15,7 @@ export class ComService {
         throw e;
       }
     } else {
-      console.warn('Electron\'s IPC was not loaded');
+      console.warn('IPC was not loaded');
     }
    }
 

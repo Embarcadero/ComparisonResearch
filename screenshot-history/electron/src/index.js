@@ -1,5 +1,5 @@
 const { app, desktopCapturer, BrowserWindow, ipcMain } = require('electron');
-import { WinService } from './win_service';
+const { WinService } = require('./win_service');
 const path = require('path');
 const url = require("url");
 
@@ -27,8 +27,8 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
   // 
-  let winService = new WinService();
-  winService.getSCWindows();
+  let winService = new WinService(mainWindow);
+  winService.run();
 };
 
 app.on('ready', createWindow);

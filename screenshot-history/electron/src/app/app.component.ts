@@ -10,11 +10,10 @@ export class AppComponent implements OnInit {
   title = 'screenshot-history';
 
   constructor(private com: ComService) {
-    this.com.on('pongFromElectron', (event: Electron.IpcMessageEvent) => {
-      console.log('pongFromElectron.. ', event);
+    this.com.on('getWindows', (event: Electron.IpcMessageEvent, scWindows) => {
+      console.log('getWindows: ', scWindows);
     });
 
-    // this.com.send('pingFromNg', 'test');
   }
 
 
