@@ -402,18 +402,41 @@ Code completed check calCulator work or not.
 		
 Then apply key binding in Xaml(key binding apply in Window.InputBindings):
 	1)
-		Keys:NumPad1,NumPad2,NumPad3,NumPad4,NumPad5,NumPad6,NumPad7,NumPad8,NumPad9,NumPad0,D1,D2,D3,D4,D5,D6,D7,D8,D9,D0,Backspace
-				,Esc,Delete,OemPeriod,Decimal
+		Keys:NumPad1,NumPad2,NumPad3,NumPad4,NumPad5,NumPad6,NumPad7,NumPad8,NumPad9,NumPad0,D1,D2,D3,D4,D5,D6,D7,D8,D9,D0,
+			Backspace,Esc,Delete,OemPeriod,Decimal
 		Command:DigitButtonPressCommand	
-	
+		CommandParameter:
+				key :- NumPad1,NumPad2,NumPad3,NumPad4,NumPad5,NumPad6,NumPad7,NumPad8,NumPad9,NumPad0	
+				parameter:-0 to 9
+				
+				key :- D1,D2,D3,D4,D5,D6,D7,D8,D9,D0	
+				parameter:-0 to 9	
+				
+				key 			parameter
+				Backspace		del	
+				Esc				C
+				Delete			CE
+				OemPeriod		.
+				Decimal			.
 	2)
 		Keys:Add,OemPlus,OemMinus,Subtract,Multiply,Divide,Enter,
-		Command:OperationButtonPressCommand	
-	
+		Command:OperationButtonPressCommand
+		CommandParameter:
+			key 			parameter
+			OemPlus			+
+			Add				+
+			OemMinus		-
+			Subtract		-
+			Multiply		*
+			Divide			/
+			Enter			=
 	3)
 		Key:D5
 		Modifiers:Shift
 		Command:OperationButtonPressCommand	
+		CommandParameter:
+			key 			parameter
+			D5				%
 			
 			
 			

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
         xmlns:viewmodel="clr-namespace:Calculator.ViewModel"
-        Title="Calculator" Height="510" Width="550" FocusManager.FocusedElement="{Binding ElementName=_buttonResult}" MinHeight="550" MinWidth="370">
+        Title="Calculator" Height="510" Width="550" MinHeight="550" MinWidth="370">
     <Window.DataContext>
         <viewmodel:MainViewModel/>
     </Window.DataContext>
@@ -46,7 +46,7 @@
         <KeyBinding Key="Decimal" Command="{Binding DigitButtonPressCommand}" CommandParameter="."/>
        
     </Window.InputBindings>
-    <Window.Style>
+    <!--<Window.Style>
         <Style TargetType="Window">
             <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=DisplayTextBox}" />
             <Style.Triggers>
@@ -55,7 +55,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-    </Window.Style>
+    </Window.Style>-->
     <Grid Background="#E6E6E6">
         <Grid.Resources>
             <Style x:Key="Digit" TargetType="{x:Type Button}">
