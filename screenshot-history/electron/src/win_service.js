@@ -12,14 +12,14 @@ class WinService {
                 desktopCapturer.getSources({ types:['window', 'screen'] }).then(async sources => {
                     this.SCWindows = [];
                     for (let source of sources) {
-                        let win = {
+                        let scWindow = {
                             name: source.name,
                             id: source.id,
-                            // thumbnail: source.thumbnail,
+                            dataUrl: source.thumbnail.toDataURL(),
                             display_id: source.display_id,
                             appIcon: source.appIcon
                         }
-                        this.SCWindows.push(win);
+                        this.SCWindows.push(scWindow);
                     }
                     this.sendSCWindows();
                 });

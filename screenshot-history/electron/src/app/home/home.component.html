@@ -1,1 +1,12 @@
-<p>home works!</p>
+<div class="row h-25 bg_home_top">
+    <div class="filter-container row bg_home_top">
+        <div class="filtr-item col-sm-4" data-category="1" data-sort="white sample" *ngFor="let item of scWindows">
+          <a href="https://via.placeholder.com/1200/FFFFFF.png?text=1" data-toggle="lightbox" data-title="{{item.name}}">
+            <img src="{{item.dataUrl}}" class="img-fluid mb-2" alt="white sample"/>
+          </a>
+        </div>
+    </div>
+</div>
+<div class="row h-75 bg_home_bottom">
+    75
+</div>

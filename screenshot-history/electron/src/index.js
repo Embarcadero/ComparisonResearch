@@ -7,7 +7,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const createWindow = () => {
+const createWindow = () => { 
   const mainWindow = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true
