@@ -1,89 +1,94 @@
 
-CalCulator:-
+# Calculator Build Instructions in WPF
 
 System Requirements:-
 	Either Visual Studio 2017 Or 2019
 
-1)Create new Project in Visual Studio:
-	Choose application Type:
-		WPF App(.net Framework)
+## 1)Create new Project in Visual Studio:
+Choose application Type: WPF App(.net Framework)
 		
 Note: architectural pattern is MVVM.
 
-2) Design view.
-	A)Go to MainWindow.Xaml.
-		Set Window Property value Like below
-		1) Title: CalCulator
-		2) Height: 510
-		3) Width : 550
-		4) MinHeight: 550
-		5) MinWidth: 370
+## 2) Design view.
+### A)Go to MainWindow.Xaml.
+Set Window Property value Like below
+1. Title: CalCulator
+2. Height: 510
+3. Width : 550
+4. MinHeight: 550
+5. MinWidth: 370
 
-	B)CalCulator is broken up into two sections. 
+### B)CalCulator is broken up into two sections. 
 
-	The top section which shows the equation entered and the number entered/result.
-	The bottom section contains input buttons for digits, mathematical operations, and functions. 
+The top section which shows the equation entered and the number entered/result.
+The bottom section contains input buttons for digits, mathematical operations, and functions. 
 
 	
-	Then add grid(Grid Background : #E6E6E6)
-	Then add below code for buttons style:
-		add style in grid resources:
-			1)style : 
-				x:key="Digit" TargetType="Button"
-				Focusable = false
-				BorderThickness = 0.1
-				FontSize = 18
-				FontWeight = Bold
-				Foreground =black
-				Command = DigitButtonPressCommand
-				CommandParameter = RelativeSource={RelativeSource Self}, Path=Content
-				Background = #FAFAFA
-				IsPressed change button Background(Add Trigger):
-					<Trigger Property="IsPressed" Value="True">
-						<Setter Property="Background" Value="#C6C5C5"/>
-					</Trigger>
-				IsMouseOver Change button Background(Add Template):
-					<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="{x:Type Button}">
-							<Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="#E0E0E0" BorderThickness="1">
-								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Border>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsDefaulted" Value="true">
-									<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-								</Trigger>
-								<Trigger Property="IsMouseOver" Value="True">
-									<Setter Property="Background" Value="#E0E0E0"/>
-									<Setter Property="BorderBrush" TargetName="border"  Value="#BAB8B8"/>
-									<Setter Property="BorderThickness" TargetName="border"  Value="2"/>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Setter.Value>
-					</Setter>
-			2)style:
-				x:key="Actions" TargetType="Button"
-				Focusable = false
-				FontSize = 15
-				FontWeight = Normal
-				Foreground =black
-				Command = OperationButtonPressCommand
-				CommandParameter = RelativeSource={RelativeSource Self}, Path=Content
-				Background = #F0F0F0
-				IsPressed change button Background(Add Trigger):
-					<Trigger Property="IsPressed" Value="True">
-						<Setter Property="Background" Value="#C6C5C5/>
-					</Trigger>
-				IsMouseOver Change button Background(Add Template):
-					code same as digit template property:
-						BorderBrush=#E0E0E0
-						BorderThickness=1
-					IsMouseOver:
-						Background = #E0E0E0
-						BorderBrush:#BAB8B8
-						BorderThickness= 2
-
+Then add grid(Grid Background : #E6E6E6)
+Then add below code for buttons style:
+add style in grid resources:
+1. style : 
+```
+x:key="Digit" TargetType="Button"
+Focusable = false
+BorderThickness = 0.1
+FontSize = 18
+FontWeight = Bold
+Foreground =black
+Command = DigitButtonPressCommand
+CommandParameter = RelativeSource={RelativeSource Self}, Path=Content
+Background = #FAFAFA
+IsPressed change button Background(Add Trigger):
+<Trigger Property="IsPressed" Value="True">
+	<Setter Property="Background" Value="#C6C5C5"/>
+</Trigger>
+IsMouseOver Change button Background(Add Template):
+<Setter Property="Template">
+<Setter.Value>
+	<ControlTemplate TargetType="{x:Type Button}">
+		<Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="#E0E0E0" BorderThickness="1">
+			<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</Border>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsDefaulted" Value="true">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+			</Trigger>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Background" Value="#E0E0E0"/>
+				<Setter Property="BorderBrush" TargetName="border"  Value="#BAB8B8"/>
+				<Setter Property="BorderThickness" TargetName="border"  Value="2"/>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+</Setter.Value>
+</Setter>
+```
+			
+2. style:
+```
+x:key="Actions" TargetType="Button"
+Focusable = false
+FontSize = 15
+FontWeight = Normal
+Foreground =black
+Command = OperationButtonPressCommand
+CommandParameter = RelativeSource={RelativeSource Self}, Path=Content
+Background = #F0F0F0
+IsPressed change button Background(Add Trigger):
+	<Trigger Property="IsPressed" Value="True">
+		<Setter Property="Background" Value="#C6C5C5/>
+	</Trigger>
+IsMouseOver Change button Background(Add Template):
+	code same as digit template property:
+		BorderBrush=#E0E0E0
+		BorderThickness=1
+	IsMouseOver:
+		Background = #E0E0E0
+		BorderBrush:#BAB8B8
+		BorderThickness= 2
+```
+						     
+						     
 		In grid add 3 rows:
 			 1)Height="1*"
 			 2)Height="2*"
@@ -142,7 +147,7 @@ Note: architectural pattern is MVVM.
 Here the design part is completed.
  
 
-2)Then create two class
+## 2)Then create two class
 	1)BaseViewModel:
 		
 		Inherit INotifyPropertyChanged and define the overridden method for Inherited interface.
@@ -399,9 +404,10 @@ Here the design part is completed.
 				IsBODMASOperation = false;
 		
 Code completed check calCulator work or not.
-		
-Then apply key binding in Xaml(key binding apply in Window.InputBindings):
-	1)
+
+## Key Bindings
+Apply key binding in Xaml(key binding apply in Window.InputBindings):
+1. 
 		Keys:NumPad1,NumPad2,NumPad3,NumPad4,NumPad5,NumPad6,NumPad7,NumPad8,NumPad9,NumPad0,D1,D2,D3,D4,D5,D6,D7,D8,D9,D0,
 			Backspace,Esc,Delete,OemPeriod,Decimal
 		Command:DigitButtonPressCommand	
@@ -418,7 +424,7 @@ Then apply key binding in Xaml(key binding apply in Window.InputBindings):
 				Delete			CE
 				OemPeriod		.
 				Decimal			.
-	2)
+2.
 		Keys:Add,OemPlus,OemMinus,Subtract,Multiply,Divide,Enter,
 		Command:OperationButtonPressCommand
 		CommandParameter:
@@ -430,7 +436,7 @@ Then apply key binding in Xaml(key binding apply in Window.InputBindings):
 			Multiply		*
 			Divide			/
 			Enter			=
-	3)
+3.
 		Key:D5
 		Modifiers:Shift
 		Command:OperationButtonPressCommand	
