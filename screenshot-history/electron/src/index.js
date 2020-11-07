@@ -13,7 +13,7 @@ const createWindow = () => {
       nodeIntegration: true
     },
     width: 1080,
-    height: 800,
+    height: 850,
   });
 
   mainWindow.loadURL(

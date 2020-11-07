@@ -9,7 +9,7 @@ class WinService {
     run = () => {
         this.mainWindow.webContents.on('did-finish-load', () => {
             setInterval(() => { 
-                desktopCapturer.getSources({ types:['window', 'screen'] }).then(async sources => {
+                desktopCapturer.getSources({ types:['window', 'screen'], thumbnailSize:  {width: 1920, height: 1080}}).then(async sources => {
                     this.SCWindows = [];
                     for (let source of sources) {
                         let scWindow = {
@@ -28,9 +28,9 @@ class WinService {
     }
 
     sendSCWindows = () => {
-        // console.log('this.SCWindows: ', this.SCWindows);
         this.mainWindow.webContents.send("getWindows", this.SCWindows);
     }
+
 }
 
 module.exports = {
