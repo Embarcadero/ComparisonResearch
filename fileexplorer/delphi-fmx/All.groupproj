@@ -45,4 +45,18 @@
         <CallTarget Targets="FileExplorer:Make;FMXFileExplorer:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+    <ItemGroup Condition="'$(BuildGroup)'=='FMXFileExplorer all'">
+        <BuildGroupProject Include="..\..\..\FileExplorer\FileExplorer.dproj">
+            <ProjectGuid>{07E05326-4261-4A39-B6AC-4CC3195A96C5}</ProjectGuid>
+            <Configurations>Debug</Configurations>
+            <Platforms>Win32</Platforms>
+            <Enabled>False</Enabled>
+        </BuildGroupProject>
+        <BuildGroupProject Include="FMXFileExplorer.dproj">
+            <ProjectGuid>{9F6F4DB4-C92B-4DD2-96F5-DB3E5152B0EB}</ProjectGuid>
+            <Configurations>Debug</Configurations>
+            <Platforms>OSX64;Win32;Win64</Platforms>
+            <Enabled>True</Enabled>
+        </BuildGroupProject>
+    </ItemGroup>
 </Project>
