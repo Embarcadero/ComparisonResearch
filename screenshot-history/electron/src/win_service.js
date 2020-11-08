@@ -9,7 +9,7 @@ class WinService {
     run = () => {
         this.mainWindow.webContents.on('did-finish-load', () => {
             setInterval(() => { 
-                desktopCapturer.getSources({ types:['window', 'screen'], thumbnailSize:  {width: 1920, height: 1080}}).then(async sources => {
+                desktopCapturer.getSources({ types:['window', 'screen'], thumbnailSize:  {width: 480, height: 270}}).then(async sources => {
                     this.SCWindows = [];
                     for (let source of sources) {
                         let scWindow = {
