@@ -23,12 +23,32 @@
             <Required>True</Required>
         </DeployFile>
     </ItemGroup>
-    <ItemGroup Condition="'$(Platform)'=='Linux64'"/>
+    <ItemGroup Condition="'$(Platform)'=='Linux64'">
+        <DeployFile Include="Linux64\Debug\FMXFileExplorer" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>FMXFileExplorer\</RemoteDir>
+            <RemoteName>FMXFileExplorer</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+    </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='OSX64'">
         <DeployFile Include="$(BDS)\bin\delphi_PROJECTICNS.icns" Condition="'$(Config)'=='Debug'">
             <RemoteDir>FMXFileExplorer.app\Contents\Resources\</RemoteDir>
             <RemoteName>FMXFileExplorer.icns</RemoteName>
             <DeployClass>ProjectOSXResource</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="OSX64\Debug\FMXFileExplorer.dSYM" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>FMXFileExplorer.app\..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF\</RemoteDir>
+            <RemoteName>FMXFileExplorer</RemoteName>
+            <DeployClass>ProjectOSXDebug</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -52,15 +72,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="OSX64\Debug\FMXFileExplorer.dSYM" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>FMXFileExplorer.app\..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF\</RemoteDir>
-            <RemoteName>FMXFileExplorer</RemoteName>
-            <DeployClass>ProjectOSXDebug</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="OSX64\Debug\FMXFileExplorer.entitlements" Condition="'$(Config)'=='Debug'">
             <RemoteDir>FMXFileExplorer.app\..\</RemoteDir>

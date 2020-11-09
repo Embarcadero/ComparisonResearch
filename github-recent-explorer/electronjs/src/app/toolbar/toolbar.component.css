@@ -1,0 +1,15 @@
+.hxtoolbar {
+    background-color: #2A3E58;
+}
+
+.date-label {
+    color: rgba(255,255,255,.8);
+    margin-right: 10px;
+}
+
+.input-date {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+}

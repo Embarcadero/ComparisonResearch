@@ -67,3 +67,11 @@ __recovery/
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
+calculator/wpf/Calculator/obj/Debug/App.g.i.cs
+calculator/wpf/Calculator/obj/Debug/Calculator.csproj.FileListAbsolute.txt
+calculator/wpf/Calculator/obj/Debug/Calculator_MarkupCompile.i.cache
+calculator/wpf/Calculator/obj/Debug/Calculator_MarkupCompile.i.lref
+calculator/wpf/Calculator/obj/Debug/DesignTimeResolveAssemblyReferences.cache
+calculator/wpf/Calculator/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+calculator/wpf/Calculator/obj/Debug/GeneratedInternalTypeHelper.g.i.cs
+calculator/wpf/Calculator/obj/Debug/MainWindow.g.i.cs

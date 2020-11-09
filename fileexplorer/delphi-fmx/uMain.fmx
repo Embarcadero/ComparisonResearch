@@ -7,6 +7,7 @@ object Form3: TForm3
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
   object WinMenu: TMenuBar
     Size.Width = 640.000000000000000000
@@ -89,7 +90,7 @@ object Form3: TForm3
     Size.Height = 372.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 4
-    object TreeView1: TTreeView
+    object Folders: TTreeView
       Align = Left
       Position.X = 10.000000000000000000
       Position.Y = 10.000000000000000000
@@ -173,47 +174,62 @@ object Form3: TForm3
       end
     end
   end
-  object TabControl1: TTabControl
+  object Layout4: TLayout
     Align = Bottom
     Position.Y = 437.000000000000000000
     Size.Width = 640.000000000000000000
     Size.Height = 27.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 1
     TabOrder = 5
-    TabPosition = Bottom
-    Sizes = (
-      640s
-      1s
-      640s
-      1s)
-    object tiWindows: TTabItem
-      CustomIcon = <
-        item
-        end>
-      IsSelected = False
-      Size.Width = 69.000000000000000000
-      Size.Height = 26.000000000000000000
+    object TabControl1: TTabControl
+      Align = Bottom
+      Size.Width = 608.000000000000000000
+      Size.Height = 27.000000000000000000
       Size.PlatformDefault = False
-      StyleLookup = ''
-      TabOrder = 0
-      Text = 'Windows'
-      ExplicitSize.cx = 69.000000000000000000
-      ExplicitSize.cy = 26.000000000000000000
+      TabIndex = 1
+      TabOrder = 5
+      TabPosition = Bottom
+      Sizes = (
+        608s
+        1s
+        608s
+        1s)
+      object tiWindows: TTabItem
+        CustomIcon = <
+          item
+          end>
+        IsSelected = False
+        Size.Width = 69.000000000000000000
+        Size.Height = 26.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = ''
+        TabOrder = 0
+        Text = 'Windows'
+        ExplicitSize.cx = 69.000000000000000000
+        ExplicitSize.cy = 26.000000000000000000
+      end
+      object tiDesktop: TTabItem
+        CustomIcon = <
+          item
+          end>
+        IsSelected = True
+        Size.Width = 64.000000000000000000
+        Size.Height = 26.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = ''
+        TabOrder = 0
+        Text = 'Desktop'
+        ExplicitSize.cx = 69.000000000000000000
+        ExplicitSize.cy = 26.000000000000000000
+      end
     end
-    object tiDesktop: TTabItem
-      CustomIcon = <
-        item
-        end>
-      IsSelected = True
-      Size.Width = 64.000000000000000000
-      Size.Height = 26.000000000000000000
+    object btnNewTab: TSpeedButton
+      Align = MostRight
+      Position.X = 608.000000000000000000
+      Size.Width = 32.000000000000000000
+      Size.Height = 27.000000000000000000
       Size.PlatformDefault = False
-      StyleLookup = ''
-      TabOrder = 0
-      Text = 'Desktop'
-      ExplicitSize.cx = 69.000000000000000000
-      ExplicitSize.cy = 26.000000000000000000
+      Text = '+'
     end
   end
 end
