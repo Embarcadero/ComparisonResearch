@@ -46,16 +46,7 @@
         <KeyBinding Key="Decimal" Command="{Binding DigitButtonPressCommand}" CommandParameter="."/>
        
     </Window.InputBindings>
-    <!--<Window.Style>
-        <Style TargetType="Window">
-            <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=DisplayTextBox}" />
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Display}" Value="{x:Null}">
-                    <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=DisplayTextBox}" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Style>-->
+ 
     <Grid Background="#E6E6E6">
         <Grid.Resources>
             <Style x:Key="Digit" TargetType="{x:Type Button}">

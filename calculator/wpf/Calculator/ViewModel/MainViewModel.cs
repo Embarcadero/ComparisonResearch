@@ -177,7 +177,7 @@ namespace Calculator.ViewModel
                 }
                 else
                 {
-                    
+
                     if (!IsBODMASOperation || operation == "sqr" || operation == "√" || operation == "1/x" || operation == "%")
                     {
                         SecondOperand = Display;
@@ -217,7 +217,23 @@ namespace Calculator.ViewModel
                             Operation = string.Empty;
                         }
                         else
-                            Expression = Expression + result;
+                        {
+                            var lastChar = Expression.Last();
+                            if (lastChar == Convert.ToChar("="))
+                                Expression = result;
+                            else
+                            {
+                                if (lastChar == Convert.ToChar(LastOperation))
+                                {
+                                    Expression = Expression + result;
+                                }
+                                else
+                                {
+                                    var lastIndex = Expression.LastIndexOf(LastOperation);
+                                    Expression = Expression.Substring(0, lastIndex + 1) + result;
+                                }
+                            }
+                        }
                         break;
                     case ("1/x"):
                         Expression = 1 + "/(" + FirstOperand + ")";
@@ -289,7 +305,7 @@ namespace Calculator.ViewModel
                     case ("%"):
                         try
                         {
-                            result = Math.Round(Convert.ToDouble(FirstOperand) * Convert.ToDouble(SecondOperand) / 100).ToString();
+                            result = (Convert.ToDouble(FirstOperand) * Convert.ToDouble(SecondOperand) / 100).ToString();
                             IsBODMASOperation = false;
                         }
                         catch (Exception e)
