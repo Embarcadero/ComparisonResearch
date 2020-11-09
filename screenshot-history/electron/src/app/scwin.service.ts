@@ -9,6 +9,7 @@ import { Scwindow } from './scwindow';
 export class ScwinService {
     items: Array<Scwindow> = [];
     ChangeDataEvent = new EventEmitter<Scwindow[]>();
+    selectedWindow: Scwindow;
 
     constructor(private com: ComService) {
         this.com.on('getWindows', (event: Electron.IpcMessageEvent, scWins) => {
@@ -18,6 +19,14 @@ export class ScwinService {
             });
             this.NotifyNewWindow();
         });
+    }
+
+    setSelectedWindow(window: Scwindow): void {
+        this.selectedWindow = window;
+    }
+
+    getSelectedWindow(): Scwindow {
+        return this.selectedWindow;
     }
 
     NotifyNewWindow() {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScwinService } from '../scwin.service';
 
 @Component({
   selector: 'app-sceditor',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SceditorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private winsvc: ScwinService) { }
 
   ngOnInit(): void {
+    console.log('this.winsvcL ', this.winsvc.getSelectedWindow().name);
   }
 
 }
