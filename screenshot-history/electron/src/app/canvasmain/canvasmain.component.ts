@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 
 @Component({
   selector: 'app-canvasmain',
   templateUrl: './canvasmain.component.html',
   styleUrls: ['./canvasmain.component.css']
 })
-export class CanvasmainComponent implements OnInit {
+export class CanvasmainComponent {
   @ViewChild('canvasmain')
   canvasMain: ElementRef<HTMLCanvasElement>;
   public context: CanvasRenderingContext2D;
+  @Input() dataUrl: string;
 
   constructor() { }
 
@@ -22,10 +23,8 @@ export class CanvasmainComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.loadImageToCanvas('');
+    this.loadImageToCanvas(this.dataUrl);
   }
 
-  ngOnInit(): void {
-  }
 
 }
