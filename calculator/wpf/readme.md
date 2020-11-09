@@ -64,7 +64,7 @@ Add keybindings to handle keypress event with calculator.
 
             <KeyBinding Key="NumPad8" 
             Command="{Binding DigitButtonPressCommand}" 
-            ommandParameter="8"/>
+            CommandParameter="8"/>
 
             <KeyBinding Key="NumPad9" 
             Command="{Binding DigitButtonPressCommand}" 
