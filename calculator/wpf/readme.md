@@ -1,448 +1,460 @@
+Prerequisite:-
+   Either Visual Studio 2017 Or 2019
+   <br/>.NET Version 5 or above 
+   
+|Here is the Documentation to create Calculator Like windows 10 using WPF. 
+-
 
-# Calculator Build Instructions in WPF
 
-System Requirements:-
-	Either Visual Studio 2017 Or 2019
+- Open Visual studio Editor.
+- Go to "File" => "New" => "Project".
+- Select "Wpf app (.NET framework)" from New Project dialog.
+- Give the project name "Calculator" then click OK.
+- The Project will contain three files like below.
 
-## 1)Create new Project in Visual Studio:
-Choose application Type: WPF App(.net Framework)
-		
-Note: architectural pattern is MVVM.
+        1 - MainWindow.xaml
+		2 - App.xaml
+		3 - App.config
 
-## 2) Design view.
-### A)Go to MainWindow.Xaml.
-Set Window Property value Like below
-1. Title: CalCulator
-2. Height: 510
-3. Width : 550
-4. MinHeight: 550
-5. MinWidth: 370
+<br/>**1 - MainWindow.xaml**
 
-### B)CalCulator is broken up into two sections. 
 
-The top section which shows the equation entered and the number entered/result.
-The bottom section contains input buttons for digits, mathematical operations, and functions. 
+Create one class for code behind code or bussiness logic.
 
-	
-Then add grid(Grid Background : #E6E6E6)
-Then add below code for buttons style:
-add style in grid resources:
-1. style : 
-```
-x:key="Digit" TargetType="Button"
-Focusable = false
-BorderThickness = 0.1
-FontSize = 18
-FontWeight = Bold
-Foreground =black
-Command = DigitButtonPressCommand
-CommandParameter = RelativeSource={RelativeSource Self}, Path=Content
-Background = #FAFAFA
-IsPressed change button Background(Add Trigger):
-<Trigger Property="IsPressed" Value="True">
-	<Setter Property="Background" Value="#C6C5C5"/>
-</Trigger>
-IsMouseOver Change button Background(Add Template):
-<Setter Property="Template">
-<Setter.Value>
-	<ControlTemplate TargetType="{x:Type Button}">
-		<Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="#E0E0E0" BorderThickness="1">
-			<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-		</Border>
-		<ControlTemplate.Triggers>
-			<Trigger Property="IsDefaulted" Value="true">
-				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-			</Trigger>
-			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Background" Value="#E0E0E0"/>
-				<Setter Property="BorderBrush" TargetName="border"  Value="#BAB8B8"/>
-				<Setter Property="BorderThickness" TargetName="border"  Value="2"/>
-			</Trigger>
-		</ControlTemplate.Triggers>
-	</ControlTemplate>
-</Setter.Value>
-</Setter>
-```
-			
-2. style:
-```
-x:key="Actions" TargetType="Button"
-Focusable = false
-FontSize = 15
-FontWeight = Normal
-Foreground =black
-Command = OperationButtonPressCommand
-CommandParameter = RelativeSource={RelativeSource Self}, Path=Content
-Background = #F0F0F0
-IsPressed change button Background(Add Trigger):
-	<Trigger Property="IsPressed" Value="True">
-		<Setter Property="Background" Value="#C6C5C5/>
-	</Trigger>
-IsMouseOver Change button Background(Add Template):
-	code same as digit template property:
-		BorderBrush=#E0E0E0
-		BorderThickness=1
-	IsMouseOver:
-		Background = #E0E0E0
-		BorderBrush:#BAB8B8
-		BorderThickness= 2
-```
-						     
-						     
-		In grid add 3 rows:
-			 1)Height="1*"
-			 2)Height="2*"
-			 3)Height="7*"
-				1)First Row:
-					Add TextBlock:
-						Text: Standard
-						FontSize: 20
-						FontWeight: SemiBold
-				2)Second Row
-					Add Grid:
-						add 2 Rows:
-						Add Two TextBox in each row
-						A)First TextBox will display expression(Binding Expression)
-						B)Second TextBox will display Result(Binding Display)		
-						Property:
-							IsReadOnly:True
-							Background : Transparent 							
-							BorderBrush: Transparent 
-							BorderThickness: 0 								
-							TextWrapping: WrapWithOverflow
-								(Set All Property in textbox)
-								
-							Foreground: Black(Second textbox)	
-							Foreground: LightSlateGray (First textbox)	
-				3)Third Row:
-					Add Grid:	
-						In which add 6 rows and 4 Columns:
-						
-						Create Button
-							(Add Style in Button):
-						1)Button :(%, CE, C, Del, 1/x, x², ²√x, ÷, ×, -, +, +/-, .,Backspace)
-							  Style="{StaticResource Actions}" 
-								
-						2)Button :(0 to 9)
-							 Style="{StaticResource Digit}"
-		 
-						3)Button :(=)
-							  style same as action But change Color
-							  Background: #8FB7D7
-							  IsMouseOver:Background: #498DC5
-								  IsPressed:Background: #0062B1
-						button binding
-						Button:(CE, C, Backspace, +/-, .)
-							command:DigitButtonPressCommand
-						
-						CommandParameter:
-							Button "Backspace" = CommandParameter = del
-							Button "x²" = CommandParameter = sqr
-							Button "²√x" = CommandParameter = ²√x
-							Button "CE" = CommandParameter = CE
-							Button "C" = CommandParameter = C
-							Button "+/-" = CommandParameter = +/-
-							Button "." = CommandParameter = .	
-		
-Here the design part is completed.
- 
+Add a namespace for datacontext class in mainwindow.
 
-## 2)Then create two class
-	1)BaseViewModel:
-		
-		Inherit INotifyPropertyChanged and define the overridden method for Inherited interface.
-	
-	2)MainViewModel:
-		
-		Bind Xaml to viewmodel in xaml:
-			<Window.DataContext>
-				<viewmodel:MainViewModel/>
-			</Window.DataContext>
-		
-		Create two command:	
-			1)DigitButtonPressCommand
-			2)OperationButtonPressCommand
-		
-		Create property:		
-			1)Display
-			2)Expression
-			3)FirstOperand
-			4)SecondOperand
-			5)Operation
-			6)LastOperation
-				(Note: All property data-type : string)
-			
-		Private member:
-			private bool IsOperation = false;
-			private string result = string.Empty;
-			private string currentOperation = string.Empty;
-			private bool IsBODMASOperation = false;
+        xmlns:viewmodel="clr-namespace:Calculator.ViewModel"
 
-		In constructor 
-			DigitButtonPressCommand = new RelayCommand<string>(OnDigitButtonPress);
-															(same second command)				
-			Display = "0";
-            Expression = string.Empty;	
-				
-		Create three mthods
-			1)OnDigitButtonPress
-			2)OnOperationButtonPress
-			3)CalculateResult
-			
-		A)OnDigitButtonPress Method(digit):-
-			(using switch-case)
-			1)Button "0 To 9"(default):
-				if (IsOperation && currentOperation == "=")
-				{
-					Display = "0";
-					Expression = string.Empty;
-					FirstOperand = string.Empty;
-				}
-				if (Display == "0" || IsOperation)
-					Display = digit;
-				else
-					Display = Display + digit;
-							
-			2)Button "C": 				
-				Display = "0";
-				result = "0";
-				Expression = string.Empty;
-				FirstOperand = string.Empty;
-				SecondOperand = null;
-				LastOperation = string.Empty;
-				Operation = string.Empty;
-		
-			3)Button "CE":
-				if (LastOperation == "=")
-				{
-					Display = "0";
-					result = "0";
-					Expression = string.Empty;
-					FirstOperand = string.Empty;
-					SecondOperand = null;
-					LastOperation = string.Empty;
-					Operation = string.Empty;
-				}
-				else
-				{
-					Display = "0";
-					result = string.Empty;
-				}
-				
-			4)Button "+/-":
-				if (Display.Length >= 1)
-					Display = (Convert.ToDouble(Display) * -1).ToString();
-					
-			5)Button "del":(Backspace)		
-				if (Display.Length > 1)
-				{
-					if (!string.IsNullOrEmpty(LastOperation))
-					{
-						if (LastOperation != "=")
-						{
-							if (LastOperation != "+" && LastOperation != "-" && LastOperation != "×" && LastOperation != "÷")
-								Display = Display.Substring(0, Display.Length - 1);
-							else
-							{
-								if (!IsOperation)
-									Display = Display.Substring(0, Display.Length - 1);
-								else
-									return;
-							}
-						}
-						else
-							Expression = string.Empty;
-					}
-					else
-					{
-						Display = Display.Substring(0, Display.Length - 1);
-					}
-				}
-				else Display = "0";
-				
-			Assign "IsOperation":-
-			("IsOperation" is flag for check last expression value is "Digit" or "Operation")
-				IsOperation = false
+And add the datacontext like below in MainWindow.xaml
 
-			Assign "IsBODMASOperation":-
-			("IsBODMASOperation" is flag for check last operation is plus,minus,divide and multiplication)
-			IsBODMASOperation = false;
-		
-		(B)Method OnOperationButtonPress(operation):
-		
-			Assign "Operation" in "currentOperation" local variable:
-				currentOperation = operation[method parameter]
-				
-			Check "FirstOperand is IsNullOrEmpty or "LastOperation" is "=" then assign "Display" into "FirstOperand" and assign "Operation" into "LastOperation"
-				if (string.IsNullOrEmpty(FirstOperand) || LastOperation == "=")
-				{
-					FirstOperand = Display;
-					Operation = operation == "=" ? Operation : operation;
-					LastOperation = operation;
-					IsBODMASOperation = false;
-				}
-				
-			When "FirstOperand" is not null or empty then
-			assign "Display" into "SecondOperand" and then call CalculateResult method	
-				else
-				{
-					if (!IsBODMASOperation || operation == "sqr" || operation == "√" || operation == "1/x" || operation == "%")
-                    {
-						SecondOperand = Display;
-						Operation = operation == "=" ? LastOperation : operation;
-						CalculateResult();
-						if (Operation != "sqr" && Operation != "%" && Operation != "√" && Operation != "1/x")
-						{
-							LastOperation = operation;
-							FirstOperand = result;
-							IsBODMASOperation = true;
-						}
-						if (result == "Infinity")
-							Display = "Overflow";
-						else
-							Display = result;
-					}
-				}
-				
-			When "FirstOperand" is not NullOrEmpty then call CalculateResult method".
-				if (Operation == "sqr" || Operation == "√" || Operation == "1/x" || Operation == "%")
-				{
-					CalculateResult();
-					Display = result;
-				}
-				
-			Then assign value in to "Expression" (using switch case):
-				First check "SecondOperand" IsNullOrEmpty :
-					var number = string.IsNullOrEmpty(SecondOperand) ? FirstOperand : SecondOperand;
-					
-				(using switch case)
-					When "Operation" Value is :
-					"sqr":
-						Expression = Expression + operation + "( " + number + " )";
-					"√":	
-						Expression = Expression + operation + "( " + number + " )";
-					"%":
-						if (result == "0" || result == "Infinity")
-						{
-							Display = "0";
-							result = "0";
-							Expression = string.Empty;
-							FirstOperand = string.Empty;
-							SecondOperand = null;
-							LastOperation = string.Empty;
-							Operation = string.Empty;
-						}
-						else
-							Expression = Expression + result;
-					"1/x":		
-						Expression = 1 + "/(" + FirstOperand + ")";	
-					and default:
-						if (IsOperation == false)
-						{
-							Expression = Expression + number + operation;
-						}
-						var str = Expression.Last();
-						if (str == Convert.ToChar(")"))
-						{
-							Expression = Expression + operation;
-						}
-						
-				Add last click "Operation" in the "Exception":-
-					if (Expression.Length > 0)
-					{
-						var str = Expression.Last();
-						if (str == Convert.ToChar("=") || str == Convert.ToChar("+") || str == Convert.ToChar("-")
-							|| str == Convert.ToChar("×") || str == Convert.ToChar("÷"))
-						{
-							Expression = Expression.Substring(0, Expression.Length - 1) + operation;
-						}
-					}
-					
-				Then Clear "Operation" value:  
-					Operation = string.Empty;
-				
-				Assign "IsOperation":-
-				("IsOperation" is flag for check last expression value is "Digit" or "Operation")	
-					IsOperation = true;
-		
-		(C)Method CalculateResult(using switch-case):-
-		
-			Check "SecondOperand" IsNullOrEmpty:
-			
-				var number = string.IsNullOrEmpty(SecondOperand) ? FirstOperand : SecondOperand;
-				if (Operation == "sqr" || Operation == "%" || Operation == "√" || Operation == "1/x")
-				{
-					oper[local variable] = Operation;
-				}
-				else
-					oper = Operation == "=" ? Operation : LastOperation;
-				
-			(using switch case)
-			1)Button:(+, -, ÷, ×)
-				if (!string.IsNullOrEmpty(SecondOperand))
-					result = (Convert.ToDouble(FirstOperand) + Convert.ToDouble(SecondOperand)).ToString();
-			2)Button "%":
-				try
-				{
-					result = Math.Round(Convert.ToDouble(FirstOperand) * Convert.ToDouble(SecondOperand) / 100).ToString();
-					IsBODMASOperation = false;
-				}
-				catch (Exception e)
-				{
-					result = "0";
-				}
-			3)Button "1/x":
-				result = (1 / (Convert.ToDouble(Display))).ToString();
-				IsBODMASOperation = false;
+        <Window.DataContext>
+            <viewmodel:MainViewModel/>
+        </Window.DataContext>
 
-			8)Button "sqr":
-				result = Math.Pow(Convert.ToDouble(number), 2).ToString();
-				IsBODMASOperation = false;
+Add keybindings to handle keypress event with calculator.
 
-			4)Button "√":
-				result = Math.Sqrt(Convert.ToDouble(Display)).ToString();
-				IsBODMASOperation = false;
-		
-Code completed check calCulator work or not.
+         <Window.InputBindings>
+            <KeyBinding Key="NumPad1" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="1"/>
 
-## Key Bindings
-Apply key binding in Xaml(key binding apply in Window.InputBindings):
-1. 
-		Keys:NumPad1,NumPad2,NumPad3,NumPad4,NumPad5,NumPad6,NumPad7,NumPad8,NumPad9,NumPad0,D1,D2,D3,D4,D5,D6,D7,D8,D9,D0,
-			Backspace,Esc,Delete,OemPeriod,Decimal
-		Command:DigitButtonPressCommand	
-		CommandParameter:
-				key :- NumPad1,NumPad2,NumPad3,NumPad4,NumPad5,NumPad6,NumPad7,NumPad8,NumPad9,NumPad0	
-				parameter:-0 to 9
-				
-				key :- D1,D2,D3,D4,D5,D6,D7,D8,D9,D0	
-				parameter:-0 to 9	
-				
-				key 			parameter
-				Backspace		del	
-				Esc				C
-				Delete			CE
-				OemPeriod		.
-				Decimal			.
-2.
-		Keys:Add,OemPlus,OemMinus,Subtract,Multiply,Divide,Enter,
-		Command:OperationButtonPressCommand
-		CommandParameter:
-			key 			parameter
-			OemPlus			+
-			Add				+
-			OemMinus		-
-			Subtract		-
-			Multiply		*
-			Divide			/
-			Enter			=
-3.
-		Key:D5
-		Modifiers:Shift
-		Command:OperationButtonPressCommand	
-		CommandParameter:
-			key 			parameter
-			D5				%
-			
-			
-			
+            <KeyBinding Key="NumPad2" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="2"/>
+
+            <KeyBinding Key="NumPad3" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="3"/>
+
+            <KeyBinding Key="NumPad4" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="4"/>
+
+            <KeyBinding Key="NumPad5" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="5"/>
+
+            <KeyBinding Key="NumPad6" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="6"/>
+
+            <KeyBinding Key="NumPad7"
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="7"/>
+
+            <KeyBinding Key="NumPad8" 
+            Command="{Binding DigitButtonPressCommand}" 
+            ommandParameter="8"/>
+
+            <KeyBinding Key="NumPad9" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="9"/>
+
+            <KeyBinding Key="NumPad0" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="0"/>
+
+            <KeyBinding Key="D1" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="1"/>
+
+            <KeyBinding Key="D2" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="2"/>
+
+            <KeyBinding Key="D3" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="3"/>
+
+            <KeyBinding Key="D4" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="4"/>
+
+            <KeyBinding Key="D5" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="5"/>
+
+            <KeyBinding Key="D6" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="6"/>
+
+            <KeyBinding Key="D7" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="7"/>
+
+            <KeyBinding Key="D8" 
+            Command="{Binding DigitButtonPressCommand}"
+            CommandParameter="8"/>
+
+            <KeyBinding Key="D9" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="9"/>
+
+            <KeyBinding Key="D0" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="0"/>
+
+            <KeyBinding Key="Backspace" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="Del"/>
+
+            <KeyBinding Key="Esc" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="C"/>
+
+            <KeyBinding Key="Delete" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="CE"/>
+
+            <KeyBinding Key="Add" 
+            Command="{Binding OperationButtonPressCommand}"
+             CommandParameter="+"/>
+
+            <KeyBinding Key="OemPlus" 
+            Command="{Binding OperationButtonPressCommand}" 
+            CommandParameter="="/>
+
+            <KeyBinding Key="OemMinus" 
+            Command="{Binding OperationButtonPressCommand}" 
+            CommandParameter="-"/>
+
+            <KeyBinding Key="Subtract" 
+            Command="{Binding OperationButtonPressCommand}" 
+            CommandParameter="-"/>
+
+            <KeyBinding Key="Multiply" 
+            Command="{Binding OperationButtonPressCommand}" 
+            CommandParameter="×"/>
+
+            <KeyBinding Key="Divide" 
+            Command="{Binding OperationButtonPressCommand}" 
+            CommandParameter="÷"/>
+
+            <KeyBinding Key="Enter" 
+            Command="{Binding OperationButtonPressCommand}" 
+            CommandParameter="="/>
+
+            <KeyBinding Modifiers="Shift" Key="D5"
+             Command="{Binding OperationButtonPressCommand}" 
+             CommandParameter="%"/>
+
+            <KeyBinding Key="OemPeriod" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="."/>
+
+            <KeyBinding Key="Decimal" 
+            Command="{Binding DigitButtonPressCommand}" 
+            CommandParameter="."/>
+                   
+    </Window.InputBindings>
+
+
+
+<br/><br/>By default the mainwindow.xaml will contain the below code.
+
+        <Grid>
+
+        </Grid>
+Set the background color of ***"Main Grid"***
+
+        <Grid Background="#E6E6E6">
+
+        </Grid>
+
+Above grid will be ***"Main Grid"*** 
+
+The main grid will be spilted in 3 rows having grid resource
+
+To create button like Windows calculator we have to customize some button style in side the "maingrid" resource.
+
+We have to create two types of style
+-  one is for digit buttons
+- second is for action buttons
+
+Add resource inside "MainGrid"
+
+        <Grid.Resources>
+
+        </Grid.Resources>
+
+Add below two style inside the resource.
+
+        
+            <Style x:Key="Digit" TargetType="{x:Type Button}">
+                <Setter Property="Focusable" Value="False"/>
+                <Setter Property="BorderThickness" Value="0.1"></Setter>
+                <Setter Property="FontSize" Value="18"></Setter>
+                <Setter Property="FontFamily" Value="Dubai"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="Foreground" Value="Black"></Setter>
+                <Setter Property="Command" Value="{Binding DigitButtonPressCommand}"/>
+                <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
+                <Setter Property="Background" Value="#FAFAFA"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="#E0E0E0" BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDefaulted" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#E0E0E0"/>
+                                    <Setter Property="BorderBrush" TargetName="border"  Value="#BAB8B8"/>
+                                    <Setter Property="BorderThickness" TargetName="border"  Value="2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#C6C5C5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="Actions" TargetType="{x:Type Button}">
+                <Setter Property="Focusable" Value="False"/>
+                <Setter Property="FontWeight" Value="Normal"></Setter>
+                <Setter Property="FontSize" Value="15"></Setter>
+                <Setter Property="Foreground" Value="Black"></Setter>
+                <Setter Property="Command" Value="{Binding OperationButtonPressCommand}"/>
+                <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
+                <Setter Property="Background" Value="#F0F0F0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="#E0E0E0" BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDefaulted" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#E0E0E0"/>
+                                    <Setter Property="BorderBrush" TargetName="border"  Value="#BAB8B8"/>
+                                    <Setter Property="BorderThickness" TargetName="border"  Value="2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#C6C5C5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+  
+<br/>[Please refer the attached screen shot to understand the structure of main grid]
+
+<div style="text-align:center">
+<a href="https://ibb.co/gTpyC5g" >
+<img src="https://i.ibb.co/gTpyC5g/Main-Grid-Structure.png" alt="Main-Grid-Structure"/></a>
+</div>
+
+Type below code to create 3 row in-side the main grid.
+
+         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="7*"/>
+         </Grid.RowDefinitions>
+
+Create ***Standard*** Label in first row
+
+        <TextBlock Text="Standard" 
+        FontSize="20" Grid.Row="0"
+        FontWeight="SemiBold" 
+        Margin="20 10 0 0"/>
+
+Create Container for display portion in Second Row
+
+        <Grid Grid.Row="1" Name="displayGrid">
+        </Grid>
+
+Create Container for button portion in Third Row
+
+        <Grid Grid.Row="1" Name="buttonsGrid">
+        </Grid>
+
+<br/>
+
+|Let's discuss the "displayGrid" and "buttonsGrid"
+-
+
+## - ***displayGrid***
+
+displayGrid will be splitted in two row
+
+<div style="text-align:center"><a href="https://ibb.co/Lr4HMh4"><img src="https://i.ibb.co/Lr4HMh4/Display-Grid.png" alt="Display-Grid" border="0"></a></div>
+
+Type below code to create 3 row in-side the display grid.
+
+         <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+         </Grid.RowDefinitions>
+
+Create ***Input*** Textblock in first row having name "InputTextBox"
+
+       <TextBox Grid.Row="0"
+            x:Name="InputTextBox"   
+            IsReadOnly="True"                
+            Background="Transparent"
+            BorderBrush="Transparent"
+            BorderThickness="0" 
+            TextWrapping="WrapWithOverflow"
+            Foreground="LightSlateGray"
+            Text="{Binding Expression,
+            UpdateSourceTrigger=PropertyChanged}" 
+            TextAlignment="Right" FontSize="15">
+       </TextBox>
+
+Create ***Display*** Textblock in second row having name "DisplayTextBox"
+
+       <TextBlock 
+            x:Name="DisplayTextBox" 
+            Grid.Row="1"  
+            Background="Transparent" 
+            TextWrapping="WrapWithOverflow" 
+            FontSize="45" 
+            FontWeight="Bold" 
+            TextAlignment="Right" 
+            Text="{Binding Display, 
+            UpdateSourceTrigger=PropertyChanged}">
+        </TextBlock>
+
+
+## - ***buttonGrid***
+
+buttonGrid will be splitted in six row and four column
+
+Please review the below link to check positions of button in grid.
+
+<div style="text-align:center">
+<a href="https://ibb.co/VggCWz5"><img src="https://i.ibb.co/VggCWz5/number-Grid-Grid-Lines.png" alt="number-Grid-Grid-Lines" border="0"></a></div>
+
+
+Type below code to create six row and four column in-side the display grid.
+
+          <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+
+
+Now Add the button at specific position in "buttongrid"
+
+        <Button Name="buttonPercentage" Content="%" Style="{StaticResource Actions}" ></Button>
+            <Button Name="buttonCE" Content="CE" Grid.Column="1" Style="{StaticResource Actions}"
+                    Command="{Binding DigitButtonPressCommand}" CommandParameter="CE"></Button>
+            <Button Name="buttonClean" Content="C" Grid.Column="2" Style="{StaticResource Actions}"
+                    Command="{Binding DigitButtonPressCommand}" CommandParameter="C"></Button>
+            <Button Name="buttonBackspace" Content="⌫" Grid.Column="3" Style="{StaticResource Actions}"
+                    Command="{Binding DigitButtonPressCommand}" CommandParameter="Del"></Button>
+
+            <Button Name="buttonOnex" Content="1/x" Grid.Row="1" Style="{StaticResource Actions}"></Button>
+            <Button Name="buttonxintwo" Content="x²" Grid.Row="1" Grid.Column="1" Style="{StaticResource Actions}"
+                    CommandParameter="sqr"></Button>
+            <Button Name="buttonxsqure" Content="²√x" Grid.Row="1" Grid.Column="2" Style="{StaticResource Actions}" CommandParameter="√"></Button>
+            <Button Name="buttonDivide" Content="÷" Grid.Row="1" Grid.Column="3" Style="{StaticResource Actions}"></Button>
+
+            <Button Name="button7" Content="7" Grid.Row="2" Style="{StaticResource Digit}"></Button>
+            <Button Name="button8" Content="8" Grid.Row="2" Grid.Column="1" Style="{StaticResource Digit}"></Button>
+            <Button Name="button9" Content="9" Grid.Row="2" Grid.Column="2" Style="{StaticResource Digit}"></Button>
+            <Button Name="buttonMultiply" Content="×" FontSize="20" Grid.Row="2" Grid.Column="3" Style="{StaticResource Actions}"></Button>
+
+            <Button Name="button4" Content="4" Grid.Row="3" Style="{StaticResource Digit}"></Button>
+            <Button Name="button5" Content="5" Grid.Row="3" Grid.Column="1" Style="{StaticResource Digit}"></Button>
+            <Button Name="button6" Content="6" Grid.Row="3" Grid.Column="2" Style="{StaticResource Digit}"></Button>
+            <Button Name="buttonMinus" Content="-" FontSize="20" Grid.Row="3" Grid.Column="3" Style="{StaticResource Actions}"></Button>
+
+            <Button Name="button1" Content="1" Grid.Row="4" Style="{StaticResource Digit}"/>
+
+            <Button Name="button2" Content="2" Grid.Row="4" Grid.Column="1" Style="{StaticResource Digit}"/>
+
+            <Button Name="button3" Content="3" Grid.Row="4" Grid.Column="2" Style="{StaticResource Digit}"/>
+
+            <Button Name="buttonPluse" Content="+" FontSize="20" Grid.Row="4" Grid.Column="3" Style="{StaticResource Actions}"/>
+
+            <Button Name="buttonPluseminus" Content="+/-" Grid.Row="5" Style="{StaticResource Actions}" Command="{Binding DigitButtonPressCommand}"></Button>
+            <Button Name="button0" Content="0" Grid.Row="5" Grid.Column="1" Style="{StaticResource Digit}"
+                    ></Button>
+            <Button Name="buttonDot" Content="." Grid.Row="5" Grid.Column="2" Style="{StaticResource Actions}"
+                    Command="{Binding DigitButtonPressCommand}"></Button>
+            
+            <Button Name="buttonResult" Focusable="True" Content="=" Grid.Row="5" Grid.Column="3" 
+                     >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="FontWeight" Value="Normal"></Setter>
+                        <Setter Property="FontSize" Value="18"></Setter>
+                        <Setter Property="Foreground" Value="Black"></Setter>
+                        <Setter Property="Command" Value="{Binding OperationButtonPressCommand}"/>
+                        <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
+                        <Setter Property="Background" Value="#8FB7D7"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="#E0E0E0" BorderThickness="1">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsDefaulted" Value="true">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#498DC5"/>
+                                            <Setter Property="BorderBrush" TargetName="border"  Value="#BAB8B8"/>
+                                            <Setter Property="BorderThickness" TargetName="border"  Value="2"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#0062B1"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+Here your styling and design completed for calculator.
