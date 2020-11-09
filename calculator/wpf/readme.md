@@ -299,7 +299,7 @@ Create Container for display portion in Second Row
 
 Create Container for button portion in Third Row
 
-        <Grid Grid.Row="1" Name="buttonsGrid">
+        <Grid Grid.Row="2" Name="buttonsGrid">
         </Grid>
 
 <br/>
