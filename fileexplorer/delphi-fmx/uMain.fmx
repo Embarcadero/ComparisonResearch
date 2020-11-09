@@ -25,7 +25,7 @@ object Form3: TForm3
         Text = 'Browse for folder'#8230
       end
       object MenuItem1: TMenuItem
-        Action = DataModule2.FileExit1
+        Action = dm.FileExit1
         Enabled = True
         Locked = True
         ImageIndex = -1
