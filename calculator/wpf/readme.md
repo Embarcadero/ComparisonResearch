@@ -1,3 +1,7 @@
+Prerequisite:-
+   Either Visual Studio 2017 Or 2019
+   <br/>.NET Version 5 or above 
+   
 |Here is the Documentation to create Calculator Like windows 10 using WPF. 
 -
 
@@ -169,6 +173,11 @@ Add keybindings to handle keypress event with calculator.
 <br/><br/>By default the mainwindow.xaml will contain the below code.
 
         <Grid>
+
+        </Grid>
+Set the background color of ***"Main Grid"***
+
+        <Grid Background="#E6E6E6">
 
         </Grid>
 
