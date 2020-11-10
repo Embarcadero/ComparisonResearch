@@ -1,4 +1,5 @@
-const { desktopCapturer } = require('electron');
+const { ReadVarExpr } = require('@angular/compiler');
+const { desktopCapturer, ipcMain } = require('electron');
 
 class WinService {
     SCWindows = [];
@@ -25,10 +26,40 @@ class WinService {
                 });
             }, 1000);
         });
+
+        ipcMain.on('reqWindow', (event, name) => {
+            this.getFullscreenScwindow(name,(scWindow) => {
+                console.log('sendWindow: ', scWindow.name);
+                event.returnValue = scWindow;
+            });
+        });
     }
 
-    sendSCWindows = () => {
+    getFullscreenScwindow = (name, callback) => {
+        desktopCapturer.getSources({ types:['window', 'screen'], thumbnailSize:  {width: 1920, height: 1080}}).then(sources => {
+            for (let source of sources) {
+                if (source.name === name) {
+                    let scWindow = {
+                        name: source.name,
+                        id: source.id,
+                        dataUrl: source.thumbnail.toDataURL(),
+                        display_id: source.display_id,
+                        appIcon: source.appIcon
+                    }
+                    return callback(scWindow);
+                }
+            }
+        })
+    }
+
+    sendSCWindows = (name) => {
         this.mainWindow.webContents.send("getWindows", this.SCWindows);
+    }
+
+    sendSCWindow = (name) => {
+        this.getFullscreenScwindow(name,(scWindow) => {
+            this.mainWindow.webContents.send("getWindow", scWindow);
+        })
     }
 
 }

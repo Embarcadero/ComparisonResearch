@@ -17,7 +17,7 @@ export class CanvasmainComponent {
     this.context = this.canvasMain.nativeElement.getContext('2d');
     let image = new Image();
     image.onload = () => {
-      this.context.drawImage(image, 0, 0);
+      this.context.drawImage(image, 10, 10, image.width, image.height);
     }
     image.src = base64Image;
   }

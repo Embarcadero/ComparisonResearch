@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   setSelectedWindow(window: Scwindow) {
     this.wins.setSelectedWindow(window);
     this.selectedWindow = this.wins.getSelectedWindow();
-    console.log('selected: ', this.selectedWindow.name);
   }
 
   ngOnInit(): void {

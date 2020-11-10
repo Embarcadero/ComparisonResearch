@@ -21,8 +21,13 @@ export class ScwinService {
         });
     }
 
+    requestGetWindow(scWindow: Scwindow): Scwindow {
+        let  reqWindow = (ev: any) => this.com.sendSync('reqWindow', ev);
+        return <any>reqWindow(scWindow.name);
+    }
+
     setSelectedWindow(window: Scwindow): void {
-        this.selectedWindow = window;
+        this.selectedWindow = this.requestGetWindow(window);
     }
 
     getSelectedWindow(): Scwindow {

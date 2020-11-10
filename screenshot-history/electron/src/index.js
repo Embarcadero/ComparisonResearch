@@ -1,4 +1,4 @@
-const { app, desktopCapturer, BrowserWindow, ipcMain } = require('electron');
+const { app, desktopCapturer, BrowserWindow } = require('electron');
 const { WinService } = require('./win_service');
 const path = require('path');
 const url = require("url");
@@ -42,9 +42,5 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
-});
-
-ipcMain.on('pingFromNg', (event, test) => {
-  console.log('pingFromNg --> ', test);
 });
 
