@@ -21,6 +21,8 @@ namespace Calculator.ViewModel
         private string _operation;
         private string currentOperation = string.Empty;
         private bool IsBODMASOperation = false;
+        private List<string> UsedOperatorInSequence { get; set; } = new List<string>();
+
         #endregion
 
         #region Constructor
@@ -91,6 +93,7 @@ namespace Calculator.ViewModel
                     SecondOperand = null;
                     LastOperation = string.Empty;
                     Operation = string.Empty;
+                    UsedOperatorInSequence = new List<string>();
                     break;
                 case "Del":
                     if (Display.Length > 1)
@@ -132,6 +135,7 @@ namespace Calculator.ViewModel
                         FirstOperand = string.Empty;
                         SecondOperand = null;
                         LastOperation = string.Empty;
+                        UsedOperatorInSequence = new List<string>();
                         Operation = string.Empty;
                     }
                     else
@@ -157,18 +161,30 @@ namespace Calculator.ViewModel
             IsOperation = false;
             IsBODMASOperation = false;
         }
-
+        
         private void OnOperationButtonPress(string operation)
         {
             try
             {
+                if (operation != "sqr" && operation != "√" && operation != "1/x" && operation != "%")
+                {
+                    UsedOperatorInSequence.Add(operation);
+                }
+                var lastOperator = UsedOperatorInSequence.LastOrDefault(s => s != operation);
                 currentOperation = operation;
                 if (string.IsNullOrEmpty(FirstOperand) || LastOperation == "=")
                 {
+                    if (operation == "=")
+                    {
+                        Operation = lastOperator;
+                    }
+                    else
+                    {
+                        Operation = operation == "=" ? Operation : operation;
+                    }
                     FirstOperand = Display;
-                    Operation = operation == "=" ? Operation : operation;
                     LastOperation = operation;
-                    if (Operation == "sqr" || Operation == "√" || Operation == "1/x" || Operation == "%")
+                    if (Operation == "sqr" || Operation == "√" || Operation == "1/x" || Operation == "%" || LastOperation == "=")
                     {
                         CalculateResult();
                         Display = result;
@@ -177,33 +193,47 @@ namespace Calculator.ViewModel
                 }
                 else
                 {
-
                     if (!IsBODMASOperation || operation == "sqr" || operation == "√" || operation == "1/x" || operation == "%")
                     {
                         SecondOperand = Display;
                         Operation = operation == "=" ? LastOperation : operation;
                         CalculateResult();
-
-                        if (Operation != "sqr" && Operation != "%" && Operation != "√" && Operation != "1/x")
-                        {
-                            LastOperation = operation;
-                            FirstOperand = result;
-                            IsBODMASOperation = true;
-                        }
-                        if (result == "Infinity")
-                            Display = "Overflow";
-                        else
-                            Display = result;
                     }
+                    if (Operation != "sqr" && Operation != "%" && Operation != "√" && Operation != "1/x")
+                    {
+                        LastOperation = operation;
+                        FirstOperand = result;
+                        IsBODMASOperation = true;
+                    }
+                    if (result == "Infinity")
+                        Display = "Overflow";
+                    else
+                        Display = result;
                 }
                 var number = string.IsNullOrEmpty(SecondOperand) ? FirstOperand : SecondOperand;
                 switch (operation)
                 {
                     case ("sqr"):
-                        Expression = Expression + operation + "( " + number + " )";
+                        if (operation == LastOperation || LastOperation == "sqr" || LastOperation == "√" || LastOperation == "1/x" || LastOperation == "%")
+                        {
+                            Expression = string.Empty;
+                            FirstOperand = string.Empty;
+                            SecondOperand = null;
+                            Expression = Expression + operation + "( " + number + " )";
+                        }
+                        else
+                            Expression = Expression + operation + "( " + number + " )";
                         break;
                     case ("√"):
-                        Expression = Expression + operation + "( " + number + " )";
+                        if (operation == LastOperation || LastOperation == "sqr" || LastOperation == "√" || LastOperation == "1/x" || LastOperation == "%")
+                        {
+                            Expression = string.Empty;
+                            FirstOperand = string.Empty;
+                            SecondOperand = null;
+                            Expression = Expression + operation + "( " + number + " )";
+                        }
+                        else
+                            Expression = Expression + operation + "( " + number + " )";
                         break;
                     case ("%"):
                         if (result == "0" || result == "Infinity")
@@ -236,7 +266,15 @@ namespace Calculator.ViewModel
                         }
                         break;
                     case ("1/x"):
-                        Expression = 1 + "/(" + FirstOperand + ")";
+                        if (operation == LastOperation || LastOperation == "sqr" || LastOperation == "√" || LastOperation == "1/x" || LastOperation == "%")
+                        {
+                            Expression = string.Empty;
+                            FirstOperand = string.Empty;
+                            SecondOperand = null;
+                            Expression = 1 + "/(" + number + ")";
+                        }
+                        else
+                            Expression = Expression + 1 + "/(" + number + ")";
                         break;
 
                     default:
@@ -244,10 +282,22 @@ namespace Calculator.ViewModel
                         {
                             Expression = Expression + number + operation;
                         }
-                        var str = Expression.Last();
-                        if (str == Convert.ToChar(")"))
+                        else
                         {
-                            Expression = Expression + operation;
+                            var str = Expression.Last();
+                            if (str == Convert.ToChar(")"))
+                            {
+                                Expression = Expression + operation;
+                            }
+                            else if (str == Convert.ToChar("="))
+                            {
+                                if (lastOperator == "=")
+                                {
+                                    Expression = FirstOperand + LastOperation;
+                                }
+                                else
+                                    Expression = FirstOperand + Operation + number + operation;
+                            }
                         }
                         break;
                 }
@@ -275,7 +325,7 @@ namespace Calculator.ViewModel
             try
             {
                 var number = string.IsNullOrEmpty(SecondOperand) ? FirstOperand : SecondOperand;
-                if (Operation == "sqr" || Operation == "%" || Operation == "√" || Operation == "1/x")
+                if (Operation == "sqr" || Operation == "%" || Operation == "√" || Operation == "1/x" || LastOperation == "=")
                 {
                     oper = Operation;
                 }
@@ -314,7 +364,15 @@ namespace Calculator.ViewModel
                         }
                         break;
                     case ("1/x"):
-                        result = (1 / (Convert.ToDouble(Display))).ToString();
+                        var tempResult = (1 / (Convert.ToDouble(Display)));
+                        if (double.IsInfinity(tempResult))
+                        {
+                            result = "Cannnot divide by zero";
+                        }
+                        else
+                        {
+                            result = tempResult.ToString();
+                        }
                         IsBODMASOperation = false;
                         break;
                     case ("sqr"):
