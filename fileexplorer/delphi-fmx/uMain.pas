@@ -100,7 +100,15 @@ begin
 end;
 
 procedure TForm3.AddSubItems(Item: TExpandableTreeViewItem);
+  procedure RemoveFromParent(Parent, SubItem: TTreeViewItem);
+  begin
+    SubItem.Parent := nil;
+    SubItem.Free;
+  end;
 begin
+  for var i := Item.Count - 1 downto 0 do
+    RemoveFromParent(Item, Item.Items[i]);
+
   var SubFolders := dm.GetSubFolders(Item.Path);
   if (SubFolders <> nil) then
     for var OneFolder in SubFolders do
