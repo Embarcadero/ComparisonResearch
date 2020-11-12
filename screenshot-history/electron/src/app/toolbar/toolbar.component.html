@@ -7,10 +7,13 @@
         <button class="btn btn_toolbar"><i class="fa fa-save"></i> Save </button>
       </li>
       <li class="nav-item">
+        <button class="btn btn_toolbar"><i class="fa fa-file-export"></i> Export </button>
+      </li>
+      <li class="nav-item">
         <button class="btn btn_toolbar"><i class="fa fa-crop"></i> Crop</button>
       </li>
       <li class="nav-item">
-        <button class="btn btn_toolbar"><i class="fas fa-compress-arrows-alt"></i> Resize</button>
+        <button class="btn btn_toolbar" (click)="showResizeDialog()" ><i class="fas fa-compress-arrows-alt" data-target="#modal-secondary"></i>Resize</button>
       </li>
     </ul>
 
@@ -26,3 +29,6 @@
       </li>
     </ul>
   </nav>
+
+  <!-- <app-modal title="test"></app-modal> -->
+  <!-- <app-hxmodal></app-hxmodal> -->

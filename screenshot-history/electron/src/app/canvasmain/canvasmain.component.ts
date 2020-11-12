@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { ScwinService } from '../scwin.service';
 
 @Component({
   selector: 'app-canvasmain',
@@ -11,7 +12,7 @@ export class CanvasmainComponent {
   public context: CanvasRenderingContext2D;
   @Input() dataUrl: string;
 
-  constructor() { }
+  constructor(private winSvc: ScwinService) { }
 
   loadImageToCanvas(base64Image) {
     this.context = this.canvasMain.nativeElement.getContext('2d');
@@ -22,8 +23,17 @@ export class CanvasmainComponent {
     image.src = base64Image;
   }
 
+  applyNewSize(h, w) {
+    this.context.canvas.width = w;
+    this.context.canvas.height = h;
+  }
+
   ngAfterViewInit(): void {
     this.loadImageToCanvas(this.dataUrl);
+    this.winSvc.ChangeSizeEvent.subscribe( ()=>{ 
+      console.log('newSize, ', this.winSvc.imageSize);
+      this.applyNewSize(this.winSvc.imageSize.height, this.winSvc.imageSize.width);
+    })
   }
 
 

@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   setSelectedWindow(window: Scwindow) {
+    console.log('setSelectedWindow clicked! ', window.name);
     this.wins.setSelectedWindow(window);
     this.selectedWindow = this.wins.getSelectedWindow();
   }

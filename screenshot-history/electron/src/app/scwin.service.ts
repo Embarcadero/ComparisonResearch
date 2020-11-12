@@ -2,6 +2,11 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { ComService } from './com.service';
 import { Scwindow } from './scwindow';
 
+interface ImageSize {
+    height: number;
+    width: number;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -10,6 +15,9 @@ export class ScwinService {
     items: Array<Scwindow> = [];
     ChangeDataEvent = new EventEmitter<Scwindow[]>();
     selectedWindow: Scwindow;
+    imageSize: ImageSize;
+    ChangeSizeEvent = new EventEmitter();
+
 
     constructor(private com: ComService) {
         this.com.on('getWindows', (event: Electron.IpcMessageEvent, scWins) => {
@@ -38,6 +46,10 @@ export class ScwinService {
         this.ChangeDataEvent.emit(this.items);
     }
 
+    NotifyNewSize() {
+        this.ChangeSizeEvent.emit();
+    }
+
     addScWin(scWindow) {
         this.items.push(scWindow);
     }
@@ -49,5 +61,10 @@ export class ScwinService {
     clear() {
         this.items = [];
         return this.items;
+    }
+
+    newSize(imageSize: ImageSize) {
+        this.imageSize= imageSize;
+        this.NotifyNewSize();
     }
 }

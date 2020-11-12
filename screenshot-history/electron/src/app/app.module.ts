@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { SceditorComponent } from './sceditor/sceditor.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { CanvasmainComponent } from './canvasmain/canvasmain.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CanvasmainComponent } from './canvasmain/canvasmain.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
