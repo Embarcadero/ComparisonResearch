@@ -509,6 +509,8 @@ namespace Calculator.ViewModel
 ### Setting Up MainWindow.xaml
 
 Add a namespace for datacontext class in MainWindow: `xmlns:viewmodel="clr-namespace:Calculator.ViewModel"`
+
+Change the MainWindow title and size according to this depiction:
 <div style="text-align:center">
 <a href="https://ibb.co/yNcfdPF"><img src="https://i.ibb.co/yNcfdPF/Data-Context-Name-Space.png" alt="Data-Context-Name-Space" border="0"></a></div><br/>
 
@@ -774,21 +776,16 @@ Copy this code in the Main Grid block to create 3 rows:
    <RowDefinition Height="7*"/>
 </Grid.RowDefinitions>
 ```
-Create the ***Standard*** Label in First row
+Create the ***Standard*** Label in First row.  Must be after the Grid.RowDefinitions code.
 `<TextBlock Text="Standard" FontSize="20" Grid.Row="0" FontWeight="SemiBold" Margin="20 10 0 0"/>`
 
+
+### Setting up the ***displayGrid***
 Create a container for display portion in Second Row
 ```
 <Grid Grid.Row="1" Name="displayGrid">
 </Grid>
 ```
-Create a container for button portion in Third Row
-```
-<Grid Grid.Row="2" Name="buttonsGrid">
-</Grid>
-```
-
-### Setting up the ***displayGrid***
 
 The displayGrid will be divided into two rows:
 <div style="text-align:center"><a href="https://ibb.co/Lr4HMh4"><img src="https://i.ibb.co/Lr4HMh4/Display-Grid.png" alt="Display-Grid" border="0"></a></div>
@@ -834,6 +831,12 @@ Create the ***Display*** Textblock in the second row with the name "DisplayTextB
 ```
 
 ### Setting up the ***buttonGrid***
+Create a container for button portion in Third Row
+```
+<Grid Grid.Row="2" Name="buttonsGrid">
+</Grid>
+```
+
 buttonGrid will be divided into six rows and four columns. Please review the below link to check positions of buttons in the buttonGrid.
 <div style="text-align:center">
 <a href="https://ibb.co/VggCWz5"><img src="https://i.ibb.co/VggCWz5/number-Grid-Grid-Lines.png" alt="number-Grid-Grid-Lines" border="0"></a></div>
@@ -935,7 +938,7 @@ Now add each button to a specific position in "buttongrid".
 ```
 
 
-### Build solution and check styling compared to the Windows 10 Calculator.
+**Build solution and check styling compared to the Windows 10 Calculator.**
 
 ## Testing
 ### Simple Operations
