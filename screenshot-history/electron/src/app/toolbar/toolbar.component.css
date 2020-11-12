@@ -1,3 +1,9 @@
-.main-header {
+.main-header2 {
     transition: margin-left .3s ease-in-out;
+    height: 50px;
+    background-color: #31363C;
+}
+
+.btn_toolbar {
+    color: white;
 }

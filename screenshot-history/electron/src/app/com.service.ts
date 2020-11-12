@@ -32,5 +32,12 @@ export class ComService {
     }
     this._ipc.send(channel, ...args);
   }
+
+  public sendSync(channel: string, ...args): void {
+    if (!this._ipc) {
+      return;
+    }
+    return this._ipc.sendSync(channel, ...args);
+  }
    
 }

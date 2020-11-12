@@ -14,10 +14,11 @@ export class HomeComponent implements OnInit {
   constructor(
     private wins: ScwinService, 
     private cd: ChangeDetectorRef
-    ) {}
+  ) {}
 
-  setSelectedWindow(window: Scwindow): void {
-    this.selectedWindow = window;
+  setSelectedWindow(window: Scwindow) {
+    this.wins.setSelectedWindow(window);
+    this.selectedWindow = this.wins.getSelectedWindow();
   }
 
   ngOnInit(): void {
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
       this.scWindows = items;
       this.cd.detectChanges();
     })
+    this.selectedWindow = this.wins.getSelectedWindow();
   }
 
 }

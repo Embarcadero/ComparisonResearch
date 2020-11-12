@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SceditorComponent } from './sceditor/sceditor.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { CanvasmainComponent } from './canvasmain/canvasmain.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     AppComponent,
     HomeComponent,
     SceditorComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    CanvasmainComponent
   ],
   imports: [
     BrowserModule,
