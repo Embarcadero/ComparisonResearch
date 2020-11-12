@@ -10,6 +10,18 @@ uses
   FMX.Grid, FMX.Header, FMX.StdCtrls, FMX.TreeView, FMX.TabControl;
 
 type
+  TExpandableTreeViewItem = class(FMX.TreeView.TTreeViewItem)
+    private
+      FOnExpanded: TNotifyEvent;
+      FPath: string;
+      procedure SetPath(const Value: string);
+      property Path: string read FPath write SetPath;
+    protected
+      procedure SetIsExpanded(const Value: Boolean); override;
+    published
+      property OnExpanded: TNotifyEvent read FOnExpanded write FOnExpanded;
+  end;
+
   TForm3 = class(TForm)
     WinMenu: TMenuBar;
     WinMenuFile: TMenuItem;
@@ -40,7 +52,9 @@ type
     btnNewTab: TSpeedButton;
     procedure FormCreate(Sender: TObject);
   private
-    function AddFolderToTreeView(Path: string; Parent: TFmxObject): TTreeViewItem;
+    function AddFolderToTreeView(APath: string; AParent: TFmxObject; IsSubItem: boolean): TTreeViewItem;
+    procedure AddSubItems(Item: TExpandableTreeViewItem);
+    procedure ExpandTreeViewItem(Sender: TObject);
   public
     { Public declarations }
   end;
@@ -56,53 +70,75 @@ uses
   System.IOUtils,
   uDM;
 
-type
-  TExpandableTreeViewItem = class(FMX.TreeView.TTreeViewItem)
-    private
-      FOnExpanded: TNotifyEvent;
-      FOnCollapsed: TNotifyEvent;
-      FPath: string;
-    protected
-      procedure SetIsExpanded(const Value: Boolean); override;
-    published
-      property OnExpanded: TNotifyEvent read FOnExpanded write FOnExpanded;
-      property OnCollapsed: TNotifyEvent read FOnCollapsed write FOnCollapsed;
-  end;
-
-
 procedure TExpandableTreeViewItem.SetIsExpanded(const Value: Boolean);
 var
   LWasExpanded: boolean;
 begin
   LWasExpanded := IsExpanded;
   inherited;
-  if (IsExpanded) AND (LWasExpanded = false) then
+  if IsExpanded and not LWasExpanded then
     if Assigned(OnExpanded) then
-      OnExpanded(Self)
-    else
-  else
-    if Assigned(OnCollapsed) then
-      OnCollapsed(Self);
+      OnExpanded(Self);
 end;
 
-function TForm3.AddFolderToTreeView(Path: string;
-  Parent: TFmxObject): TTreeViewItem;
-var
-  Item: TExpandableTreeViewItem absolute Result;
+function TForm3.AddFolderToTreeView(APath: string;
+  AParent: TFmxObject; IsSubItem: boolean): TTreeViewItem;
 begin
-  Result:= TExpandableTreeViewItem.Create(Folders);
+  var Item:= TExpandableTreeViewItem.Create(Folders);
 
-  if Path <> PathDelim then
-    Result.Text := TPath.GetFileName(Path)
-  else
-    Result.Text := Path;
+  Item.Path := APath;
 
-  Result.Parent := Parent;
+  if not IsSubItem then
+  begin
+    Item.OnExpanded := ExpandTreeViewItem;
+    AddSubItems(Item);
+  end;
+
+  Item.Parent := AParent;
+  
+  Result := Item;
+end;
+
+procedure TForm3.AddSubItems(Item: TExpandableTreeViewItem);
+  procedure RemoveFromParent(Parent, SubItem: TTreeViewItem);
+  begin
+    SubItem.Parent := nil;
+    SubItem.Free;
+  end;
+begin
+  for var i := Item.Count - 1 downto 0 do
+    RemoveFromParent(Item, Item.Items[i]);
+
+  var SubFolders := dm.GetSubFolders(Item.Path);
+  if (SubFolders <> nil) then
+    for var OneFolder in SubFolders do
+      AddFolderToTreeView(OneFolder, Item, True);
+end;
+
+procedure TForm3.ExpandTreeViewItem(Sender: TObject);
+begin
+  if (Sender <> nil) and (Sender is TExpandableTreeViewItem) then
+  begin
+    var Item := TExpandableTreeViewItem(Sender);
+    for var i:= 0 to Item.Count - 1 do
+      if Item.Items[i] is TExpandableTreeViewItem then
+      begin
+        var SubItem := TExpandableTreeViewItem(Item.Items[i]);
+        AddSubItems(SubItem);
+        SubItem.OnExpanded := ExpandTreeViewItem;
+      end;
+  end;
 end;
 
 procedure TForm3.FormCreate(Sender: TObject);
 begin
-  AddFolderToTreeView('\', Folders);
+  AddFolderToTreeView(PathDelim, Folders, False);
+end;
+
+procedure TExpandableTreeViewItem.SetPath(const Value: string);
+begin
+  FPath := Value;
+  Text := dm.GetFilename(FPath);
 end;
 
 end.
