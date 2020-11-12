@@ -124,7 +124,7 @@ end;
 
 procedure TForm3.FormCreate(Sender: TObject);
 begin
-  AddFolderToTreeView('\', Folders, False);
+  AddFolderToTreeView(PathDelim, Folders, False);
 end;
 
 procedure TExpandableTreeViewItem.SetPath(const Value: string);

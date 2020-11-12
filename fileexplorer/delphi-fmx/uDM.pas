@@ -44,7 +44,7 @@ end;
 function Tdm.GetSubFolders(Path: string): TArray<string>;
 begin
   Assert(Path.Length > 0);
-  if (Path.Length <> 1) or not IsPathDelimiter(Path, High(Path)) then
+  if (TOsVersion.Platform <> pfWindows) or (Path.Length <> 1) or not IsPathDelimiter(Path, High(Path)) then
     try
       Result := TDirectory.GetDirectories(Path);
     except
@@ -55,8 +55,6 @@ begin
   begin
     {$IFDEF MSWINDOWS}
       Result := TDirectory.GetLogicalDrives;
-    {$ELSE}
-      {$MESSAGE FATAL 'TODO: implement}
     {$ENDIF}
   end;
 end;
