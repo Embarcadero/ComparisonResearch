@@ -575,4 +575,165 @@ end;
   resetCalculator(Sender);
 ```
 
+### Clear/Back Buttons
+1. Double click the ***CE*** button.  Paste the following code into the generated procedure:
+```
+  if calcState = State.Solved then
+    resetCalculator(Sender)
+  else
+  begin
+    lblAnswer.Text := '0';
+    calcState := State.InputFirstDigit;
+  end;
+```
+2. Click the ***C*** button, navigate to the Events tab of the Object Inspector, click the dropdown arrow next to *OnClick*, and select ***resetCalculator***.
+3. Double click the ***<<*** button.  Paste the following code into the generated procedure:
+```
+if calcState = State.Solved then
+  begin
+    lblEquation.Text := '';
+    equation.clear();
+  end
+  else if calcState <> State.Error then
+  begin
+    if lblAnswer.Text.Length = 1 then
+      lblAnswer.Text := '0'
+    else
+      lblAnswer.Text := lblAnswer.Text.Substring(0, lblAnswer.Text.Length - 1);
+  end;
+```
 
+### Digit Buttons
+1. Paste this procedure into the **public** section of the **type** declaration at the top of ***FMXCalculatorLogic.pas***:
+`procedure digitClick(Sender: TObject);`
+2. Paste this procedure implementation below the **implemenation** keyword.
+```
+{*
+   Accumulate digit input in the main label field.  Specific logic to replace
+   '0' with a digit, to handle a decimal place correctly in the event of '0.x',
+   and to continue calculating with the result from a previous calculation.
+*}
+procedure TForm1.digitClick(Sender: TObject);
+var
+  operand : Real;
+begin
+  if calcState = State.Solved then
+    resetCalculator(Sender);
+
+
+  if calcState = State.InputFollowingDigits then
+  begin
+    operand := StrtoFloat(lblAnswer.Text);
+
+    if lblAnswer.Text.Contains('.') then
+      lblAnswer.Text := lblAnswer.Text + (Sender as TButton).Text
+    else if operand = 0 then
+      lblAnswer.Text := (Sender as TButton).Text
+    else
+      lblAnswer.Text := lblAnswer.Text + (Sender as TButton).Text;
+  end
+  else if calcState = State.InputFirstDigit then
+  begin
+    lblAnswer.Text := (Sender as TButton).Text;
+    calcState := State.InputFollowingDigits;
+  end;
+end;
+```
+3. Select the **0-9** buttons in the Structure tree view or on *Form1* in the Design View.  Navigate to the Events tab of the Object Inspector.  Select the dropdown arrow next to the *OnClick* event and select ***digitClick***.
+
+
+### Decimal Button
+Double click the decimal button in the Design View and paste this code into the generated procedure:
+```
+  if calcState <> State.Error then
+  begin
+
+    if calcState = State.Solved then
+      resetCalculator(Sender);
+
+    if calcState = State.InputFirstDigit then
+    begin
+      lblAnswer.Text := '0.';
+      calcState := State.InputFollowingDigits;
+    end;
+
+    if (RightStr(lblAnswer.Text, 1) <> '.') and
+    (not lblAnswer.Text.Contains('.')) then
+      lblAnswer.Text := lblAnswer.Text + (Sender as TButton).Text;
+  end;
+```
+
+### ChangeSign Button
+Double click the +/- button in the Design View and paste this code into the generated procedure:
+```
+  if calcState <> State.Error then
+  begin
+    var operand := -(StrtoFloat(lblAnswer.Text));
+
+    if operand <> 0 then
+      lblAnswer.Text := FormatFloat('0.#########', operand);
+  end;
+```
+
+### Operator Buttons 
+For each operator button on *Form1*, double click and paste in the following code:
+    - +  `updateOperator(Operations.Addition);`
+    - -  `updateOperator(Operations.Subtraction);`
+    - ✕  `updateOperator(Operations.Multiplication);`
+    - ÷  `updateOperator(Operations.Division);`
+    - %  `updateOperator(Operations.Percentage);`
+    - 1/x `updateOperator(Operations.Reciprocal);`
+    - x^2 `updateOperator(Operations.Square);`
+    - 2√x `updateOperator(Operations.SquareRoot);`
+
+### Equals Button
+Double click the = button in the Design View and paste this code into the generated procedure:
+```
+ var
+  eqResult : Real;
+begin
+
+  if calcState = State.Solved then
+        repeatLastElement();
+
+  if calcState = State.InputFirstDigit then
+  begin
+    if (equation.getLength() = 0) then
+    begin
+      lblEquation.Text := lblAnswer.Text + ' =';
+      calcState := State.Solved;
+    end
+    else
+    begin
+      lastOperand := StrtoFloat(lblAnswer.Text);
+      eqResult := equation.solveEquation(0, false);
+      lblEquation.Text := FloatToStr(eqResult) + ' =';
+      lblAnswer.Text := FloatToStr(eqResult);
+      calcState := State.Solved;
+    end;
+  end
+
+  else if (calcState <> State.Error) and (calcState <> Solved) then
+  begin
+    lastOperand := StrtoFloat(lblAnswer.Text);
+
+    try
+      eqResult := equation.solveEquation (lastOperand, true);
+    except
+      lblAnswer.Text := 'Cannot divide by zero';
+      calcState := State.Error;
+    end;
+
+
+    if (calcState <> State.Error) then
+    begin
+      lblAnswer.Text := FloatToStr(eqResult);
+      lblEquation.Text := lblEquation.Text + ' ' + FloattoStr(lastOperand) + ' =';
+      calcState := State.Solved;
+    end;
+
+  end;
+```
+
+
+## Testing
