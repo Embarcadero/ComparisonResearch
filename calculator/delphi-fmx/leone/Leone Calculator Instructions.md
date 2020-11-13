@@ -27,9 +27,9 @@ begin
 
 ### Form Size and Title
 1. On the Design tab, select *Form1* in the Structure panel and adjust its properies in the Object Inspect:
-        1. Caption = Calculator
-        2. Height = 528
-        3. Width = 490
+    - Caption = Calculator
+    - Height = 528
+    - Width = 490
 
 ### Adding Components
 Reference this layout of the calculator components as you build it in RAD Studio.
@@ -37,30 +37,69 @@ Reference this layout of the calculator components as you build it in RAD Studio
 
 1. From the **Palette** in the bottom-right corner of the IDE, search "Panel" and add a **TPanel** to *Form 1*.  
 2. Select the panel and adjust its properties in the Object Inspector:
-        1. Align = MostTop
-        2. Height = 185
-        3. Name = panelAnswer
-        4. Width = 490
+    - Align = MostTop
+    - Height = 185
+    - Name = panelAnswer
+    - Width = 490
 3. Search the Palette for "Label" and add two **TLabel**s to the *panelAnswer*.  If they are not children of *panelAnswer* in the Structure tree, click and drag them over *panelAnswer* in the Structure tree to make them children.
 4. Select the first TLabel and adjust its properties in the Object Inspector:
-        1. Align = Client
-        2. Name = lblAnswer
+    - Align = Client
+    - Name = lblAnswer
+    - HorzAlign = Trainling
+    - TextSettings->Font->Size = 48
+    - TextSettings->Font->Style = fsBold
 5. Select the second TLabel and adjust its properties in the Object Inspector:
-        1. Align = MostTop
-        2. Height = 73
-        3. Name = lblEquation
+    - Align = MostTop
+    - Height = 73
+    - Name = lblEquation
+    - TextSettings->Font->Size = 14
 6. Select *Form1* in the Structure tree.  Search the Palette and add another **TPanel** as a child of *Form1*.  Adjust its properties in the Object Inspector:
-        1. Align = Client
-        2. Name = panelInput
+    - Align = Client
+    - Name = panelInput
 7. Search the Palette and add a **TGridPanelLayout** as a child of *panelInput*.  
-        1. Set it's **Align** property to **Client** in the Object Inspector.
-        2. Right click the *ColumnCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **four** Column items.
-        3. Right click the *RowCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **six** Row items.
+    - Set it's **Align** property to **Client** in the Object Inspector.
+    - Right click the *ColumnCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **four** Column items.
+    - Right click the *RowCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **six** Row items.
 8. Select *panelInput* in the Structure tree.  Search the Palette and add a **TButton** to *panelInput*.  Copy that button and paste until there are **24 buttons**.  Select the buttons in the Structure tree and drag-and-drop over *GridPanelLayout1* to add them to the grid.        
 9. Select *Form1* in the Structure tree.  Search the Palette and add a **TStyleBook** to *Form1*.
 
 
 After adding all the components, *Form1* should look like the Windows 10 calculator without any button labels or styles.
+
+### Button Configuration
+1. Select all the buttons (click the top button in the Structure tree, hold Shift, click the bottom button).  Adjust their properties in the Object Inspector:
+    - Align = Client
+2. For each button in the grid, change the button's *name* and *caption*.  Make sure to make each button mirror the Windows 10 calculator button location.  Some buttons use unicode symbols for their caption.
+    - btn0, 0
+    - btn1, 1
+    - btn2, 2
+    - btn3, 3
+    - btn4, 4
+    - btn5, 5
+    - btn6, 6
+    - btn7, 7
+    - btn8, 8
+    - btn9, 9
+    - btnAdd, ＋
+    - btnBackspace, «
+    - btnChangeSign, + / -
+    - btnClear, C
+    - btnDecimal, .
+    - btnDivide, ÷
+    - btnEquals, =
+    - btnMultiply, ✕
+    - btnReciprocal, 1/x
+    - btnSquare, x^2
+    - btnSquareRoot, 2√x
+    - btnSubtract, -
+    
+    Once complete, the Structure Tree and *Form1* should look like this (without the button colors):
+    ![Calculator button layout](buttonLayout1.PNG)
+    
+3. Adjust the Font settings for each button by clicking a button (or range of buttons), scrolling down in the Object Inspector Properties tab, and opening the **TextSettings->Font** submenu.  Change the ***Size*** and ***Style->fsBold*** settings according to the following image. Time can be saved by adjusting all the digit buttons at the same time.
+![Font Sizes](fontSizes.png)
+
+### Button Styles
 
 
 ## Calculator Logic
