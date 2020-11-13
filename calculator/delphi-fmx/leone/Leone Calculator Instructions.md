@@ -32,6 +32,8 @@ begin
         3. Width = 490
 
 ### Adding Components
+Reference this layout of the calculator components as you build it in RAD Studio.
+![Calculator Layout](calculatorLayout1.png)
 
 1. From the **Palette** in the bottom-right corner of the IDE, search "Panel" and add a **TPanel** to *Form 1*.  
 2. Select the panel and adjust its properties in the Object Inspector:
@@ -54,8 +56,11 @@ begin
         1. Set it's **Align** property to **Client** in the Object Inspector.
         2. Right click the *ColumnCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **four** Column items.
         3. Right click the *RowCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **six** Row items.
+8. Select *panelInput* in the Structure tree.  Search the Palette and add a **TButton** to *panelInput*.  Copy that button and paste until there are **24 buttons**.  Select the buttons in the Structure tree and drag-and-drop over *GridPanelLayout1* to add them to the grid.        
+9. Select *Form1* in the Structure tree.  Search the Palette and add a **TStyleBook** to *Form1*.
 
-        
+
+After adding all the components, *Form1* should look like the Windows 10 calculator without any button labels or styles.
 
 
 ## Calculator Logic
