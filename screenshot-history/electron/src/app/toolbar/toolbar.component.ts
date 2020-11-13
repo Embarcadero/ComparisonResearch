@@ -57,6 +57,10 @@ export class ToolbarComponent implements OnInit {
     modalRef.componentInstance.name = 'World';
   }
 
+  startCroping() {
+    
+  }
+
   ngOnInit(): void {
     
   }

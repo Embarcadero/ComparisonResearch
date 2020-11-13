@@ -17,6 +17,7 @@ export class ScwinService {
     selectedWindow: Scwindow;
     imageSize: ImageSize;
     ChangeSizeEvent = new EventEmitter();
+    croping: boolean = false;
 
 
     constructor(private com: ComService) {
@@ -66,5 +67,9 @@ export class ScwinService {
     newSize(imageSize: ImageSize) {
         this.imageSize= imageSize;
         this.NotifyNewSize();
+    }
+
+    startCrop(): void{
+        this.croping = true;
     }
 }
