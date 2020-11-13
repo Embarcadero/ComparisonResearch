@@ -50,7 +50,7 @@ export class NgbdModalContent {
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private winSvc: ScwinService) {}
 
   showResizeDialog(): void {
     const modalRef = this.modalService.open(NgbdModalContent);
@@ -58,7 +58,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   startCroping() {
-    
+    console.log('crop');
+    this.winSvc.startCrop();
   }
 
   ngOnInit(): void {

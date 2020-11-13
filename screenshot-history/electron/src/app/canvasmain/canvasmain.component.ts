@@ -11,6 +11,7 @@ export class CanvasmainComponent {
   canvasMain: ElementRef<HTMLCanvasElement>;
   public context: CanvasRenderingContext2D;
   @Input() dataUrl: string;
+  croping: boolean = false;
 
   constructor(private winSvc: ScwinService) { }
 
@@ -33,7 +34,11 @@ export class CanvasmainComponent {
     this.winSvc.ChangeSizeEvent.subscribe( ()=>{ 
       console.log('newSize, ', this.winSvc.imageSize);
       this.applyNewSize(this.winSvc.imageSize.height, this.winSvc.imageSize.width);
-    })
+    });
+    this.winSvc.StartCropEvent.subscribe(()=>{
+      this.croping = true;
+      console.log('StartCropEvent: ', this.croping);
+    });
   }
 
 
