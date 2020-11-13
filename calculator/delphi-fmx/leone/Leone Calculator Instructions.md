@@ -96,7 +96,8 @@ After adding all the components, *Form1* should look like the Windows 10 calcula
     Once complete, the Structure Tree and *Form1* should look like this (without the button colors):
     ![Calculator button layout](buttonLayout1.PNG)
     
-3. Adjust the Font settings for each button by clicking a button (or range of buttons), scrolling down in the Object Inspector Properties tab, and opening the **TextSettings->Font** submenu.  Change the ***Size*** and ***Style->fsBold*** settings according to the following image. Time can be saved by adjusting all the digit buttons at the same time.
+3. Adjust the Font settings for each button by clicking a button (or range of buttons), scrolling down in the Object Inspector Properties tab, and opening the **TextSettings->Font** submenu.  Change the ***Size*** and ***Style->fsBold*** settings according to the following image. Time can be saved by adjusting groups of buttons at the same time.
+
 ![Font Sizes](fontSizes.png)
 
 ### Button Styles
