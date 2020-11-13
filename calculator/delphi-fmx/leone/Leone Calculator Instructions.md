@@ -586,8 +586,7 @@ end;
     calcState := State.InputFirstDigit;
   end;
 ```
-2. Click the ***C*** button, navigate to the Events tab of the Object Inspector, click the dropdown arrow next to *OnClick*, and select ***resetCalculator***.
-3. Double click the ***<<*** button.  Paste the following code into the generated procedure:
+2. Double click the ***<<*** button.  Paste the following code into the generated procedure:
 ```
 if calcState = State.Solved then
   begin
@@ -602,6 +601,24 @@ if calcState = State.Solved then
       lblAnswer.Text := lblAnswer.Text.Substring(0, lblAnswer.Text.Length - 1);
   end;
 ```
+3. Add this procedure header to the **type** section of the ***FMXCalculatorLogic.pas*** file above the public/private declarations
+`procedure resetCalculator(Sender: TObject);`
+4. Paste the ***resetCalculator*** implementation below the **implementation** keyword.
+```
+{*
+   Reset the calculator or remove digits/operands
+*}
+procedure TForm1.resetCalculator(Sender: TObject);
+begin
+  lblAnswer.Text := '0';
+  lblEquation.Text := '';
+  lastOperand := 0;
+  calcState := State.InputFirstDigit;
+  equation.clear();
+end;
+```
+5. Click the **C** button on *Form1* in the Design View, navigate to the Events tab of the Object Inspector, select the dropdown arrow next to the *OnClick* event and select ***resetCalculator***.
+
 
 ### Digit Buttons
 1. Paste this procedure into the **public** section of the **type** declaration at the top of ***FMXCalculatorLogic.pas***:
