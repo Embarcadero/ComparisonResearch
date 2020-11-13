@@ -677,14 +677,14 @@ Double click the +/- button in the Design View and paste this code into the gene
 
 ### Operator Buttons 
 For each operator button on *Form1*, double click and paste in the following code:
-    - +  `updateOperator(Operations.Addition);`
-    - -  `updateOperator(Operations.Subtraction);`
-    - ✕  `updateOperator(Operations.Multiplication);`
-    - ÷  `updateOperator(Operations.Division);`
-    - %  `updateOperator(Operations.Percentage);`
-    - 1/x `updateOperator(Operations.Reciprocal);`
-    - x^2 `updateOperator(Operations.Square);`
-    - 2√x `updateOperator(Operations.SquareRoot);`
+- "+" `updateOperator(Operations.Addition);`
+- "-" `updateOperator(Operations.Subtraction);`
+- "✕" `updateOperator(Operations.Multiplication);`
+- "÷" `updateOperator(Operations.Division);`
+- "%" `updateOperator(Operations.Percentage);`
+- "1/x" `updateOperator(Operations.Reciprocal);`
+- "x^2" `updateOperator(Operations.Square);`
+- "2√x" `updateOperator(Operations.SquareRoot);`
 
 ### Equals Button
 Double click the = button in the Design View and paste this code into the generated procedure:
@@ -737,3 +737,15 @@ begin
 
 
 ## Testing
+
+### Simple Operations
+- Test addition, subtraction, etc. Make sure the full equation is displayed above the correct answer when the "=" button is pressed.
+- Test the clear, clear equation, and back buttons.
+- Test the numpad keybindings.
+
+### Complex Operations
+- Test the square, square root, reciprocal, and percentage operators.  
+
+### Chained Operations 
+- Build a long equation without pressing the "=" button.  Does the correct answer calculate every time you click a new operator? 
+- Enter an equation and press the "=" button.  Repeatedly press "=" and see if the equation repeats the last operation.
