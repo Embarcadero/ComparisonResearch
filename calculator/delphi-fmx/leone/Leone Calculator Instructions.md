@@ -101,6 +101,30 @@ After adding all the components, *Form1* should look like the Windows 10 calcula
 ![Font Sizes](fontSizes.png)
 
 ### Button Styles
+By adjusting button styles, the calculator buttons will more closely resemble the Windows 10 button pallet when unpressed, hovered over, and pressed.
+1. Right click any button and select "Edit Default Style".
+2. Make **three** copies of the default *Buttonstyle* and name them *WinCalcDigits*, *WinCalcNonDigits*, and *WinCalcEquals*
+3. For each style, expand the Style in the Structure tree view, click the ***Background*** item, and double click the *NormalLink* property in the Object Inspector to open the **BitmapLinks Editor**
+    - Each style needs a designated image for *NormalLink* (default button appearance), *HotLink* (when the cursor hovers over the button), and *PressedLink* (on cursor click).
+    - Click on the Link type you need to change under the *Links* list on the left sidebar, move and resize the rectangle to the appropriate shaded box for that button state.
+    - Once finished for every Link state, close the BitmapLinks Editor and save the project.
+    
+**WinCalcDigits Style:**
+
+![WinCalcDigits Button Style](winCalcDigitsStyle.png)
+
+**WinCalcNonDigits Style:**
+
+![WinCalcNonDigits Button Style](winCalcNonDigitsStyle.png)
+
+**WinCalcEquals Style:**
+
+![WinCalcEquals Button Style](winCalcEqualsStyle.png)
+
+4. Apply the button styles to the appropriate button by clicking the button and typing the style name in the *StyleName* property in the Object Inspector.
+    - = is set to ***WinCalcEquals***
+    - 0-9, +/-, and . are set to ***WinCalcDigits***
+    - All others are set to ***WinCalcNonDigits***
 
 
 ## Calculator Logic
