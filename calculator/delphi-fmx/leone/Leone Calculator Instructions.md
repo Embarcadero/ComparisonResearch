@@ -25,7 +25,37 @@ begin
   SetLayeredWindowAttributes(h, 0, alphaValue, LWA_ALPHA);
 ```
 
+### Form Size and Title
+1. On the Design tab, select *Form1* in the Structure panel and adjust its properies in the Object Inspect:
+        1. Caption = Calculator
+        2. Height = 528
+        3. Width = 490
 
+### Adding Components
+
+1. From the **Palette** in the bottom-right corner of the IDE, search "Panel" and add a **TPanel** to *Form 1*.  
+2. Select the panel and adjust its properties in the Object Inspector:
+        1. Align = MostTop
+        2. Height = 185
+        3. Name = panelAnswer
+        4. Width = 490
+3. Search the Palette for "Label" and add two **TLabel**s to the *panelAnswer*.  If they are not children of *panelAnswer* in the Structure tree, click and drag them over *panelAnswer* in the Structure tree to make them children.
+4. Select the first TLabel and adjust its properties in the Object Inspector:
+        1. Align = Client
+        2. Name = lblAnswer
+5. Select the second TLabel and adjust its properties in the Object Inspector:
+        1. Align = MostTop
+        2. Height = 73
+        3. Name = lblEquation
+6. Select *Form1* in the Structure tree.  Search the Palette and add another **TPanel** as a child of *Form1*.  Adjust its properties in the Object Inspector:
+        1. Align = Client
+        2. Name = panelInput
+7. Search the Palette and add a **TGridPanelLayout** as a child of *panelInput*.  
+        1. Set it's **Align** property to **Client** in the Object Inspector.
+        2. Right click the *ColumnCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **four** Column items.
+        3. Right click the *RowCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **six** Row items.
+
+        
 
 
 ## Calculator Logic
@@ -470,3 +500,10 @@ begin
   equation.clear();
 end;
 ```
+5. On the Design tab, select *Form1* from the Structure menu, click the Events tab in the Objet Inspector, and double-click the ***onShow*** event option.  Paste the following code into the generated procedure:
+```
+  equation := TEquation.Create();
+  resetCalculator(Sender);
+```
+
+
