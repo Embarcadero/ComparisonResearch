@@ -3,7 +3,7 @@
 # Windows 10 Calculator Clone - Delphi Instructions
 
 ## Setup
-1. Open RAD Studio.  Click File->New->Multi-Device Application - Delphi
+1. Open RAD Studio.  Click File->New->Multi-Device Application - Delphi and select "Blank Application".
 2. Press Cntl+Shift+S to save all files.  Save the .pas file as *"FMXCalculatorLogic"* and the project as *"Calculator"*.
 3. Click File->New->Unit - Delphi.  Save this unit as *"Equation.pas"*
 
@@ -45,53 +45,105 @@ Reference this layout of the calculator components as you build it in RAD Studio
 4. Select the first TLabel and adjust its properties in the Object Inspector:
     - Align = Client
     - Name = lblAnswer
-    - HorzAlign = Trainling
+    - Text = ""
     - TextSettings->Font->Size = 48
     - TextSettings->Font->Style = fsBold
+    - TextSettings->HorzAlign = Trailing
 5. Select the second TLabel and adjust its properties in the Object Inspector:
     - Align = MostTop
     - Height = 73
     - Name = lblEquation
+    - Text = ""
     - TextSettings->Font->Size = 14
-6. Select *Form1* in the Structure tree.  Search the Palette and add another **TPanel** as a child of *Form1*.  Adjust its properties in the Object Inspector:
+    - TextSettings->HorzAlign = Trailing
+6. For each label, right click it in the Design View, select **Quick Edit...**, click **Layout**, and input ***5*** into both the ***left and right Margin fields**.
+7. Select *Form1* in the Structure tree.  Search the Palette and add another **TPanel** as a child of *Form1*.  Adjust its properties in the Object Inspector:
     - Align = Client
     - Name = panelInput
-7. Search the Palette and add a **TGridPanelLayout** as a child of *panelInput*.  
+8. Search the Palette and add a **TGridPanelLayout** as a child of *panelInput*.  
     - Set it's **Align** property to **Client** in the Object Inspector.
     - Right click the *ColumnCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **four** Column items.
     - Right click the *RowCollection* item in the TGridPanelLayout.  Click ***Add Item***.  Repeat until there are **six** Row items.
-8. Select *panelInput* in the Structure tree.  Search the Palette and add a **TButton** to *panelInput*.  Copy that button and paste until there are **24 buttons**.  Select the buttons in the Structure tree and drag-and-drop over *GridPanelLayout1* to add them to the grid.        
-9. Select *Form1* in the Structure tree.  Search the Palette and add a **TStyleBook** to *Form1*.
+    - Right click the grid in the Design View and select "View as Text" near the bottom. 
+    - Scroll down to *"object GridPanelLayout1: TGridPanelLayout"*.  Highlight the entire GridPanelLayout object and paste in this code to evenly space the grid lines:
+    ```
+    object GridPanelLayout1: TGridPanelLayout
+      Align = Client
+      Size.Width = 490.000000000000000000
+      Size.Height = 343.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      ColumnCollection = <
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end>
+      ControlCollection = <>
+      RowCollection = <
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end>
+    end
+    ```
+    - Press Alt+F12 to return to the Design View
+9. Select *panelInput* in the Structure tree.  Search the Palette and add a **TButton** to *panelInput*.  Copy that button and paste until there are **24 buttons**.  Select the buttons in the Structure tree and drag-and-drop over *GridPanelLayout1* to add them to the grid.        
+10. Select *Form1* in the Structure tree.  Search the Palette and add a **TStyleBook** to *Form1*.
+11. Set the **StyleBook** property of *Form1* in the Object Inspector to ***StyleBook1***.
 
 
-After adding all the components, *Form1* should look like the Windows 10 calculator without any button labels or styles.
+After adding all the components, *Form1* should look *roughly* like the Windows 10 calculator without any button labels, styles, or correct sizes.
 
 ### Button Configuration
 1. Select all the buttons (click the top button in the Structure tree, hold Shift, click the bottom button).  Adjust their properties in the Object Inspector:
     - Align = Client
-2. For each button in the grid, change the button's *name* and *caption*.  Make sure to make each button mirror the Windows 10 calculator button location.  Some buttons use unicode symbols for their caption.
-    - btn0, 0
-    - btn1, 1
-    - btn2, 2
-    - btn3, 3
-    - btn4, 4
-    - btn5, 5
-    - btn6, 6
-    - btn7, 7
-    - btn8, 8
-    - btn9, 9
-    - btnAdd, ＋
-    - btnBackspace, «
-    - btnChangeSign, + / -
+2. For each button in the grid, change the button's *name* and *caption*.  Make sure to make each button mirror the Windows 10 calculator button location.  Some buttons use unicode symbols for their caption.  From top-left to bottom-right:
+    - btnPercent, %
+    - btnCE, CE
     - btnClear, C
-    - btnDecimal, .
-    - btnDivide, ÷
-    - btnEquals, =
-    - btnMultiply, ✕
+    - btnBackspace, «
     - btnReciprocal, 1/x
     - btnSquare, x^2
     - btnSquareRoot, 2√x
+    - btnDivide, ÷
+    - btn7, 7
+    - btn8, 8
+    - btn9, 9
+    - btnMultiply, ✕
+    - btn4, 4
+    - btn5, 5
+    - btn6, 6
     - btnSubtract, -
+    - btn1, 1
+    - btn2, 2
+    - btn3, 3
+    - btnAdd, ＋
+    - btnChangeSign, + / -
+    - btn0, 0
+    - btnDecimal, .
+    - btnEquals, =
     
     Once complete, the Structure Tree and *Form1* should look like this (without the button colors):
     ![Calculator button layout](buttonLayout1.PNG)
@@ -104,6 +156,7 @@ After adding all the components, *Form1* should look like the Windows 10 calcula
 By adjusting button styles, the calculator buttons will more closely resemble the Windows 10 button pallet when unpressed, hovered over, and pressed.
 1. Right click any button and select "Edit Default Style".
 2. Make **three** copies of the default *Buttonstyle* and name them *WinCalcDigits*, *WinCalcNonDigits*, and *WinCalcEquals*
+    - Rename the style using the **StyleName** properties in the Object Inspector.
 3. For each style, expand the Style in the Structure tree view, click the ***Background*** item, and double click the *NormalLink* property in the Object Inspector to open the **BitmapLinks Editor**
     - Each style needs a designated image for *NormalLink* (default button appearance), *HotLink* (when the cursor hovers over the button), and *PressedLink* (on cursor click).
     - Click on the Link type you need to change under the *Links* list on the left sidebar, move and resize the rectangle to the appropriate shaded box for that button state.
@@ -121,7 +174,7 @@ By adjusting button styles, the calculator buttons will more closely resemble th
 
 ![WinCalcEquals Button Style](winCalcEqualsStyle.png)
 
-4. Apply the button styles to the appropriate button by clicking the button and typing the style name in the *StyleName* property in the Object Inspector.
+4. Apply the button styles to the appropriate button by clicking the button and typing the style name in the *StyleLookup* property in the Object Inspector.
     - = is set to ***WinCalcEquals***
     - 0-9, +/-, and . are set to ***WinCalcDigits***
     - All others are set to ***WinCalcNonDigits***
@@ -552,7 +605,7 @@ System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Layouts, FMX.Controls.Presentation, StrUtils, FMX.Ani, FMX.Effects, fmx.platform.win,
   winapi.windows, FMX.Objects, Equation;
 ```
-2. Add the calcluator *State* enum to the *type* clause.
+2. Add the calcluator *State* enum to the *type* clause above the TForm1 class declaration.
 `State = (InputFirstDigit, InputFollowingDigits, Solved, Error);`
 3. Add `procedure resetCalculator(Sender: TObject);` to the *public* declarations in the *type* section.
 4. Paste the *resetCalculator* implementation below into the *implementation* section of *FMXCalculatorLogic.pas*.
