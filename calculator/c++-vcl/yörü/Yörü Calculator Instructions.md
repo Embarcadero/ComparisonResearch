@@ -1,2 +1,3 @@
-Yo!
-1:45am to 4:25am about 3h (buttons, unicodes, calc paranthesis)
+Timeline of Calculator !
+PHASE #1  
+1:45am to 4:25am about 2:40h (buttons, unicodes, calc(), paranthesis)
