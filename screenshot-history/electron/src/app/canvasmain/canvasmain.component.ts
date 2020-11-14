@@ -51,10 +51,10 @@ export class CanvasmainComponent {
   }
 
   doMouseDown(event): void {
-    console.log('mousedown: X -> ', event.clientX, ' Y -> ', event.clientY, ' offset:', this.canvasMain.nativeElement.offsetLeft);
     this.lastMouseX = event.clientX - this.canvasX;
     this.lastMouseY = event.clientY - this.canvasY;
     this.mouseDown = true;
+    console.log('mousedown: lastMouseX -> ', this.lastMouseX, ' lastMouseY -> ', this.lastMouseY);
   }
 
   doMouseUp(event): void {
@@ -65,14 +65,13 @@ export class CanvasmainComponent {
     this.mouseX = event.clientX - this.canvasX;
     this.mouseY = event.clientY - this.canvasY;
     if (this.mouseDown) {
-      this.context.clearRect(0, 0, this.canvasMain.nativeElement.width, this.canvasMain.nativeElement.height);
       this.context.beginPath();
       let width = this.mouseX - this.lastMouseX;
-      let height= this.mouseY = this.lastMouseY;
+      let height= this.mouseY - this.lastMouseY;
+      this.context.clearRect(0, 0, this.canvasMain.nativeElement.width, this.canvasMain.nativeElement.height);
       this.context.rect(this.lastMouseX,  this.lastMouseY, width, height);
-      this.context.strokeStyle = 'black';
-      this.context.lineWidth = 10;
       this.context.stroke();
+      console.log('rect: ', this.lastMouseX, ' y: ', this.lastMouseY, ' w: ', width, ' h: ', height);
     }
   }
 
