@@ -1,2 +1,6 @@
-<canvas #canvasmain width="1920px" height="1080px" [style.cursor]="croping? 'crosshair':'test' ">
+<canvas #canvasmain width="1920px" height="1080px" 
+    (mousedown)="doMouseDown($event)" 
+    (mouseup)="doMouseUp($event)"
+    (mousemove)="doMouseMove($event)"
+    [style.cursor]="croping? 'crosshair':'default' ">
 </canvas>
