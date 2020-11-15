@@ -6,6 +6,10 @@ The goal of the GitHub Recent Explorer project is to build a REST client for Git
 
 The goal of building the GitHub Recent Explorer is to explore the strengths and weaknesses of the framework you are using. The app should be built once to figure out your approach.  Once complete, build the app again while recording your screen.  Finally, document the app creation process in a step-by-step manner (similar to a recipe - what would someone else need to know to build the app in its entirety - configuration, code, testing, etc.).
 
+### Key Features
+- REST client
+- Complex layout
+
 ## Requirements
 ### Theme
 The GitHub Recent Explorer should feature a look similar to the below with a two tone theme.
