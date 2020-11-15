@@ -5,6 +5,11 @@ October 29, 2020
 The goal of the Screen Capture project is to build an application that lets the user capture a screen of their choice, resize and crop the captures, and save or export the result.  This application will also show the user a history of recent captures with timestamps and allow for them to be loaded and modified.  This is a prototype! The emphasis of this project is on the lessons learned during the development process and documentation phase. The end result does not require a huge amount of polish but should look reasonably similar and function as closely as possible unless otherwise noted in this specification.
 The goal of building the Screen Capture app is to explore the strengths and weaknesses of the framework you are using. The app should be built once to figure out your approach.  Once complete, build the app again while recording your screen.  Finally, document the app creation process in a step-by-step manner (similar to a recipe - what would someone else need to know to build the app in its entirety - configuration, code, testing, etc.).
 
+### Key Features
+- Platform API screen access
+- Transparent Window (on Windows)
+- File system access
+- Image manipulation
 
 ## Requirements
 ### Layout
