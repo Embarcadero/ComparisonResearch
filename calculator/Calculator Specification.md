@@ -6,6 +6,11 @@ The goal of this Calculator project is to build a generic calculator that looks 
 
 Your goal while building the Calculator is to explore the strengths and weaknesses of the framework you are using. The app should be built completely once to figure out your approach.  Once complete, build the app again from scratch while recording your screen.  Finally, document the app creation process in a step-by-step manner (similar to a recipe - what would someone else need to know to build the app in its entirety - configuration, code, testing, etc.), noting where your framework/language/toolset helps or hinders the build process.
 
+### Key Features
+- Responsive Layout
+- Semi-Transparent Window
+- Basic Math Operations
+
 ## Requirements
 ### Theme
 The Calculator should feature a look similar to the below. Note the brighter color palette for number, digit, and sign buttons, darker pallet for operator/function buttons, and dark grey pallet for the display field.  The “equals” button is a cornflower blue shade.  All buttons but the equals button change to a darker grey shade when the mouse rolls over and becomes darker again when clicked.  The equals button has the same behavior but in blue shades.  
