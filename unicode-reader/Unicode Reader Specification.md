@@ -6,6 +6,11 @@ The goal of the Unicode Reader is to build an RSS reader that brings in multiple
 
 The goal of building the Unicode Reader is to explore the strengths and weaknesses of the framework you are using. The app should be built once to figure out your approach.  Once complete, build the app again while recording your screen.  Finally, document the app creation process in a step-by-step manner (similar to a recipe - what would someone else need to know to build the app in its entirety - configuration, code, testing, etc.).
 
+### Key Features
+- Database Usage
+- XML Parsing
+- Unicode Character IO
+
 ### PostgreSQL
 The PostgreSQL database should be installed on the same machine as the desktop client. The RSS reader should be loading from localhost. The drivers should all be correctly configured to support Unicode and the database and tables should also be configured to support Unicode.
 
