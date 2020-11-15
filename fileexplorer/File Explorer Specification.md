@@ -6,6 +6,11 @@ The goal of the FileExplorer project is to build and learn from a generic file e
 
 The goal of building the File Explorer is to explore the strengths and weaknesses of the framework you are using. The app should be built once to figure out your approach.  Once complete, build the app again while recording your screen.  Finally, document the app creation process in a step-by-step manner (similar to a recipe - what would someone else need to know to build the app in its entirety - configuration, code, testing, etc.).
 
+### Key Features
+- File system access
+- Platform APIs
+- Treeview
+- Grid
 
 ## Requirements
 ### Theme
