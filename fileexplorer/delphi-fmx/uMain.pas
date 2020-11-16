@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Menus,
   FMX.Controls.Presentation, FMX.Edit, FMX.Layouts, System.Actions,
   FMX.ActnList, FMX.StdActns, System.Rtti, FMX.Grid.Style, FMX.ScrollBox,
-  FMX.Grid, FMX.Header, FMX.StdCtrls, FMX.TreeView, FMX.TabControl;
+  FMX.Grid, FMX.Header, FMX.StdCtrls, FMX.TreeView, FMX.TabControl, uDM;
 
 type
   TExpandableTreeViewItem = class(FMX.TreeView.TTreeViewItem)
@@ -33,28 +33,33 @@ type
     WinMenuArrange: TMenuItem;
     MenuItem1: TMenuItem;
     Layout1: TLayout;
-    Edit1: TEdit;
-    Edit2: TEdit;
+    FolderEdit: TEdit;
+    SearchEdit: TEdit;
     Layout2: TLayout;
     Folders: TTreeView;
     Splitter1: TSplitter;
     Layout3: TLayout;
-    Header1: THeader;
-    Grid1: TGrid;
-    hiName: THeaderItem;
-    hiDateModified: THeaderItem;
-    hiType: THeaderItem;
-    hiSize: THeaderItem;
+    Files: TGrid;
     Layout4: TLayout;
     TabControl1: TTabControl;
     tiWindows: TTabItem;
     tiDesktop: TTabItem;
     btnNewTab: TSpeedButton;
+    StyleBook1: TStyleBook;
+    DateModifiedColumn: TDateTimeColumn;
+    TypeColumn: TStringColumn;
+    SizeColumn: TStringColumn;
+    NameColumn: TStringColumn;
+    procedure FilesGetValue(Sender: TObject; const ACol, ARow: Integer; var Value:
+        TValue);
+    procedure FoldersChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
+    FFilesData: TFilesData;
     function AddFolderToTreeView(APath: string; AParent: TFmxObject; IsSubItem: boolean): TTreeViewItem;
     procedure AddSubItems(Item: TExpandableTreeViewItem);
     procedure ExpandTreeViewItem(Sender: TObject);
+    procedure UpdateFilesPath(Path: string);
   public
     { Public declarations }
   end;
@@ -66,9 +71,6 @@ implementation
 
 {$R *.fmx}
 
-uses
-  System.IOUtils,
-  uDM;
 
 procedure TExpandableTreeViewItem.SetIsExpanded(const Value: Boolean);
 var
@@ -95,7 +97,7 @@ begin
   end;
 
   Item.Parent := AParent;
-  
+
   Result := Item;
 end;
 
@@ -130,15 +132,48 @@ begin
   end;
 end;
 
+procedure TForm3.FilesGetValue(Sender: TObject; const ACol, ARow: Integer; var
+    Value: TValue);
+begin
+  if FFilesData <> nil then
+  begin
+    if Files.Columns[ACol] = NameColumn then
+      Value := FFilesData[ARow].Filename
+    else if Files.Columns[ACol] = DateModifiedColumn then
+      Value := FFilesData[ARow].DateModified
+    else if Files.Columns[ACol] = TypeColumn then
+      Value := FFilesData[ARow].Filetype
+    else if Files.Columns[ACol] = SizeColumn then
+      Value := FFilesData[ARow].Size
+  end;
+end;
+
+procedure TForm3.FoldersChange(Sender: TObject);
+begin
+  if Folders.Selected is TExpandableTreeViewItem then
+    UpdateFilesPath((Folders.Selected as TExpandableTreeViewItem).Path);
+end;
+
 procedure TForm3.FormCreate(Sender: TObject);
 begin
   AddFolderToTreeView(PathDelim, Folders, False);
 end;
 
+procedure TForm3.UpdateFilesPath(Path: string);
+begin
+  Files.BeginUpdate;
+  try
+    FFilesData := dm.GetFilesData(Path, SearchEdit.Text);
+    Files.RowCount := Length(FFilesData);
+  finally
+    Files.EndUpdate;
+  end;
+end;
+
 procedure TExpandableTreeViewItem.SetPath(const Value: string);
 begin
   FPath := Value;
-  Text := dm.GetFilename(FPath);
+  Text := dm.GetFolderName(FPath);
 end;
 
 end.
