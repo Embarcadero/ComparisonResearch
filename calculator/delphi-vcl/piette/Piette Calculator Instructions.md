@@ -1,6 +1,7 @@
+Total time: 53 minutes without counting CalculatorEngine which required a little tought.
+
 ## Step 1: Create GUI
 
- 
 Create a new Windows VCL application
 
 Resize the form 
