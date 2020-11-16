@@ -64,6 +64,9 @@ For basic calculator functionality it should be enough to create this as a pure 
 
 You can reference [this project](https://www.youtube.com/watch?v=La87CRt6CpY).
 
+Should be possible to do a semi-transparent Window.
+https://stackoverflow.com/questions/45828866/how-to-make-a-semi-transparent-app-background-with-electron
+
 #### Electron Forge
 
 To abstract away some of the common headaches of distributing and updating an application. Whether it be through an "app store" or not.
