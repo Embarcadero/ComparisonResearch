@@ -264,7 +264,6 @@ implementation
         if lastOperandComplex then
         begin
           equation[Length(equation)-1].Operation := op;
-          ShowMessage (printEquation());
         end
 
         // New element entirely
@@ -455,7 +454,6 @@ implementation
       // Base case for complex operand
       if Length(elem.Operand.Ops) = index then
       begin
-          //ShowMessage ('printElement base case.  Operand value: ' + FloatToStr(elem.Operand.Value));
           result := FloatToStr(elem.Operand.Value);
       end
 
@@ -607,22 +605,7 @@ System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
 ```
 2. Add the calcluator *State* enum to the *type* clause above the TForm1 class declaration.
 `State = (InputFirstDigit, InputFollowingDigits, Solved, Error);`
-3. Add `procedure resetCalculator(Sender: TObject);` to the *public* declarations in the *type* section.
-4. Paste the *resetCalculator* implementation below into the *implementation* section of *FMXCalculatorLogic.pas*.
-```
-{*
-   Reset the calculator or remove digits/operands
-*}
-procedure TForm1.resetCalculator(Sender: TObject);
-begin
-  lblAnswer.Text := '0';
-  lblEquation.Text := '';
-  lastOperand := 0;
-  calcState := State.InputFirstDigit;
-  equation.clear();
-end;
-```
-5. On the Design tab, select *Form1* from the Structure menu, click the Events tab in the Objet Inspector, and double-click the ***onShow*** event option.  Paste the following code into the generated procedure:
+3. On the Design tab, select *Form1* from the Structure menu, click the Events tab in the Objet Inspector, and double-click the ***onShow*** event option.  Paste the following code into the generated procedure:
 ```
   equation := TEquation.Create();
   resetCalculator(Sender);
@@ -658,9 +641,6 @@ if calcState = State.Solved then
 `procedure resetCalculator(Sender: TObject);`
 4. Paste the ***resetCalculator*** implementation below the **implementation** keyword.
 ```
-{*
-   Reset the calculator or remove digits/operands
-*}
 procedure TForm1.resetCalculator(Sender: TObject);
 begin
   lblAnswer.Text := '0';
@@ -674,7 +654,7 @@ end;
 
 
 ### Digit Buttons
-1. Paste this procedure into the **public** section of the **type** declaration at the top of ***FMXCalculatorLogic.pas***:
+1. Paste this procedure into the **type** declaration near the top of ***FMXCalculatorLogic.pas***.  It cannot be in the *public* or *private* declaration sections.
 `procedure digitClick(Sender: TObject);`
 2. Paste this procedure implementation below the **implemenation** keyword.
 ```
@@ -801,8 +781,8 @@ begin
       lblEquation.Text := lblEquation.Text + ' ' + FloattoStr(lastOperand) + ' =';
       calcState := State.Solved;
     end;
-
   end;
+end;
 ```
 
 

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileExplorerApp", "FileExplorerApp\FileExplorerApp.csproj", "{6F076F0D-26D3-42B0-8678-5A58B1D7F265}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F076F0D-26D3-42B0-8678-5A58B1D7F265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F076F0D-26D3-42B0-8678-5A58B1D7F265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F076F0D-26D3-42B0-8678-5A58B1D7F265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F076F0D-26D3-42B0-8678-5A58B1D7F265}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0C02444-0049-4DCA-8156-23FAEF99D207}
+	EndGlobalSection
+EndGlobal
