@@ -52,6 +52,7 @@ type
     NameColumn: TStringColumn;
     procedure FilesGetValue(Sender: TObject; const ACol, ARow: Integer; var Value:
         TValue);
+    procedure FolderEditChange(Sender: TObject);
     procedure FoldersChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -59,6 +60,7 @@ type
     function AddFolderToTreeView(APath: string; AParent: TFmxObject; IsSubItem: boolean): TTreeViewItem;
     procedure AddSubItems(Item: TExpandableTreeViewItem);
     procedure ExpandTreeViewItem(Sender: TObject);
+    procedure FoldersTryOpen(Path: string);
     procedure UpdateFilesPath(Path: string);
   public
     { Public declarations }
@@ -148,10 +150,62 @@ begin
   end;
 end;
 
+procedure TForm3.FolderEditChange(Sender: TObject);
+begin
+  FoldersTryOpen(FolderEdit.Text);
+end;
+
 procedure TForm3.FoldersChange(Sender: TObject);
 begin
   if Folders.Selected is TExpandableTreeViewItem then
     UpdateFilesPath((Folders.Selected as TExpandableTreeViewItem).Path);
+end;
+
+procedure TForm3.FoldersTryOpen(Path: string);
+
+  function CouldDescend(var Node: TTreeViewItem; const Folder: string): Boolean;
+  var i: Integer;
+  begin
+    Result := False;
+    for i := 0 to Node.Count - 1 do
+      if SameFilename(Node.Items[i].Text, Folder) then
+      begin
+        Result := True;
+        break;
+      end;
+        
+    if Result then
+    begin
+      Node := Node.Items[i];
+      Node.Select;
+      Node.Expand;            
+    end;
+  end;
+  
+var
+  CurrentNode: TTreeViewItem;
+begin
+  Folders.BeginUpdate;
+  try
+    Assert(Folders.Count > 0);
+    CurrentNode := Folders.ItemByIndex(0);
+
+    {$IFDEF MSWINDOWS}
+      var Drive:= ExtractFileDrive(Path);
+      if Drive = '' then
+        exit;
+      Path := ExtractRelativePath(Drive, Path);
+
+      if not CouldDescend(CurrentNode, Drive) then
+        exit;
+    {$ENDIF}
+      
+    for var PathItem in Path.Split([PathDelim]) do
+      if not CouldDescend(CurrentNode, Drive) then
+        exit;
+  finally
+    Folders.EndUpdate;
+  end;
 end;
 
 procedure TForm3.FormCreate(Sender: TObject);
