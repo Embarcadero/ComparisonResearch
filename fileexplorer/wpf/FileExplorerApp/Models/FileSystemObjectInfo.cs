@@ -128,6 +128,20 @@ namespace FileExplorerApp.Models
 
         #region Properties
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged("IsSelected");
+                }
+            }
+        }
+
         public ObservableCollection<FileSystemObjectInfo> Children
         {
             get { return GetValue<ObservableCollection<FileSystemObjectInfo>>("Children"); }
