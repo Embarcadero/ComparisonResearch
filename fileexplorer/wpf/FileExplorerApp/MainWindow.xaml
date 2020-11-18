@@ -17,7 +17,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox Margin="10" Text="{Binding Currentpath}"/>
+        <TextBox Margin="10" Text="{Binding Currentpath,UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding LoadCurrentPathCommand}" />
+            </TextBox.InputBindings>
+        </TextBox>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
@@ -41,32 +45,59 @@
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>
             </local:MyTreeView>
-            <ListBox x:Name="listbox" Grid.Column="1" SelectionMode="Extended" HorizontalAlignment="Stretch"
-                     ItemsSource="{Binding DetailFilesSource,UpdateSourceTrigger=PropertyChanged}" Margin="5" HorizontalContentAlignment="Stretch" >
-                <i:Interaction.Behaviors>
-                    <local:MyObjectListBoxSelectionBehavior SelectedItems="{Binding SelectedDetailFiles,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
-                </i:Interaction.Behaviors>
-               
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <Image Source="{Binding Path=FileInfo.Icon, UpdateSourceTrigger=PropertyChanged}" Margin="0,1,8,1"></Image>
-                                <TextBlock Text="{Binding Path=FileSystemInfo.Name}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"></TextBlock>
-                            </StackPanel>
-                            <TextBlock Text="{Binding Path=FileSystemInfo.LastWriteTime}" Grid.Column="1"></TextBlock>
-                            <TextBlock Text="{Binding Path=FileInfo.Type}" Grid.Column="2"></TextBlock>
-                            <TextBlock Text="{Binding Path=FileInfo.Size}" Grid.Column="3"></TextBlock>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+
+            <local:CustomDataGrid ItemsSource="{Binding DetailFilesSource}"
+                              SelectionMode="Extended" Background="White" RowHeaderWidth="0"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              SelectedItemsList="{Binding SelectedDetailFiles, UpdateSourceTrigger=PropertyChanged}"
+                              Grid.Column="1" GridLinesVisibility="None"
+                      Margin="5" HorizontalContentAlignment="Stretch">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Name" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="2 0 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding Path=FileInfo.Icon, UpdateSourceTrigger=PropertyChanged}" Margin="0,1,8,1"></Image>
+                                    <TextBlock Text="{Binding Path=FileSystemInfo.Name}" TextTrimming="CharacterEllipsis" Grid.Column="1"
+                                               ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Date modified" Binding="{Binding FileSystemInfo.LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                <Setter Property="ToolTip" Value="{Binding Text, 
+                                 RelativeSource={RelativeSource Self}}"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Type" Binding="{Binding FileInfo.Type}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                <Setter Property="ToolTip" Value="{Binding Text, 
+                                 RelativeSource={RelativeSource Self}}"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Size" Binding="{Binding FileInfo.Size}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                <Setter Property="ToolTip" Value="{Binding Text, 
+                                 RelativeSource={RelativeSource Self}}"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </local:CustomDataGrid>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBlock Margin="10 2 0 2" Text="{Binding NumberOfDetailItems,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>

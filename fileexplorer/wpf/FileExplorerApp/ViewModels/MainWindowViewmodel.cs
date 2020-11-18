@@ -1,6 +1,7 @@
 ﻿using FileExplorerApp.Enums;
 using FileExplorerApp.Models;
 using FileExplorerApp.Utils;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FileExplorerApp.ViewModels
 {
@@ -21,8 +23,25 @@ namespace FileExplorerApp.ViewModels
             DetailFilesSource = new ObservableCollection<FileSystemObjectInfo>();
             SelectedDetailFiles = new ObservableCollection<FileSystemObjectInfo>();
             InitializeFileSystemObjects();
-
+            LoadCurrentPathCommand = new RelayCommand(OnLoadCurrentPathCommand);
         }
+
+        private void OnLoadCurrentPathCommand()
+        {
+            if (Path.IsPathRooted(Currentpath) && Directory.Exists(Currentpath))
+            {
+                PreSelect(Currentpath);
+                PreviousCurrentPath = Currentpath;
+            }
+            else
+            {
+                Currentpath = PreviousCurrentPath;
+            }
+        }
+
+        public ICommand LoadCurrentPathCommand { get; set; }
+
+        private string PreviousCurrentPath { get; set; }
 
         private string _currentPath;
 
@@ -41,9 +60,9 @@ namespace FileExplorerApp.ViewModels
             set { _selectedFileObject = value; OnPropertyChanged(nameof(SelectedFileObject)); UpdateDetailFiles(); }
         }
 
-        private IList<FileSystemObjectInfo> _selectedDetailFileObject;
+        private ObservableCollection<FileSystemObjectInfo> _selectedDetailFileObject;
 
-        public IList<FileSystemObjectInfo> SelectedDetailFiles
+        public ObservableCollection<FileSystemObjectInfo> SelectedDetailFiles
         {
             get { return _selectedDetailFileObject; }
             set { _selectedDetailFileObject = value; OnPropertyChanged(nameof(SelectedDetailFiles));
@@ -62,8 +81,11 @@ namespace FileExplorerApp.ViewModels
         {
             if (SelectedFileObject.FileInfo != null)
             {
-                Currentpath = SelectedFileObject.FileInfo.FilePath;
+                var currentPath = SelectedFileObject.FileInfo.FilePath;
+                PreviousCurrentPath = currentPath; 
+                Currentpath = currentPath;
             }
+
             DetailFilesSource = new ObservableCollection<FileSystemObjectInfo>();
             if (SelectedFileObject.Drive?.IsReady == false)
             {
@@ -77,10 +99,7 @@ namespace FileExplorerApp.ViewModels
                     if ((directory.Attributes & FileAttributes.System) != FileAttributes.System &&
                         (directory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                     {
-                        var fileSystemObject = new FileSystemObjectInfo(directory);
-                        fileSystemObject.BeforeExplore += FileSystemObject_BeforeExplore;
-                        fileSystemObject.AfterExplore += FileSystemObject_AfterExplore;
-                        DetailFilesSource.Add(fileSystemObject);
+                        DetailFilesSource.Add(new FileSystemObjectInfo(directory));
                     }
                 }
 
@@ -93,7 +112,6 @@ namespace FileExplorerApp.ViewModels
                         DetailFilesSource.Add(new FileSystemObjectInfo(file));
                     }
                 }
-
                 NumberOfDetailItems = $"{DetailFilesSource.Count} items";
             }
         }
