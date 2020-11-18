@@ -25,6 +25,62 @@ namespace FileExplorerApp.ViewModels
             LoadCurrentPathCommand = new RelayCommand(OnLoadCurrentPathCommand);
             TreeViewSelectionChanged = new RelayCommand<RoutedPropertyChangedEventArgs<object>>(OnTreeViewSelectionChanged);
             DeatailViewSelectionChanged = new RelayCommand<SelectionChangedEventArgs>(OnDeatailViewSelectionChanged);
+            SearchText = string.Empty;
+            SearchFilesSource = new ObservableCollection<FileSystemObjectInfo>();
+        }
+
+        private string _searchText;
+
+        public string SearchText
+        {
+            get { return _searchText; }
+            set { _searchText = value; SearchMode = !string.IsNullOrEmpty(SearchText); OnPropertyChanged(nameof(SearchText));FilterData(); }
+        }
+
+        private ObservableCollection<FileSystemObjectInfo> _searchFilesSource;
+        public ObservableCollection<FileSystemObjectInfo> SearchFilesSource
+        {
+            get { return _searchFilesSource; }
+            set { _searchFilesSource = value; OnPropertyChanged(nameof(SearchFilesSource)); }
+        }
+
+        private bool _searchMode;
+
+        public bool SearchMode
+        {
+            get { return _searchMode; }
+            set { _searchMode = value; OnPropertyChanged(nameof(SearchMode)); }
+        }
+
+        private void FilterData()
+        {
+
+            if (!string.IsNullOrEmpty(SearchText.Trim()))
+            {
+                SearchFilesSource.Clear();
+                if (selectedFileObject.FileSystemInfo is DirectoryInfo)
+                {
+                    var directories = ((DirectoryInfo)selectedFileObject.FileSystemInfo).GetDirectories();
+                    foreach (var directory in directories.OrderBy(d => d.Name).Where(g=>g.Name.ToLower().Contains(SearchText.ToLower())))
+                    {
+                        if ((directory.Attributes & FileAttributes.System) != FileAttributes.System &&
+                            (directory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+                        {
+                            SearchFilesSource.Add(new FileSystemObjectInfo(directory));
+                        }
+                    }
+
+                    var files = ((DirectoryInfo)selectedFileObject.FileSystemInfo).GetFiles();
+                    foreach (var file in files.OrderBy(d => d.Name).Where(g => g.Name.ToLower().Contains(SearchText.ToLower())))
+                    {
+                        if ((file.Attributes & FileAttributes.System) != FileAttributes.System &&
+                            (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+                        {
+                            SearchFilesSource.Add(new FileSystemObjectInfo(file));
+                        }
+                    }
+                }
+            }
         }
 
         private void OnDeatailViewSelectionChanged(SelectionChangedEventArgs obj)

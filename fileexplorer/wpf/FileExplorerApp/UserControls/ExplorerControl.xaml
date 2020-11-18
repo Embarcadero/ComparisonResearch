@@ -7,17 +7,59 @@
              xmlns:classes="clr-namespace:FileExplorerApp.Models" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border x:Name="border" Background="White" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="5"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                            <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="Gray" FontFamily="Arial"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="black"/>
+                                <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value=""/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="DimGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox Margin="10" Text="{Binding Currentpath,UpdateSourceTrigger=PropertyChanged}">
-            <TextBox.InputBindings>
-                <KeyBinding Key="Enter" Command="{Binding LoadCurrentPathCommand}" />
-            </TextBox.InputBindings>
-        </TextBox>
+        <Grid Margin="10" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding Currentpath,UpdateSourceTrigger=PropertyChanged}" Height="25"  Margin="2 0 2 0">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding LoadCurrentPathCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+
+            <TextBox x:Name="txtSearch" Margin="2 0 0 0" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"
+                     Tag="Search" Grid.Column="1" Width="150" Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}">
+
+            </TextBox>
+        </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
@@ -48,10 +90,20 @@
 
             <DataGrid ItemsSource="{Binding DetailFilesSource}"
                               SelectionMode="Extended" Background="White" RowHeaderWidth="0"
-                              IsReadOnly="True"  SelectionChanged="DataGrid_SelectionChanged"
+                              IsReadOnly="True"
                               AutoGenerateColumns="False" 
                               Grid.Column="1" GridLinesVisibility="None"
                       Margin="5" HorizontalContentAlignment="Stretch">
+                <DataGrid.Style>
+                    <Style TargetType="DataGrid">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SearchMode}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Style>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <cmd:EventToCommand Command="{Binding DeatailViewSelectionChanged}" PassEventArgsToCommand="True"/>
@@ -100,6 +152,68 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <DataGrid ItemsSource="{Binding SearchFilesSource}"
+                              SelectionMode="Extended" Background="White" RowHeaderWidth="0"
+                              IsReadOnly="True" 
+                              AutoGenerateColumns="False" 
+                              Grid.Column="1" GridLinesVisibility="None"
+                      Margin="5" HorizontalContentAlignment="Stretch">
+                <DataGrid.Style>
+                    <Style TargetType="DataGrid">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SearchMode}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Style>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <cmd:EventToCommand Command="{Binding DeatailViewSelectionChanged}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Name" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Name="FolderSearchResult">
+                                    <Grid Height="40" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding Path=FileInfo.Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Margin="10,2" Text="{Binding FileSystemInfo.Name}" TextTrimming="CharacterEllipsis"
+                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
+                        Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                               local:TextBlockHighlighter.HighlightColor="Yellow"
+                               local:TextBlockHighlighter.Forecolor="Black"/>
+                                            <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" 
+                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
+                        Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                               local:TextBlockHighlighter.HighlightColor="Yellow"
+                               local:TextBlockHighlighter.Forecolor="Black">
+                                                <Run Text="Date modified: "/>
+                                                <Run Text="{Binding FileSystemInfo.LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Margin="10,2" Text="{Binding FileSystemInfo.Parent.FullName}" Grid.Column="2" TextTrimming="CharacterEllipsis"
+                                                    local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
+                        Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                               local:TextBlockHighlighter.HighlightColor="Yellow"
+                               local:TextBlockHighlighter.Forecolor="Black"/>
+                                    </Grid>
+                                    <Separator/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
