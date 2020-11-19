@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   calc_result: number = 0;
 
   number_click(newNumber: number) {
-    console.log('this.calc_result', this.calc_result);
+    // console.log('this.calc_result', this.calc_result);
     if (this.calc_result == 0 && newNumber == 0) {
       this.calc_result = 0; 
     }else {
@@ -18,12 +18,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private removeByIndex(str: string, index: number) {
-    return str.slice(0, index) + str.slice(index + 1);
-  }
-
   back_click() {
-    this.removeByIndex(this.calc_result.toString(), this.calc_result.toString().length);
+    if (this.calc_result.toString().length == 1) {
+      this.calc_result = 0;
+      return;
+    }
+    let res = this.calc_result.toString().slice(this.calc_result.toString().length - 1);
+    res = this.calc_result.toString().replace(res, '');
+    this.calc_result = parseFloat(res); 
   }
 
   nol_click() {
