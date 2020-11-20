@@ -58,7 +58,9 @@
 
             <TextBox x:Name="txtSearch" Margin="2 0 0 0" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"
                      Tag="Search" Grid.Column="1" Width="150" Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}">
-
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SearchCommand}" />
+                </TextBox.InputBindings>
             </TextBox>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <StackPanel.Style>
@@ -98,7 +100,8 @@
                     <HierarchicalDataTemplate DataType="{x:Type classes:FileSystemObjectInfo}" ItemsSource="{Binding Path=Children}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{Binding Path=FileInfo.Icon, UpdateSourceTrigger=PropertyChanged}" Margin="0,1,8,1"></Image>
-                            <TextBlock Text="{Binding Path=FileSystemInfo.Name}"></TextBlock>
+                            <TextBlock Text="{Binding Path=DriveLabel}"></TextBlock>
+                            <TextBlock Text="{Binding Path=FileInfo.Name}"></TextBlock>
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>

@@ -86,24 +86,27 @@ namespace FileExplorerApp.ViewModels
         }
         private void FilterData()
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            if (!string.IsNullOrEmpty(SearchText.Trim()))
             {
-                SearchFilesSource.Clear();
-            });
-            var worker = new BackgroundWorker();
-            worker.DoWork += (o, ea) =>
-            {
-                SearchMode = true;
-                if (SearchMode)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    GetSearchedFiles((DirectoryInfo)selectedFileObject.FileSystemInfo);
-                }
-            };
-            worker.RunWorkerCompleted += (o, ea) =>
-            {
+                    SearchFilesSource.Clear();
+                });
+                var worker = new BackgroundWorker();
+                worker.DoWork += (o, ea) =>
+                {
+                    SearchMode = true;
+                    if (SearchMode)
+                    {
+                        GetSearchedFiles((DirectoryInfo)selectedFileObject.FileSystemInfo);
+                    }
+                };
+                worker.RunWorkerCompleted += (o, ea) =>
+                {
 
-            };
-            worker.RunWorkerAsync();
+                };
+                worker.RunWorkerAsync();
+            }
         }
         private void GetSearchedFiles(DirectoryInfo directoryInfo)
         {
@@ -285,7 +288,7 @@ namespace FileExplorerApp.ViewModels
                 FilesSource.Add(fileSystemObject);
             });
 
-            PreSelect(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+            PreSelect(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), true);
             //SelectedFileObject = 
         }
 
@@ -308,20 +311,19 @@ namespace FileExplorerApp.ViewModels
         }
 
 
-        private void PreSelect(string path)
+        private void PreSelect(string path, bool isDefaultPath = false)
         {
             if (!Directory.Exists(path))
             {
                 return;
             }
             var driveFileSystemObjectInfo = GetDriveFileSystemObjectInfo(path);
-            driveFileSystemObjectInfo.IsExpanded = true;
-            
-            PreSelect(driveFileSystemObjectInfo, path);
-
+            driveFileSystemObjectInfo.IsExpanded = isDefaultPath;
+            driveFileSystemObjectInfo.GetDetailNodes = !isDefaultPath;
+            PreSelect(driveFileSystemObjectInfo, path, isDefaultPath);
         }
 
-        public static string NormalizePath(string path)
+        public string NormalizePath(string path)
         {
             return Path.GetFullPath(new Uri(path).LocalPath)
                        .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
@@ -329,13 +331,13 @@ namespace FileExplorerApp.ViewModels
         }
 
         private void PreSelect(FileSystemObjectInfo fileSystemObjectInfo,
-            string path)
+            string path, bool isDefaultPath)
         {
-            if (fileSystemObjectInfo.Drive != null 
+            if (fileSystemObjectInfo.Drive != null
                 && IsParentPath(path, fileSystemObjectInfo.FileSystemInfo.FullName)
                 && fileSystemObjectInfo.FileSystemInfo.FullName.Contains(path))
             {
-                fileSystemObjectInfo.IsSelected = true;
+                //fileSystemObjectInfo.IsSelected = true;
                 selectedFileObject = fileSystemObjectInfo;
                 UpdateDetailFiles();
             }
@@ -348,14 +350,15 @@ namespace FileExplorerApp.ViewModels
                     {
                         if (string.Equals(NormalizePath(childFileSystemObjectInfo.FileSystemInfo.FullName), NormalizePath(path)))
                         {
-                            childFileSystemObjectInfo.IsSelected = true;
+                            childFileSystemObjectInfo.IsSelected = isDefaultPath;
                             selectedFileObject = childFileSystemObjectInfo;
                             UpdateDetailFiles();
                         }
                         else
                         {
-                            childFileSystemObjectInfo.IsExpanded = true;
-                            PreSelect(childFileSystemObjectInfo, path);
+                            childFileSystemObjectInfo.IsExpanded = isDefaultPath;
+                            childFileSystemObjectInfo.GetDetailNodes = !isDefaultPath;
+                            PreSelect(childFileSystemObjectInfo, path, isDefaultPath);
                         }
                     }
                 }
