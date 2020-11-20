@@ -1,0 +1,850 @@
+object FormMain: TFormMain
+  Left = 0
+  Top = 0
+  Caption = 'Calculator - Delphi 10.4.1 - Firemonkey'
+  ClientHeight = 500
+  ClientWidth = 400
+  StyleBook = StyleBookCalculator
+  Visible = True
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  DesignerMasterStyle = 0
+  object StyleBookCalculator: TStyleBook
+    Styles = <
+      item
+      end
+      item
+        Platform = 'Windows 10 Desktop'
+        ResourcesBin = {
+          464D585F5354594C4520322E3501060D427574746F6E395374796C653103660E
+          060A50616E656C4C6967687403BD00060B50616E656C4D656469756D03BD0006
+          0950616E656C4461726B03BA00005450463007544C61796F757400095374796C
+          654E616D65060D427574746F6E395374796C653105416C69676E070643656E74
+          65720A53697A652E57696474680500000000000000C805400B53697A652E4865
+          6967687405000000000000008405401453697A652E506C6174666F726D446566
+          61756C74080756697369626C6508085461624F72646572020300125442757474
+          6F6E5374796C654F626A65637400095374796C654E616D65060A6261636B6772
+          6F756E6405416C69676E0708436F6E74656E74730C536F757263654C6F6F6B75
+          70061B57696E646F7773203130204465736B746F707374796C652E706E670A53
+          697A652E57696474680500000000000000C805400B53697A652E486569676874
+          05000000000000008405401453697A652E506C6174666F726D44656661756C74
+          0807486F744C696E6B0E010E436170496E736574732E4C656674050000000000
+          0000C000400D436170496E736574732E546F700500000000000000C000400F43
+          6170496E736574732E52696768740500000000000000C0004010436170496E73
+          6574732E426F74746F6D0500000000000000C000400F536F7572636552656374
+          2E4C65667405000000000000008001400E536F75726365526563742E546F7005
+          00000000000000C7064010536F75726365526563742E52696768740500000000
+          000000A8054011536F75726365526563742E426F74746F6D0500000000000000
+          E4064000010E436170496E736574732E4C65667405000000000000008001400D
+          436170496E736574732E546F7005000000000000008001400F436170496E7365
+          74732E5269676874050000000000000080014010436170496E736574732E426F
+          74746F6D0500000000000000800140055363616C650500000000000000C0FF3F
+          0F536F75726365526563742E4C6566740500000000000000C001400E536F7572
+          6365526563742E546F70050000000000000095074010536F7572636552656374
+          2E52696768740500000000000000FC054011536F75726365526563742E426F74
+          746F6D0500000000000000AB074000010E436170496E736574732E4C65667405
+          00000000000000C001400D436170496E736574732E546F700500000000000000
+          C001400F436170496E736574732E52696768740500000000000000C001401043
+          6170496E736574732E426F74746F6D0500000000000000C00140055363616C65
+          05000000000000008000400F536F75726365526563742E4C6566740500000000
+          0000008002400E536F75726365526563742E546F700500000000000000C70740
+          10536F75726365526563742E52696768740500000000000000A8064011536F75
+          726365526563742E426F74746F6D0500000000000000E4074000000B466F6375
+          7365644C696E6B0E010E436170496E736574732E4C6566740500000000000000
+          C000400D436170496E736574732E546F700500000000000000C000400F436170
+          496E736574732E52696768740500000000000000C0004010436170496E736574
+          732E426F74746F6D0500000000000000C000400F536F75726365526563742E4C
+          65667405000000000000008001400E536F75726365526563742E546F70050000
+          000000008082074010536F75726365526563742E526967687405000000000000
+          00A8054011536F75726365526563742E426F74746F6D05000000000000009107
+          4000010E436170496E736574732E4C65667405000000000000008001400D4361
+          70496E736574732E546F7005000000000000008001400F436170496E73657473
+          2E5269676874050000000000000080014010436170496E736574732E426F7474
+          6F6D0500000000000000800140055363616C650500000000000000C0FF3F0F53
+          6F75726365526563742E4C6566740500000000000000C001400E536F75726365
+          526563742E546F700500000000000080C3074010536F75726365526563742E52
+          696768740500000000000000FC054011536F75726365526563742E426F74746F
+          6D0500000000000080D9074000010E436170496E736574732E4C656674050000
+          0000000000C001400D436170496E736574732E546F700500000000000000C001
+          400F436170496E736574732E52696768740500000000000000C0014010436170
+          496E736574732E426F74746F6D0500000000000000C00140055363616C650500
+          0000000000008000400F536F75726365526563742E4C65667405000000000000
+          008002400E536F75726365526563742E546F7005000000000000808208401053
+          6F75726365526563742E52696768740500000000000000A8064011536F757263
+          65526563742E426F74746F6D050000000000000091084000000A4E6F726D616C
+          4C696E6B0E010E436170496E736574732E4C6566740500000000000000C00040
+          0D436170496E736574732E546F700500000000000000C000400F436170496E73
+          6574732E52696768740500000000000000C0004010436170496E736574732E42
+          6F74746F6D0500000000000000C000400F536F75726365526563742E4C656674
+          05000000000000008001400E536F75726365526563742E546F70050000000000
+          0000A8064010536F75726365526563742E52696768740500000000000000A805
+          4011536F75726365526563742E426F74746F6D0500000000000000C506400001
+          0E436170496E736574732E4C65667405000000000000008001400D436170496E
+          736574732E546F7005000000000000008001400F436170496E736574732E5269
+          676874050000000000000080014010436170496E736574732E426F74746F6D05
+          00000000000000800140055363616C650500000000000000C0FF3F0F536F7572
+          6365526563742E4C6566740500000000000000C001400E536F75726365526563
+          742E546F700500000000000000FC064010536F75726365526563742E52696768
+          740500000000000000FC054011536F75726365526563742E426F74746F6D0500
+          00000000008093074000010E436170496E736574732E4C656674050000000000
+          0000C001400D436170496E736574732E546F700500000000000000C001400F43
+          6170496E736574732E52696768740500000000000000C0014010436170496E73
+          6574732E426F74746F6D0500000000000000C00140055363616C650500000000
+          0000008000400F536F75726365526563742E4C65667405000000000000008002
+          400E536F75726365526563742E546F700500000000000000A8074010536F7572
+          6365526563742E52696768740500000000000000A8064011536F757263655265
+          63742E426F74746F6D0500000000000000C5074000000B507265737365644C69
+          6E6B0E010E436170496E736574732E4C6566740500000000000000C000400D43
+          6170496E736574732E546F700500000000000000C000400F436170496E736574
+          732E52696768740500000000000000C0004010436170496E736574732E426F74
+          746F6D0500000000000000C000400F536F75726365526563742E4C6566740500
+          0000000000008001400E536F75726365526563742E546F700500000000000000
+          E6064010536F75726365526563742E52696768740500000000000000A8054011
+          536F75726365526563742E426F74746F6D050000000000008081074000010E43
+          6170496E736574732E4C65667405000000000000008001400D436170496E7365
+          74732E546F7005000000000000008001400F436170496E736574732E52696768
+          74050000000000000080014010436170496E736574732E426F74746F6D050000
+          0000000000800140055363616C650500000000000000C0FF3F0F536F75726365
+          526563742E4C6566740500000000000000C001400E536F75726365526563742E
+          546F700500000000000080AC074010536F75726365526563742E526967687405
+          00000000000000FC054011536F75726365526563742E426F74746F6D05000000
+          00000000C2074000010E436170496E736574732E4C6566740500000000000000
+          C001400D436170496E736574732E546F700500000000000000C001400F436170
+          496E736574732E52696768740500000000000000C0014010436170496E736574
+          732E426F74746F6D0500000000000000C00140055363616C6505000000000000
+          008000400F536F75726365526563742E4C65667405000000000000008002400E
+          536F75726365526563742E546F700500000000000000E6074010536F75726365
+          526563742E52696768740500000000000000A8064011536F7572636552656374
+          2E426F74746F6D0500000000000080810840000013546F756368416E696D6174
+          696F6E2E4C696E6B0E0000000654476C79706800095374796C654E616D65060A
+          676C7970687374796C650C4D617267696E732E4C6566740500000000000000C0
+          00400B4D617267696E732E546F7005000000000000008000400D4D617267696E
+          732E5269676874050000000000000080FF3F0E4D617267696E732E426F74746F
+          6D050000000000000080004005416C69676E07044C6566740A53697A652E5769
+          64746805000000000000008003400B53697A652E486569676874050000000000
+          00008003401453697A652E506C6174666F726D44656661756C74080000165442
+          7574746F6E5374796C65546578744F626A65637400095374796C654E616D6506
+          047465787405416C69676E0706436C69656E74064C6F636B6564090C4D617267
+          696E732E4C656674050000000000000080FF3F0B4D617267696E732E546F7005
+          000000000000008000400D4D617267696E732E52696768740500000000000000
+          80FF3F0E4D617267696E732E426F74746F6D05000000000000008000400A5369
+          7A652E57696474680500000000000000C405400B53697A652E48656967687405
+          00000000000000F804401453697A652E506C6174666F726D44656661756C7408
+          04546578740604546578740D536861646F7756697369626C650808486F74436F
+          6C6F720708636C61426C61636B0C466F6375736564436F6C6F720708636C6142
+          6C61636B0B4E6F726D616C436F6C6F720708636C61426C61636B0C5072657373
+          6564436F6C6F720708636C61426C61636B000000545046300A5452656374616E
+          676C6500095374796C654E616D65060A50616E656C4C6967687405416C69676E
+          070643656E7465720A46696C6C2E436F6C6F72070D636C615768697465736D6F
+          6B650748697454657374080A53697A652E57696474680500000000000000C805
+          400B53697A652E48656967687405000000000000008405401453697A652E506C
+          6174666F726D44656661756C74080C5374726F6B652E436F6C6F720709784646
+          4343434343430756697369626C65080000545046300A5452656374616E676C65
+          00095374796C654E616D65060B50616E656C4D656469756D05416C69676E0706
+          43656E7465720A46696C6C2E436F6C6F72070C636C614761696E73626F726F07
+          48697454657374080A53697A652E57696474680500000000000000C805400B53
+          697A652E48656967687405000000000000008405401453697A652E506C617466
+          6F726D44656661756C74080C5374726F6B652E436F6C6F720709784646434343
+          4343430756697369626C65080000545046300A5452656374616E676C65000953
+          74796C654E616D65060950616E656C4461726B05416C69676E070643656E7465
+          720A46696C6C2E436F6C6F72070B636C614461726B6772617907486974546573
+          74080A53697A652E57696474680500000000000000C805400B53697A652E4865
+          6967687405000000000000008405401453697A652E506C6174666F726D446566
+          61756C74080C5374726F6B652E436F6C6F720709784646434343434343075669
+          7369626C65080000}
+      end>
+    Left = 40
+    Top = 32
+  end
+  object GridMain: TGridPanelLayout
+    Align = Client
+    Size.Width = 400.000000000000000000
+    Size.Height = 500.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    ColumnCollection = <
+      item
+        Value = 100.000000000000000000
+      end>
+    ControlCollection = <
+      item
+        Column = 0
+        Control = PanelDisplay
+        Row = 0
+      end
+      item
+        Column = 0
+        Control = GridButtons
+        Row = 1
+      end>
+    RowCollection = <
+      item
+        Value = 25.000000000000000000
+      end
+      item
+        Value = 75.000000000000000000
+      end
+      item
+        SizeStyle = Auto
+      end>
+    object PanelDisplay: TPanel
+      Align = Client
+      Anchors = []
+      Size.Width = 400.000000000000000000
+      Size.Height = 125.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'PanelDark'
+      TabOrder = 26
+      object LabelValue: TLabel
+        Align = Client
+        AutoSize = True
+        StyledSettings = [Family, Style, FontColor]
+        Margins.Left = 16.000000000000000000
+        Margins.Right = 16.000000000000000000
+        Size.Width = 368.000000000000000000
+        Size.Height = 94.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 40.000000000000000000
+        TextSettings.HorzAlign = Trailing
+        Text = '0'
+        TabOrder = 1
+      end
+      object LabelOperation: TLabel
+        Align = Top
+        AutoSize = True
+        StyledSettings = [Family, Style, FontColor]
+        Margins.Left = 16.000000000000000000
+        Margins.Top = 4.000000000000000000
+        Margins.Right = 16.000000000000000000
+        Position.X = 16.000000000000000000
+        Position.Y = 4.000000000000000000
+        Size.Width = 368.000000000000000000
+        Size.Height = 27.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 20.000000000000000000
+        TextSettings.HorzAlign = Trailing
+        Text = '0'
+        TabOrder = 0
+      end
+    end
+    object GridButtons: TGridPanelLayout
+      Align = Client
+      Size.Width = 400.000000000000000000
+      Size.Height = 375.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      ColumnCollection = <
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end>
+      ControlCollection = <
+        item
+          Column = 0
+          Control = Panel1
+          Row = 0
+        end
+        item
+          Column = 1
+          Control = Panel2
+          Row = 0
+        end
+        item
+          Column = 2
+          Control = Panel3
+          Row = 0
+        end
+        item
+          Column = 3
+          Control = Panel4
+          Row = 0
+        end
+        item
+          Column = 0
+          Control = Panel5
+          Row = 1
+        end
+        item
+          Column = 1
+          Control = Panel6
+          Row = 1
+        end
+        item
+          Column = 2
+          Control = Panel7
+          Row = 1
+        end
+        item
+          Column = 3
+          Control = Panel8
+          Row = 1
+        end
+        item
+          Column = 0
+          Control = Panel9
+          Row = 2
+        end
+        item
+          Column = 1
+          Control = Panel10
+          Row = 2
+        end
+        item
+          Column = 2
+          Control = Panel11
+          Row = 2
+        end
+        item
+          Column = 3
+          Control = Panel12
+          Row = 2
+        end
+        item
+          Column = 0
+          Control = Panel13
+          Row = 3
+        end
+        item
+          Column = 1
+          Control = Panel14
+          Row = 3
+        end
+        item
+          Column = 2
+          Control = Panel15
+          Row = 3
+        end
+        item
+          Column = 3
+          Control = Panel16
+          Row = 3
+        end
+        item
+          Column = 0
+          Control = Panel17
+          Row = 4
+        end
+        item
+          Column = 1
+          Control = Panel18
+          Row = 4
+        end
+        item
+          Column = 2
+          Control = Panel19
+          Row = 4
+        end
+        item
+          Column = 3
+          Control = Panel20
+          Row = 4
+        end
+        item
+          Column = 0
+          Control = Panel21
+          Row = 5
+        end
+        item
+          Column = 1
+          Control = Panel22
+          Row = 5
+        end
+        item
+          Column = 2
+          Control = Panel23
+          Row = 5
+        end
+        item
+          Column = 3
+          Control = Panel24
+          Row = 5
+        end>
+      RowCollection = <
+        item
+          Value = 16.666666666666670000
+        end
+        item
+          Value = 16.666666666666670000
+        end
+        item
+          Value = 16.666666666666670000
+        end
+        item
+          Value = 16.666666666666670000
+        end
+        item
+          Value = 16.666666666666670000
+        end
+        item
+          Value = 16.666666666666670000
+        end>
+      object Panel1: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 58
+        object SpeedButton1: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '%'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel2: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 57
+        object SpeedButton2: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = 'CE'
+          OnClick = SpeedButton2Click
+        end
+      end
+      object Panel3: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 56
+        object SpeedButton3: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = 'C'
+          OnClick = SpeedButton2Click
+        end
+      end
+      object Panel4: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 55
+        object SpeedButton4: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = #9003
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel5: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 54
+        object SpeedButton5: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = #185'/x'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel6: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 53
+        object SpeedButton6: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = 'x'#178
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel7: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 52
+        object SpeedButton7: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = #178#8730'x'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel8: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 51
+        object SpeedButton8: TSpeedButton
+          Align = Client
+          Scale.X = 2.500000000000000000
+          Scale.Y = 2.500000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = #247
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel9: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 50
+        object SpeedButton9: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '7'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel10: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 49
+        object SpeedButton10: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '8'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel11: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 48
+        object SpeedButton11: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '9'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel12: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 47
+        object SpeedButton12: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = 'X'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel13: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 46
+        object SpeedButton13: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '4'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel14: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 45
+        object SpeedButton14: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '5'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel15: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 44
+        object SpeedButton15: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '6'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel16: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 43
+        object SpeedButton16: TSpeedButton
+          Align = Client
+          Scale.X = 2.500000000000000000
+          Scale.Y = 2.500000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '-'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel17: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 42
+        object SpeedButton17: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '1'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel18: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 41
+        object SpeedButton18: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '2'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel19: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 40
+        object SpeedButton19: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '3'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel20: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 39
+        object SpeedButton20: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '+'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel21: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 38
+        object SpeedButton21: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = #8314#8725'-'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel22: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 37
+        object SpeedButton22: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '0'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel23: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelLight'
+        TabOrder = 36
+        object SpeedButton23: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '.'
+          OnClick = SpeedButton1Click
+        end
+      end
+      object Panel24: TPanel
+        Align = Client
+        Size.Width = 100.000000000000000000
+        Size.Height = 62.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'PanelMedium'
+        TabOrder = 35
+        object SpeedButton24: TSpeedButton
+          Align = Client
+          Scale.X = 2.000000000000000000
+          Scale.Y = 2.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 31.250000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'SpeedButton1Style1'
+          Text = '='
+          OnClick = SpeedButton1Click
+        end
+      end
+    end
+  end
+end
