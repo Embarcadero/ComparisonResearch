@@ -6,13 +6,13 @@
     </div>
     <div class="row no-gutters calc_row">
       <div class="col border border-light">
-        <button type="button" class="btn btn_full btn_top">%</button>
+        <button type="button" (click)="persen_click()" class="btn btn_full btn_top">%</button>
       </div>
       <div class="col border border-light">
         <button type="button" class="btn btn_full btn_top">CE</button>
       </div>
       <div class="col border border-light">
-        <button type="button" class="btn btn_full btn_top">C</button>
+        <button type="button" (click)="c_click()" class="btn btn_full btn_top">C</button>
       </div>
       <div class="col border border-light">
         <button type="button" (click)="back_click()" class="btn btn_full btn_top">⌫</button>
@@ -26,7 +26,7 @@
           <button type="button" class="btn btn_top btn_full">ab</button>
         </div>
         <div class="col border border-light">
-          <button type="button" class="btn btn_top btn_full">√x</button>
+          <button type="button" (click)="squareroot_click()" class="btn btn_top btn_full">√x</button>
         </div>
         <div class="col border border-light">
           <button type="button" class="btn btn_top btn_full">÷</button>
@@ -76,13 +76,13 @@
       </div>
       <div class="row  no-gutters calc_row">
         <div class="col border border-light">
-          <button type="button" class="btn btn_bottom btn_full">±</button>
+          <button type="button" (click)="plusminus_click()" class="btn btn_bottom btn_full">±</button>
         </div>
         <div class="col border border-light">
           <button type="button" (click)="nol_click()" class="btn btn_bottom btn_full">0</button>
         </div>
         <div class="col border border-light">
-          <button type="button" class="btn btn_bottom btn_full">.</button>
+          <button type="button" (click)="dot_click()" class="btn btn_bottom btn_full">.</button>
         </div>
         <div class="col border border-light">
           <button type="button" class="btn btn_result btn_full">=</button>

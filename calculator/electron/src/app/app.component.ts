@@ -10,12 +10,31 @@ export class AppComponent implements OnInit {
   calc_result: number = 0;
 
   number_click(newNumber: number) {
-    // console.log('this.calc_result', this.calc_result);
     if (this.calc_result == 0 && newNumber == 0) {
       this.calc_result = 0; 
     }else {
       this.calc_result = parseFloat(this.calc_result.toString() + newNumber.toString()); 
     }
+  }
+
+  squareroot_click() {
+    this.calc_result = Math.sqrt(this.calc_result);
+  }
+
+  plusminus_click() {
+    this.calc_result = this.calc_result * (-1);
+  }
+
+  dot_click() {
+    // number_click()
+  }
+
+  persen_click() {
+    this.calc_result = this.calc_result / 100;
+  }
+
+  c_click() {
+    this.calc_result = 0;
   }
 
   back_click() {
