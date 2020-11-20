@@ -31,6 +31,7 @@ namespace FileExplorerApp.Models
 
         public FileSystemObjectInfo(DriveInfo drive)
         {
+            Drive = drive;
             if (this is DummyFileSystemObjectInfo)
             {
                 return;

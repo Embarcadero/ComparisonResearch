@@ -316,6 +316,7 @@ namespace FileExplorerApp.ViewModels
             }
             var driveFileSystemObjectInfo = GetDriveFileSystemObjectInfo(path);
             driveFileSystemObjectInfo.IsExpanded = true;
+            
             PreSelect(driveFileSystemObjectInfo, path);
 
         }
@@ -330,21 +331,32 @@ namespace FileExplorerApp.ViewModels
         private void PreSelect(FileSystemObjectInfo fileSystemObjectInfo,
             string path)
         {
-            foreach (var childFileSystemObjectInfo in fileSystemObjectInfo.Children)
+            if (fileSystemObjectInfo.Drive != null 
+                && IsParentPath(path, fileSystemObjectInfo.FileSystemInfo.FullName)
+                && fileSystemObjectInfo.FileSystemInfo.FullName.Contains(path))
             {
-                var isParentPath = IsParentPath(path, childFileSystemObjectInfo.FileSystemInfo.FullName);
-                if (isParentPath)
+                fileSystemObjectInfo.IsSelected = true;
+                selectedFileObject = fileSystemObjectInfo;
+                UpdateDetailFiles();
+            }
+            else
+            {
+                foreach (var childFileSystemObjectInfo in fileSystemObjectInfo.Children)
                 {
-                    if (string.Equals(NormalizePath(childFileSystemObjectInfo.FileSystemInfo.FullName), NormalizePath(path)))
+                    var isParentPath = IsParentPath(path, childFileSystemObjectInfo.FileSystemInfo.FullName);
+                    if (isParentPath)
                     {
-                        childFileSystemObjectInfo.IsSelected = true;
-                        selectedFileObject = childFileSystemObjectInfo;
-                        UpdateDetailFiles();
-                    }
-                    else
-                    {
-                        childFileSystemObjectInfo.IsExpanded = true;
-                        PreSelect(childFileSystemObjectInfo, path);
+                        if (string.Equals(NormalizePath(childFileSystemObjectInfo.FileSystemInfo.FullName), NormalizePath(path)))
+                        {
+                            childFileSystemObjectInfo.IsSelected = true;
+                            selectedFileObject = childFileSystemObjectInfo;
+                            UpdateDetailFiles();
+                        }
+                        else
+                        {
+                            childFileSystemObjectInfo.IsExpanded = true;
+                            PreSelect(childFileSystemObjectInfo, path);
+                        }
                     }
                 }
             }
@@ -376,7 +388,7 @@ namespace FileExplorerApp.ViewModels
         private bool IsParentPath(string path,
             string targetPath)
         {
-            return path.ToLower().StartsWith(targetPath.ToLower());
+            return (path.ToLower().StartsWith(targetPath.ToLower())) || (targetPath.ToLower().StartsWith(path.ToLower()));
         }
 
 
