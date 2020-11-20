@@ -85,6 +85,7 @@ export class AppComponent implements OnInit {
 
   c_click() {
     this.calc_result = 0;
+    this.operator = '';
   }
 
   back_click() {
