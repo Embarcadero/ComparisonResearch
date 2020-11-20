@@ -215,7 +215,7 @@ namespace FileExplorerApp.UserControls
         {
             TextBlock tb = (TextBlock)source;
 
-            if (tb.Text.Length == 0)
+            //if (tb.Text.Length == 0)
                 return;
 
             string textUpper = tb.Text.ToUpper();

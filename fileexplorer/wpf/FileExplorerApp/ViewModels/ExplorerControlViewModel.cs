@@ -29,10 +29,17 @@ namespace FileExplorerApp.ViewModels
             SearchText = string.Empty;
             SearchFilesSource = new ObservableCollection<FileinfoObj>();
             SearchCommand = new RelayCommand(FilterData);
+            ClearCommand = new RelayCommand(OnClearCommand);
             SearchMode = false;
         }
 
+        private void OnClearCommand()
+        {
+            SearchText = string.Empty;
+        }
+
         public ICommand SearchCommand { get; set; }
+        public ICommand ClearCommand { get; set; }
 
         private string _searchText;
 
@@ -86,7 +93,7 @@ namespace FileExplorerApp.ViewModels
             var worker = new BackgroundWorker();
             worker.DoWork += (o, ea) =>
             {
-                SearchMode = !SearchMode;
+                SearchMode = true;
                 if (SearchMode)
                 {
                     GetSearchedFiles((DirectoryInfo)selectedFileObject.FileSystemInfo);
@@ -164,6 +171,7 @@ namespace FileExplorerApp.ViewModels
 
         private void OnTreeViewSelectionChanged(RoutedPropertyChangedEventArgs<object> obj)
         {
+            SearchMode = false;
             selectedFileObject = obj.NewValue as FileSystemObjectInfo;
             UpdateDetailFiles();
         }
@@ -312,6 +320,13 @@ namespace FileExplorerApp.ViewModels
 
         }
 
+        public static string NormalizePath(string path)
+        {
+            return Path.GetFullPath(new Uri(path).LocalPath)
+                       .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                       .ToUpperInvariant();
+        }
+
         private void PreSelect(FileSystemObjectInfo fileSystemObjectInfo,
             string path)
         {
@@ -320,7 +335,7 @@ namespace FileExplorerApp.ViewModels
                 var isParentPath = IsParentPath(path, childFileSystemObjectInfo.FileSystemInfo.FullName);
                 if (isParentPath)
                 {
-                    if (string.Equals(childFileSystemObjectInfo.FileSystemInfo.FullName, path))
+                    if (string.Equals(NormalizePath(childFileSystemObjectInfo.FileSystemInfo.FullName), NormalizePath(path)))
                     {
                         childFileSystemObjectInfo.IsSelected = true;
                         selectedFileObject = childFileSystemObjectInfo;
@@ -361,7 +376,7 @@ namespace FileExplorerApp.ViewModels
         private bool IsParentPath(string path,
             string targetPath)
         {
-            return path.StartsWith(targetPath);
+            return path.ToLower().StartsWith(targetPath.ToLower());
         }
 
 
