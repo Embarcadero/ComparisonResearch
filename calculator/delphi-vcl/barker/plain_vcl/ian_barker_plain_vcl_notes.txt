@@ -1,6 +1,34 @@
+Total time taken 2.5 to 3 hours 
+- not including calc engine
+- including time to write the instructions and then correct any mistakes
+
+- Speed run estimate 40 minutes
+
+- Note this was after a heavy day of coding which started at 05:30am.  I am writing
+  this at 11:10pm  :)
+
+- I used the screen capture - but I have multimonitors and it
+  recorded only my first screen, not my middle (of three) screens
+  where I was coding.
+
+  I will do another time lapse as soon as I have time.  :-(
+
+Developer: Ian Barker
+           https://about.me/IanBarker
+
+I am next going to three more projects using the same back-end code and instructions
+to target Web using TMS Web Core, Electron, PWA, FMX Windows, iOS, Android, Linux also
+a pure Fluent UI app using the Almedia Dev style controls.
+
+Due to code reuse these should be easy.
+
+Credits
+-------
 Icon source = Icons8 (via Pichon).
 https://icons8.com/app/windows
 
+Instructions
+------------
 * Select programming music
 * Play music through headphones
 
@@ -11,26 +39,35 @@ https://icons8.com/app/windows
 * Set KeyPreview = True
 * Set the Height to 509
 * Set the width to 517
-* Set AlphaBled to True
+* Set AlphaBlend to True
 * Set AlphaBlendValue = 245
 
 * Drink some coffee
 
 * Create a new TPanel
 * Call it "TopPanel"
+* Delete the caption
 * H = 104, W = 501
 * Align = alTop
 
 * Select the TopPanel
 * From the control palette select and double-click "TPanel"
 * Call it Panel1
+* Delete the caption
 * Height = 32
 * Align alTop
 * Color $00B4B2B0
-* With Panel1 selected go to the control paletter and double click "TLabel"
+* BevelKind bkNone
+* All bevels bvNone
+* With Panel1 selected go to the control palette and double click "TLabel"
 * Call it HistoryLabel
 * Set the FontSize to 10
 * Set Align to alClient
+* Alignment = taRightJustify
+* AlignWithMargins True
+* Margins Bottom 0, Left 0, Right 10, Top = 3 
+
+
 * Set transparent = true
 * Set the caption to ''
 * Select TopPanel again
@@ -38,14 +75,20 @@ https://icons8.com/app/windows
 * Call it Panel2
 * Align alClient
 * Color $00B4B2B0
+* Bevels all bvNone
 * With Panel2 selected go to the control paletter and double click "TLabel"
 * Call it CurrentValueLabel
 * Set the FontSize = 30
 * Set Align to alClient
+* AlignWithMargins = True
+* Margins Bottom 0, Left 0, Right 10, Top = 0 
+* Alignment taRightJustify
+* Layout tlCenter
 * Set the caption to '0'
 * Select the main form
 * From the control palette select and double-click "TPanel"
 * Call it FunctionsPanel
+* All bevels bvNone* Caption = ''
 * Set the height to 37
 * Set align to alTop
 * Set the color to $00B4B2B0
@@ -53,9 +96,13 @@ https://icons8.com/app/windows
 * From the control palette select and double-click "TPanel"
 * Call it ButtonsPanel
 * Set the color to $00B4B2B0
+* All bevels bvNone
 * Set align to alClient
 * Select the main form
 * From the control palette select and double-click "TTimer"
+* Set the Enabled property to false
+* Set the interval to 125
+* Scream if you want to go faster
 
 Now the main buttons panel (this could be done in code but we do it here
 manually)
@@ -63,10 +110,11 @@ manually)
 * Select ButtonsPanel
 * From the control palette select and double-click "TPanel"
 * Call the new panel "Pnl1" <-- IMPORTANT
+* All bevels bvNone
 * Set the color to $00C8C7C6
 * Set the ParentFont = False;
 * Set FontSize = 14
-* H 52, W  124
+* H 52, W  52
 * Set "ShowCaption" to true
 * Now select Pnl1 and copy it to the clipboard
 * Hit ESC so that ButtonsPanel is selected
@@ -128,6 +176,7 @@ manually)
 * Layout - tlCentre
 * Name it Mem1
 * Set the caption to "MC"
+* Alignment to taCenter
 * Copy to clipboard
 * Hit ESC
 * Hit Paste 5 times
@@ -136,6 +185,9 @@ manually)
 * Now deselect them and move them so they are in a line
 * Call them Mem1 to Mem6
 * Set Mem1, Mem2 and Mem6 FontColor = clMedGray
+* Set the captions, in sequence to:
+
+MC, MR, M+, M+, M-, MS, M*
 
 * Selecting the first 8 of the large gray function buttons in turn
   name them Pnl1..Pnl8
@@ -217,6 +269,10 @@ const
     procedure Unpress;
     procedure UpdateDisplay;
     procedure SetCaptions;
+
+* Select all of that and hit SHIFT + CTRL + C
+
+* You should find the IDE creates some empty procedures for you.  We will fill these in later
 
 * Hit F12
 * Double-click the timer component
@@ -336,30 +392,30 @@ end;
 procedure TVCLCalculatorForm.SetCaptions;
 begin
   Pnl1.Caption     := '%';
-  Pnl1.Font.Name   := 'Segoe UI Symbol'
+  Pnl1.Font.Name   := 'Segoe UI Symbol';
   Pnl2.Caption     := 'CE';
   Pnl3.Caption     := 'C';
-  Pnl4.Caption     := #9003
+  Pnl4.Caption     := #9003;
   Pnl4.Font.Name   := 'Segoe UI Symbol';
-  Pnl5.Caption     := #185'/'#8339
+  Pnl5.Caption     := #185'/'#8339;
   Pnl4.Font.Name   := 'Segoe UI Symbol';
   Pnl6.Caption     := #8339#178;
   Pnl6.Font.Name   := 'Segoe UI Symbol';
-  Pnl7.Caption     := #178#8730#8339
+  Pnl7.Caption     := #178#8730#8339;
   Pnl7.Font.Name   := 'Segoe UI Symbol';
   Pnl8.Caption     := #247;
   Pnl8.Font.Name   := 'Segoe UI Symbol';
   Pnl9.Caption     := '7';
-  Pnl10.Caption    := '8'
-  Pnl11.Caption    := '9'
+  Pnl10.Caption    := '8';
+  Pnl11.Caption    := '9';
   Pnl12.Caption    := #9587;
-  Pnl12..Font.Name := 'Segoe UI Symbol';
+  Pnl12.Font.Name := 'Segoe UI Symbol';
   Pnl13.Caption    := '4';
   Pnl14.Caption    := '5';
   Pnl15.Caption    := '6';
   Pnl16.Caption    := #8722;
   Pnl20.Caption    := '+';
-  Pnl19.Caption    := '3;';
+  Pnl19.Caption    := '3';
   Pnl18.Caption    := '2';
   Pnl17.Caption    := '1';
   Pnl21.Caption    := #8314'/'#8331;
@@ -463,7 +519,7 @@ begin
 end;
 
 * Hit F12 to show the form designer
-* Now click on Pnl1 button
+* Now click on Pnl9 button
 * Hold SHIFT and click all the other 
   light colored number buttons
 * In the object inspector select the "events" tab
@@ -580,6 +636,10 @@ begin
   FCalculatorController.DecimalPointPressed;
 end;
 
+* Now select the form and change the icon to the one found in the graphics folder
+  (Right click on project, select options, select application, select icons, select Target = all configurations
+  load icon)
+  
 * You might want to go to the bathroom now, you've had a lot of coffee
 
 * Oh, and we're done... :)
