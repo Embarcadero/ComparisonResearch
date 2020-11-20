@@ -1,4 +1,5 @@
-﻿using FileExplorerApp.Models;
+﻿using FileExplorerApp.Enums;
+using FileExplorerApp.Models;
 using FileExplorerApp.Utils;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -26,19 +27,23 @@ namespace FileExplorerApp.ViewModels
             TreeViewSelectionChanged = new RelayCommand<RoutedPropertyChangedEventArgs<object>>(OnTreeViewSelectionChanged);
             DeatailViewSelectionChanged = new RelayCommand<SelectionChangedEventArgs>(OnDeatailViewSelectionChanged);
             SearchText = string.Empty;
-            SearchFilesSource = new ObservableCollection<FileSystemObjectInfo>();
+            SearchFilesSource = new ObservableCollection<FileinfoObj>();
+            SearchCommand = new RelayCommand(FilterData);
+            SearchMode = false;
         }
+
+        public ICommand SearchCommand { get; set; }
 
         private string _searchText;
 
         public string SearchText
         {
             get { return _searchText; }
-            set { _searchText = value; SearchMode = !string.IsNullOrEmpty(SearchText); OnPropertyChanged(nameof(SearchText));FilterData(); }
+            set { _searchText = value; OnPropertyChanged(nameof(SearchText)); }
         }
 
-        private ObservableCollection<FileSystemObjectInfo> _searchFilesSource;
-        public ObservableCollection<FileSystemObjectInfo> SearchFilesSource
+        private ObservableCollection<FileinfoObj> _searchFilesSource;
+        public ObservableCollection<FileinfoObj> SearchFilesSource
         {
             get { return _searchFilesSource; }
             set { _searchFilesSource = value; OnPropertyChanged(nameof(SearchFilesSource)); }
@@ -49,45 +54,111 @@ namespace FileExplorerApp.ViewModels
         public bool SearchMode
         {
             get { return _searchMode; }
-            set { _searchMode = value; OnPropertyChanged(nameof(SearchMode)); }
+            set { _searchMode = value; OnPropertyChanged(nameof(SearchMode)); ChangeSearchButtonText(); }
         }
 
+        private string _searchButtonText;
+
+        public string SearchButtonText
+        {
+            get { return _searchButtonText; }
+            set { _searchButtonText = value; OnPropertyChanged(nameof(SearchButtonText)); }
+        }
+
+        private void ChangeSearchButtonText()
+        {
+            if (SearchMode)
+            {
+                SearchButtonText = "Clear";
+            }
+            else
+            {
+                SearchButtonText = "Search";
+                SearchText = string.Empty;
+            }
+        }
         private void FilterData()
         {
-
-            if (!string.IsNullOrEmpty(SearchText.Trim()))
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 SearchFilesSource.Clear();
-                if (selectedFileObject.FileSystemInfo is DirectoryInfo)
+            });
+            var worker = new BackgroundWorker();
+            worker.DoWork += (o, ea) =>
+            {
+                SearchMode = !SearchMode;
+                if (SearchMode)
                 {
-                    var directories = ((DirectoryInfo)selectedFileObject.FileSystemInfo).GetDirectories();
-                    foreach (var directory in directories.OrderBy(d => d.Name).Where(g=>g.Name.ToLower().Contains(SearchText.ToLower())))
+                    GetSearchedFiles((DirectoryInfo)selectedFileObject.FileSystemInfo);
+                }
+            };
+            worker.RunWorkerCompleted += (o, ea) =>
+            {
+
+            };
+            worker.RunWorkerAsync();
+        }
+        private void GetSearchedFiles(DirectoryInfo directoryInfo)
+        {
+            if (!string.IsNullOrEmpty(SearchText.Trim()))
+            {
+                if (directoryInfo is DirectoryInfo)
+                {
+                    var directories = ((DirectoryInfo)directoryInfo).GetDirectories();
+                    foreach (var directory in directories.OrderBy(d => d.Name))
                     {
                         if ((directory.Attributes & FileAttributes.System) != FileAttributes.System &&
                             (directory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                         {
-                            SearchFilesSource.Add(new FileSystemObjectInfo(directory));
+                            if (directory.Name.ToLower().Contains(SearchText.ToLower()))
+                            {
+                                UdpateSearchList(directory.FullName, ItemType.Folder, directory.Name, directory.LastWriteTime);
+                            }
+                            GetSearchedFiles(directory);
                         }
                     }
 
-                    var files = ((DirectoryInfo)selectedFileObject.FileSystemInfo).GetFiles();
+                    var files = ((DirectoryInfo)directoryInfo).GetFiles();
                     foreach (var file in files.OrderBy(d => d.Name).Where(g => g.Name.ToLower().Contains(SearchText.ToLower())))
                     {
                         if ((file.Attributes & FileAttributes.System) != FileAttributes.System &&
                             (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                         {
-                            SearchFilesSource.Add(new FileSystemObjectInfo(file));
+                            if (file.Name.ToLower().Contains(SearchText.ToLower()))
+                            {
+                                UdpateSearchList(file.FullName, ItemType.File, file.Name, file.LastWriteTime);
+                            }
                         }
                     }
                 }
             }
         }
+        private void UdpateSearchList(string fullName, ItemType itemType, string name, DateTime dateTime)
+        {
+            var worker = new BackgroundWorker();
+            worker.DoWork += (o, ea) =>
+            {
+                var fileInfoObj = ShellManager.GetFileInfo(fullName, itemType, new System.Drawing.Size(16, 16));
+                fileInfoObj.Name = name;
+                fileInfoObj.LastWriteTime = dateTime;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SearchFilesSource.Add(fileInfoObj);
+                    SearchFilesSource = SearchFilesSource;
+                });
+                NumberOfDetailItems = $"{SearchFilesSource.Count} items";
+            };
+            worker.RunWorkerCompleted += (o, ea) =>
+            {
 
+            };
+            worker.RunWorkerAsync();
+        }
         private void OnDeatailViewSelectionChanged(SelectionChangedEventArgs obj)
         {
-            if(obj.Source is DataGrid)
+            if (obj.Source is DataGrid)
             {
-                SelectedDetailFileCount  = ((DataGrid)obj.Source).SelectedItems.Count;
+                SelectedDetailFileCount = ((DataGrid)obj.Source).SelectedItems.Count;
             }
         }
 

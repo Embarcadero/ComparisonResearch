@@ -48,6 +48,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBox Text="{Binding Currentpath,UpdateSourceTrigger=PropertyChanged}" Height="25"  Margin="2 0 2 0">
                 <TextBox.InputBindings>
@@ -59,6 +60,13 @@
                      Tag="Search" Grid.Column="1" Width="150" Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}">
 
             </TextBox>
+            <Button Grid.Column="2" Margin="2" Content="{Binding SearchButtonText}" Height="25" Command="{Binding SearchCommand}">
+                <!--<Button.Content>
+                    <StackPanel>
+                        <Image Source="pack://application:,,,/Icons/rightarrow.png" />
+                    </StackPanel>
+                </Button.Content>-->
+            </Button>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -155,7 +163,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <DataGrid ItemsSource="{Binding SearchFilesSource}"
+            <DataGrid ItemsSource="{Binding SearchFilesSource,Mode=OneWay}"
                               SelectionMode="Extended" Background="White" RowHeaderWidth="0"
                               IsReadOnly="True" 
                               AutoGenerateColumns="False" 
@@ -182,32 +190,104 @@
                             <DataTemplate>
                                 <StackPanel Name="FolderSearchResult">
                                     <Grid Height="40" HorizontalAlignment="Stretch">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDirectory}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="2*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="{Binding Path=FileInfo.Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
+                                        <Image Source="{Binding Path=Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
                                         <StackPanel Grid.Column="1">
-                                            <TextBlock Margin="10,2" Text="{Binding FileSystemInfo.Name}" TextTrimming="CharacterEllipsis"
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                        Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                               local:TextBlockHighlighter.HighlightColor="Yellow"
-                               local:TextBlockHighlighter.Forecolor="Black"/>
+                                            <local:SearchHightlightTextBlock Margin="10,2" 
+                                              Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"
+                                              TextTrimming="CharacterEllipsis"
+                                                SearchText="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
+                                                                                             Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"       />
+
                                             <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" 
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                        Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                               local:TextBlockHighlighter.HighlightColor="Yellow"
-                               local:TextBlockHighlighter.Forecolor="Black">
+                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
+                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
+                                                       local:TextBlockHighlighter.Forecolor="Black">    
                                                 <Run Text="Date modified: "/>
-                                                <Run Text="{Binding FileSystemInfo.LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}"/>
+                                                <Run Text="{Binding LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}"/>
                                             </TextBlock>
                                         </StackPanel>
-                                        <TextBlock Margin="10,2" Text="{Binding FileSystemInfo.Parent.FullName}" Grid.Column="2" TextTrimming="CharacterEllipsis"
-                                                    local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                        Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                               local:TextBlockHighlighter.HighlightColor="Yellow"
-                               local:TextBlockHighlighter.Forecolor="Black"/>
+                                        <TextBlock Margin="10,2" Text="{Binding FilePath,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" TextTrimming="CharacterEllipsis"
+                                                   local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
+                                                                                          Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                   local:TextBlockHighlighter.HighlightColor="Yellow"
+                                                   local:TextBlockHighlighter.Forecolor="Black"/>       
+                                    </Grid>
+
+
+                                    <Grid Height="40" HorizontalAlignment="Stretch">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDirectory}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding Path=Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Margin="10,2" Text="{Binding Name}" TextTrimming="CharacterEllipsis"
+                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
+                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
+                                                       local:TextBlockHighlighter.Forecolor="Black"/>
+
+                                            <TextBlock Margin="10,2" Text="{Binding FilePath}" Grid.Column="2" TextTrimming="CharacterEllipsis"
+                                                   local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
+                                                                                          Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                   local:TextBlockHighlighter.HighlightColor="Yellow"
+                                                   local:TextBlockHighlighter.Forecolor="Black"/>
+                                        </StackPanel>
+                                        <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" Grid.Column="2"
+                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
+                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
+                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                <Run Text="Type: "/>
+                                                <Run Text="{Binding Type}"/>
+                                        </TextBlock>
+
+                                        <StackPanel Grid.Column="3">
+                                            <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" 
+                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
+                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
+                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                <Run Text="Date modified: "/>
+                                                <Run Text="{Binding LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}"/>
+                                            </TextBlock>
+                                            <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis"
+                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
+                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
+                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                <Run Text="Size: "/>
+                                                <Run Text="{Binding Size}"/>
+                                            </TextBlock>
+                                        </StackPanel>
                                     </Grid>
                                     <Separator/>
                                 </StackPanel>

@@ -21,7 +21,7 @@ namespace FileExplorerApp.Models
         }
         public FileSystemObjectInfo(FileSystemInfo info)
         {
-           
+            IsDirectory = info.Attributes.ToString().ToLower().Contains("directory");
             if (this is DummyFileSystemObjectInfo)
             {
                 return;
@@ -46,6 +46,7 @@ namespace FileExplorerApp.Models
             if (FileSystemInfo is DirectoryInfo)
             {
                 FileInfo = ShellManager.GetFileInfo(FileSystemInfo.FullName, ItemType.Folder, new Size(16, 16));
+                FileInfo.Name = FileSystemInfo.Name;
                 if ((drive != null && drive.IsReady) || (drive == null && Directory.GetDirectories(FileSystemInfo.FullName).Count() > 0))
                 {
                     AddDummy();
@@ -127,6 +128,12 @@ namespace FileExplorerApp.Models
         #endregion
 
         #region Properties
+
+        public bool IsDirectory
+        {
+            get { return GetValue<bool>("IsDirectory"); }
+            set { SetValue("IsDirectory", value); }
+        }
 
         private bool _isSelected;
         public bool IsSelected
