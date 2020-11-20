@@ -1,0 +1,651 @@
+Total time taken 2.5 to 3 hours 
+- not including calc engine
+- including time to write the instructions and then correct any mistakes
+
+- Speed run estimate 40 minutes
+
+- Note this was after a heavy day of coding which started at 05:30am.  I am writing
+  this at 11:10pm  :)
+
+- I used the screen capture - but I have multimonitors and it
+  recorded only my first screen, not my middle (of three) screens
+  where I was coding.
+
+  I will do another time lapse as soon as I have time.  :-(
+
+Developer: Ian Barker
+           https://about.me/IanBarker
+
+I am next going to three more projects using the same back-end code and instructions
+to target Web using TMS Web Core, Electron, PWA, FMX Windows, iOS, Android, Linux also
+a pure Fluent UI app using the Almedia Dev style controls.
+
+Due to code reuse these should be easy.
+
+Credits
+-------
+Icon source = Icons8 (via Pichon).
+https://icons8.com/app/windows
+
+Instructions
+------------
+* Select programming music
+* Play music through headphones
+
+* Create a new VCL app
+* Change the form's name to VCLCalculatorForm
+* Save the project
+* Change the form's font to 'Segoe UI'
+* Set KeyPreview = True
+* Set the Height to 509
+* Set the width to 517
+* Set AlphaBlend to True
+* Set AlphaBlendValue = 245
+
+* Drink some coffee
+
+* Create a new TPanel
+* Call it "TopPanel"
+* Delete the caption
+* H = 104, W = 501
+* Align = alTop
+
+* Select the TopPanel
+* From the control palette select and double-click "TPanel"
+* Call it Panel1
+* Delete the caption
+* Height = 32
+* Align alTop
+* Color $00B4B2B0
+* BevelKind bkNone
+* All bevels bvNone
+* With Panel1 selected go to the control palette and double click "TLabel"
+* Call it HistoryLabel
+* Set the FontSize to 10
+* Set Align to alClient
+* Alignment = taRightJustify
+* AlignWithMargins True
+* Margins Bottom 0, Left 0, Right 10, Top = 3 
+
+
+* Set transparent = true
+* Set the caption to ''
+* Select TopPanel again
+* From the control palette select and double-click "TPanel"
+* Call it Panel2
+* Align alClient
+* Color $00B4B2B0
+* Bevels all bvNone
+* With Panel2 selected go to the control paletter and double click "TLabel"
+* Call it CurrentValueLabel
+* Set the FontSize = 30
+* Set Align to alClient
+* AlignWithMargins = True
+* Margins Bottom 0, Left 0, Right 10, Top = 0 
+* Alignment taRightJustify
+* Layout tlCenter
+* Set the caption to '0'
+* Select the main form
+* From the control palette select and double-click "TPanel"
+* Call it FunctionsPanel
+* All bevels bvNone* Caption = ''
+* Set the height to 37
+* Set align to alTop
+* Set the color to $00B4B2B0
+* Select the main form
+* From the control palette select and double-click "TPanel"
+* Call it ButtonsPanel
+* Set the color to $00B4B2B0
+* All bevels bvNone
+* Set align to alClient
+* Select the main form
+* From the control palette select and double-click "TTimer"
+* Set the Enabled property to false
+* Set the interval to 125
+* Scream if you want to go faster
+
+Now the main buttons panel (this could be done in code but we do it here
+manually)
+
+* Select ButtonsPanel
+* From the control palette select and double-click "TPanel"
+* Call the new panel "Pnl1" <-- IMPORTANT
+* All bevels bvNone
+* Set the color to $00C8C7C6
+* Set the ParentFont = False;
+* Set FontSize = 14
+* H 52, W  52
+* Set "ShowCaption" to true
+* Now select Pnl1 and copy it to the clipboard
+* Hit ESC so that ButtonsPanel is selected
+* Paste from the clipboard so a panel like Pn1 is created
+* You don't need to move it into place - the main UI code will do that for
+  all the buttons we will create on ButtonsPanel
+* Now select Pn1 and the new clone panel
+* Copy to clipboard
+* Hit ESC
+* Paste
+* Now select all four clones and copy to clipboard
+* Hit ESC
+* Paste
+* Now you should have 8 clones (of the small panels not of you, unless you did something weird)
+* These are the first two function key rows
+* Now select three of the clones
+* Copy
+* Hit escape
+* Paste
+* Now you should have 11 function keys
+* Select one of the clones
+* Copy
+* Hit ESC
+* Paste
+* Change the color to $00DCDCDC
+* Copy it
+* Hit ESC
+* Paste it
+* Select both the new lighter clones
+* Copy
+* Hit ESC
+* Paste
+* Select all four lighter clones
+* Copy
+* Hit ESC
+* Paste
+* Now you have 8
+* Select four of the lighter clones
+* Copy
+* Hit ESC
+* Paste
+* Now you have 12 lighter clones
+* Select one of the lighter clones
+* Copy
+* Hit ESC
+* Paste
+* Change the color to $00BA966C
+
+* You should now have 11 light gray function 'buttons' (panels)
+* 12 light colored 'buttons' (panels)
+* and a blue 'button'.
+
+* Select the FunctionsPanel
+* From the control palette select and double-click "TLabel"
+* Set Transparent = True
+* Set FontSize = 10
+* Set Autosize = False
+* Height 41
+* Layout - tlCentre
+* Name it Mem1
+* Set the caption to "MC"
+* Alignment to taCenter
+* Copy to clipboard
+* Hit ESC
+* Hit Paste 5 times
+* You will now have 6 labels
+* Select all 6  labels and Top = 0
+* Now deselect them and move them so they are in a line
+* Call them Mem1 to Mem6
+* Set Mem1, Mem2 and Mem6 FontColor = clMedGray
+* Set the captions, in sequence to:
+
+MC, MR, M+, M+, M-, MS, M*
+
+* Selecting the first 8 of the large gray function buttons in turn
+  name them Pnl1..Pnl8
+
+* Now select three of the light number panels and name them
+  Pnl9..11
+* Now select an unchanged large gray function button and name it Pnl12
+* Now select three of the light number panels and name them
+  Pnl3..15
+* Now select an unchanged large gray function button and name it Pnl16
+* Now select three of the light number panels and name them
+  Pnl7..19
+* Now select an unchanged large gray function button and name it Pnl20
+* Now select three of the light number panels and name them
+  Pn21..23
+* Now select the blue function button and name it Pnl24
+
+* Refer to the image to see what it should look like
+
+* By now you should have all the elements of the user interface in place
+
+* Hit F12 so the code displays
+
+* Got to the top of the Unit in the space underneath the first "uses" clause and the "Type"
+  declaration of our form.
+
+* Type in the following code:
+
+
+type TActivePanel = record
+  SelectedPanel: TPanel;
+  OriginalColor: TColor;
+end;
+
+* Now press SHIFT + F11 to display the "add to project"
+  dialog.
+
+* Navigate 'up' one folder and into the "common" folder.
+* Select classes.tcalculationinterface.pas and add it to the project
+* Repeat the above two steps for controllers.calculatorinterface.pas
+* and interfaces.icalculatorinterface.pas
+
+* Now select your main form's unit again
+* Hit ALT + F11
+* Select controllers.calculatorinterface.pas and make sure the "implementation" section radio
+  is checked
+* Hit ALT + F11
+* Select interfaces.icalculatorinterface and make sure the "implementation" section radio
+  is checked
+* Now hit CTRL and HOME
+* hit CTRL F
+* search for implementation
+* You should see a "uses" clause there - it should have our two calculator units in there
+* After the word "uses" put a space and type System.StrUtils,
+
+It should look like this:
+
+uses System.StrUtils,
+     controllers.calculatorinterface,
+     interfaces.icalculatorinterface;
+
+* Now just below the line which says "{$R *.dfm}"
+
+Type this:
+
+const
+  cFunctionButtons = [1..8, 12, 16, 20];
+  cNumberButtons   = [9..11, 13..15, 17..19, 21..23];
+
+* Scroll up to the declaration of the form's type
+* Before the word "end;" hit enter
+
+* Type the following:
+
+  private
+    FActivePanel: TActivePanel;
+    procedure SizeControls;
+    procedure HighlightKeypress(TheControl: TPanel);
+    procedure Unpress;
+    procedure UpdateDisplay;
+    procedure SetCaptions;
+
+* Select all of that and hit SHIFT + CTRL + C
+
+* You should find the IDE creates some empty procedures for you.  We will fill these in later
+
+* Hit F12
+* Double-click the timer component
+
+Make it look like this:
+
+procedure TVCLCalculatorForm.Timer1Timer(Sender: TObject);
+begin
+  Unpress;
+end;
+
+* Hit F12
+* Now hit ESC until you have the form itself selected
+* Hit F11 to display the object inspector
+* Click on the events tab
+
+* Double click "OnCreate"
+
+Make it look like this:
+procedure TVCLCalculatorForm.FormCreate(Sender: TObject);
+begin
+  // In keeping with Win UI we need to go opaque when the calculator loses focus..
+  Application.OnActivate   := AppGotFocus;
+  Application.OnDeActivate := AppLostFocus;
+
+  // We will only allow the calculator to be at least as small as the original design
+  Constraints.MinHeight    := Height;
+  Constraints.MinWidth     := Width;
+
+  // Start with no panels 'pressed'
+  FActivePanel.SelectedPanel := Nil;
+
+  CreateCalculatorController(UpdateDisplay);
+
+  SetCaptions;
+
+  UpdateDisplay;
+end;
+
+* Now go back to the object inspector (F11)
+* Double click on FormDeactivate and make it look like this:
+
+procedure TVCLCalculatorForm.FormDeactivate(Sender: TObject);
+begin
+  AlphaBlend := False;
+end;
+
+* Now go back to the object inspector (F11)
+* Double click on FormKeyPress and make it look like this:
+
+procedure TVCLCalculatorForm.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = FormatSettings.DecimalSeparator then
+    FCalculatorController.DecimalPointPressed
+  else
+    case Key of
+      '=', #13:      FCalculatorController.EqualsPressed;  // Enter is the same as equals
+      'c', 'C':      FCalculatorController.ClearPressed;  // Clear entry
+      '+':           FCalculatorController.OperatorPressed(Add);
+      '-':           FCalculatorController.OperatorPressed(Subtract);
+      '*', 'x', 'X': FCalculatorController.OperatorPressed(Multiply);
+      '/', '\':      FCalculatorController.OperatorPressed(Divide);
+      #8:            FCalculatorController.BackSpacePressed;
+      '0'..'9':      FCalculatorController.NumberPressed(Key);
+    end;
+end;
+
+* Now go back to the object inspector (F11)
+* Double click on FormResize and make it look like this:
+
+procedure TVCLCalculatorForm.FormResize(Sender: TObject);
+begin
+  SizeControls;
+end;
+
+* Drink more coffee.  Lots of it.  Try not to scream.
+
+* Scroll to the top of the form's code
+* Look for the events created there
+
+* Add the following (manually)
+
+    procedure PanelClick(Sender: TObject);
+    procedure AppGotFocus(Sender: TObject);
+    procedure AppLostFocus(Sender: TObject);
+    procedure NumberClick(Sender: TObject);
+
+* It should now look something like this:
+
+    procedure FormCreate(Sender: TObject);
+    procedure FormDeactivate(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormResize(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+
+    procedure PanelClick(Sender: TObject);
+    procedure AppGotFocus(Sender: TObject);
+    procedure AppLostFocus(Sender: TObject);
+    procedure NumberClick(Sender: TObject);
+  private
+    FActivePanel: TActivePanel;
+    procedure SizeControls;
+    procedure HighlightKeypress(TheControl: TPanel);
+    procedure Unpress;
+    procedure UpdateDisplay;
+    procedure SetCaptions;
+
+
+* Create the following...
+
+procedure TVCLCalculatorForm.PanelClick(Sender: TObject);
+begin
+  HighlightKeypress(TPanel(Sender));
+end;
+
+// UI Management code...
+procedure TVCLCalculatorForm.SetCaptions;
+begin
+  Pnl1.Caption     := '%';
+  Pnl1.Font.Name   := 'Segoe UI Symbol';
+  Pnl2.Caption     := 'CE';
+  Pnl3.Caption     := 'C';
+  Pnl4.Caption     := #9003;
+  Pnl4.Font.Name   := 'Segoe UI Symbol';
+  Pnl5.Caption     := #185'/'#8339;
+  Pnl4.Font.Name   := 'Segoe UI Symbol';
+  Pnl6.Caption     := #8339#178;
+  Pnl6.Font.Name   := 'Segoe UI Symbol';
+  Pnl7.Caption     := #178#8730#8339;
+  Pnl7.Font.Name   := 'Segoe UI Symbol';
+  Pnl8.Caption     := #247;
+  Pnl8.Font.Name   := 'Segoe UI Symbol';
+  Pnl9.Caption     := '7';
+  Pnl10.Caption    := '8';
+  Pnl11.Caption    := '9';
+  Pnl12.Caption    := #9587;
+  Pnl12.Font.Name := 'Segoe UI Symbol';
+  Pnl13.Caption    := '4';
+  Pnl14.Caption    := '5';
+  Pnl15.Caption    := '6';
+  Pnl16.Caption    := #8722;
+  Pnl20.Caption    := '+';
+  Pnl19.Caption    := '3';
+  Pnl18.Caption    := '2';
+  Pnl17.Caption    := '1';
+  Pnl21.Caption    := #8314'/'#8331;
+  Pnl21.Font.Name  := 'Segoe UI';
+  Pnl22.Caption    := '0';
+  Pnl23.Caption    := '.';
+  Pnl24.Caption    := ':=';
+  Pnl24.Font.Name  := 'Segoe UI Symbol';
+end;
+
+procedure TVCLCalculatorForm.SizeControls;
+var
+  iIdx, iGap, iHeight, iWidth, iCol, iRow: integer;
+  CMP:                               TComponent;
+const
+  cCols   = 4;
+  cRows   = 5;
+  cBorder = 1;
+begin
+  // In the actual Windows app the top panel grabs a proportionate chunk
+  // of the screen real-estate
+  TopPanel.Height := ClientHeight div 6;
+
+  // We fit our buttons into what's left over
+  iWidth          := ButtonsPanel.Width  div cCols;
+  iHeight         := ButtonsPanel.Height div Succ(cRows);
+  iGap            := ButtonsPanel.Width - (iWidth * cCols);
+  for iCol := 1 to cCols do
+    for iRow := 0 to cRows do
+    begin
+      iIdx := (iRow * cCols) + iCol;
+      CMP := FindComponent('Pnl' + IntToStr(iIdx));
+      if (CMP <> Nil) then
+        if (CMP is TPanel) then
+        begin
+          TPanel(CMP).Left    := iGap + ((iWidth + cBorder) * Pred(iCol));
+          TPanel(CMP).Top     := iRow * iHeight;
+          TPanel(CMP).Width   := iWidth - cBorder;
+          TPanel(CMP).Height  := iHeight - cBorder;
+
+          // To make dereferencing which 'button' is pressed a little easier
+          TPanel(CMP).Tag     := iIdx;
+        end;
+    end;
+end;
+
+procedure TVCLCalculatorForm.Unpress;
+begin
+  if FActivePanel.SelectedPanel <> Nil then
+  begin
+    FActivePanel.SelectedPanel.Color := FActivePanel.OriginalColor;
+  end;
+end;
+
+procedure TVCLCalculatorForm.UpdateDisplay;
+begin
+  HistoryLabel.Caption      := FCalculatorController.History;
+  CurrentValueLabel.Caption := FCalculatorController.CurrentTotal;
+end;
+
+procedure TVCLCalculatorForm.HighlightKeypress(TheControl: TPanel);
+const
+  cFunctionFlashColor = $00DBDBDB;
+  cRegularFlashColor  = $00E6E6E6;
+  cEqualsFlashColor   = $00DBC8B0;
+begin
+  Timer1.Enabled                   := False;
+  Unpress;
+  FActivePanel.SelectedPanel := TheControl;
+  FActivePanel.OriginalColor := TheControl.Color;
+  if FActivePanel.SelectedPanel.Tag in cNumberButtons then
+    FActivePanel.SelectedPanel.Color := cRegularFlashColor
+  else
+    if FActivePanel.SelectedPanel.Tag in cFunctionButtons then
+      FActivePanel.SelectedPanel.Color := cFunctionFlashColor
+    else
+      FActivePanel.SelectedPanel.Color := cEqualsFlashColor;
+  Timer1.Enabled := True;
+end;
+
+procedure TVCLCalculatorForm.NumberClick(Sender: TObject);
+var
+  sStr: string;
+begin
+  PanelClick(Sender);
+  sStr := (Sender as TPanel).Caption;
+  if sStr.Length > 0 then
+    FCalculatorController.NumberPressed(sStr.Chars[0]);
+end;
+
+procedure TVCLCalculatorForm.AppGotFocus(Sender: TObject);
+begin
+  // Make form go semi-transparent
+  AlphaBlend := True;
+end;
+
+procedure TVCLCalculatorForm.AppLostFocus(Sender: TObject);
+begin
+  // Make form go opaque
+  AlphaBlend := False;
+end;
+
+* Hit F12 to show the form designer
+* Now click on Pnl9 button
+* Hold SHIFT and click all the other 
+  light colored number buttons
+* In the object inspector select the "events" tab
+* In the OnClick event type NumberClick and hit enter
+
+* Double-click the blue "Pnl24" button
+
+Change the code to look like this:
+
+procedure TVCLCalculatorForm.Pnl24Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.EqualsPressed;
+end;
+
+* In the form designer Select Pnl1
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl1Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.OperatorPressed(Percent);
+end;
+
+* In the form designer Select Pnl3
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl3Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.ClearPressed;
+end;
+
+* In the form designer Select Pnl4
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl4Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.BackSpacePressed;
+end;
+
+* In the form designer Select Pnl8
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl8Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.OperatorPressed(Divide);
+end;
+
+* In the form designer Select Pnl12
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl12Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.OperatorPressed(Multiply);
+end;
+
+
+
+* In the form designer Select Pnl16
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl16Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.OperatorPressed(Subtract);
+end;
+
+* In the form designer Select Pnl20
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl20Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.OperatorPressed(Add);
+end;
+
+* In the form designer Select Pnl21
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl21Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.ChangeSign;
+end;
+
+* In the form designer Select Pnl23
+* Double click on the OnClick event
+
+Make it look this:
+
+procedure TVCLCalculatorForm.Pnl23Click(Sender: TObject);
+begin
+  PanelClick(Sender);
+  FCalculatorController.DecimalPointPressed;
+end;
+
+* Now select the form and change the icon to the one found in the graphics folder
+  (Right click on project, select options, select application, select icons, select Target = all configurations
+  load icon)
+  
+* You might want to go to the bathroom now, you've had a lot of coffee
+
+* Oh, and we're done... :)
+
+
+
+
+
+

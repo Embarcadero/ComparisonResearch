@@ -1,0 +1,599 @@
+object frmCalcMain: TfrmCalcMain
+  Left = 0
+  Top = 0
+  Caption = 'Calculator'
+  ClientHeight = 631
+  ClientWidth = 594
+  StyleBook = StyleBook1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  DesignerMasterStyle = 0
+  object gplButtons: TGridPanelLayout
+    Align = Client
+    Size.Width = 594.000000000000000000
+    Size.Height = 531.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    ColumnCollection = <
+      item
+        Value = 25.000000000000000000
+      end
+      item
+        Value = 25.000000000000000000
+      end
+      item
+        Value = 25.000000000000000000
+      end
+      item
+        Value = 25.000000000000000000
+      end>
+    ControlCollection = <
+      item
+        Column = 0
+        Control = btnPourcent
+        Row = 0
+      end
+      item
+        Column = 1
+        Control = btnCE
+        Row = 0
+      end
+      item
+        Column = 2
+        Control = btnC
+        Row = 0
+      end
+      item
+        Column = 3
+        Control = btnBackspace
+        Row = 0
+      end
+      item
+        Column = 0
+        Control = btnInverse
+        Row = 1
+      end
+      item
+        Column = 1
+        Control = btnSquare
+        Row = 1
+      end
+      item
+        Column = 2
+        Control = btnSquareRoot
+        Row = 1
+      end
+      item
+        Column = 3
+        Control = btnDiv
+        Row = 1
+      end
+      item
+        Column = 0
+        Control = btn7
+        Row = 2
+      end
+      item
+        Column = 1
+        Control = btn8
+        Row = 2
+      end
+      item
+        Column = 2
+        Control = btn9
+        Row = 2
+      end
+      item
+        Column = 3
+        Control = btnMul
+        Row = 2
+      end
+      item
+        Column = 0
+        Control = btn4
+        Row = 3
+      end
+      item
+        Column = 1
+        Control = btn5
+        Row = 3
+      end
+      item
+        Column = 2
+        Control = btn6
+        Row = 3
+      end
+      item
+        Column = 3
+        Control = btnDec
+        Row = 3
+      end
+      item
+        Column = 0
+        Control = btn1
+        Row = 4
+      end
+      item
+        Column = 1
+        Control = btn2
+        Row = 4
+      end
+      item
+        Column = 2
+        Control = btn3
+        Row = 4
+      end
+      item
+        Column = 3
+        Control = btnAdd
+        Row = 4
+      end
+      item
+        Column = 0
+        Control = btnOppose
+        Row = 5
+      end
+      item
+        Column = 1
+        Control = btn0
+        Row = 5
+      end
+      item
+        Column = 2
+        Control = btnDot
+        Row = 5
+      end
+      item
+        Column = 3
+        Control = btnEqual
+        Row = 5
+      end>
+    RowCollection = <
+      item
+        Value = 16.666666666666670000
+      end
+      item
+        Value = 16.666666666666670000
+      end
+      item
+        Value = 16.666666666666670000
+      end
+      item
+        Value = 16.666666666666670000
+      end
+      item
+        Value = 16.666666666666670000
+      end
+      item
+        Value = 16.666666666666670000
+      end>
+    object btnPourcent: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 23
+      Text = '%'
+      OnClick = btnPourcentClick
+    end
+    object btnCE: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 21
+      Text = 'CE'
+      OnClick = btnCEClick
+    end
+    object btnC: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 19
+      Text = 'C'
+      OnClick = btnCClick
+    end
+    object btnBackspace: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 15
+      Text = 'Back'
+      OnClick = btnBackspaceClick
+    end
+    object btnInverse: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 22
+      Text = '1/x'
+      OnClick = btnInverseClick
+    end
+    object btnSquare: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 20
+      Text = 'x2'
+      OnClick = btnSquareClick
+    end
+    object btnSquareRoot: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 17
+      Text = '2 rac x'
+      OnClick = btnSquareRootClick
+    end
+    object btnDiv: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 11
+      Text = '/'
+      OnClick = btnDivClick
+    end
+    object btn7: TButton
+      Tag = 107
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 18
+      Text = '7'
+      OnClick = NumberButtonClick
+    end
+    object btn8: TButton
+      Tag = 108
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 16
+      Text = '8'
+      OnClick = NumberButtonClick
+    end
+    object btn9: TButton
+      Tag = 109
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 13
+      Text = '9'
+      OnClick = NumberButtonClick
+    end
+    object btnMul: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 7
+      Text = 'X'
+      OnClick = btnMulClick
+    end
+    object btn4: TButton
+      Tag = 104
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 14
+      Text = '4'
+      OnClick = NumberButtonClick
+    end
+    object btn5: TButton
+      Tag = 105
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 12
+      Text = '5'
+      OnClick = NumberButtonClick
+    end
+    object btn6: TButton
+      Tag = 106
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 9
+      Text = '6'
+      OnClick = NumberButtonClick
+    end
+    object btnDec: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 3
+      Text = '-'
+      OnClick = btnDecClick
+    end
+    object btn1: TButton
+      Tag = 101
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 10
+      Text = '1'
+      OnClick = NumberButtonClick
+    end
+    object btn2: TButton
+      Tag = 102
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 8
+      Text = '2'
+      OnClick = NumberButtonClick
+    end
+    object btn3: TButton
+      Tag = 103
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 5
+      Text = '3'
+      OnClick = NumberButtonClick
+    end
+    object btnAdd: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'OperatorButtonStyle'
+      TabOrder = 1
+      Text = '+'
+      OnClick = btnAddClick
+    end
+    object btnOppose: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 6
+      Text = '+/-'
+      OnClick = btnOpposeClick
+    end
+    object btn0: TButton
+      Tag = 100
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 4
+      Text = '0'
+      OnClick = NumberButtonClick
+    end
+    object btnDot: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'NumbersButtonStyle'
+      TabOrder = 2
+      Text = '.'
+      OnClick = btnDotClick
+    end
+    object btnEqual: TButton
+      Align = Client
+      CanFocus = False
+      Size.Width = 148.500000000000000000
+      Size.Height = 88.500000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'EqualButtonStyle'
+      TabOrder = 0
+      Text = '='
+      OnClick = btnEqualClick
+    end
+  end
+  object rDisplay: TRectangle
+    Align = Top
+    Fill.Color = claPeru
+    HitTest = False
+    Padding.Left = 10.000000000000000000
+    Padding.Top = 10.000000000000000000
+    Padding.Right = 10.000000000000000000
+    Padding.Bottom = 10.000000000000000000
+    Size.Width = 594.000000000000000000
+    Size.Height = 100.000000000000000000
+    Size.PlatformDefault = False
+    object lblCalculs: TLabel
+      Align = Top
+      Position.X = 10.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 574.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.HorzAlign = Trailing
+      Text = 'lblCalculs'
+      TabOrder = 0
+    end
+    object lblResult: TLabel
+      Align = Client
+      StyledSettings = [Family, Size, FontColor]
+      Scale.X = 2.000000000000000000
+      Scale.Y = 2.000000000000000000
+      Size.Width = 287.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.HorzAlign = Trailing
+      Text = 'lblResult'
+      TabOrder = 1
+    end
+  end
+  object StyleBook1: TStyleBook
+    Styles = <
+      item
+      end
+      item
+        Platform = 'Windows 10 Desktop'
+        ResourcesBin = {
+          464D585F5354594C4520322E350106134F70657261746F72427574746F6E5374
+          796C65032D0406124E756D62657273427574746F6E5374796C65035F04061045
+          7175616C427574746F6E5374796C65031E04005450463007544C61796F757400
+          095374796C654E616D6506134F70657261746F72427574746F6E5374796C6505
+          416C69676E070643656E7465720A53697A652E57696474680500000000000080
+          9406400B53697A652E4865696768740500000000000000B105401453697A652E
+          506C6174666F726D44656661756C74080756697369626C6508085461624F7264
+          65720206000A5452656374616E676C6500095374796C654E616D65060A626163
+          6B67726F756E6405416C69676E0706436C69656E740A46696C6C2E436F6C6F72
+          0706636C6154616E064C6F636B6564090748697454657374080A53697A652E57
+          6964746805000000000000809406400B53697A652E4865696768740500000000
+          000000B105401453697A652E506C6174666F726D44656661756C74080C537472
+          6F6B652E436F6C6F720707636C6147726179000F54436F6C6F72416E696D6174
+          696F6E00095374796C654E616D650614436F6C6F72416E696D6174696F6E3153
+          74796C65084475726174696F6E050000000000CDCCCCFC3F07496E7665727365
+          090C50726F70657274794E616D65060A46696C6C2E436F6C6F720A5374617274
+          56616C75650706636C6154616E0953746F7056616C7565070B636C614461726B
+          677261790754726967676572061049734D6F7573654F7665723D747275650E54
+          726967676572496E7665727365061149734D6F7573654F7665723D66616C7365
+          0000000654476C79706800095374796C654E616D65060A676C7970687374796C
+          650C4D617267696E732E4C6566740500000000000000C000400B4D617267696E
+          732E546F7005000000000000008000400D4D617267696E732E52696768740500
+          00000000000080FF3F0E4D617267696E732E426F74746F6D0500000000000000
+          80004005416C69676E07044C6566740A53697A652E5769647468050000000000
+          00008003400B53697A652E48656967687405000000000000008003401453697A
+          652E506C6174666F726D44656661756C740800001654427574746F6E5374796C
+          65546578744F626A65637400095374796C654E616D6506047465787405416C69
+          676E0706436C69656E74064C6F636B6564090C4D617267696E732E4C65667405
+          0000000000000080FF3F0B4D617267696E732E546F7005000000000000008000
+          400D4D617267696E732E5269676874050000000000000080FF3F0E4D61726769
+          6E732E426F74746F6D05000000000000008000400A53697A652E576964746805
+          000000000000809206400B53697A652E4865696768740500000000000000A905
+          401453697A652E506C6174666F726D44656661756C74080D536861646F775669
+          7369626C650808486F74436F6C6F720708636C61426C61636B0C466F63757365
+          64436F6C6F720708636C61426C61636B0B4E6F726D616C436F6C6F720708636C
+          61426C61636B0C50726573736564436F6C6F720708636C61426C61636B000000
+          5450463007544C61796F757400095374796C654E616D6506124E756D62657273
+          427574746F6E5374796C6505416C69676E070643656E7465720A53697A652E57
+          6964746805000000000000809406400B53697A652E4865696768740500000000
+          000000B105401453697A652E506C6174666F726D44656661756C740808546162
+          4F726465720205000A5452656374616E676C6500095374796C654E616D65060A
+          6261636B67726F756E6405416C69676E0706436C69656E740A46696C6C2E436F
+          6C6F720708636C615768656174064C6F636B6564090748697454657374080A53
+          697A652E576964746805000000000000809406400B53697A652E486569676874
+          0500000000000000B105401453697A652E506C6174666F726D44656661756C74
+          080C5374726F6B652E436F6C6F720707636C6147726179000F54436F6C6F7241
+          6E696D6174696F6E00095374796C654E616D650614436F6C6F72416E696D6174
+          696F6E315374796C65084475726174696F6E050000000000CDCCCCFC3F07496E
+          7665727365090C50726F70657274794E616D65060A46696C6C2E436F6C6F720A
+          537461727456616C75650708636C6157686561740953746F7056616C7565070B
+          636C614461726B677261790754726967676572061049734D6F7573654F766572
+          3D747275650E54726967676572496E7665727365061149734D6F7573654F7665
+          723D66616C73650000000654476C79706800095374796C654E616D65060A676C
+          7970687374796C650C4D617267696E732E4C6566740500000000000000C00040
+          0B4D617267696E732E546F7005000000000000008000400D4D617267696E732E
+          5269676874050000000000000080FF3F0E4D617267696E732E426F74746F6D05
+          0000000000000080004005416C69676E07044C6566740A53697A652E57696474
+          6805000000000000008003400B53697A652E4865696768740500000000000000
+          8003401453697A652E506C6174666F726D44656661756C740800001654427574
+          746F6E5374796C65546578744F626A65637400095374796C654E616D65060474
+          65787405416C69676E0706436C69656E74064C6F636B6564090C4D617267696E
+          732E4C656674050000000000000080FF3F0B4D617267696E732E546F70050000
+          00000000008000400D4D617267696E732E5269676874050000000000000080FF
+          3F0E4D617267696E732E426F74746F6D05000000000000008000400A53697A65
+          2E576964746805000000000000809206400B53697A652E486569676874050000
+          0000000000A905401453697A652E506C6174666F726D44656661756C74080454
+          6578740604546578741A5465787453657474696E67732E466F6E742E5374796C
+          654578740A0D000000000700000000000000040000000D536861646F77566973
+          69626C650808486F74436F6C6F720708636C61426C61636B0C466F6375736564
+          436F6C6F720708636C61426C61636B0B4E6F726D616C436F6C6F720708636C61
+          426C61636B0C50726573736564436F6C6F720708636C61426C61636B00000054
+          50463007544C61796F757400095374796C654E616D650610457175616C427574
+          746F6E5374796C6505416C69676E070643656E7465720A53697A652E57696474
+          6805000000000000809406400B53697A652E4865696768740500000000000000
+          B105401453697A652E506C6174666F726D44656661756C74080756697369626C
+          6508085461624F726465720204000A5452656374616E676C6500095374796C65
+          4E616D65060A6261636B67726F756E6405416C69676E0706436C69656E740A46
+          696C6C2E436F6C6F72070E636C6144656570736B79626C756507486974546573
+          74080A53697A652E576964746805000000000000809406400B53697A652E4865
+          696768740500000000000000B105401453697A652E506C6174666F726D446566
+          61756C7408000F54436F6C6F72416E696D6174696F6E00095374796C654E616D
+          650614436F6C6F72416E696D6174696F6E315374796C65084475726174696F6E
+          050000000000CDCCCCFC3F07496E7665727365090C50726F70657274794E616D
+          65060A46696C6C2E436F6C6F720A537461727456616C7565070E636C61446565
+          70736B79626C75650953746F7056616C7565070D636C61446F64676572626C75
+          650754726967676572061049734D6F7573654F7665723D747275650E54726967
+          676572496E7665727365061149734D6F7573654F7665723D66616C7365000000
+          0654476C79706800095374796C654E616D65060A676C7970687374796C650C4D
+          617267696E732E4C6566740500000000000000C000400B4D617267696E732E54
+          6F7005000000000000008000400D4D617267696E732E52696768740500000000
+          00000080FF3F0E4D617267696E732E426F74746F6D0500000000000000800040
+          05416C69676E07044C6566740A53697A652E5769647468050000000000000080
+          03400B53697A652E48656967687405000000000000008003401453697A652E50
+          6C6174666F726D44656661756C740800001654427574746F6E5374796C655465
+          78744F626A65637400095374796C654E616D6506047465787405416C69676E07
+          06436C69656E74064C6F636B6564090C4D617267696E732E4C65667405000000
+          0000000080FF3F0B4D617267696E732E546F7005000000000000008000400D4D
+          617267696E732E5269676874050000000000000080FF3F0E4D617267696E732E
+          426F74746F6D05000000000000008000400A53697A652E576964746805000000
+          000000809206400B53697A652E4865696768740500000000000000A905401453
+          697A652E506C6174666F726D44656661756C74080D536861646F775669736962
+          6C650808486F74436F6C6F720708636C61426C61636B0C466F6375736564436F
+          6C6F720708636C61426C61636B0B4E6F726D616C436F6C6F720708636C61426C
+          61636B0C50726573736564436F6C6F720708636C61426C61636B000000}
+      end>
+    Left = 104
+    Top = 32
+  end
+end
