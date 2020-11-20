@@ -8,13 +8,14 @@ uses
 
 type
   TFileData = record
+    FullFilename: string;
     Filename: string;
     DateModified: TDateTime;
     Filetype: string;
     Size: Int64;
     const
       NoSizeInfo = -1;
-    procedure ObtainInfo(const FullFilename: string);
+    procedure ObtainInfo(const AFullFilename: string);
   end;
 
   TFilesData = TArray<TFileData>;
@@ -29,6 +30,7 @@ type
     function GetFolderName(FolderPath: string): string;
     function GetSubFolders(Path: string): TArray<string>;
     function GetFilesData(Path, SearchText: string): TFilesData;
+    procedure PutFileToClipboard(FilePath: string);
   end;
 
 var
@@ -40,6 +42,7 @@ implementation
 
 uses
 {$IFDEF MSWINDOWS}
+  WinAPI.ShlObj,
   WinAPI.ShellAPI,
   WinAPI.Windows,
 {$ENDIF}
@@ -92,6 +95,51 @@ begin
     Path.Contains(':\');
 end;
 
+procedure Tdm.PutFileToClipboard(FilePath: string);
+{$IFDEF MSWINDOWS}
+procedure WinPutFileToClipboard;
+var
+  Data: THandle;
+  Dropfiles: PDropFiles;
+begin
+  FilePath := FilePath + #0#0;
+  if not OpenClipboard(0) then
+    RaiseLastOSError;
+  try
+    if not EmptyClipboard then
+      RaiseLastOSError;
+    Data := GlobalAlloc(GMEM_MOVEABLE or GMEM_ZEROINIT, SizeOf(TDropFiles) + Length(FilePath) * SizeOf(Char));
+    if Data = 0 then
+      RaiseLastOSError;
+    try
+      DropFiles := GlobalLock(Data);
+      try
+        DropFiles^.pFiles := SizeOf(TDropFiles);
+        DropFiles^.fWide := True;
+        Move(PChar(FilePath)^, (PByte(DropFiles) + SizeOf(TDropFiles))^, Length(FilePath) * SizeOf(Char));
+
+        if SetClipboardData(CF_HDROP, Data) = 0 then
+          RaiseLastOSError;
+      finally
+        GlobalUnlock(Data);
+      end;
+    except
+      GlobalFree(Data);
+      raise;
+    end;
+  finally
+    if not CloseClipboard then
+      RaiseLastOSError;
+  end;
+
+end;
+{$ENDIF}
+begin
+{$IFDEF MSWINDOWS}
+  WinPutFileToClipboard;
+{$ENDIF}
+end;
+
 function Tdm.SearchTextToFilePattern(SearchText: string): string;
 begin
   if SearchText = '' then
@@ -105,7 +153,7 @@ end;
 
 { TFileData }
 
-procedure TFileData.ObtainInfo(const FullFilename: string);
+procedure TFileData.ObtainInfo(const AFullFilename: string);
   function GetFileSize: Int64;
   var S: TSearchRec;
   begin
@@ -130,6 +178,7 @@ procedure TFileData.ObtainInfo(const FullFilename: string);
     {$ENDIF}
   end;
 begin
+  FullFilename := TPath.GetFullPath(AFullFilename);
   Filename := TPath.GetFileName(FullFilename);
   DateModified := TFile.GetLastWriteTime(FullFilename);
   Size := GetFileSize;

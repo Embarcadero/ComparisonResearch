@@ -1,88 +1,90 @@
 <div class="container bg">
     <div class="row no-gutters calc_top page-hero d-flex align-items-center justify-content-center">
-      <h1 class="top_text">10000</h1>
+      <div class="col">
+        <h1 class="top_text">{{calc_result}}</h1>
+      </div>
     </div>
     <div class="row no-gutters calc_row">
-      <div class="col">
+      <div class="col border border-light">
         <button type="button" class="btn btn_full btn_top">%</button>
       </div>
-      <div class="col">
+      <div class="col border border-light">
         <button type="button" class="btn btn_full btn_top">CE</button>
       </div>
-      <div class="col">
+      <div class="col border border-light">
         <button type="button" class="btn btn_full btn_top">C</button>
       </div>
-      <div class="col">
-        <button type="button" class="btn btn_full btn_top">⌫</button>
+      <div class="col border border-light">
+        <button type="button" (click)="back_click()" class="btn btn_full btn_top">⌫</button>
       </div>
     </div>
     <div class="row no-gutters calc_row">
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_top btn_full">1/x</button>
         </div>
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_top btn_full">ab</button>
         </div>
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_top btn_full">√x</button>
         </div>
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_top btn_full">÷</button>
         </div>
       </div>
       <div class="row no-gutters calc_row">
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">7</button>
+        <div class="col border border-light">
+          <button type="button" (click)="juh_click()" class="btn btn_bottom btn_full">7</button>
         </div>
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">8</button>
+        <div class="col border border-light">
+          <button type="button" (click)="pan_click()" class="btn btn_bottom btn_full">8</button>
         </div>
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">9</button>
+        <div class="col border border-light">
+          <button type="button" (click)="lan_click()" class="btn btn_bottom btn_full">9</button>
         </div>
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_top btn_full">×</button>
         </div>
       </div>
       <div class="row no-gutters calc_row">
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">4</button>
+        <div class="col border border-light">
+          <button type="button" (click)="pat_click()" class="btn btn_bottom btn_full">4</button>
         </div>
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">5</button>
+        <div class="col border border-light">
+          <button type="button" (click)="ima_click()" class="btn btn_bottom btn_full">5</button>
         </div>
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">6</button>
+        <div class="col border border-light">
+          <button type="button" (click)="nam_click()" class="btn btn_bottom btn_full">6</button>
         </div>
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_top btn_full">-</button>
         </div>
       </div>
       <div class="row no-gutters calc_row">
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">1</button>
+        <div class="col border border-light">
+          <button type="button" (click)="satu_click()" class="btn btn_bottom btn_full">1</button>
         </div>
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">2</button>
+        <div class="col border border-light">
+          <button type="button" (click)="dua_click()" class="btn btn_bottom btn_full">2</button>
         </div>
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">3</button>
+        <div class="col border border-light">
+          <button type="button" (click)="tiga_click()" class="btn btn_bottom btn_full">3</button>
         </div>
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_top btn_full">+</button>
         </div>
       </div>
       <div class="row  no-gutters calc_row">
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_bottom btn_full">±</button>
         </div>
-        <div class="col">
-          <button type="button" class="btn btn_bottom btn_full">0</button>
+        <div class="col border border-light">
+          <button type="button" (click)="nol_click()" class="btn btn_bottom btn_full">0</button>
         </div>
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_bottom btn_full">.</button>
         </div>
-        <div class="col">
+        <div class="col border border-light">
           <button type="button" class="btn btn_result btn_full">=</button>
         </div>
       </div>

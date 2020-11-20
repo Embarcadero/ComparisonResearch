@@ -7,6 +7,10 @@
     width: 100%;
  }
 
+.btn_full:active {
+    background-color: rgb(100, 131, 131);
+}
+
 .btn_top {
     background-color: #D1D1D2;
 }

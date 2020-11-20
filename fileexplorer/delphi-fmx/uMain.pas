@@ -41,22 +41,26 @@ type
     Layout3: TLayout;
     Files: TGrid;
     Layout4: TLayout;
-    TabControl1: TTabControl;
-    tiWindows: TTabItem;
-    tiDesktop: TTabItem;
+    Tabs: TTabControl;
     btnNewTab: TSpeedButton;
     StyleBook1: TStyleBook;
     DateModifiedColumn: TDateTimeColumn;
     TypeColumn: TStringColumn;
     SizeColumn: TStringColumn;
     NameColumn: TStringColumn;
+    TabItem1: TTabItem;
+    Splitter2: TSplitter;
+    procedure btnNewTabClick(Sender: TObject);
     procedure FilesGetValue(Sender: TObject; const ACol, ARow: Integer; var Value:
         TValue);
     procedure FolderEditChange(Sender: TObject);
     procedure FoldersChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure TabsChange(Sender: TObject);
+    procedure WinMenuCopyClick(Sender: TObject);
   private
     FFilesData: TFilesData;
+    FFoldersChangeActive: Boolean;
     function AddFolderToTreeView(APath: string; AParent: TFmxObject; IsSubItem: boolean): TTreeViewItem;
     procedure AddSubItems(Item: TExpandableTreeViewItem);
     procedure ExpandTreeViewItem(Sender: TObject);
@@ -119,6 +123,14 @@ begin
       AddFolderToTreeView(OneFolder, Item, True);
 end;
 
+procedure TForm3.btnNewTabClick(Sender: TObject);
+begin
+  var NewTab := Tabs.Add;
+  NewTab.TagString := FolderEdit.Text;
+  NewTab.Text := dm.GetFolderName(FolderEdit.Text);
+  Tabs.ActiveTab := NewTab;
+end;
+
 procedure TForm3.ExpandTreeViewItem(Sender: TObject);
 begin
   if (Sender <> nil) and (Sender is TExpandableTreeViewItem) then
@@ -157,8 +169,20 @@ end;
 
 procedure TForm3.FoldersChange(Sender: TObject);
 begin
-  if Folders.Selected is TExpandableTreeViewItem then
-    UpdateFilesPath((Folders.Selected as TExpandableTreeViewItem).Path);
+  if not FFoldersChangeActive and (Folders.Selected is TExpandableTreeViewItem) then
+  begin
+    FFoldersChangeActive := True;
+    try
+      var Path:= (Folders.Selected as TExpandableTreeViewItem).Path;
+      UpdateFilesPath(Path);
+      FolderEdit.Text := Path;
+      Assert(Tabs.ActiveTab <> nil);
+      Tabs.ActiveTab.TagString := Path;
+      Tabs.ActiveTab.Text := dm.GetFolderName(Path);
+    finally
+      FFoldersChangeActive := False;
+    end;
+  end;
 end;
 
 procedure TForm3.FoldersTryOpen(Path: string);
@@ -177,11 +201,10 @@ procedure TForm3.FoldersTryOpen(Path: string);
     if Result then
     begin
       Node := Node.Items[i];
-      Node.Select;
-      Node.Expand;            
+      Node.Expand;
     end;
   end;
-  
+
 var
   CurrentNode: TTreeViewItem;
 begin
@@ -197,12 +220,18 @@ begin
       Path := ExtractRelativePath(Drive, Path);
 
       if not CouldDescend(CurrentNode, Drive) then
+      begin
+        CurrentNode.Select;
         exit;
+      end;
     {$ENDIF}
-      
+
     for var PathItem in Path.Split([PathDelim]) do
-      if not CouldDescend(CurrentNode, Drive) then
+      if not CouldDescend(CurrentNode, PathItem) then
+      begin
+        CurrentNode.Select;
         exit;
+      end;
   finally
     Folders.EndUpdate;
   end;
@@ -211,6 +240,13 @@ end;
 procedure TForm3.FormCreate(Sender: TObject);
 begin
   AddFolderToTreeView(PathDelim, Folders, False);
+  Folders.Items[0].Select;
+end;
+
+procedure TForm3.TabsChange(Sender: TObject);
+begin
+  Assert(Tabs.ActiveTab <> nil);
+  FolderEdit.Text := Tabs.ActiveTab.TagString;
 end;
 
 procedure TForm3.UpdateFilesPath(Path: string);
@@ -222,6 +258,11 @@ begin
   finally
     Files.EndUpdate;
   end;
+end;
+
+procedure TForm3.WinMenuCopyClick(Sender: TObject);
+begin
+  dm.PutFileToClipboard(FFilesData[Files.Row].FullFilename);
 end;
 
 procedure TExpandableTreeViewItem.SetPath(const Value: string);
