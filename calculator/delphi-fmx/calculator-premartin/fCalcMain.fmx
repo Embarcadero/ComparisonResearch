@@ -11,476 +11,6 @@ object frmCalcMain: TfrmCalcMain
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   DesignerMasterStyle = 0
-  object gplButtons: TGridPanelLayout
-    Align = Client
-    Size.Width = 594.000000000000000000
-    Size.Height = 531.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 0
-    ColumnCollection = <
-      item
-        Value = 25.000000000000000000
-      end
-      item
-        Value = 25.000000000000000000
-      end
-      item
-        Value = 25.000000000000000000
-      end
-      item
-        Value = 25.000000000000000000
-      end>
-    ControlCollection = <
-      item
-        Column = 0
-        Control = btnPourcent
-        Row = 0
-      end
-      item
-        Column = 1
-        Control = btnCE
-        Row = 0
-      end
-      item
-        Column = 2
-        Control = btnC
-        Row = 0
-      end
-      item
-        Column = 3
-        Control = btnBackspace
-        Row = 0
-      end
-      item
-        Column = 0
-        Control = btnInverse
-        Row = 1
-      end
-      item
-        Column = 1
-        Control = btnSquare
-        Row = 1
-      end
-      item
-        Column = 2
-        Control = btnSquareRoot
-        Row = 1
-      end
-      item
-        Column = 3
-        Control = btnDiv
-        Row = 1
-      end
-      item
-        Column = 0
-        Control = btn7
-        Row = 2
-      end
-      item
-        Column = 1
-        Control = btn8
-        Row = 2
-      end
-      item
-        Column = 2
-        Control = btn9
-        Row = 2
-      end
-      item
-        Column = 3
-        Control = btnMul
-        Row = 2
-      end
-      item
-        Column = 0
-        Control = btn4
-        Row = 3
-      end
-      item
-        Column = 1
-        Control = btn5
-        Row = 3
-      end
-      item
-        Column = 2
-        Control = btn6
-        Row = 3
-      end
-      item
-        Column = 3
-        Control = btnDec
-        Row = 3
-      end
-      item
-        Column = 0
-        Control = btn1
-        Row = 4
-      end
-      item
-        Column = 1
-        Control = btn2
-        Row = 4
-      end
-      item
-        Column = 2
-        Control = btn3
-        Row = 4
-      end
-      item
-        Column = 3
-        Control = btnAdd
-        Row = 4
-      end
-      item
-        Column = 0
-        Control = btnOppose
-        Row = 5
-      end
-      item
-        Column = 1
-        Control = btn0
-        Row = 5
-      end
-      item
-        Column = 2
-        Control = btnDot
-        Row = 5
-      end
-      item
-        Column = 3
-        Control = btnEqual
-        Row = 5
-      end>
-    RowCollection = <
-      item
-        Value = 16.666666666666670000
-      end
-      item
-        Value = 16.666666666666670000
-      end
-      item
-        Value = 16.666666666666670000
-      end
-      item
-        Value = 16.666666666666670000
-      end
-      item
-        Value = 16.666666666666670000
-      end
-      item
-        Value = 16.666666666666670000
-      end>
-    object btnPourcent: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 23
-      Text = '%'
-      OnClick = btnPourcentClick
-    end
-    object btnCE: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 21
-      Text = 'CE'
-      OnClick = btnCEClick
-    end
-    object btnC: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 19
-      Text = 'C'
-      OnClick = btnCClick
-    end
-    object btnBackspace: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 15
-      Text = 'Back'
-      OnClick = btnBackspaceClick
-    end
-    object btnInverse: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 22
-      Text = '1/x'
-      OnClick = btnInverseClick
-    end
-    object btnSquare: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 20
-      Text = 'x2'
-      OnClick = btnSquareClick
-    end
-    object btnSquareRoot: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 17
-      Text = '2 rac x'
-      OnClick = btnSquareRootClick
-    end
-    object btnDiv: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 11
-      Text = '/'
-      OnClick = btnDivClick
-    end
-    object btn7: TButton
-      Tag = 107
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 18
-      Text = '7'
-      OnClick = NumberButtonClick
-    end
-    object btn8: TButton
-      Tag = 108
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 16
-      Text = '8'
-      OnClick = NumberButtonClick
-    end
-    object btn9: TButton
-      Tag = 109
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 13
-      Text = '9'
-      OnClick = NumberButtonClick
-    end
-    object btnMul: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 7
-      Text = 'X'
-      OnClick = btnMulClick
-    end
-    object btn4: TButton
-      Tag = 104
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 14
-      Text = '4'
-      OnClick = NumberButtonClick
-    end
-    object btn5: TButton
-      Tag = 105
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 12
-      Text = '5'
-      OnClick = NumberButtonClick
-    end
-    object btn6: TButton
-      Tag = 106
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 9
-      Text = '6'
-      OnClick = NumberButtonClick
-    end
-    object btnDec: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 3
-      Text = '-'
-      OnClick = btnDecClick
-    end
-    object btn1: TButton
-      Tag = 101
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 10
-      Text = '1'
-      OnClick = NumberButtonClick
-    end
-    object btn2: TButton
-      Tag = 102
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 8
-      Text = '2'
-      OnClick = NumberButtonClick
-    end
-    object btn3: TButton
-      Tag = 103
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 5
-      Text = '3'
-      OnClick = NumberButtonClick
-    end
-    object btnAdd: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'OperatorButtonStyle'
-      TabOrder = 1
-      Text = '+'
-      OnClick = btnAddClick
-    end
-    object btnOppose: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 6
-      Text = '+/-'
-      OnClick = btnOpposeClick
-    end
-    object btn0: TButton
-      Tag = 100
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 4
-      Text = '0'
-      OnClick = NumberButtonClick
-    end
-    object btnDot: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'NumbersButtonStyle'
-      TabOrder = 2
-      Text = '.'
-      OnClick = btnDotClick
-    end
-    object btnEqual: TButton
-      Align = Client
-      CanFocus = False
-      Size.Width = 148.500000000000000000
-      Size.Height = 88.500000000000000000
-      Size.PlatformDefault = False
-      StyleLookup = 'EqualButtonStyle'
-      TabOrder = 0
-      Text = '='
-      OnClick = btnEqualClick
-    end
-  end
-  object rDisplay: TRectangle
-    Align = Top
-    Fill.Color = claPeru
-    HitTest = False
-    Padding.Left = 10.000000000000000000
-    Padding.Top = 10.000000000000000000
-    Padding.Right = 10.000000000000000000
-    Padding.Bottom = 10.000000000000000000
-    Size.Width = 594.000000000000000000
-    Size.Height = 100.000000000000000000
-    Size.PlatformDefault = False
-    object lblCalculs: TLabel
-      Align = Top
-      Position.X = 10.000000000000000000
-      Position.Y = 10.000000000000000000
-      Size.Width = 574.000000000000000000
-      Size.Height = 30.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.HorzAlign = Trailing
-      Text = 'lblCalculs'
-      TabOrder = 0
-    end
-    object lblResult: TLabel
-      Align = Client
-      StyledSettings = [Family, Size, FontColor]
-      Scale.X = 2.000000000000000000
-      Scale.Y = 2.000000000000000000
-      Size.Width = 287.000000000000000000
-      Size.Height = 25.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.HorzAlign = Trailing
-      Text = 'lblResult'
-      TabOrder = 1
-    end
-  end
   object StyleBook1: TStyleBook
     Styles = <
       item
@@ -595,5 +125,553 @@ object frmCalcMain: TfrmCalcMain
       end>
     Left = 104
     Top = 32
+  end
+  object lbackground: TLayout
+    Align = Client
+    Size.Width = 594.000000000000000000
+    Size.Height = 631.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object rDisplay: TRectangle
+      Align = Top
+      Fill.Color = claPeru
+      HitTest = False
+      Padding.Left = 10.000000000000000000
+      Padding.Top = 10.000000000000000000
+      Padding.Right = 10.000000000000000000
+      Padding.Bottom = 10.000000000000000000
+      Size.Width = 594.000000000000000000
+      Size.Height = 100.000000000000000000
+      Size.PlatformDefault = False
+      object lblCalculs: TLabel
+        Align = Top
+        Position.X = 10.000000000000000000
+        Position.Y = 10.000000000000000000
+        Size.Width = 574.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.HorzAlign = Trailing
+        Text = 'lblCalculs'
+        TabOrder = 0
+      end
+      object lblResult: TLabel
+        Align = Client
+        StyledSettings = [Family, Size, FontColor]
+        Scale.X = 2.000000000000000000
+        Scale.Y = 2.000000000000000000
+        Size.Width = 287.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.HorzAlign = Trailing
+        Text = 'lblResult'
+        TabOrder = 1
+      end
+      object rOpacity: TRectangle
+        Fill.Kind = None
+        Position.X = 5.000000000000000000
+        Position.Y = 5.000000000000000000
+        Sides = []
+        Size.Width = 44.000000000000000000
+        Size.Height = 44.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        OnClick = rOpacityClick
+        object rOpacityOff: TPath
+          Align = Client
+          Data.Path = {
+            3F0000000000000000000040D7A3A8400100000085EB51400000804001000000
+            0000A0418FC2A541010000000AD795410000B0410100000066667A41295C9741
+            020000000000684166669A4102000000E17A544100009C410200000000004041
+            00009C41020000000000E04000009C410200000052B82E40B81E834102000000
+            0000803F0000404102000000EC51D83F0AD72341020000005C8F32403D0A0B41
+            020000007B14864052B8EE400100000000000040D7A3A8400000000000004041
+            00001041020000007A825A41000010410200000000007041867D254102000000
+            000070410000404102000000000070419A994541020000003D0A6F413D0A4B41
+            02000000AE476D4100005041010000000000304152B8124102000000C3F53441
+            C3F510410200000066663A410000104102000000000040410000104100000000
+            000040410000904002000000000088410000904002000000F628AA411F85F340
+            020000000000B8410000404102000000A470B141AE47614102000000EC51A641
+            7B147E4102000000000098411F85894101000000D7A38C41F6287C4102000000
+            1F859741B81E6D4102000000E17AA041D7A35841020000005C8FA64100004041
+            02000000295C9941713D0A4102000000F6287C410000D0400200000000004041
+            0000D040020000005C8F2E410000D04002000000A4701D418FC2D54002000000
+            A4700D410000E040010000009A99E9403D0AAF40020000000AD70B4133339B40
+            02000000AE47254100009040020000000000404100009040000000001F854B40
+            00004041020000005C8F9A408FC27541020000000AD7034100008C4102000000
+            0000404100008C41020000003D0A4B4100008C410200000085EB5541A4708B41
+            0200000000006041EC518A41010000001F853B410000704102000000D7A32441
+            9A996D410200000066661241295C5B410200000000001041E17A444101000000
+            3333B34085EB0D41020000001F8593401F851B410200000085EB7140E17A2C41
+            020000001F854B4000004041030000001F854B4000004041}
+          Fill.Color = claCoral
+          HitTest = False
+          Size.Width = 44.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          WrapMode = Fit
+        end
+        object rOpacityOn: TPath
+          Align = Client
+          Data.Path = {
+            28000000000000000000404100001041020000007A825A410000104102000000
+            00007041867D254102000000000070410000404102000000000070417A825A41
+            020000007A825A410000704102000000000040410000704102000000867D2541
+            0000704102000000000010417A825A4102000000000010410000404102000000
+            00001041867D254102000000877D254100001041020000000100404100001041
+            00000000000040410000904002000000000088410000904002000000F628AA41
+            1F85F340020000000000B8410000404102000000F628AA41B81E834102000000
+            0000884100009C41020000000000404100009C41020000000000E04000009C41
+            0200000052B82E40B81E8341020000000000803F000040410200000052B82E40
+            1F85F340020000000000E0400000904002000000000040410000904000000000
+            1F854B4000004041020000005C8F9A408FC27541020000000AD7034100008C41
+            020000000000404100008C4102000000F6287C4100008C4102000000295C9941
+            8FC27541020000005C8FA6410000404102000000295C9941713D0A4102000000
+            F6287C410000D04002000000000040410000D040020000000AD703410000D040
+            020000005C8F9A40713D0A41020000001F854B4000004041030000001F854B40
+            00004041}
+          Fill.Color = claAquamarine
+          HitTest = False
+          Size.Width = 44.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          WrapMode = Fit
+        end
+      end
+    end
+    object gplButtons: TGridPanelLayout
+      Align = Client
+      Size.Width = 594.000000000000000000
+      Size.Height = 531.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      ColumnCollection = <
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end
+        item
+          Value = 25.000000000000000000
+        end>
+      ControlCollection = <
+        item
+          Column = 0
+          Control = btnPourcent
+          Row = 0
+        end
+        item
+          Column = 1
+          Control = btnCE
+          Row = 0
+        end
+        item
+          Column = 2
+          Control = btnC
+          Row = 0
+        end
+        item
+          Column = 3
+          Control = btnBackspace
+          Row = 0
+        end
+        item
+          Column = 0
+          Control = btnInverse
+          Row = 1
+        end
+        item
+          Column = 1
+          Control = btnSquare
+          Row = 1
+        end
+        item
+          Column = 2
+          Control = btnSquareRoot
+          Row = 1
+        end
+        item
+          Column = 3
+          Control = btnDiv
+          Row = 1
+        end
+        item
+          Column = 0
+          Control = btn7
+          Row = 2
+        end
+        item
+          Column = 1
+          Control = btn8
+          Row = 2
+        end
+        item
+          Column = 2
+          Control = btn9
+          Row = 2
+        end
+        item
+          Column = 3
+          Control = btnMul
+          Row = 2
+        end
+        item
+          Column = 0
+          Control = btn4
+          Row = 3
+        end
+        item
+          Column = 1
+          Control = btn5
+          Row = 3
+        end
+        item
+          Column = 2
+          Control = btn6
+          Row = 3
+        end
+        item
+          Column = 3
+          Control = btnDec
+          Row = 3
+        end
+        item
+          Column = 0
+          Control = btn1
+          Row = 4
+        end
+        item
+          Column = 1
+          Control = btn2
+          Row = 4
+        end
+        item
+          Column = 2
+          Control = btn3
+          Row = 4
+        end
+        item
+          Column = 3
+          Control = btnAdd
+          Row = 4
+        end
+        item
+          Column = 0
+          Control = btnOppose
+          Row = 5
+        end
+        item
+          Column = 1
+          Control = btn0
+          Row = 5
+        end
+        item
+          Column = 2
+          Control = btnDot
+          Row = 5
+        end
+        item
+          Column = 3
+          Control = btnEqual
+          Row = 5
+        end>
+      RowCollection = <
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end
+        item
+          Value = 16.666666666666660000
+        end>
+      object btnPourcent: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 23
+        Text = '%'
+        OnClick = btnPourcentClick
+      end
+      object btnCE: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 21
+        Text = 'CE'
+        OnClick = btnCEClick
+      end
+      object btnC: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 19
+        Text = 'C'
+        OnClick = btnCClick
+      end
+      object btnBackspace: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 15
+        Text = 'Back'
+        OnClick = btnBackspaceClick
+      end
+      object btnInverse: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 22
+        Text = '1/x'
+        OnClick = btnInverseClick
+      end
+      object btnSquare: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 20
+        Text = 'x2'
+        OnClick = btnSquareClick
+      end
+      object btnSquareRoot: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 17
+        Text = '2 rac x'
+        OnClick = btnSquareRootClick
+      end
+      object btnDiv: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 11
+        Text = '/'
+        OnClick = btnDivClick
+      end
+      object btn7: TButton
+        Tag = 107
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 18
+        Text = '7'
+        OnClick = NumberButtonClick
+      end
+      object btn8: TButton
+        Tag = 108
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 16
+        Text = '8'
+        OnClick = NumberButtonClick
+      end
+      object btn9: TButton
+        Tag = 109
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 13
+        Text = '9'
+        OnClick = NumberButtonClick
+      end
+      object btnMul: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 7
+        Text = 'X'
+        OnClick = btnMulClick
+      end
+      object btn4: TButton
+        Tag = 104
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 14
+        Text = '4'
+        OnClick = NumberButtonClick
+      end
+      object btn5: TButton
+        Tag = 105
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 12
+        Text = '5'
+        OnClick = NumberButtonClick
+      end
+      object btn6: TButton
+        Tag = 106
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 9
+        Text = '6'
+        OnClick = NumberButtonClick
+      end
+      object btnDec: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 3
+        Text = '-'
+        OnClick = btnDecClick
+      end
+      object btn1: TButton
+        Tag = 101
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 10
+        Text = '1'
+        OnClick = NumberButtonClick
+      end
+      object btn2: TButton
+        Tag = 102
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 8
+        Text = '2'
+        OnClick = NumberButtonClick
+      end
+      object btn3: TButton
+        Tag = 103
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 5
+        Text = '3'
+        OnClick = NumberButtonClick
+      end
+      object btnAdd: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'OperatorButtonStyle'
+        TabOrder = 1
+        Text = '+'
+        OnClick = btnAddClick
+      end
+      object btnOppose: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 6
+        Text = '+/-'
+        OnClick = btnOpposeClick
+      end
+      object btn0: TButton
+        Tag = 100
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 4
+        Text = '0'
+        OnClick = NumberButtonClick
+      end
+      object btnDot: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'NumbersButtonStyle'
+        TabOrder = 2
+        Text = '.'
+        OnClick = btnDotClick
+      end
+      object btnEqual: TButton
+        Align = Client
+        CanFocus = False
+        Size.Width = 148.500000000000000000
+        Size.Height = 88.500000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'EqualButtonStyle'
+        TabOrder = 0
+        Text = '='
+        OnClick = btnEqualClick
+      end
+    end
   end
 end
