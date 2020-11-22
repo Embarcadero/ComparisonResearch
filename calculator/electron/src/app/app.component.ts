@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   calc_result: number = 0;
   old_value: number = 0;
   operator: string = '';
+  ce_clicked: boolean = false;
 
   number_click(newNumber: number) {
     if (this.operator == '') {
@@ -19,8 +20,12 @@ export class AppComponent implements OnInit {
         this.calc_result = parseFloat(this.calc_result.toString() + newNumber.toString()); 
       }
     }else {
-      this.old_value = this.calc_result;
-      this.calc_result = newNumber;
+      if (!this.ce_clicked) {
+        this.old_value = this.calc_result;
+        this.calc_result = newNumber;
+      }else{
+        this.calc_result = newNumber;
+      }
     }
   }
 
@@ -37,6 +42,7 @@ export class AppComponent implements OnInit {
   }
 
   samadengan_click() {
+    console.log(this.calc_result + ' <> ' + this.old_value);
     switch (this.operator) {
       case '÷':
         this.calc_result = this.old_value / this.calc_result;
@@ -81,6 +87,11 @@ export class AppComponent implements OnInit {
 
   persen_click() {
     this.calc_result = this.calc_result / 100;
+  }
+
+  ce_click() {
+    this.calc_result = 0;
+    this.ce_clicked = true;
   }
 
   c_click() {
