@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace FileExplorerApp.Utils
 {
@@ -15,10 +16,22 @@ namespace FileExplorerApp.Utils
         public string FilePath { get; set; }
         public ImageSource Icon { get; set; }
 
+        //private ImageSource _icon;
+
+        //public ImageSource Icon
+        //{
+        //    get { return Dispatcher.CurrentDispatcher.Invoke(() => _icon);  }
+        //    set { _icon = value; }
+        //}
+
         public string Type { get; set; }
 
         public string Name { get; set; }
         public string Size { get; set; }
+
+        public bool IsDirectory { get; set; }
+
+        public DateTime LastWriteTime { get; set; }
     }
     public class ShellManager
     {
@@ -106,13 +119,17 @@ namespace FileExplorerApp.Utils
                   System.Windows.Int32Rect.Empty,
                   BitmapSizeOptions.FromWidthAndHeight(iconSize.Width, iconSize.Height));
 
-                fileInfoObj.Icon = iconImageSOurce;
+                iconImageSOurce.Freeze();
+                Dispatcher.CurrentDispatcher.Invoke(() => fileInfoObj.Icon = iconImageSOurce);
+
+                //fileInfoObj.Icon = iconImageSOurce;
                 fileInfoObj.FilePath = path;
                 fileInfoObj.Type = fileInfo.szTypeName;
+                fileInfoObj.IsDirectory = type == ItemType.Folder;
 
                 return fileInfoObj;
             }
-            catch
+            catch(Exception e)
             {
                 throw;
             }

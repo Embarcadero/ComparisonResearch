@@ -31,6 +31,7 @@ type
     function GetSubFolders(Path: string): TArray<string>;
     function GetFilesData(Path, SearchText: string): TFilesData;
     procedure PutFileToClipboard(FilePath: string);
+    procedure ShellOpen(WhatToOpen: string);
   end;
 
 var
@@ -45,6 +46,8 @@ uses
   WinAPI.ShlObj,
   WinAPI.ShellAPI,
   WinAPI.Windows,
+{$ELSEIF Defined(MACOS)}
+  Posix.Stdlib,
 {$ENDIF}
   System.IOUtils;
 
@@ -149,6 +152,15 @@ begin
       Result := SearchText
     else
       Result := '*' + SearchText + '*';
+end;
+
+procedure Tdm.ShellOpen(WhatToOpen: string);
+begin
+{$IFDEF MSWINDOWS}
+  ShellExecute(0, 'OPEN', PChar(WhatToOpen), nil, nil, SW_SHOWNORMAL);
+{$ELSEIF Defined(MACOS)}
+  _system(PAnsiChar('open ' + AnsiString(WhatToOpen)));
+{$ENDIF}
 end;
 
 { TFileData }
