@@ -60,7 +60,7 @@ end;
 
 procedure TCalculator.ChangeSign;
 
-  procedure ChangeSign(var TheValue: string);
+  procedure ChangeTheSign(var TheValue: string);
   begin
     if Pos('-', TheValue) = 0 then
       TheValue := '-' + TheValue;
@@ -69,7 +69,7 @@ procedure TCalculator.ChangeSign;
 begin
   if not FIsError then
   begin
-    ChangeSign(FCurrentValue);
+    ChangeTheSign(FCurrentValue);
     FDisplayValue := FCurrentValue;
     DoDisplayUpdate;
   end;
