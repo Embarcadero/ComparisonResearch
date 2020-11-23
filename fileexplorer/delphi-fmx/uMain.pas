@@ -29,8 +29,6 @@ type
     WinMenuBrowseForFolder: TMenuItem;
     WinMenuEdit: TMenuItem;
     WinMenuCopy: TMenuItem;
-    WinMenuWindow: TMenuItem;
-    WinMenuArrange: TMenuItem;
     MenuItem1: TMenuItem;
     Layout1: TLayout;
     FolderEdit: TEdit;
