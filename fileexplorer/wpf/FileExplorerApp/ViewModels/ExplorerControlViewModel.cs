@@ -1,4 +1,5 @@
-﻿using FileExplorerApp.Models;
+﻿using FileExplorerApp.Enums;
+using FileExplorerApp.Models;
 using FileExplorerApp.Utils;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -26,19 +27,30 @@ namespace FileExplorerApp.ViewModels
             TreeViewSelectionChanged = new RelayCommand<RoutedPropertyChangedEventArgs<object>>(OnTreeViewSelectionChanged);
             DeatailViewSelectionChanged = new RelayCommand<SelectionChangedEventArgs>(OnDeatailViewSelectionChanged);
             SearchText = string.Empty;
-            SearchFilesSource = new ObservableCollection<FileSystemObjectInfo>();
+            SearchFilesSource = new ObservableCollection<FileinfoObj>();
+            SearchCommand = new RelayCommand(FilterData);
+            ClearCommand = new RelayCommand(OnClearCommand);
+            SearchMode = false;
         }
+
+        private void OnClearCommand()
+        {
+            SearchText = string.Empty;
+        }
+
+        public ICommand SearchCommand { get; set; }
+        public ICommand ClearCommand { get; set; }
 
         private string _searchText;
 
         public string SearchText
         {
             get { return _searchText; }
-            set { _searchText = value; SearchMode = !string.IsNullOrEmpty(SearchText); OnPropertyChanged(nameof(SearchText));FilterData(); }
+            set { _searchText = value; OnPropertyChanged(nameof(SearchText)); }
         }
 
-        private ObservableCollection<FileSystemObjectInfo> _searchFilesSource;
-        public ObservableCollection<FileSystemObjectInfo> SearchFilesSource
+        private ObservableCollection<FileinfoObj> _searchFilesSource;
+        public ObservableCollection<FileinfoObj> SearchFilesSource
         {
             get { return _searchFilesSource; }
             set { _searchFilesSource = value; OnPropertyChanged(nameof(SearchFilesSource)); }
@@ -49,50 +61,120 @@ namespace FileExplorerApp.ViewModels
         public bool SearchMode
         {
             get { return _searchMode; }
-            set { _searchMode = value; OnPropertyChanged(nameof(SearchMode)); }
+            set { _searchMode = value; OnPropertyChanged(nameof(SearchMode)); ChangeSearchButtonText(); }
         }
 
+        private string _searchButtonText;
+
+        public string SearchButtonText
+        {
+            get { return _searchButtonText; }
+            set { _searchButtonText = value; OnPropertyChanged(nameof(SearchButtonText)); }
+        }
+
+        private void ChangeSearchButtonText()
+        {
+            if (SearchMode)
+            {
+                SearchButtonText = "Clear";
+            }
+            else
+            {
+                SearchButtonText = "Search";
+                SearchText = string.Empty;
+            }
+        }
         private void FilterData()
         {
-
             if (!string.IsNullOrEmpty(SearchText.Trim()))
             {
-                SearchFilesSource.Clear();
-                if (selectedFileObject.FileSystemInfo is DirectoryInfo)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    var directories = ((DirectoryInfo)selectedFileObject.FileSystemInfo).GetDirectories();
-                    foreach (var directory in directories.OrderBy(d => d.Name).Where(g=>g.Name.ToLower().Contains(SearchText.ToLower())))
+                    SearchFilesSource.Clear();
+                });
+                var worker = new BackgroundWorker();
+                worker.DoWork += (o, ea) =>
+                {
+                    SearchMode = true;
+                    if (SearchMode)
+                    {
+                        GetSearchedFiles((DirectoryInfo)selectedFileObject.FileSystemInfo);
+                    }
+                };
+                worker.RunWorkerCompleted += (o, ea) =>
+                {
+
+                };
+                worker.RunWorkerAsync();
+            }
+        }
+        private void GetSearchedFiles(DirectoryInfo directoryInfo)
+        {
+            if (!string.IsNullOrEmpty(SearchText.Trim()))
+            {
+                if (directoryInfo is DirectoryInfo)
+                {
+                    var directories = ((DirectoryInfo)directoryInfo).GetDirectories();
+                    foreach (var directory in directories.OrderBy(d => d.Name))
                     {
                         if ((directory.Attributes & FileAttributes.System) != FileAttributes.System &&
                             (directory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                         {
-                            SearchFilesSource.Add(new FileSystemObjectInfo(directory));
+                            if (directory.Name.ToLower().Contains(SearchText.ToLower()))
+                            {
+                                UdpateSearchList(directory.FullName, ItemType.Folder, directory.Name, directory.LastWriteTime);
+                            }
+                            GetSearchedFiles(directory);
                         }
                     }
 
-                    var files = ((DirectoryInfo)selectedFileObject.FileSystemInfo).GetFiles();
+                    var files = ((DirectoryInfo)directoryInfo).GetFiles();
                     foreach (var file in files.OrderBy(d => d.Name).Where(g => g.Name.ToLower().Contains(SearchText.ToLower())))
                     {
                         if ((file.Attributes & FileAttributes.System) != FileAttributes.System &&
                             (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                         {
-                            SearchFilesSource.Add(new FileSystemObjectInfo(file));
+                            if (file.Name.ToLower().Contains(SearchText.ToLower()))
+                            {
+                                UdpateSearchList(file.FullName, ItemType.File, file.Name, file.LastWriteTime);
+                            }
                         }
                     }
                 }
             }
         }
+        private void UdpateSearchList(string fullName, ItemType itemType, string name, DateTime dateTime)
+        {
+            var worker = new BackgroundWorker();
+            worker.DoWork += (o, ea) =>
+            {
+                var fileInfoObj = ShellManager.GetFileInfo(fullName, itemType, new System.Drawing.Size(16, 16));
+                fileInfoObj.Name = name;
+                fileInfoObj.LastWriteTime = dateTime;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SearchFilesSource.Add(fileInfoObj);
+                    SearchFilesSource = SearchFilesSource;
+                });
+                NumberOfDetailItems = $"{SearchFilesSource.Count} items";
+            };
+            worker.RunWorkerCompleted += (o, ea) =>
+            {
 
+            };
+            worker.RunWorkerAsync();
+        }
         private void OnDeatailViewSelectionChanged(SelectionChangedEventArgs obj)
         {
-            if(obj.Source is DataGrid)
+            if (obj.Source is DataGrid)
             {
-                SelectedDetailFileCount  = ((DataGrid)obj.Source).SelectedItems.Count;
+                SelectedDetailFileCount = ((DataGrid)obj.Source).SelectedItems.Count;
             }
         }
 
         private void OnTreeViewSelectionChanged(RoutedPropertyChangedEventArgs<object> obj)
         {
+            SearchMode = false;
             selectedFileObject = obj.NewValue as FileSystemObjectInfo;
             UpdateDetailFiles();
         }
@@ -206,7 +288,7 @@ namespace FileExplorerApp.ViewModels
                 FilesSource.Add(fileSystemObject);
             });
 
-            PreSelect(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+            PreSelect(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), true);
             //SelectedFileObject = 
         }
 
@@ -229,36 +311,55 @@ namespace FileExplorerApp.ViewModels
         }
 
 
-        private void PreSelect(string path)
+        private void PreSelect(string path, bool isDefaultPath = false)
         {
             if (!Directory.Exists(path))
             {
                 return;
             }
             var driveFileSystemObjectInfo = GetDriveFileSystemObjectInfo(path);
-            driveFileSystemObjectInfo.IsExpanded = true;
-            PreSelect(driveFileSystemObjectInfo, path);
+            driveFileSystemObjectInfo.IsExpanded = isDefaultPath;
+            driveFileSystemObjectInfo.GetDetailNodes = !isDefaultPath;
+            PreSelect(driveFileSystemObjectInfo, path, isDefaultPath);
+        }
 
+        public string NormalizePath(string path)
+        {
+            return Path.GetFullPath(new Uri(path).LocalPath)
+                       .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                       .ToUpperInvariant();
         }
 
         private void PreSelect(FileSystemObjectInfo fileSystemObjectInfo,
-            string path)
+            string path, bool isDefaultPath)
         {
-            foreach (var childFileSystemObjectInfo in fileSystemObjectInfo.Children)
+            if (fileSystemObjectInfo.Drive != null
+                && IsParentPath(path, fileSystemObjectInfo.FileSystemInfo.FullName)
+                && fileSystemObjectInfo.FileSystemInfo.FullName.Contains(path))
             {
-                var isParentPath = IsParentPath(path, childFileSystemObjectInfo.FileSystemInfo.FullName);
-                if (isParentPath)
+                //fileSystemObjectInfo.IsSelected = true;
+                selectedFileObject = fileSystemObjectInfo;
+                UpdateDetailFiles();
+            }
+            else
+            {
+                foreach (var childFileSystemObjectInfo in fileSystemObjectInfo.Children)
                 {
-                    if (string.Equals(childFileSystemObjectInfo.FileSystemInfo.FullName, path))
+                    var isParentPath = IsParentPath(path, childFileSystemObjectInfo.FileSystemInfo.FullName);
+                    if (isParentPath)
                     {
-                        childFileSystemObjectInfo.IsSelected = true;
-                        selectedFileObject = childFileSystemObjectInfo;
-                        UpdateDetailFiles();
-                    }
-                    else
-                    {
-                        childFileSystemObjectInfo.IsExpanded = true;
-                        PreSelect(childFileSystemObjectInfo, path);
+                        if (string.Equals(NormalizePath(childFileSystemObjectInfo.FileSystemInfo.FullName), NormalizePath(path)))
+                        {
+                            childFileSystemObjectInfo.IsSelected = isDefaultPath;
+                            selectedFileObject = childFileSystemObjectInfo;
+                            UpdateDetailFiles();
+                        }
+                        else
+                        {
+                            childFileSystemObjectInfo.IsExpanded = isDefaultPath;
+                            childFileSystemObjectInfo.GetDetailNodes = !isDefaultPath;
+                            PreSelect(childFileSystemObjectInfo, path, isDefaultPath);
+                        }
                     }
                 }
             }
@@ -290,7 +391,7 @@ namespace FileExplorerApp.ViewModels
         private bool IsParentPath(string path,
             string targetPath)
         {
-            return path.StartsWith(targetPath);
+            return (path.ToLower().StartsWith(targetPath.ToLower())) || (targetPath.ToLower().StartsWith(path.ToLower()));
         }
 
 

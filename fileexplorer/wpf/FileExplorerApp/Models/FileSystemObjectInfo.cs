@@ -21,7 +21,7 @@ namespace FileExplorerApp.Models
         }
         public FileSystemObjectInfo(FileSystemInfo info)
         {
-           
+            IsDirectory = info.Attributes.ToString().ToLower().Contains("directory");
             if (this is DummyFileSystemObjectInfo)
             {
                 return;
@@ -31,11 +31,23 @@ namespace FileExplorerApp.Models
 
         public FileSystemObjectInfo(DriveInfo drive)
         {
+            Drive = drive;
+            if (drive.IsReady)
+            {
+                DriveLabel = string.IsNullOrEmpty(drive.VolumeLabel) ? "Local Disk" : drive.VolumeLabel;
+            }
             if (this is DummyFileSystemObjectInfo)
             {
                 return;
             }
             UpdateFileSystem(drive.RootDirectory, drive);
+        }
+
+        public string NormalizePath(string path)
+        {
+            return Path.GetFullPath(new Uri(path).LocalPath)
+                       .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                       .ToUpperInvariant();
         }
 
         private void UpdateFileSystem(FileSystemInfo info, DriveInfo drive = null)
@@ -46,6 +58,7 @@ namespace FileExplorerApp.Models
             if (FileSystemInfo is DirectoryInfo)
             {
                 FileInfo = ShellManager.GetFileInfo(FileSystemInfo.FullName, ItemType.Folder, new Size(16, 16));
+                FileInfo.Name = Drive != null ? $" ({NormalizePath(FileSystemInfo.Name)})" :FileSystemInfo.Name;
                 if ((drive != null && drive.IsReady) || (drive == null && Directory.GetDirectories(FileSystemInfo.FullName).Count() > 0))
                 {
                     AddDummy();
@@ -97,10 +110,12 @@ namespace FileExplorerApp.Models
         {
             if (FileSystemInfo is DirectoryInfo)
             {
-                if (string.Equals(e.PropertyName, "IsExpanded", StringComparison.CurrentCultureIgnoreCase))
-                {
+                if (string.Equals(e.PropertyName, "IsExpanded", StringComparison.CurrentCultureIgnoreCase)
+                    ||
+                    string.Equals(e.PropertyName, "GetDetailNodes", StringComparison.CurrentCultureIgnoreCase))
+                {   
                     RaiseBeforeExpand();
-                    if (IsExpanded)
+                    if (IsExpanded || GetDetailNodes)
                     {
                         //ImageSource = ShellManager.GetIcon(FileInfo.hIcon, new Size(16, 16));
                         if (HasDummy())
@@ -127,6 +142,12 @@ namespace FileExplorerApp.Models
         #endregion
 
         #region Properties
+
+        public bool IsDirectory
+        {
+            get { return GetValue<bool>("IsDirectory"); }
+            set { SetValue("IsDirectory", value); }
+        }
 
         private bool _isSelected;
         public bool IsSelected
@@ -167,6 +188,12 @@ namespace FileExplorerApp.Models
             set { SetValue("IsExpanded", value); }
         }
 
+        public bool GetDetailNodes
+        {
+            get { return GetValue<bool>("GetDetailNodes"); }
+            set { SetValue("GetDetailNodes", value); }
+        }
+
         public FileSystemInfo FileSystemInfo
         {
             get { return GetValue<FileSystemInfo>("FileSystemInfo"); }
@@ -177,6 +204,12 @@ namespace FileExplorerApp.Models
         {
             get { return GetValue<DriveInfo>("Drive"); }
             set { SetValue("Drive", value); }
+        }
+
+        public string DriveLabel
+        {
+            get { return GetValue<string>("DriveLabel"); }
+            set { SetValue("DriveLabel", value); }
         }
 
         #endregion
