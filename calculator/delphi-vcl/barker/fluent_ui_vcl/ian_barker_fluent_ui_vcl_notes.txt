@@ -1,0 +1,51 @@
+Total time taken ~4 hours (in between work meetings and family duties)
+- not including calc engine
+- not including time to write the instructions
+
+- Speed run estimate 40 minutes
+
+- Time lapse, normal speed video and a blog post coming in the next day or so
+
+Developer: Ian Barker
+           https://about.me/IanBarker
+           https://www.codedotshow.com/blog
+
+Credits and pre-requisites
+--------------------------
+Icon source = Icons8 (via Pichon).
+https://icons8.com/app/windows
+
+**********************************************
+****                NOTE                  ****
+**** BEFORE YOU OPEN/COMPILE THE PROJECT  ****
+**********************************************
+
+This project uses the AlmediaDev Style controls.
+
+You can get a fully-working trial copy here: http://www.almdev.com/prods/stylecontrols/stylecontrols.html
+
+You MUST have either an up-to-date licensed copy or a trial copy installed
+in the RAD Studio / Delphi IDE or the project will not work!
+
+The project also uses "DelphiDarkMode" written by Ian Barker.
+You can get the latest version of this open source code here: https://github.com/checkdigits/delphidarkmode
+
+You also need to install the free "Tablet Dark" VCL style.  You can install it via GetIt or from the EMB website
+if you don't have it although it should be already there for recent versions of RAD Studio.
+
+For purists the "Carbon" VCL style is the closest to the actual Windows calculator style but it's not
+optimized for hi DPI and is not listed on GetIt.
+
+If you do not want to use "Tablet Dark" for the dark mode style then edit the following:
+
+procedure TVCLCalculatorForm.MatchWindowsTheme;
+
+and change SetAppropriateThemeMode('Tablet Dark', 'Windows10'); and change 'Tablet Dark' to whatever dark theme you prefer.
+
+
+
+
+Instructions
+------------
+
+Coming soon...

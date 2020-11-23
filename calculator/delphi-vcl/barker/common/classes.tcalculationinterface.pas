@@ -4,6 +4,12 @@ interface
 
 uses interfaces.icalculatorinterface;
 
+{
+  Developer: Ian Barker
+           https://about.me/IanBarker
+           https://www.codedotshow.com/blog
+}
+
 type TCalculator = Class(TInterfacedObject, ICalculator)
 private
   FDisplayValue, FCurrentValue, FTotal, FHistory: string;
