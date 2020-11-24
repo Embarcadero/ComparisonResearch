@@ -60,6 +60,12 @@ create table articles (
 );
 ```
 
+### Login Info
+Username: postgres
+Password: postgres
+Server: 127.0.0.1
+DBName: postgres (or just the default?)
+
 ## Requirements
 ### Layout
 The Unicode Reader is broken down into three sections. The left section contains the list of feeds. The middle section contains the list of posts from the selected Feed (or All Feeds if selected). The left and middle sections are a fixed width. The right section takes up the rest of the client and displays the contents of the post itself. In theory the contents of the post should be loaded into an HTML frame since they will contain HTML. It should not load the URL of the post but load the post itself. Any links should open in the Desktop browser (target=_blank).

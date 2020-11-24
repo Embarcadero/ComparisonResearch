@@ -1,0 +1,33 @@
+Total time taken ~2 hours (in between work meetings, chatting on Skype to a coding colleague and dog walking duties)
+- not including calc engine
+- not including time to write the instructions
+
+- Speed run estimate 40 minutes
+
+- Time lapse, normal speed video and a blog post coming in the next day or so
+
+Developer: Ian Barker
+           https://about.me/IanBarker
+           https://www.codedotshow.com/blog
+
+Credits and pre-requisites
+--------------------------
+Icon source = Icons8 (via Pichon).
+https://icons8.com/app/windows
+
+**********************************************
+****                NOTE                  ****
+**** BEFORE YOU OPEN/COMPILE THE PROJECT  ****
+**********************************************
+
+This project uses the TMS Web Core controls.
+
+You can get a fully-working trial copy here: https://www.tmssoftware.com/site/tmswebcoreintro.asp
+
+You MUST have either an up-to-date licensed copy or a trial copy installed
+in the RAD Studio / Delphi IDE or the project will not work!
+
+Instructions
+------------
+
+Coming soon...

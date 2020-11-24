@@ -4,6 +4,12 @@ interface
 
 uses interfaces.icalculatorinterface;
 
+{
+  Developer: Ian Barker
+           https://about.me/IanBarker
+           https://www.codedotshow.com/blog
+}
+
 type TCalculator = Class(TInterfacedObject, ICalculator)
 private
   FDisplayValue, FCurrentValue, FTotal, FHistory: string;
@@ -54,7 +60,7 @@ end;
 
 procedure TCalculator.ChangeSign;
 
-  procedure ChangeSign(var TheValue: string);
+  procedure ChangeTheSign(var TheValue: string);
   begin
     if Pos('-', TheValue) = 0 then
       TheValue := '-' + TheValue;
@@ -63,7 +69,7 @@ procedure TCalculator.ChangeSign;
 begin
   if not FIsError then
   begin
-    ChangeSign(FCurrentValue);
+    ChangeTheSign(FCurrentValue);
     FDisplayValue := FCurrentValue;
     DoDisplayUpdate;
   end;

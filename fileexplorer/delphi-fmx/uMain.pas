@@ -29,8 +29,6 @@ type
     WinMenuBrowseForFolder: TMenuItem;
     WinMenuEdit: TMenuItem;
     WinMenuCopy: TMenuItem;
-    WinMenuWindow: TMenuItem;
-    WinMenuArrange: TMenuItem;
     MenuItem1: TMenuItem;
     Layout1: TLayout;
     FolderEdit: TEdit;
@@ -57,7 +55,9 @@ type
     procedure FoldersChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure TabsChange(Sender: TObject);
+    procedure WinMenuBrowseForFolderClick(Sender: TObject);
     procedure WinMenuCopyClick(Sender: TObject);
+    procedure WinMenuRunClick(Sender: TObject);
   private
     FFilesData: TFilesData;
     FFoldersChangeActive: Boolean;
@@ -74,6 +74,9 @@ var
   Form3: TForm3;
 
 implementation
+
+uses
+  FMX.DialogService;
 
 {$R *.fmx}
 
@@ -260,9 +263,29 @@ begin
   end;
 end;
 
+procedure TForm3.WinMenuBrowseForFolderClick(Sender: TObject);
+var Directory: string;
+begin
+  if SelectDirectory('Select a folder to open', PathDelim, Directory) then
+  begin
+    FolderEdit.Text := Directory;
+  end;
+end;
+
 procedure TForm3.WinMenuCopyClick(Sender: TObject);
 begin
   dm.PutFileToClipboard(FFilesData[Files.Row].FullFilename);
+end;
+
+procedure TForm3.WinMenuRunClick(Sender: TObject);
+begin
+  TDialogService.InputQuery('Run', ['Type the name of a program folder, document or Internet resource to open:'], [''],
+    procedure(const AResult: TModalResult; const AValues: array of string)
+    begin
+      if IsPositiveResult(AResult) then
+        dm.ShellOpen(AValues[Low(AValues)]);
+    end
+  );
 end;
 
 procedure TExpandableTreeViewItem.SetPath(const Value: string);

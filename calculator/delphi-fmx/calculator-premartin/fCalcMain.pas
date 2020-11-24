@@ -45,6 +45,10 @@ type
     btnEqual: TButton;
     StyleBook1: TStyleBook;
     rDisplay: TRectangle;
+    rOpacityOn: TPath;
+    rOpacityOff: TPath;
+    rOpacity: TRectangle;
+    lbackground: TLayout;
     procedure NumberButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -63,6 +67,7 @@ type
     procedure btnEqualClick(Sender: TObject);
     procedure btnDotClick(Sender: TObject);
     procedure btnOpposeClick(Sender: TObject);
+    procedure rOpacityClick(Sender: TObject);
   private
     { Déclarations privées }
     CurTotal: string; // current total
@@ -70,7 +75,8 @@ type
     CurPosNeg: string; // + or -
     PrevValue: string; // = curValue after Equal
     CurValue: string; // current value
-    CurOperator: TCalcOperator; // current operation
+    CurOperator: TCalcOperator;
+    FAppOpacity: boolean; // current operation
     procedure TapNumber(AValue: byte);
     procedure TapOperator(AOperator: TCalcOperator);
     procedure TapDirectOperator(AOperator: TCalcDirectOperator);
@@ -82,7 +88,9 @@ type
     procedure InitCalculator;
     procedure ChangeDisplayedResult(AValue: string);
     procedure ChangeDisplayedCalcul(ACalcul: string);
-    procedure CalcTotal(AValue: string);
+    procedure CalcTotal(AValue: string; OpStringToAdd: string = '');
+    procedure SetAppOpacity(const Value: boolean);
+    property AppOpacity: boolean read FAppOpacity write SetAppOpacity;
   public
     { Déclarations publiques }
     DecimalSeparator: Char;
@@ -170,16 +178,20 @@ begin
   TapDirectOperator(TCalcDirectOperator.RootSquare);
 end;
 
-procedure TfrmCalcMain.CalcTotal(AValue: string);
+procedure TfrmCalcMain.CalcTotal(AValue: string; OpStringToAdd: string = '');
 var
   v, t: extended;
 begin
   if AValue.IsEmpty or (AValue = '-') then
     exit;
+  if OpStringToAdd.IsEmpty then
+    OpStringToAdd := AValue;
   if CurTotalCalc.IsEmpty then
   begin
     CurTotalCalc := AValue;
     CurTotal := AValue;
+    ChangeDisplayedCalcul(CurTotalCalc + ' =');
+    ChangeDisplayedResult(CurTotal);
   end
   else
   begin
@@ -196,23 +208,23 @@ begin
     case CurOperator of
       TCalcOperator.Ajouter:
         begin
-          CurTotalCalc := CurTotalCalc + ' + ' + AValue;
+          CurTotalCalc := CurTotalCalc + ' + ' + OpStringToAdd;
           CurTotal := (t + v).ToString;
         end;
       TCalcOperator.Soustraire:
         begin
-          CurTotalCalc := CurTotalCalc + ' - ' + AValue;
+          CurTotalCalc := CurTotalCalc + ' - ' + OpStringToAdd;
           CurTotal := (t - v).ToString;
         end;
       TCalcOperator.Multiplier:
         begin
-          CurTotalCalc := '(' + CurTotalCalc + ') * ' + AValue;
+          CurTotalCalc := '(' + CurTotalCalc + ') * ' + OpStringToAdd;
           CurTotal := (t * v).ToString;
         end;
       TCalcOperator.Diviser:
         if (v <> 0) then
         begin
-          CurTotalCalc := '(' + CurTotalCalc + ') / ' + AValue;
+          CurTotalCalc := '(' + CurTotalCalc + ') / ' + OpStringToAdd;
           CurTotal := (t / v).ToString;
         end;
     end;
@@ -236,6 +248,7 @@ end;
 
 procedure TfrmCalcMain.FormCreate(Sender: TObject);
 begin
+  AppOpacity := false;
   DecimalSeparator := TFormatSettings.Create.DecimalSeparator;
   btnSquare.Text := 'x²';
   btnSquareRoot.Text := '√x';
@@ -341,6 +354,28 @@ begin
     TapNumber((Sender as TButton).Text.tointeger);
 end;
 
+procedure TfrmCalcMain.rOpacityClick(Sender: TObject);
+begin
+  AppOpacity := not AppOpacity;
+end;
+
+procedure TfrmCalcMain.SetAppOpacity(const Value: boolean);
+begin
+  FAppOpacity := Value;
+  rOpacityOn.Visible := not FAppOpacity;
+  rOpacityOff.Visible := FAppOpacity;
+  if FAppOpacity then
+  begin
+    Transparency := true;
+    lbackground.opacity := 0.8;
+  end
+  else
+  begin
+    Transparency := false;
+    lbackground.opacity := 1;
+  end;
+end;
+
 procedure TfrmCalcMain.TapBackspace;
 begin
   CurValue := CurValue.Substring(0, CurValue.Length - 1);
@@ -368,20 +403,20 @@ procedure TfrmCalcMain.TapDirectOperator(AOperator: TCalcDirectOperator);
 var
   v: extended;
 begin
-  if lblCalculs.Text.EndsWith('=') then
-    if CurValue.IsEmpty then
-      if CurTotal.StartsWith('-') then
-      begin
-        CurPosNeg := '-';
-        CurValue := CurTotal.Substring(1);
-      end
-      else
-      begin
-        CurPosNeg := '';
-        CurValue := CurTotal;
-      end;
+  // if lblCalculs.Text.EndsWith('=') then
   if CurValue.IsEmpty then
-    exit;
+    if CurTotal.StartsWith('-') then
+    begin
+      CurPosNeg := '-';
+      CurValue := CurTotal.Substring(1);
+    end
+    else
+    begin
+      CurPosNeg := '';
+      CurValue := CurTotal;
+    end;
+  if CurValue.IsEmpty then
+    CurValue := '0';
   try
     v := CurValue.ToExtended;
   except
@@ -389,14 +424,26 @@ begin
   end;
   case AOperator of
     TCalcDirectOperator.RootSquare:
-      CurValue := sqrt(v).ToString;
+      begin
+        CurValue := sqrt(v).ToString;
+        // CalcTotal(CurValue, v.ToString + '²');
+      end;
     TCalcDirectOperator.Square:
-      CurValue := (v * v).ToString;
+      begin
+        CurValue := (v * v).ToString;
+        // CalcTotal(CurValue, '√' + v.ToString);
+      end;
     TCalcDirectOperator.Inverse:
-      if (v <> 0) then
-        CurValue := (1 / v).ToString;
+      begin
+        if (v <> 0) then
+          CurValue := (1 / v).ToString;
+        // CalcTotal(CurValue, '1/' + v.ToString);
+      end;
     TCalcDirectOperator.Percent:
-      CurValue := (v / 100).ToString;
+      begin
+        CurValue := (v / 100).ToString;
+        // ChangeDisplayedResult(CurValue);
+      end;
   end;
   ChangeDisplayedResult(CurValue);
 end;
@@ -482,7 +529,10 @@ end;
 procedure TfrmCalcMain.TapPlusMinus;
 begin
   if CurValue.IsEmpty then
-    exit;
+    if lblCalculs.Text.EndsWith('=') then
+      CurValue := CurTotal
+    else
+      CurValue := '0';
   if CurPosNeg.IsEmpty then
     CurPosNeg := '-'
   else
