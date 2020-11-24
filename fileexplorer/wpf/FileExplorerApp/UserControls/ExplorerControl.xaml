@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FileExplorerApp.UserControls"
-             xmlns:classes="clr-namespace:FileExplorerApp.Models" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:classes="clr-namespace:FileExplorerApp.Models" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -55,7 +56,6 @@
                     <KeyBinding Key="Enter" Command="{Binding LoadCurrentPathCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
-
             <TextBox x:Name="txtSearch" Margin="2 0 0 0" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"
                      Tag="Search" Grid.Column="1" Width="150" Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
@@ -76,7 +76,6 @@
                 <Button  Margin="2" Content=" Search " Height="25" Command="{Binding SearchCommand}"/>
                 <Button  Margin="2" Content=" Clear " Height="25" Command="{Binding ClearCommand}"/>
             </StackPanel>
-
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -188,12 +187,6 @@
                               AutoGenerateColumns="False" 
                               Grid.Column="1" GridLinesVisibility="None"
                       Margin="5" HorizontalContentAlignment="Stretch">
-
-                <!--<DataGrid.InputBindings>
-                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DetailGridDoubleClick}" 
-                                  CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
-                </DataGrid.InputBindings>-->
-                
                 <DataGrid.Style>
                     <Style TargetType="DataGrid">
                         <Setter Property="Visibility" Value="Visible"/>
@@ -208,7 +201,6 @@
                     <i:EventTrigger EventName="SelectionChanged">
                         <cmd:EventToCommand Command="{Binding DeatailViewSelectionChanged}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
-                 
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Name" Width="*">
@@ -233,26 +225,16 @@
                                         </Grid.ColumnDefinitions>
                                         <Image Source="{Binding Path=Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
                                         <StackPanel Grid.Column="1">
-                                            <local:SearchHightlightTextBlock Margin="10,2" 
+                                            <TextBlock Margin="10,2" 
                                               Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"
-                                              TextTrimming="CharacterEllipsis"
-                                                SearchText="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
-                                                                                             Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"       />
+                                              TextTrimming="CharacterEllipsis"/>
 
-                                            <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" 
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                            <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis">    
                                                 <Run Text="Date modified: "/>
                                                 <Run Text="{Binding LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}"/>
                                             </TextBlock>
                                         </StackPanel>
-                                        <TextBlock Margin="10,2" Text="{Binding FilePath,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" TextTrimming="CharacterEllipsis"
-                                                   local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
-                                                                                          Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                   local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                   local:TextBlockHighlighter.Forecolor="Black"/>
+                                        <TextBlock Margin="10,2" Text="{Binding FilePath,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" TextTrimming="CharacterEllipsis"/>
                                     </Grid>
 
 
@@ -276,40 +258,25 @@
                                         <Image Source="{Binding Path=Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
                                         <StackPanel Grid.Column="1">
                                             <TextBlock Margin="10,2" Text="{Binding Name}" TextTrimming="CharacterEllipsis"
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black"/>
+                                                       />
 
                                             <TextBlock Margin="10,2" Text="{Binding FilePath}" Grid.Column="2" TextTrimming="CharacterEllipsis"
-                                                   local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                          Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                   local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                   local:TextBlockHighlighter.Forecolor="Black"/>
+                                                  />
                                         </StackPanel>
                                         <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" Grid.Column="2"
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                       >    
                                                 <Run Text="Type: "/>
                                                 <Run Text="{Binding Type}"/>
                                         </TextBlock>
 
                                         <StackPanel Grid.Column="3">
                                             <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" 
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                      >    
                                                 <Run Text="Date modified: "/>
                                                 <Run Text="{Binding LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}"/>
                                             </TextBlock>
                                             <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis"
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                      >    
                                                 <Run Text="Size: "/>
                                                 <Run Text="{Binding Size}"/>
                                             </TextBlock>

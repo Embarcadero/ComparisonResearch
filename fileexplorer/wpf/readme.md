@@ -3,6 +3,7 @@
 ### Requirements:-
 Either Visual Studio 2017 or 2019
    <br/>.NET Version 4.6.1 or above
+   
 
 ## Initial Setup
 - Open Visual studio Editor.
@@ -70,6 +71,7 @@ Follow the below instruction to create the enum class files.
     }
 
 
+
 ***ItemState.cs***
 
     namespace FileExplorerApp.Enums
@@ -93,6 +95,7 @@ Follow the below instruction to create the enum class files.
             File
         }
     }
+
 
 
 ***ShellAttribute.cs***
@@ -126,6 +129,7 @@ Follow the below instruction to create the enum class files.
             AttributeSpecified = 131072 // 0x000020000
         }
     }
+
 
 
 
@@ -229,11 +233,11 @@ Add 3 columns in Header row
 ```
 - In First Column of Header grid add Textbox for display Path
 ```
-<TextBox Text="{Binding Currentpath,UpdateSourceTrigger=PropertyChanged}" Height="25"  Margin="2 0 2 0">
+ <TextBox Text="{Binding Currentpath,UpdateSourceTrigger=PropertyChanged}" Height="25"  Margin="2 0 2 0">
         <TextBox.InputBindings>
             <KeyBinding Key="Enter" Command="{Binding LoadCurrentPathCommand}" />
         </TextBox.InputBindings>
-</TextBox>
+ </TextBox>
 ```
 
 - In second column of Header grid add Textbox for Search
@@ -249,10 +253,8 @@ Tag="Search" Grid.Column="1" Width="150" Text="{Binding SearchText,UpdateSourceT
 - In third column of Header grid we have 2 buttons for "Search" and "Clear".
 ```
 <StackPanel Grid.Column="2" Orientation="Horizontal">
-
-<Button  Margin="2" Content=" Search " Height="25" Command="{Binding SearchCommand}"/>
-
-<Button  Margin="2" Content=" Clear " Height="25" Command="{Binding ClearCommand}"/>
+        <Button  Margin="2" Content=" Search " Height="25" Command="{Binding SearchCommand}"/>
+        <Button  Margin="2" Content=" Clear " Height="25" Command="{Binding ClearCommand}"/>
 </StackPanel>
 ```
 
@@ -262,12 +264,12 @@ Add trigger to display button visible or collapsed inside the above stack panel
 <StackPanel.Style>
     <Style TargetType="StackPanel">
         <Setter Property="Visibility" Value="Visible"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding SearchText}" Value="">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                </DataTrigger>
-            </Style.Triggers>
-     </Style>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding SearchText}" Value="">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </StackPanel.Style>
 ```
 ---
@@ -317,7 +319,7 @@ Create two columns inside above grid.
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>
-            </TreeView>
+</TreeView>
 ```
 
 - In second column add 2 Datagrid
@@ -326,7 +328,10 @@ Create two columns inside above grid.
 
 1. DataGrid for Files
 ```
-<DataGrid ItemsSource="{Binding DetailFilesSource}" SelectionMode="Extended" Background="White" RowHeaderWidth="0" IsReadOnly="True" AutoGenerateColumns="False" Grid.Column="1" GridLinesVisibility="None" Margin="5" HorizontalContentAlignment="Stretch">
+<DataGrid ItemsSource="{Binding DetailFilesSource}"
+SelectionMode="Extended" Background="White" RowHeaderWidth="0" IsReadOnly="True" AutoGenerateColumns="False" 
+Grid.Column="1" GridLinesVisibility="None"
+Margin="5" HorizontalContentAlignment="Stretch">
 
 </DataGrid>
 ```
@@ -341,9 +346,9 @@ Add style code inside datagrid style
 <Style TargetType="DataGrid">
     <Setter Property="Visibility" Value="Visible"/>
     <Style.Triggers>
-        <DataTrigger Binding="{Binding SearchMode}" Value="True">
-            <Setter Property="Visibility" Value="Collapsed"/>
-        </DataTrigger>
+            <DataTrigger Binding="{Binding SearchMode}" Value="True">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
     </Style.Triggers>
 </Style>
 ```
@@ -353,6 +358,11 @@ Add interaction trigger inside datagrid for event when selected item change.
 <i:Interaction.Triggers>
     <i:EventTrigger EventName="SelectionChanged">
         <cmd:EventToCommand Command="{Binding DeatailViewSelectionChanged}" PassEventArgsToCommand="True"/>
+    </i:EventTrigger>
+
+    <i:EventTrigger EventName="MouseDoubleClick">
+        <cmd:EventToCommand Command="{Binding DetailGridDoubleClick}"  
+        CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
     </i:EventTrigger>
 </i:Interaction.Triggers>
 ```
@@ -407,14 +417,15 @@ Add below code inside datagrid columns
                                  RelativeSource={RelativeSource Self}}"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+</DataGridTextColumn>
 ```
 
 
 2. DataGrid for Search
 
 ```
-<DataGrid ItemsSource="{Binding SearchFilesSource,Mode=OneWay}" SelectionMode="Extended" Background="White" RowHeaderWidth="0" IsReadOnly="True" AutoGenerateColumns="False" 
+<DataGrid ItemsSource="{Binding SearchFilesSource,Mode=OneWay}"
+SelectionMode="Extended" Background="White" RowHeaderWidth="0" IsReadOnly="True" AutoGenerateColumns="False" 
 Grid.Column="1" GridLinesVisibility="None"
 Margin="5" HorizontalContentAlignment="Stretch">
 
@@ -451,44 +462,37 @@ Add interaction trigger inside datagrid for event when selected item change.
 Add below code inside Datagrid columns
 ```
 <DataGridTemplateColumn Header="Name" Width="*">
-    <DataGridTemplateColumn.CellTemplate>
-        <DataTemplate>
-            <StackPanel Name="FolderSearchResult">
-                <Grid Height="40" HorizontalAlignment="Stretch">
-                    <Grid.Style>
-                        <Style TargetType="Grid">
-                                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding IsDirectory}" Value="True">
-                                                                        <Setter Property="Visibility" Value="Visible"/>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Name="FolderSearchResult">
+                                    <Grid Height="40" HorizontalAlignment="Stretch">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDirectory}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
                                                     </DataTrigger>
-                                                                    </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                    <Image Source="{Binding Path=Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
-                    <StackPanel Grid.Column="1">
-                    <local:SearchHightlightTextBlock Margin="10,2" Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" TextTrimming="CharacterEllipsis"                                              SearchText="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
-                                                                                             Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"       />
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding Path=Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Margin="10,2" 
+                                              Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"
+                                              TextTrimming="CharacterEllipsis"/>
 
-                                            <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" 
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                            <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis">    
                                                 <Run Text="Date modified: "/>
                                                 <Run Text="{Binding LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}"/>
                                             </TextBlock>
                                         </StackPanel>
-                                        <TextBlock Margin="10,2" Text="{Binding FilePath,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" TextTrimming="CharacterEllipsis"
-                                                   local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,UpdateSourceTrigger=PropertyChanged,
-                                                                                          Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                   local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                   local:TextBlockHighlighter.Forecolor="Black"/>
+                                        <TextBlock Margin="10,2" Text="{Binding FilePath,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" TextTrimming="CharacterEllipsis"/>
                                     </Grid>
 
 
@@ -512,49 +516,34 @@ Add below code inside Datagrid columns
                                         <Image Source="{Binding Path=Icon, UpdateSourceTrigger=PropertyChanged}" Margin="5"></Image>
                                         <StackPanel Grid.Column="1">
                                             <TextBlock Margin="10,2" Text="{Binding Name}" TextTrimming="CharacterEllipsis"
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black"/>
+                                                       />
 
                                             <TextBlock Margin="10,2" Text="{Binding FilePath}" Grid.Column="2" TextTrimming="CharacterEllipsis"
-                                                   local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                          Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                   local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                   local:TextBlockHighlighter.Forecolor="Black"/>
+                                                  />
                                         </StackPanel>
                                         <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" Grid.Column="2"
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                       >    
                                                 <Run Text="Type: "/>
                                                 <Run Text="{Binding Type}"/>
                                         </TextBlock>
 
                                         <StackPanel Grid.Column="3">
                                             <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis" 
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                      >    
                                                 <Run Text="Date modified: "/>
                                                 <Run Text="{Binding LastWriteTime, StringFormat=\{0:dd-MM-yyyy HH:mm tt\}}"/>
                                             </TextBlock>
                                             <TextBlock Margin="10,2" TextTrimming="CharacterEllipsis"
-                                                       local:TextBlockHighlighter.Selection="{Binding DataContext.SearchText,
-                                                                                             Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                       local:TextBlockHighlighter.HighlightColor="Yellow"
-                                                       local:TextBlockHighlighter.Forecolor="Black">    
+                                                      >    
                                                 <Run Text="Size: "/>
                                                 <Run Text="{Binding Size}"/>
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
-            <Separator/>
-            </StackPanel>
-        </DataTemplate>
-    </DataGridTemplateColumn.CellTemplate>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Separator/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
 </DataGridTemplateColumn>
 ```
 
@@ -606,7 +595,11 @@ Here is the code for usercontrol is Completed.
 
 ```
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FileExplorerApp.Structs
 {
@@ -642,7 +635,11 @@ Here is the code for ***Interop.cs***
 ```
 using FileExplorerApp.Structs;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FileExplorerApp.Utils
 {
@@ -705,6 +702,14 @@ namespace FileExplorerApp.Utils
         public string FilePath { get; set; }
         public ImageSource Icon { get; set; }
 
+        //private ImageSource _icon;
+
+        //public ImageSource Icon
+        //{
+        //    get { return Dispatcher.CurrentDispatcher.Invoke(() => _icon);  }
+        //    set { _icon = value; }
+        //}
+
         public string Type { get; set; }
 
         public string Name { get; set; }
@@ -716,6 +721,39 @@ namespace FileExplorerApp.Utils
     }
     public class ShellManager
     {
+        //public static Icon GetIcon(string path, ItemType type)
+        //{
+        //    var fileInfo = new ShellFileInfo();
+        //    var size = (uint)Marshal.SizeOf(fileInfo);
+
+        //    uint dwFileAttributes = Interop.FILE_ATTRIBUTE.FILE_ATTRIBUTE_NORMAL | 
+        //        (uint)(type == ItemType.Folder ? FileAttribute.Directory : FileAttribute.File);
+
+        //    uint uFlags = (uint)(Interop.SHGFI.SHGFI_TYPENAME | Interop.SHGFI.SHGFI_USEFILEATTRIBUTES
+        //        | (uint)ShellAttribute.LargeIcon | (uint)ShellAttribute.SmallIcon | (uint)ShellAttribute.OpenIcon |
+        //        (uint)(ShellAttribute.Icon | ShellAttribute.UseFileAttributes));
+
+        //    var result =  Interop.SHGetFileInfo(path, dwFileAttributes, out fileInfo, size, uFlags);
+
+        //    if (result == IntPtr.Zero)
+        //    {
+        //        throw Marshal.GetExceptionForHR(Marshal.GetHRForLastWin32Error());
+        //    }
+
+        //    try
+        //    {
+        //        return (Icon)Icon.FromHandle(fileInfo.hIcon).Clone();
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        Interop.DestroyIcon(fileInfo.hIcon);
+        //    }
+        //}
+
         public static ImageSource GetIcon(IntPtr icon, Size size)
         {
 
@@ -770,6 +808,7 @@ namespace FileExplorerApp.Utils
                 iconImageSOurce.Freeze();
                 Dispatcher.CurrentDispatcher.Invoke(() => fileInfoObj.Icon = iconImageSOurce);
 
+                //fileInfoObj.Icon = iconImageSOurce;
                 fileInfoObj.FilePath = path;
                 fileInfoObj.Type = fileInfo.szTypeName;
                 fileInfoObj.IsDirectory = type == ItemType.Folder;
@@ -879,6 +918,7 @@ namespace FileExplorerApp.Models
     {
         public FileSystemObjectInfo()
         {
+
         }
         public FileSystemObjectInfo(FileSystemInfo info)
         {
@@ -984,6 +1024,10 @@ namespace FileExplorerApp.Models
                             RaiseBeforeExplore();
                             RemoveDummy();
                             ExploreDirectories();
+                            //if (IsDetailView)
+                            //{
+                            //    ExploreFiles();
+                            //}
                             RaiseAfterExplore();
                         }
                     }
@@ -1125,15 +1169,40 @@ namespace FileExplorerApp.Models
         {
             RaiseBeforeExplore();
         }
+
+        //private void ExploreFiles()
+        //{
+        //    if (Drive?.IsReady == false)
+        //    {
+        //        return;
+        //    }
+        //    if (FileSystemInfo is DirectoryInfo)
+        //    {
+        //        var files = ((DirectoryInfo)FileSystemInfo).GetFiles();
+        //        foreach (var file in files.OrderBy(d => d.Name))
+        //        {
+        //            if ((file.Attributes & FileAttributes.System) != FileAttributes.System &&
+        //                (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+        //            {
+        //                Children.Add(new FileSystemObjectInfo(file));
+        //            }
+        //        }
+        //    }
+        //}
+
         #endregion
     }
 }
-
 ```
 
 Here is the code for ***"DummyFileSystemObjectInfo.cs"***
 ```
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FileExplorerApp.Models
 {
@@ -1190,12 +1259,36 @@ namespace FileExplorerApp.ViewModels
             InitializeFileSystemObjects();
             LoadCurrentPathCommand = new RelayCommand(OnLoadCurrentPathCommand);
             TreeViewSelectionChanged = new RelayCommand<RoutedPropertyChangedEventArgs<object>>(OnTreeViewSelectionChanged);
+            TreeViewPreviewMouseDown = new RelayCommand<MouseButtonEventArgs>(OnTreeViewPreviewMouseDown);
             DeatailViewSelectionChanged = new RelayCommand<SelectionChangedEventArgs>(OnDeatailViewSelectionChanged);
             SearchText = string.Empty;
             SearchFilesSource = new ObservableCollection<FileinfoObj>();
             SearchCommand = new RelayCommand(FilterData);
             ClearCommand = new RelayCommand(OnClearCommand);
             SearchMode = false;
+
+            DetailGridDoubleClick = new RelayCommand<FileSystemObjectInfo>(OnDetailGridDoubleClick);
+        }
+
+        private void OnDetailGridDoubleClick(FileSystemObjectInfo obj)
+        {
+            if (obj.FileInfo.IsDirectory)
+            {
+                selectedFileObject = obj;
+                UpdateDetailFiles();
+            }
+            else
+            {
+                try
+                {
+                    System.Diagnostics.Process.Start(obj.FileSystemInfo.FullName);
+                }
+                catch (Exception e)
+                {
+
+                    MessageBox.Show(e.Message);
+                }
+            }
         }
 
         private void OnClearCommand()
@@ -1203,6 +1296,7 @@ namespace FileExplorerApp.ViewModels
             SearchText = string.Empty;
         }
 
+        public ICommand DetailGridDoubleClick { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand ClearCommand { get; set; }
 
@@ -1263,7 +1357,7 @@ namespace FileExplorerApp.ViewModels
                     SearchMode = true;
                     if (SearchMode)
                     {
-                        GetSearchedFiles((DirectoryInfo)SelectedFileObject.FileSystemInfo);
+                        GetSearchedFiles((DirectoryInfo)selectedFileObject.FileSystemInfo);
                     }
                 };
                 worker.RunWorkerCompleted += (o, ea) =>
@@ -1337,14 +1431,25 @@ namespace FileExplorerApp.ViewModels
             }
         }
 
+        private bool IsTreeViewSelectionEditable { get; set; }
+        private void OnTreeViewPreviewMouseDown(MouseButtonEventArgs obj)
+        {
+            IsTreeViewSelectionEditable = true;
+        }
+
         private void OnTreeViewSelectionChanged(RoutedPropertyChangedEventArgs<object> obj)
         {
-            SearchMode = false;
-            SelectedFileObject = obj.NewValue as FileSystemObjectInfo;
-            UpdateDetailFiles();
+            if (IsTreeViewSelectionEditable)
+            {
+                SearchMode = false;
+                selectedFileObject = obj.NewValue as FileSystemObjectInfo;
+                UpdateDetailFiles();
+                IsTreeViewSelectionEditable = false;
+            }
         }
 
         public ICommand TreeViewSelectionChanged { get; set; }
+        public ICommand TreeViewPreviewMouseDown { get; set; }
         public ICommand DeatailViewSelectionChanged { get; set; }
 
         private void OnLoadCurrentPathCommand()
@@ -1379,35 +1484,36 @@ namespace FileExplorerApp.ViewModels
             set { _selectedDetailFileCount = value; OnPropertyChanged(nameof(SelectedDetailFileCount)); }
         }
 
-        private string _tabHeader;
 
-        public string TabHeader
+        private string _headerText;
+        public string HeaderText
         {
-            get { return _tabHeader; }
-            set { _tabHeader = value; OnPropertyChanged(nameof(TabHeader)); }
+            get { return _headerText; }
+            set { _headerText = value; OnPropertyChanged(nameof(HeaderText)); }
         }
 
-        public FileSystemObjectInfo SelectedFileObject { get; set; }
+
+        private FileSystemObjectInfo selectedFileObject { get; set; }
         private void UpdateDetailFiles()
         {
-            if (SelectedFileObject != null)
+            if (selectedFileObject != null)
             {
-                if (SelectedFileObject.FileInfo != null)
+                if (selectedFileObject.FileInfo != null)
                 {
-                    var currentPath = SelectedFileObject.FileInfo.FilePath;
+                    var currentPath = selectedFileObject.FileInfo.FilePath;
                     PreviousCurrentPath = currentPath;
                     Currentpath = currentPath;
-                    TabHeader = SelectedFileObject.FileInfo.Name;
+                    HeaderText = selectedFileObject.FileInfo.Name;
                 }
 
                 DetailFilesSource = new ObservableCollection<FileSystemObjectInfo>();
-                if (SelectedFileObject.Drive?.IsReady == false)
+                if (selectedFileObject.Drive?.IsReady == false)
                 {
                     return;
                 }
-                if (SelectedFileObject.FileSystemInfo is DirectoryInfo)
+                if (selectedFileObject.FileSystemInfo is DirectoryInfo)
                 {
-                    var directories = ((DirectoryInfo)SelectedFileObject.FileSystemInfo).GetDirectories();
+                    var directories = ((DirectoryInfo)selectedFileObject.FileSystemInfo).GetDirectories();
                     foreach (var directory in directories.OrderBy(d => d.Name))
                     {
                         if ((directory.Attributes & FileAttributes.System) != FileAttributes.System &&
@@ -1417,7 +1523,7 @@ namespace FileExplorerApp.ViewModels
                         }
                     }
 
-                    var files = ((DirectoryInfo)SelectedFileObject.FileSystemInfo).GetFiles();
+                    var files = ((DirectoryInfo)selectedFileObject.FileSystemInfo).GetFiles();
                     foreach (var file in files.OrderBy(d => d.Name))
                     {
                         if ((file.Attributes & FileAttributes.System) != FileAttributes.System &&
@@ -1512,7 +1618,7 @@ namespace FileExplorerApp.ViewModels
                 && fileSystemObjectInfo.FileSystemInfo.FullName.Contains(path))
             {
                 //fileSystemObjectInfo.IsSelected = true;
-                SelectedFileObject = fileSystemObjectInfo;
+                selectedFileObject = fileSystemObjectInfo;
                 UpdateDetailFiles();
             }
             else
@@ -1525,7 +1631,7 @@ namespace FileExplorerApp.ViewModels
                         if (string.Equals(NormalizePath(childFileSystemObjectInfo.FileSystemInfo.FullName), NormalizePath(path)))
                         {
                             childFileSystemObjectInfo.IsSelected = isDefaultPath;
-                            SelectedFileObject = childFileSystemObjectInfo;
+                            selectedFileObject = childFileSystemObjectInfo;
                             UpdateDetailFiles();
                         }
                         else
@@ -1567,7 +1673,6 @@ namespace FileExplorerApp.ViewModels
         {
             return (path.ToLower().StartsWith(targetPath.ToLower())) || (targetPath.ToLower().StartsWith(path.ToLower()));
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -1684,42 +1789,34 @@ Copy this code in the Main Grid block to create 2 rows:
 
 Create a TabControl in First row.
 ```
-<TabControl ItemsSource="{Binding Items}" TabStripPlacement="Bottom" >
-            <TabControl.ItemContainerStyle>
-                <Style TargetType="TabItem">
-                    <Setter Property="Header" Value="{Binding DataContext.TabHeader}"/>
-                </Style>
-            </TabControl.ItemContainerStyle>
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding}"/>
-                        <Button Content="X" Cursor="Hand" DockPanel.Dock="Right" Focusable="False"
-            FontFamily="Courier" FontSize="9" FontWeight="Bold"  Margin="8,1,0,0" Padding="0" 
-            VerticalContentAlignment="Bottom" Width="16" Height="16" Background="Transparent"
-                            Command="{Binding DataContext.CloseTabCommand,RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                            CommandParameter="{Binding}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </TabControl.ItemTemplate>add
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <userControl:ExplorerControl DataContext="{Binding DataContext}"/>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
+<TabControl ItemsSource="{Binding Items}" TabStripPlacement="Bottom">
+    <TabControl.ItemTemplate>
+        <DataTemplate >
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding DataContext.HeaderText}"/>
+                <Button Content="X" Cursor="Hand" DockPanel.Dock="Right" Focusable="False" FontFamily="Courier" FontSize="9" FontWeight="Bold"  Margin="8,1,0,0" Padding="0" 
+            VerticalContentAlignment="Bottom" Width="16" Height="16" Background="Transparent" Command="{Binding DataContext.CloseTabCommand,RelativeSource={RelativeSource AncestorType={x:Type Window}}}"CommandParameter="{Binding}"/>
+            </StackPanel>
+        </DataTemplate>
+    </TabControl.ItemTemplate>
+    <TabControl.ContentTemplate>
+        <DataTemplate>
+            <userControl:ExplorerControl DataContext="{Binding DataContext}"/>
+        </DataTemplate>
+    </TabControl.ContentTemplate>
 </TabControl>
 ```
 
 Create a button in Second row.
 ```
-<Button Margin="5" HorizontalAlignment="Right" Padding="3" Command="{Binding AddTabCommand}" Grid.Row="1" Height="30" >
+<Button Grid.Row="1" Margin="5" HorizontalAlignment="Right" Command="{Binding AddTabCommand}">
 </Button>
 ```
 
 Add image as a content in button
 ```
 <Button.Content>
-    <Image Source="pack://application:,,,/Icons/add.png"/>
+    <Image Source="pack://application:,,,/Icons/add.png" Height="25"/>
 </Button.Content>
 ```
 
