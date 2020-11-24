@@ -45,7 +45,15 @@ namespace FileExplorerApp.ViewModels
             }
             else
             {
-                System.Diagnostics.Process.Start(obj.FileSystemInfo.FullName);
+                try
+                {
+                    System.Diagnostics.Process.Start(obj.FileSystemInfo.FullName);
+                }
+                catch (Exception e)
+                {
+
+                    MessageBox.Show(e.Message);
+                }
             }
         }
 

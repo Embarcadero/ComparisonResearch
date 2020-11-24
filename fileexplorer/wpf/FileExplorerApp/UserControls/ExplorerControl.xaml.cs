@@ -27,16 +27,6 @@ namespace FileExplorerApp.UserControls
         {
             InitializeComponent();
         }
-
-        private void treeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 
 
