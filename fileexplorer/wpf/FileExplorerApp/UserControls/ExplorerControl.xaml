@@ -130,6 +130,11 @@
                     <i:EventTrigger EventName="SelectionChanged">
                         <cmd:EventToCommand Command="{Binding DeatailViewSelectionChanged}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
+
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <cmd:EventToCommand Command="{Binding DetailGridDoubleClick}"  
+                                CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Name" Width="*">
@@ -183,6 +188,12 @@
                               AutoGenerateColumns="False" 
                               Grid.Column="1" GridLinesVisibility="None"
                       Margin="5" HorizontalContentAlignment="Stretch">
+
+                <!--<DataGrid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DetailGridDoubleClick}" 
+                                  CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                </DataGrid.InputBindings>-->
+                
                 <DataGrid.Style>
                     <Style TargetType="DataGrid">
                         <Setter Property="Visibility" Value="Visible"/>
@@ -197,6 +208,7 @@
                     <i:EventTrigger EventName="SelectionChanged">
                         <cmd:EventToCommand Command="{Binding DeatailViewSelectionChanged}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
+                 
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Name" Width="*">

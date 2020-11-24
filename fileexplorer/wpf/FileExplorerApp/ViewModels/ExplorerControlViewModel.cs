@@ -32,6 +32,21 @@ namespace FileExplorerApp.ViewModels
             SearchCommand = new RelayCommand(FilterData);
             ClearCommand = new RelayCommand(OnClearCommand);
             SearchMode = false;
+
+            DetailGridDoubleClick = new RelayCommand<FileSystemObjectInfo>(OnDetailGridDoubleClick);
+        }
+
+        private void OnDetailGridDoubleClick(FileSystemObjectInfo obj)
+        {
+            if (obj.FileInfo.IsDirectory)
+            {
+                selectedFileObject = obj;
+                UpdateDetailFiles();
+            }
+            else
+            {
+                System.Diagnostics.Process.Start(obj.FileSystemInfo.FullName);
+            }
         }
 
         private void OnClearCommand()
@@ -39,6 +54,7 @@ namespace FileExplorerApp.ViewModels
             SearchText = string.Empty;
         }
 
+        public ICommand DetailGridDoubleClick { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand ClearCommand { get; set; }
 
