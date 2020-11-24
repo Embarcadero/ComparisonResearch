@@ -25,6 +25,7 @@ namespace FileExplorerApp.ViewModels
             InitializeFileSystemObjects();
             LoadCurrentPathCommand = new RelayCommand(OnLoadCurrentPathCommand);
             TreeViewSelectionChanged = new RelayCommand<RoutedPropertyChangedEventArgs<object>>(OnTreeViewSelectionChanged);
+            TreeViewPreviewMouseDown = new RelayCommand<MouseButtonEventArgs>(OnTreeViewPreviewMouseDown);
             DeatailViewSelectionChanged = new RelayCommand<SelectionChangedEventArgs>(OnDeatailViewSelectionChanged);
             SearchText = string.Empty;
             SearchFilesSource = new ObservableCollection<FileinfoObj>();
@@ -172,14 +173,25 @@ namespace FileExplorerApp.ViewModels
             }
         }
 
+        private bool IsTreeViewSelectionEditable { get; set; }
+        private void OnTreeViewPreviewMouseDown(MouseButtonEventArgs obj)
+        {
+            IsTreeViewSelectionEditable = true;
+        }
+
         private void OnTreeViewSelectionChanged(RoutedPropertyChangedEventArgs<object> obj)
         {
-            SearchMode = false;
-            selectedFileObject = obj.NewValue as FileSystemObjectInfo;
-            UpdateDetailFiles();
+            if (IsTreeViewSelectionEditable)
+            {
+                SearchMode = false;
+                selectedFileObject = obj.NewValue as FileSystemObjectInfo;
+                UpdateDetailFiles();
+                IsTreeViewSelectionEditable = false;
+            }
         }
 
         public ICommand TreeViewSelectionChanged { get; set; }
+        public ICommand TreeViewPreviewMouseDown { get; set; }
         public ICommand DeatailViewSelectionChanged { get; set; }
 
         private void OnLoadCurrentPathCommand()
@@ -214,6 +226,15 @@ namespace FileExplorerApp.ViewModels
             set { _selectedDetailFileCount = value; OnPropertyChanged(nameof(SelectedDetailFileCount)); }
         }
 
+
+        private string _headerText;
+        public string HeaderText
+        {
+            get { return _headerText; }
+            set { _headerText = value; OnPropertyChanged(nameof(HeaderText)); }
+        }
+
+
         private FileSystemObjectInfo selectedFileObject { get; set; }
         private void UpdateDetailFiles()
         {
@@ -224,6 +245,7 @@ namespace FileExplorerApp.ViewModels
                     var currentPath = selectedFileObject.FileInfo.FilePath;
                     PreviousCurrentPath = currentPath;
                     Currentpath = currentPath;
+                    HeaderText = selectedFileObject.FileInfo.Name;
                 }
 
                 DetailFilesSource = new ObservableCollection<FileSystemObjectInfo>();

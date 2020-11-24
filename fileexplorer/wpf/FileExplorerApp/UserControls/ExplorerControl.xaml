@@ -88,6 +88,9 @@
                     <i:EventTrigger EventName="SelectedItemChanged">
                         <cmd:EventToCommand Command="{Binding TreeViewSelectionChanged}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="PreviewMouseDown">
+                        <cmd:EventToCommand Command="{Binding TreeViewPreviewMouseDown}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <TreeView.ItemContainerStyle>
                     <Style TargetType="{x:Type TreeViewItem}">
