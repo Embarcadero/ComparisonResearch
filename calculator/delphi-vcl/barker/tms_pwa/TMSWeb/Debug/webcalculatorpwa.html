@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FFFFFF">
+    <noscript>Your browser does not support JavaScript!</noscript>
+    <link rel="icon" sizes="192x192" href="iconresmid.png">
+    <link rel="apple-touch-icon" href="iconresmid.png">
+    <link rel=manifest href="Manifest.json"/>
+    <title>TMS Web Project</title>
+    <script type="text/javascript" src="webcalculatorpwa.js"></script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      if ("serviceWorker" in navigator)
+      {
+         navigator.serviceWorker.register("ServiceWorker.js").then(
+           function(ARegistration)
+           {}).catch(
+             function(AErr)
+             {
+               console.log("TMS WEB Core service worker registration failed", AErr);
+             });
+      }
+    </script>
+  </body>
+  <script type="text/javascript">
+    rtl.run();
+  </script>
+</html>
