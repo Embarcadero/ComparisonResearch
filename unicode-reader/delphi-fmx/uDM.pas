@@ -6,18 +6,18 @@ uses
   System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG,
-  FireDAC.Phys.PGDef, FireDAC.FMXUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
-  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.ScriptCommands,
-  FireDAC.Stan.Util, FireDAC.Comp.Script, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client;
+  FireDAC.Phys.PGDef, FireDAC.FMXUI.Wait, FireDAC.Comp.ScriptCommands,
+  FireDAC.Stan.Util, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  FireDAC.Comp.Script;
 
 type
   TDM = class(TDataModule)
-    FDConnection1: TFDConnection;
-    ArticlesQuery: TFDQuery;
+    FDConnection: TFDConnection;
+    FDPhysPgDriverLink: TFDPhysPgDriverLink;
+    FDScript: TFDScript;
     ChannelsQuery: TFDQuery;
-    CreateScripts: TFDScript;
-    FDPhysPgDriverLink1: TFDPhysPgDriverLink;
+    ArticlesQuery: TFDQuery;
   private
     { Private declarations }
   public
