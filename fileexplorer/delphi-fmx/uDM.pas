@@ -47,6 +47,9 @@ uses
   WinAPI.ShellAPI,
   WinAPI.Windows,
 {$ELSEIF Defined(MACOS)}
+  Macapi.AppKit,
+  Macapi.Helpers,
+  Macapi.Foundation,
   Posix.Stdlib,
 {$ENDIF}
   System.IOUtils;
@@ -99,23 +102,19 @@ begin
 end;
 
 procedure Tdm.PutFileToClipboard(FilePath: string);
-{$IFDEF MSWINDOWS}
-procedure WinPutFileToClipboard;
-var
-  Data: THandle;
-  Dropfiles: PDropFiles;
 begin
+{$IFDEF MSWINDOWS}
   FilePath := FilePath + #0#0;
   if not OpenClipboard(0) then
     RaiseLastOSError;
   try
     if not EmptyClipboard then
       RaiseLastOSError;
-    Data := GlobalAlloc(GMEM_MOVEABLE or GMEM_ZEROINIT, SizeOf(TDropFiles) + Length(FilePath) * SizeOf(Char));
+    var Data: THandle := GlobalAlloc(GMEM_MOVEABLE or GMEM_ZEROINIT, SizeOf(TDropFiles) + Length(FilePath) * SizeOf(Char));
     if Data = 0 then
       RaiseLastOSError;
     try
-      DropFiles := GlobalLock(Data);
+      var Dropfiles: PDropFiles := GlobalLock(Data);
       try
         DropFiles^.pFiles := SizeOf(TDropFiles);
         DropFiles^.fWide := True;
@@ -135,11 +134,13 @@ begin
       RaiseLastOSError;
   end;
 
-end;
-{$ENDIF}
-begin
-{$IFDEF MSWINDOWS}
-  WinPutFileToClipboard;
+{$ELSEIF Defined(MACOS)}
+    var Pasteboard := TNSPasteboard.Wrap(TNSPasteboard.OCClass.generalPasteboard);
+    var FileURL := TNSUrl.Wrap(TNSUrl.OCCLass.fileURLWithPath(StrToNSStr(FilePath)));
+    var fileArray := TNSArray.Wrap(TNSArray.OCClass.arrayWithObject(NSObjectToID(FileURL)));
+
+    Pasteboard.clearContents;
+    Pasteboard.writeObjects(fileArray);
 {$ENDIF}
 end;
 
@@ -185,6 +186,14 @@ procedure TFileData.ObtainInfo(const AFullFilename: string);
                       SHGFI_TYPENAME or SHGFI_USEFILEATTRIBUTES
                       );
         Result := FileInfo.szTypeName;
+    {$ELSEIF Defined(MACOS)}
+      var pnsstr: Pointer;
+      var URL := TNSUrl.Wrap(TNSUrl.OCCLass.fileURLWithPath(StrToNSStr(FullFilename)));
+
+      if URL.getResourceValue(@pnsstr, NSURLLocalizedTypeDescriptionKey, nil) then
+        Result := NSStrToStr(TNSString.Wrap(pnsstr))
+      else
+        Result := '';
     {$ELSE}
       {$MESSAGE ERROR 'TODO : implement for other platforms'}
     {$ENDIF}
