@@ -1,4 +1,5 @@
 const { app, desktopCapturer, BrowserWindow } = require('electron');
+const { MainService } = require('./main.service');
 const path = require('path');
 const url = require("url");
 
@@ -13,14 +14,16 @@ const createWindow = () => {
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, '../dist/unicode-reader/index.html'),
+      pathname: path.join(__dirname, './dist/unicode-reader/index.html'),
       protocol: "file:",
       slashes: true
     })
   );
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
+
+  // let mainService = new MainService();
 };
 
 app.on('ready', createWindow);
