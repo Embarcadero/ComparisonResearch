@@ -74,9 +74,9 @@ Instructions
 * From the control palette select and double-click "TPanel"
 * Call it Panel2
 * Align alClient
-* Color $00B4B2B0
+* Color $00B4B2B0 (clBackground)
 * Bevels all bvNone
-* With Panel2 selected go to the control paletter and double click "TLabel"
+* With Panel2 selected go to the control palette and double click "TLabel"
 * Call it CurrentValueLabel
 * Set the FontSize = 30
 * Set Align to alClient
@@ -249,7 +249,7 @@ uses System.StrUtils,
      controllers.calculatorinterface,
      interfaces.icalculatorinterface;
 
-* Now just below the line which says "{$R *.dfm}"
+* Now just below the line which says "{$R *.dfm}" and AFTER the uses clause
 
 Type this:
 
@@ -422,7 +422,7 @@ begin
   Pnl21.Font.Name  := 'Segoe UI';
   Pnl22.Caption    := '0';
   Pnl23.Caption    := '.';
-  Pnl24.Caption    := ':=';
+  Pnl24.Caption    := '=';
   Pnl24.Font.Name  := 'Segoe UI Symbol';
 end;
 

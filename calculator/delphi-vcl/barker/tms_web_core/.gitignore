@@ -1,0 +1,46 @@
+.DS_Store
+
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+*.obj
+# For this demo we want to ship the EXE
+# *.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.dll
+*.lib
+*.sbr
+# Ignore undesirable Delphi files
+*.dcu
+*.~dfm
+*.~pas
+*.~dsk
+*.~dpr
+*.~ddp
+*.~rc
+# General nastiness
+*.bak
+*.tmp
+*.~dp
+*.~ds
+*.~df
+*.~pa
+*.dsk
+__history/*.*
+*.stat
+*.identcache
+__recovery/*.*

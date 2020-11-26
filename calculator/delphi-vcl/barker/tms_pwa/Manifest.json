@@ -1,0 +1,27 @@
+{
+   "short_name":"$(ShortName)",
+   "name":"$(Name)",
+   "description":"$(Description)",
+   "start_url":"$(StartURL)",
+   "display":"fullscreen",
+   "theme_color":"$(ThemeColor)",
+   "background_color":"$(BackgroundColor)",
+   "icons":
+   [
+    {
+      "src": "$(LowResFileName)",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "$(MidResFileName)",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "$(HighResFileName)",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+   ]
+}

@@ -2,6 +2,12 @@ unit interfaces.icalculatorinterface;
 
 interface
 
+{
+  Developer: Ian Barker
+           https://about.me/IanBarker
+           https://www.codedotshow.com/blog
+}
+
 type TOperatorType = (None, Percent, OneOverX, XSquared, SquareRootX, Divide, Multiply, Subtract, Add);
 const TOperatorText: array[TOperatorType] of string = ('E', '%', 'E', 'E', 'E', '/', '*', '-', '+');
 
