@@ -23,7 +23,8 @@ const createWindow = () => {
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 
-  // let mainService = new MainService();
+  let mainService = new MainService();
+  mainService.run();
 };
 
 app.on('ready', createWindow);

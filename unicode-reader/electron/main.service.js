@@ -3,7 +3,7 @@ const { ipcMain } = require('electron');
 
 class MainService {
 
-    constructor() {
+    run = () => {
         this.dbConnection = new DbConnection();
         ipcMain.on('qryGetChannels', (event) => {
             let result = this.dbConnection.queryAsync('select * from channels');
@@ -13,6 +13,6 @@ class MainService {
 
 }
 
-exports = {
+module.exports = {
     MainService: MainService
 }

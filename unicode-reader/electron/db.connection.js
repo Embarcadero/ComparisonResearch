@@ -24,6 +24,6 @@ class DbConnection {
 // let dbCon = new DbConnection();
 // dbCon.queryAsync('SELECT * from channels', []);
 
-exports = {
+module.exports = {
     DbConnection: DbConnection
 }
