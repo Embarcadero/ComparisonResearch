@@ -1,6 +1,7 @@
 const { app, desktopCapturer, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require("url");
+const { MainService } = require('../main.service');
 
 const createWindow = () => { 
   const mainWindow = new BrowserWindow({
@@ -21,6 +22,8 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+  let mainService = new MainService();
+  mainService.readRSS;
 };
 
 app.on('ready', createWindow);
