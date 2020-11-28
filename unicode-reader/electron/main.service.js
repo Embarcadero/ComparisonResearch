@@ -16,8 +16,8 @@ class MainService {
         this.ipcMain = ipcMain;
     }
 
-    run(){
-        ipcMain.on('qryGetChannels', (event) => {
+    runEvent(){
+        this.ipcMain.on('qryGetChannels', (event) => {
             let result = this.dbConnection.queryAsync('select * from channels');
             event.returnValue = result;
         });
@@ -32,10 +32,10 @@ class MainService {
         });
     }
 
-    updateChannels() {
+    async updateChannels() {
         for (let index = 0; index < this.feeds.length; index++) {
             const feed = this.feeds[index];
-            let res = this.dbConnection
+            let res = await this.dbConnection
                 .queryAsync('insert into channels(title, description, link) '+
                             'values ($1::text, $2::text, $3::text) RETURNING *',
                             [feed.title, feed.description, feed.link]);
@@ -43,13 +43,18 @@ class MainService {
         }
     }
 
+    clearChannels() {
+        this.dbConnection.queryAsync('delete from channels');
+    }
+
 }
 
-const { DbConnection } = require('./db.connection');
-let dbConnection = new DbConnection();
-let msvc = new MainService(dbConnection, null);
+// const { DbConnection } = require('./db.connection');
+// let dbConnection = new DbConnection();
+// let msvc = new MainService(dbConnection, null);
 // msvc.readRSS();
-msvc.updateChannels();
+// msvc.updateChannels();
+// delete msvc;
 
 module.exports = {
     MainService: MainService

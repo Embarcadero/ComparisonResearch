@@ -1,5 +1,6 @@
-const { app, desktopCapturer, BrowserWindow } = require('electron');
+const { app, ipcMain, BrowserWindow } = require('electron');
 const { MainService } = require('./main.service');
+const { DbConnection } = require('./db.connection');
 const path = require('path');
 const url = require("url");
 
@@ -21,10 +22,12 @@ const createWindow = () => {
   );
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
-  let mainService = new MainService();
-  mainService.run();
+  let dbConnection = new DbConnection();
+  let mainService = new MainService(dbConnection, ipcMain);
+  mainService.clearChannels();
+  mainService.updateChannels();
 };
 
 app.on('ready', createWindow);
