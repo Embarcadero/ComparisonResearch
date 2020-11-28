@@ -10,7 +10,7 @@ class DbConnection {
     async queryAsync(sql, params) {
         const res = await this.client.query(sql, params);
         console.log(res.rows)
-        return await this.client.end();
+        return res; //await this.client.end();
     }
 
     query(sql, params, callback) {
@@ -20,9 +20,6 @@ class DbConnection {
     }
 
 } 
-
-// let dbCon = new DbConnection();
-// dbCon.queryAsync('SELECT * from channels', []);
 
 module.exports = {
     DbConnection: DbConnection
