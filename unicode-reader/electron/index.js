@@ -28,6 +28,7 @@ const createWindow = () => {
   let mainService = new MainService(dbConnection, ipcMain);
   mainService.clearChannels();
   mainService.updateChannels();
+  mainService.runEvent();
 };
 
 app.on('ready', createWindow);
