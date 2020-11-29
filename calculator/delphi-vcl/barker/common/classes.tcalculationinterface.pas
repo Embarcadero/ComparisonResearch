@@ -137,6 +137,7 @@ begin
     if FCurrentValue.Length > 0 then
       if FOperator <> None then
       begin
+        FHistory      := Concat(FHistory, ' = ');
         PerformCalculation;
         FCurrentValue := '';
         FOperator     := None;
@@ -157,8 +158,9 @@ procedure TCalculator.NumberPressed(const Digit: Char);
 begin
   if FIsError or (FCurrentValue.Length = 0) or SameText(FCurrentValue, '0') then
     begin
-      if not SameText(FCurrentValue, '0') then FHistory := Concat(FHistory, Digit);
       FCurrentValue := Concat('', Digit);
+      if not FIsError  then
+        FHistory := TrimLeft(Concat(FHistory, ' ', FCurrentValue));
     end
   else
     begin
@@ -240,6 +242,7 @@ begin
       if not FIsError then
       begin
         FTotal   := FormatFloat('0.#', dResult);
+        FHistory := Concat(FHistory, ' ', FTotal);
       end;
       FCurrentValue := '';
       FOperator     := None;
