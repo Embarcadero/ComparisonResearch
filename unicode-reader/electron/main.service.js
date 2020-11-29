@@ -18,18 +18,20 @@ class MainService {
 
     runEvent(){
         this.ipcMain.on('qryGetChannels', (event) => {
-            let result = this.dbConnection.queryAsync('select * from channels');
-            event.returnValue = result;
+            this.dbConnection.query('select * from channels', [], (err, result)=>{
+                event.returnValue = result.rows;
+            });
         });
     }
 
-    async readRSS(){
+    async readRSS(url){
         let parser = new Parser();
-        let feed = await parser.parseURL(this.feeds[4].url);
-        console.log(feed.title);
-        feed.items.forEach(item => {
-            console.log(item.title + ':' + item.link)
-        });
+        let feed = await parser.parseURL(url);
+        return feed;
+    }
+
+    async updateArticles(channelId){
+                
     }
 
     async updateChannels() {
@@ -39,7 +41,7 @@ class MainService {
                 .queryAsync('insert into channels(title, description, link) '+
                             'values ($1::text, $2::text, $3::text) RETURNING *',
                             [feed.title, feed.description, feed.link]);
-            console.log('--> ',res);
+            this.updateArticles(res)
         }
     }
 

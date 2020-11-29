@@ -14,16 +14,10 @@ interface Channel {
 })
 export class HomeComponent implements OnInit {
   channels: Channel[];
-  constructor(public comSvc: ComService) { }
-
-  // getChannels(): Channel[] {
-  //   let  resChannels: any[] = () => this.comSvc.sendSync('qryGetChannels');
-  //   return resChannels;
-  // }
+  constructor() { }
 
   ngOnInit(): void {
-    // this.channels = this.getChannels();
-    console.log(this.comSvc.sendSync('qryGetChannels'));
+    
   }
 
 }

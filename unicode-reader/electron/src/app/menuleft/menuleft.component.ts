@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ComService } from '../com.service';
 import { Menu } from '../menu';
 
 @Component({
@@ -8,18 +9,17 @@ import { Menu } from '../menu';
 })
 export class MenuleftComponent implements OnInit {
 
-  menus = [
-    new Menu(1, 'All Articles', '/home', 'Pascal','nav-icon fas fa-code'),
-    new Menu(2, 'Subscriptions', '/home', 'JavaScript', 'nav-icon fab fa-js'),
-    new Menu(3, 'Embarcadero English Blog', '/home', 'Pascal', 'nav-icon fab fa-html5'),
-    new Menu(4, 'Embarcadero Japanese Blog', '/home', 'Java', 'nav-icon fab fa-java'),
-    new Menu(5, 'Embarcadero German Blog', '/home', 'Python', 'nav-icon fab fa-python'),
-    new Menu(6, 'Embarcadero Russion Blog', '/home', 'Pascal', 'nav-icon fab fa-css3'),
-  ];
+  channels = [];
+  menus = [];
 
-  constructor() { }
+  constructor(public comSvc: ComService) { }
 
   ngOnInit(): void {
+    this.channels = this.comSvc.sendSync('qryGetChannels');
+    for (let index = 0; index < this.channels.length; index++) {
+      const channel = this.channels[index];
+      this.menus.push(new Menu(index + 1, channel.title, '/home', 'Pascal', 'nav-icon fas fa-code'));
+    }
   }
 
 }
