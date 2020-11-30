@@ -19,7 +19,10 @@ class MainService {
     runEvent(){
         this.ipcMain.on('qryGetChannels', (event) => {
             this.dbConnection.query('select * from channels', [], (err, result)=>{
-                event.returnValue = result.rows;
+                if (result) 
+                    event.returnValue = result.rows;
+                else
+                    event.returnValue = [];
             });
         });
     }
@@ -30,18 +33,31 @@ class MainService {
         return feed;
     }
 
+    async clearArticles() {
+        this.dbConnection.queryAsync('delete from articles');
+    }
+
     async updateArticles(channelId){
+        // let result = await this.dbConnection
+        //         .queryAsync('insert into articles(title, description, link, is_read, timestamp, channel) '+
+        //                 'values ($1::text, $2::text, $3::text, $4, $5) RETURNING *',
+        //                 [feed.title, feed.description, feed.link, false, channelId]);
                 
     }
 
     async updateChannels() {
         for (let index = 0; index < this.feeds.length; index++) {
             const feed = this.feeds[index];
-            let res = await this.dbConnection
+            let result = await this.dbConnection
                 .queryAsync('insert into channels(title, description, link) '+
-                            'values ($1::text, $2::text, $3::text) RETURNING *',
-                            [feed.title, feed.description, feed.link]);
-            this.updateArticles(res)
+                        'values ($1::text, $2::text, $3::text) RETURNING *',
+                        [feed.title, feed.description, feed.link]);
+            // let f = this.readRSS(feed.link);
+            // for (let j = 0; j < f.length; j++) {
+            //     const item = f[j];
+            //     console.log('-> ', item);
+            // }
+            // this.updateArticles(result.rows[0].id);
         }
     }
 

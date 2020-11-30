@@ -2,22 +2,26 @@ const { Client } = require('pg');
 const { config } = require('./db.config.json');
 
 class DbConnection {
-    constructor() {
-        this.client = new Client(config);
-    }
+    constructor() {}
 
     async queryAsync(sql, params) {
-        await this.client.connect();
-        const res = await this.client.query(sql, params);
-        // console.log(res.rows);
-        await this.client.end();
-        return res;
+        let result;
+        try {
+            this.client = new Client(config);
+            await this.client.connect();
+            result = await this.client.query(sql, params);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            this.client.end();
+        }
+        return result;
     }
 
     query(sql, params, callback) {
         this.client.query(sql, params, (err, res) => {
-            callback(err, res);
             this.client.end();
+            callback(err, res);
         })
     }
 
