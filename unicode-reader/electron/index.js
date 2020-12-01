@@ -4,7 +4,7 @@ const { DbConnection } = require('./db.connection');
 const path = require('path');
 const url = require("url");
 
-const createWindow = () => { 
+const createWindow = async () => { 
   const mainWindow = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true
@@ -26,8 +26,7 @@ const createWindow = () => {
 
   let dbConnection = new DbConnection();
   let mainService = new MainService(dbConnection, ipcMain);
-  mainService.clearChannels();
-  mainService.updateChannels();
+  mainService.reload();
   mainService.runEvent();
 };
 

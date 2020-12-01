@@ -13,7 +13,7 @@ class DbConnection {
         } catch (error) {
             console.error(error);
         } finally {
-            this.client.end();
+            // this.client.end();
         }
         return result;
     }
