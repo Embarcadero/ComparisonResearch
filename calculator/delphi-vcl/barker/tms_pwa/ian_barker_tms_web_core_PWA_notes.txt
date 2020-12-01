@@ -1,0 +1,50 @@
+Total time taken ~7 minutes
+- not including calc engine
+- INCLUDING the time to write the instructions!!!
+
+- Speed run estimate ~5 minutes
+
+- Time lapse, normal speed video and a blog post coming in the next day or so
+
+NOTE that for this project we don't need to create a new form since we
+reuse the one we made for the TMS Web Core web calculator example.
+
+This is to demonstrate how great the code re-use is and how easy it is to create a
+PWA app from an existing regular TMS Web Core web app.
+
+Developer: Ian Barker
+           https://about.me/IanBarker
+           https://www.codedotshow.com/blog
+
+Credits and pre-requisites
+--------------------------
+Icon source = Icons8 (via Pichon).
+https://icons8.com/app/windows
+
+**********************************************
+****                NOTE                  ****
+**** BEFORE YOU OPEN/COMPILE THE PROJECT  ****
+**********************************************
+
+This project uses the TMS Web Core controls.
+
+You can get a fully-working trial copy here: https://www.tmssoftware.com/site/tmswebcoreintro.asp
+
+You MUST have either an up-to-date licensed copy or a trial copy installed
+in the RAD Studio / Delphi IDE or the project will not work!
+
+Instructions
+------------
+
+* Frm the Delphi IDE menu select File. new,  TMS Web, TMS Web PWA
+* Remove Form1 from the project
+* Add webcalculator form from regular TMS Web project found in ..\tms_web_core
+* When prompted, save the project as webcalculatorpwa
+* When asked for the manifest name just leave it as the regular name
+* Same as the serviceworker
+* Now add the shared units:
+  - ..\common\classes.tcalculationinterface.pas
+  - ..\common\controllers.calculatorinterface.pas
+  - ..\common\interfaces.icalculatorinterface.pas
+* Hit F9... you're done!
+

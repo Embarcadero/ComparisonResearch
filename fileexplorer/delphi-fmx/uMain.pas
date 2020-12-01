@@ -267,9 +267,7 @@ procedure TForm3.WinMenuBrowseForFolderClick(Sender: TObject);
 var Directory: string;
 begin
   if SelectDirectory('Select a folder to open', PathDelim, Directory) then
-  begin
     FolderEdit.Text := Directory;
-  end;
 end;
 
 procedure TForm3.WinMenuCopyClick(Sender: TObject);

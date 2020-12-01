@@ -1,0 +1,17 @@
+{
+  "name": "$(ProjectName)",
+  "productName": "$(ProjectName)",
+  "version": "$(Version)",
+  "main": "$(MainJS)",
+  "scripts": {
+    "start": "electron .",
+    "build-mac32": "electron-packager . --platform=darwin --arch=ia32 --asar --overwrite=true --electron-version=$(ElectronVersion) --icon=$(IconFileMac)",
+    "build-mac64": "electron-packager . --platform=darwin --arch=x64 --asar --overwrite=true --electron-version=$(ElectronVersion) --icon=$(IconFileMac)",
+    "build-win32": "electron-packager . --platform=win32 --arch=ia32 --asar --overwrite=true --electron-version=$(ElectronVersion) --icon=$(IconFileWindows)",
+    "build-win64": "electron-packager . --platform=win32 --arch=x64 --asar --overwrite=true --electron-version=$(ElectronVersion) --icon=$(IconFileWindows)",
+    "build-linux32": "electron-packager . --platform=linux --arch=ia32 --asar --overwrite=true --electron-version=$(ElectronVersion) --icon=$(IconFileLinux)",
+    "build-linux64": "electron-packager . --platform=linux --arch=x64 --asar --overwrite=true --electron-version=$(ElectronVersion) --icon=$(IconFileLinux)",
+    "run-win32": "cd \"$(ProjectName)-win32-ia32\" && \"$(ProjectName).exe\"",
+    "run-win64": "cd \"$(ProjectName)-win32-x64\" && \"$(ProjectName).exe\""
+  }
+}

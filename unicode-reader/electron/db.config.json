@@ -1,0 +1,9 @@
+{
+    "config": {
+        "user": "",
+        "host": "localhost",
+        "database": "unic_read_db",
+        "password": "",
+        "port": 5432
+    }
+}
