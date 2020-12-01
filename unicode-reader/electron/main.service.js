@@ -4,12 +4,12 @@ class MainService {
 
     constructor(dbConnection, ipcMain) {
         this.feeds = [
-            {title: 'All Articles', description: '', link:'https://blogs.embarcadero.com/feed/'},
-            {title: 'Embarcadero Japanese Blog', description: '', link: 'https://blogs.embarcadero.com/ja/feed/'},
-            {title: 'Embarcadero German Blog', description: '', link: 'https://blogs.embarcadero.com/de/feed/'},
-            {title: 'Embarcadero Russian Blog', description: '', link: 'https://blogs.embarcadero.com/ru/feed/'},
-            {title: 'Embarcadero Portuguese Blog', description: '', link: 'https://blogs.embarcadero.com/pt/feed/'},
-            {title: 'Embarcadero English Blog', description: '', link: 'https://blogs.embarcadero.com/es/feed/'}
+            {title: 'All Articles', description: 'All Articles', link:'https://blogs.embarcadero.com/feed/'},
+            {title: 'Embarcadero Japanese Blog', description: 'Japanese Blog', link: 'https://blogs.embarcadero.com/ja/feed/'},
+            {title: 'Embarcadero German Blog', description: 'German Blog', link: 'https://blogs.embarcadero.com/de/feed/'},
+            {title: 'Embarcadero Russian Blog', description: 'Russian Blog', link: 'https://blogs.embarcadero.com/ru/feed/'},
+            {title: 'Embarcadero Portuguese Blog', description: 'Portuguese Blog', link: 'https://blogs.embarcadero.com/pt/feed/'},
+            {title: 'Embarcadero English Blog', description: 'English Blog', link: 'https://blogs.embarcadero.com/es/feed/'}
         ]
 
         this.dbConnection = dbConnection;
@@ -41,7 +41,7 @@ class MainService {
         let result = await this.dbConnection
                 .queryAsync('insert into articles(title, description, link, is_read, timestamp, channel) '+
                         'values ($1::text, $2::text, $3::text, $4::boolean, $5, $6) RETURNING *',
-                        [item.title, item.description || '', item.link, false, new Date(), channelId]);
+                        [item.title, item.summary || '', item.link, false, new Date(), channelId]);
         return result;
     }
 
