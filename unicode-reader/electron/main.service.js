@@ -65,9 +65,9 @@ class MainService {
     }
 
     async reload() {
-        await clearArticles();
-        await clearChannels();
-        updateChannels();
+        await this.clearArticles();
+        await this.clearChannels();
+        this.updateChannels();
     }
 
 }
