@@ -14,14 +14,17 @@ export class MenuleftComponent implements OnInit {
 
   constructor(public comSvc: ComService) { }
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.channels = this.comSvc.sendSync('qryGetChannels');
-      for (let index = 0; index < this.channels.length; index++) {
-        const channel = this.channels[index];
-        this.menus.push(new Menu(index + 1, channel.title, '/home', 'Pascal', 'nav-icon fas fa-code'));
-      }   
-    }, 3000);
+  ngAfterViewInit(): void {
+    this.channels = this.comSvc.sendSync('qryGetChannels');
+    console.log();
+    for (let index = 0; index < this.channels.length; index++) {
+      const channel = this.channels[index];
+      this.menus.push(new Menu(channel.id, channel.title, '/home', 'Pascal', 'nav-icon fas fa-code'));
+    }   
+  }
+
+  ngOnInit (): void {
+    
   }
 
 }

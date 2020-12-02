@@ -25,6 +25,15 @@ class MainService {
                     event.returnValue = [];
             });
         });
+
+        this.ipcMain.on('qryGetArticles', (event, channelId) => {
+            this.dbConnection.query('select * from articles where channel=$1', [channelId], (err, result)=>{
+                if (result) 
+                    event.returnValue = result.rows;
+                else
+                    event.returnValue = [];
+            });
+        });
     }
 
     async readRSS(url){
@@ -69,6 +78,8 @@ class MainService {
         await this.clearChannels();
         this.updateChannels();
     }
+
+    
 
 }
 

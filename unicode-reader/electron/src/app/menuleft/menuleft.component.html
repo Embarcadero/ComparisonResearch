@@ -3,7 +3,7 @@
         <li class="nav-item menu-open">
           <ul class="nav nav-treeview">
             <li class="nav-item" *ngFor="let menu of menus">
-              <a [routerLink]="[menu.routerLink]" [queryParams]="{language: [menu.language]}" class="nav-link">
+              <a [routerLink]="[menu.routerLink]" [queryParams]="{channel: menu.id}" class="nav-link">
                 <i class="{{menu.icon}}"></i>
                 <p>{{menu.name}}</p>
               </a>
