@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
       <div class="col-4">
-        <!-- <app-listview></app-listview> -->
-        {{articles | json }}
+        <app-listview [articles]="articles"></app-listview>
+        <!-- {{articles | json }} -->
       </div>
       <div class="col-8 align-items-center">
         One of three columnsz

@@ -42,10 +42,6 @@ class MainService {
         return feed;
     }
 
-    async clearArticles() {
-        this.dbConnection.queryAsync('delete from articles');
-    }
-
     async updateArticles(item, channelId){
         let result = await this.dbConnection
                 .queryAsync('insert into articles(title, description, link, is_read, timestamp, channel) '+
@@ -69,8 +65,12 @@ class MainService {
         }
     }
 
-    clearChannels() {
-        this.dbConnection.queryAsync('delete from channels');
+    async clearChannels() {
+        await this.dbConnection.queryAsync('delete from channels');
+    }
+
+    async clearArticles() {
+        await this.dbConnection.queryAsync('delete from articles');
     }
 
     async reload() {

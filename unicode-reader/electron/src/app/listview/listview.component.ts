@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListviewComponent implements OnInit {
 
-  @Input() Articles: any[];
+  @Input() articles: any[];
 
   constructor() { }
 

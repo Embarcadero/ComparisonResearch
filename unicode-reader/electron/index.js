@@ -9,7 +9,7 @@ const createWindow = async () => {
     webPreferences: {
       nodeIntegration: true
     },
-    width: 1080,
+    width: 1500,
     height: 850,
   });
 
