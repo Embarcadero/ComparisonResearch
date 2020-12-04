@@ -49,7 +49,7 @@ class MainService {
         let result = await this.dbConnection
                 .queryAsync('insert into articles(title, description, link, is_read, timestamp, channel) '+
                         'values ($1::text, $2::text, $3::text, $4::boolean, $5, $6) RETURNING *',
-                        [item.title, item.summary || '', item.link, false, new Date(), channelId]);
+                        [item.title, item.summary, item.link, false, new Date(), channelId]);
         return result;
     }
 

@@ -1,5 +1,15 @@
 <div class="row" >
-    <div class="card-footer card-comments ukur">
+  <div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action" *ngFor="let item of articles">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{item.title}}</h5>
+        <small>3 days ago</small>
+      </div>
+      <p class="mb-1">{{item.description}}</p>
+      <small>Donec id elit non mi porta.</small>
+    </a>
+  </div>
+    <!-- <div class="card-footer card-comments ukur">
       <div class="card-comment" *ngFor="let item of articles">
         <div class="comment-text">
           <span class="username">
@@ -9,18 +19,9 @@
             {{item.description}}
           </div>
           <div class="row">
-            <!-- <div class="col-2">
-              <i class="far fa-star"></i> {{item.stargazers_count}}
-            </div>
-            <div class="col-2">
-              <i class="fas fa-circle"></i> {{item.language}}
-            </div>
-            <div class="col-5">
-              {{item.updated_at | date : 'medium'}}
-            </div> -->
           </div>
         </div>
         
       </div>
-    </div>
+    </div> -->
 </div>

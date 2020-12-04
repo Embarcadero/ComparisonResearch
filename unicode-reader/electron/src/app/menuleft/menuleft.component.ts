@@ -24,7 +24,7 @@ export class MenuleftComponent implements OnInit {
         clearInterval(refreshId);
         for (let index = 0; index < this.channels.length; index++) {
           const channel = this.channels[index];
-          menus.push(new Menu(channel.id, channel.title, '/home', 'Pascal', 'nav-icon fas fa-code'));
+          menus.push(new Menu(channel.id, channel.title, '/home', 'Pascal', 'nav-icon fa fa-rss-square'));
         }   
       }
     }, 3000);
