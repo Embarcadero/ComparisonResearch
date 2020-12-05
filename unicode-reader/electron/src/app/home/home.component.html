@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <div class="row">
       <div class="col-5 no-gutter lvcolumn">
-        <app-listview [articles]="articles"></app-listview>
+        <app-listview [articles]="articles" (selectedArticle)="selectedArticle($event)"></app-listview>
       </div>
       <div class="col-7 align-items-center lvcolumn">
-        One of three columnsz
+        <div [innerHTML]="content_encoded"></div>
       </div>
     </div>
 </div>

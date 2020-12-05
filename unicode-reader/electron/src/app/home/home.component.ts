@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComService } from '../com.service';
-
-interface Article {
-  title: string,
-  descriptiom: string,
-  link: string,
-  is_read: boolean,
-  timestamp: Date,
-  channel: number
-}
+import { Article } from '../article';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +10,15 @@ interface Article {
 })
 export class HomeComponent implements OnInit {
   articles: Article[];
+  article: Article;
+  content_encoded: string;
+
   constructor(public comSvc: ComService, private route: ActivatedRoute) { }
+
+  selectedArticle(article){
+    this.article = article;
+    this.content_encoded = this.article.content_encoded;
+  }
 
   ngOnInit(): void {
     this.route.queryParams

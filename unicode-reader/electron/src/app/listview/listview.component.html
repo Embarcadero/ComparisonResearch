@@ -1,6 +1,6 @@
 <div class="row" >
   <div class="list-group ukur">
-    <a href="#" class="list-group-item list-group-item-action" *ngFor="let item of articles">
+    <a (click)="readArticle(item)" class="list-group-item list-group-item-action" *ngFor="let item of articles">
       <div class="d-flex w-100 justify-content-between">
         <div class="mb-1 head_label">{{item.title}}</div>
         <small>3 days ago</small>
