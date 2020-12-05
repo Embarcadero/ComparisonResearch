@@ -46,10 +46,11 @@ class MainService {
     }
 
     async updateArticles(item, channelId){
+        console.log('categories: ', item.categories);
         let result = await this.dbConnection
-                .queryAsync('insert into articles(title, description, link, is_read, timestamp, channel) '+
-                        'values ($1::text, $2::text, $3::text, $4::boolean, $5, $6) RETURNING *',
-                        [item.title, item.summary, item.link, false, new Date(), channelId]);
+                .queryAsync('insert into articles(title, content, contentSnippet, categories, link, pubDate, content_encoded, creator, is_read, channel) '+
+                        'values ($1::text, $2::text, $3::text, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
+                        [item.title, item.content, item.contentSnippet, JSON.stringify(item.categories), item.link, item.pubDate, item['content:encoded'], item.creator, false, channelId]);
         return result;
     }
 
