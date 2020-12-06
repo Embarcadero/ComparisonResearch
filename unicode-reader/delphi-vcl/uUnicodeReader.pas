@@ -39,12 +39,11 @@ type
     LinkListControlToField1: TLinkListControlToField;
     ArticlesBS: TBindSourceDB;
     LinkListControlToField2: TLinkListControlToField;
-    ImageList1_1: TImageList;
+    ImageList1: TImageList;
     WebBrowser: TWebBrowser;
     XMLDocument: TXMLDocument;
     Net: TNetHTTPClient;
     ClearButton: TButton;
-    ImageList1: TImageList;
     procedure ThemeButtonClick(Sender: TObject);
     procedure ConnectionButtonClick(Sender: TObject);
     procedure ConnectButtonClick(Sender: TObject);
