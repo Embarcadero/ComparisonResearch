@@ -1,12 +1,12 @@
 <div class="row" >
-  <div class="list-group ukur">
+  <div class="list-group">
     <a (click)="readArticle(item)" class="list-group-item list-group-item-action" *ngFor="let item of articles">
       <div class="d-flex w-100 justify-content-between">
         <div class="mb-1 head_label">{{item.title}}</div>
         <small>3 days ago</small>
       </div>
-      <p class="mb-1">{{item.contentsnippet}}</p>
-      <small>Donec id elit non mi porta.</small>
+      <!-- <p class="mb-1">{{item.contentsnippet}}</p> -->
+      <small>{{item.contentsnippet}}</small>
     </a>
   </div>
 </div>

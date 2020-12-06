@@ -11460,6 +11460,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
   min-height: 100%;
   position: absolute;
   top: 0;
+  font-size: 13px;
 }
 
 .layout-fixed .brand-link {

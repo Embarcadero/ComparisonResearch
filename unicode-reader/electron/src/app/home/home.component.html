@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div class="row">
-      <div class="col-5 no-gutter lvcolumn">
+      <div class="col-5 no-gutter">
         <app-listview [articles]="articles" (selectedArticle)="selectedArticle($event)"></app-listview>
       </div>
-      <div class="col-7 align-items-center lvcolumn">
+      <div class="col-7 align-items-center">
         <div [innerHTML]="content_encoded"></div>
       </div>
     </div>
