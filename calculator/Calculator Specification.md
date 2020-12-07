@@ -9,7 +9,7 @@ Your goal while building the Calculator is to explore the strengths and weakness
 ### Key Features
 - Responsive Layout
 - Semi-Transparent Window
-- Basic Math Operations
+- Small Application
 
 ## Requirements
 ### Theme
