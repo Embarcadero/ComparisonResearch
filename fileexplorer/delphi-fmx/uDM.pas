@@ -23,7 +23,11 @@ type
   Tdm = class(TDataModule)
     ActionList1: TActionList;
     FileExit1: TFileExit;
+    procedure DataModuleDestroy(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject);
   private
+    FTmpFilename: string;
+    FTmpFile: TextFile;
     function IsWindowsDrivePath(Path: string): Boolean;
     function SearchTextToFilePattern(SearchText: string): string;
   public
@@ -51,19 +55,99 @@ uses
   Macapi.Helpers,
   Macapi.Foundation,
   Posix.Stdlib,
+{$ELSEIF Defined(LINUX)}
+  FMX.Types,
+  Posix.Base,
+  Posix.Errno,
+  Posix.Fcntl,
 {$ENDIF}
   System.IOUtils;
 
 {$R *.dfm}
 
+{$IFDEF LINUX}
+type
+  TStreamHandle = pointer;
+
+function popen(const command: MarshaledAString; const _type: MarshaledAString): TStreamHandle; cdecl;
+  external libc name _PU + 'popen';
+function pclose(filehandle: TStreamHandle): int32; cdecl; external libc name _PU + 'pclose';
+function fgets(buffer: pointer; Size: int32; Stream: TStreamHandle): pointer; cdecl; external libc name _PU + 'fgets';
+function BufferToString(buffer: pointer; MaxSize: uint32): string;
+var
+  cursor: ^uint8;
+  EndOfBuffer: nativeuint;
+begin
+  Result := '';
+  if not assigned(buffer) then
+    exit;
+  cursor := buffer;
+  EndOfBuffer := nativeuint(cursor) + MaxSize;
+  while (nativeuint(cursor) < EndOfBuffer) and (cursor^ <> 0) do
+  begin
+    Result := Result + chr(cursor^);
+    cursor := pointer(succ(nativeuint(cursor)));
+  end;
+end;
+{$ENDIF}
+
+procedure Tdm.DataModuleDestroy(Sender: TObject);
+begin
+  try
+    CloseFile(FTmpFile);
+  finally
+    Erase(FTmpFile);
+  end;
+end;
+
+procedure Tdm.DataModuleCreate(Sender: TObject);
+begin
+  FTmpFileName := TPath.GetTempFileName;
+  AssignFile(FTmpFile, FTmpFileName);
+end;
+
 { TDataModule2 }
 
 function Tdm.GetFilesData(Path, SearchText: string): TFilesData;
+{$IFDEF LINUX}
+var
+  Data: array[0..511] of uint8;
+  Handle: TStreamHandle;
+  AllDescriptions: string;
+{$ENDIF}
 begin
   var Names := TDirectory.GetFiles(Path, SearchTextToFilePattern(SearchText));
   SetLength(Result, Length(Names));
   for var i := Low(Names) to High(Names) do
     Result[i].ObtainInfo(Names[i]);
+{$IFDEF LINUX}
+  var AllNames: string;
+  for var i := Low(Names) to High(Names) do
+    AllNames := AllNames + Names[i] + sLineBreak;
+
+  Rewrite(FTmpFile);
+  Write(FTmpFile, AllNames);
+  Flush(FTmpFile);
+
+  Handle := popen(PAnsiChar(AnsiString('mimetype -d -b ' + FTmpFilename)),'r');
+  if Handle = nil then
+    Log.d('%d', [errno])
+  else
+  begin
+    try
+      while fgets(@Data, SizeOf(Data), Handle) <> nil do
+        AllDescriptions := AllDescriptions + BufferToString(@Data[0], SizeOf(Data));
+    finally
+      pclose(Handle);
+    end;
+    AllDescriptions := AllDescriptions.TrimRight([#10]);
+    var Descriptions := AllDescriptions.Split([sLineBreak]);
+    Assert(High(Descriptions) = High(Result));
+    for var i := Low(Descriptions) to High(Descriptions) do
+      Result[i].Filetype := Descriptions[i];
+  end;
+
+{$ENDIF}
 end;
 
 function Tdm.GetFolderName(FolderPath: string): string;
@@ -167,6 +251,7 @@ end;
 { TFileData }
 
 procedure TFileData.ObtainInfo(const AFullFilename: string);
+
   function GetFileSize: Int64;
   var S: TSearchRec;
   begin
@@ -175,6 +260,7 @@ procedure TFileData.ObtainInfo(const AFullFilename: string);
     else
       Result := NoSizeInfo;
   end;
+
   function GetFileTypeDescription: string;
   begin
     {$IFDEF MSWINDOWS}
@@ -194,8 +280,9 @@ procedure TFileData.ObtainInfo(const AFullFilename: string);
         Result := NSStrToStr(TNSString.Wrap(pnsstr))
       else
         Result := '';
-    {$ELSE}
-      {$MESSAGE ERROR 'TODO : implement for other platforms'}
+    {$ELSEIF Defined(LINUX)}
+      Result := ''; {getting file description through 'mimetype -d -b' for every file is very slow,
+        so for Linux file descriptions are got in bulk}
     {$ENDIF}
   end;
 begin
