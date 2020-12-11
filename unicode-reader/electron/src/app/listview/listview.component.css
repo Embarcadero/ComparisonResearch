@@ -47,3 +47,17 @@
     margin-left: -1.3em; /* same as padding-left set on li */
     width: 1.3em; /* same as padding-left set on li */
   }
+
+  .ukur {
+    font-size: 12px;
+  }
+
+  .head_label {
+    color: #d2d215;
+    font-style: initial;
+    font-weight: bold;
+  }
+
+  .head_label:hover {
+    text-decoration: underline;
+  }

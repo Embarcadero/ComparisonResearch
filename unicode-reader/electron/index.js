@@ -1,19 +1,21 @@
-const { app, desktopCapturer, BrowserWindow } = require('electron');
+const { app, ipcMain, BrowserWindow } = require('electron');
+const { MainService } = require('./main.service');
+const { DbConnection } = require('./db.connection');
 const path = require('path');
 const url = require("url");
 
-const createWindow = () => { 
+const createWindow = async () => { 
   const mainWindow = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true
     },
-    width: 1080,
+    width: 1500,
     height: 850,
   });
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, '../dist/unicode-reader/index.html'),
+      pathname: path.join(__dirname, './dist/unicode-reader/index.html'),
       protocol: "file:",
       slashes: true
     })
@@ -21,6 +23,11 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  let dbConnection = new DbConnection();
+  let mainService = new MainService(dbConnection, ipcMain);
+  mainService.reload();
+  mainService.runEvent();
 };
 
 app.on('ready', createWindow);

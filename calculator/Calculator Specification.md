@@ -9,11 +9,11 @@ Your goal while building the Calculator is to explore the strengths and weakness
 ### Key Features
 - Responsive Layout
 - Semi-Transparent Window
-- Basic Math Operations
+- Small Application
 
 ## Requirements
 ### Theme
-The Calculator should feature a look similar to the below. Note the brighter color palette for number, digit, and sign buttons, darker pallet for operator/function buttons, and dark grey pallet for the display field.  The “equals” button is a cornflower blue shade.  All buttons but the equals button change to a darker grey shade when the mouse rolls over and becomes darker again when clicked.  The equals button has the same behavior but in blue shades.  
+The Calculator should feature a look similar to the below. Note the brighter color palette for number, digit, and sign buttons, darker palette for operator/function buttons, and dark grey palette for the display field.  The “equals” button is a cornflower blue shade.  All buttons but the equals button change to a darker grey shade when the mouse rolls over and becomes darker again when clicked.  The equals button has the same behavior but in blue shades.  
 Note that the window and controls are semi transparent.
 
 ![](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/win10calculator.png)

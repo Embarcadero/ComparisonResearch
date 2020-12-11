@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { faStar, faAddressBook, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
-import { Repo } from '../models/repo';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Article } from '../article';
 
 @Component({
   selector: 'app-listview',
@@ -8,12 +7,15 @@ import { Repo } from '../models/repo';
   styleUrls: ['./listview.component.css']
 })
 export class ListviewComponent implements OnInit {
-  faStar = faStar;
-  faAddressBook = faAddressBook;
-  faCheckSquare = faCheckSquare;
-  @Input() repos: Repo[];
+
+  @Input() articles: any[];
+  @Output() selectedArticle = new EventEmitter<Article>();
 
   constructor() { }
+
+  readArticle(article: Article) {
+    this.selectedArticle.emit(article);
+  }
 
   ngOnInit(): void {
   }

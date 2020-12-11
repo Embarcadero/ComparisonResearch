@@ -7,6 +7,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { HomeComponent } from './home/home.component';
 import { MenubarComponent } from './menubar/menubar.component';
 import { MenuleftComponent } from './menuleft/menuleft.component';
+import { ListviewComponent } from './listview/listview.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MenuleftComponent } from './menuleft/menuleft.component';
     ToolbarComponent,
     HomeComponent,
     MenubarComponent,
-    MenuleftComponent
+    MenuleftComponent,
+    ListviewComponent
   ],
   imports: [
     BrowserModule,
