@@ -28,11 +28,6 @@ uses
   Macapi.Helpers,
   Macapi.Foundation,
   Posix.Stdlib,
-{$ELSEIF Defined(LINUX)}
-  FMX.Types,
-  Posix.Base,
-  Posix.Errno,
-  Posix.Fcntl,
 {$ENDIF}
   System.IOUtils,
   System.SysUtils;

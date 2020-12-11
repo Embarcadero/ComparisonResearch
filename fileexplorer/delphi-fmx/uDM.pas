@@ -39,45 +39,15 @@ uses
   WinAPI.Windows,
 {$ELSEIF Defined(MACOS)}
   Macapi.AppKit,
-  Macapi.Helpers,
   Macapi.Foundation,
+  Macapi.Helpers,
+  Macapi.ObjectiveC,
   Posix.Stdlib,
-{$ELSEIF Defined(LINUX)}
-  FMX.Types,
-  Posix.Base,
-  Posix.Errno,
-  Posix.Fcntl,
 {$ENDIF}
   uPlatform,
   System.IOUtils;
 
 {$R *.dfm}
-
-{$IFDEF LINUX}
-type
-  TStreamHandle = pointer;
-
-function popen(const command: MarshaledAString; const _type: MarshaledAString): TStreamHandle; cdecl;
-  external libc name _PU + 'popen';
-function pclose(filehandle: TStreamHandle): int32; cdecl; external libc name _PU + 'pclose';
-function fgets(buffer: pointer; Size: int32; Stream: TStreamHandle): pointer; cdecl; external libc name _PU + 'fgets';
-function BufferToString(buffer: pointer; MaxSize: uint32): string;
-var
-  cursor: ^uint8;
-  EndOfBuffer: nativeuint;
-begin
-  Result := '';
-  if not assigned(buffer) then
-    exit;
-  cursor := buffer;
-  EndOfBuffer := nativeuint(cursor) + MaxSize;
-  while (nativeuint(cursor) < EndOfBuffer) and (cursor^ <> 0) do
-  begin
-    Result := Result + chr(cursor^);
-    cursor := pointer(succ(nativeuint(cursor)));
-  end;
-end;
-{$ENDIF}
 
 procedure Tdm.DataModuleDestroy(Sender: TObject);
 begin
