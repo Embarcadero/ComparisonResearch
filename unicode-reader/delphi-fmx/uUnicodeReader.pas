@@ -5,68 +5,66 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Controls.Presentation, FMX.ListView.Types, FMX.ListView.Appearances,
-  FMX.ListView.Adapters.Base, FMX.WebBrowser, FMX.ListView, FMX.Edit,
-  FMX.MultiView, System.Rtti, System.Bindings.Outputs, Fmx.Bind.Editors,
-  Data.Bind.EngExt, Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
-  System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
-  Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc, System.ImageList, FMX.ImgList;
+  FMX.Controls.Presentation, Xml.xmldom, Xml.XMLIntf, System.Net.URLClient,
+  System.Net.HttpClient, System.Net.HttpClientComponent, Data.Bind.EngExt,
+  Fmx.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs, FMX.ListView.Types,
+  FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
+  FMX.WebBrowser, Data.Bind.Components, Xml.omnixmldom, Xml.XMLDoc,
+  Data.Bind.DBScope, Fmx.Bind.Editors, FMX.MultiView, FMX.Edit,
+  System.ImageList, FMX.ImgList, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo;
 
 type
   TMainForm = class(TForm)
     ToolBar1: TToolBar;
     StatusBar1: TStatusBar;
-    ConnectionButton: TButton;
-    RefreshButton: TButton;
-    ThemeButton: TButton;
     StatusLabel: TLabel;
-    ChannelsList: TListView;
-    Splitter1: TSplitter;
-    ArticlesList: TListView;
-    Splitter2: TSplitter;
+    RefreshButton: TButton;
+    ColorButton: TButton;
+    BlackStyle: TStyleBook;
+    LightStyle: TStyleBook;
+    XMLDocument: TXMLDocument;
+    Net: TNetHTTPClient;
     WebBrowser: TWebBrowser;
-    MultiView: TMultiView;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    ServerEdit: TEdit;
-    PortEdit: TEdit;
-    UserEdit: TEdit;
-    PasswordEdit: TEdit;
-    DatabaseEdit: TEdit;
-    ConnectButton: TButton;
-    ChannelsBS: TBindSourceDB;
-    BindingsList1: TBindingsList;
-    LinkListControlToField1: TLinkListControlToField;
+    Splitter2: TSplitter;
+    ArticlesList: TListView;
+    Splitter1: TSplitter;
+    ChannelsList: TListView;
     ArticlesBS: TBindSourceDB;
+    BindingsList1: TBindingsList;
+    ChannelsBS: TBindSourceDB;
+    MultiView: TMultiView;
+    ConnectButton: TButton;
+    Label7: TLabel;
+    Edit5: TEdit;
+    Edit4: TEdit;
+    Label6: TLabel;
+    Label5: TLabel;
+    Edit3: TEdit;
+    Edit2: TEdit;
+    Label4: TLabel;
+    Edit1: TEdit;
+    Label3: TLabel;
+    ConnectionButton: TButton;
+    LinkListControlToField1: TLinkListControlToField;
     LinkListControlToField2: TLinkListControlToField;
     ImageList1: TImageList;
-    Net: TNetHTTPClient;
-    XMLDocument: TXMLDocument;
-    LightStyle: TStyleBook;
-    BlackStyle: TStyleBook;
-    procedure FormCreate(Sender: TObject);
-    procedure ThemeButtonClick(Sender: TObject);
+    procedure ColorButtonClick(Sender: TObject);
+    procedure RefreshButtonClick(Sender: TObject);
     procedure ChannelsListItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
+    procedure ArticlesListItemClick(const Sender: TObject;
       const AItem: TListViewItem);
     procedure ConnectionButtonClick(Sender: TObject);
     procedure ConnectButtonClick(Sender: TObject);
-    procedure ChannelsListUpdateObjects(const Sender: TObject;
+    procedure FormCreate(Sender: TObject);
+    procedure ArticlesListUpdateObjects(const Sender: TObject;
       const AItem: TListViewItem);
-    procedure RefreshButtonClick(Sender: TObject);
-    procedure ArticlesListItemClick(const Sender: TObject;
-      const AItem: TListViewItem);
-    procedure WebBrowserDidFailLoadWithError(ASender: TObject);
-    procedure WebBrowserDidFinishLoad(ASender: TObject);
-    procedure WebBrowserDidStartLoad(ASender: TObject);
   private
     { Private declarations }
     IsEmptyURL: boolean;
     procedure BeginLoad;
     procedure EndLoad;
-    procedure LoadEmptyURL;
+    procedure LoadURL(IsEmpty: boolean = False);
     procedure ImportFeed(const Name: string; id: integer);
   public
     { Public declarations }
@@ -82,12 +80,12 @@ uses
 {$IFDEF MSWINDOWS}
   Registry,
 {$ENDIF}
- System.StrUtils, IdGlobalProtocols,
- FireDAC.Stan.Param, FireDAC.Phys.PGDef, uDM;
+  System.StrUtils, IdGlobalProtocols,
+  FireDAC.Stan.Param, FireDAC.Phys.PGDef, uDM;
 
 const
-  SelectAllArticles = 'select * from articles order by id';
-  SelectArticles = 'select * from articles where channel = :channel order by id';
+  SelectAllArticles = 'select * from  articles order by id';
+  SelectArticles = 'select * from  articles where channel = :channel order by id';
   DarkThemeURL = '<body style="padding: 25px; background-color: #20262f">';
   LightThemeURL = '<body style="padding: 25px; background-color: #ffffff">';
 
@@ -95,17 +93,17 @@ const
 procedure SetPermissions;
 const
   cHomePath = 'SOFTWARE';
-  cFeatureBrowserEmulation = 'Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMALATION';
+  cFeatureBrowserEmulation = 'Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION\';
   cIE11 = 11001;
 var
   Reg: TRegIniFile;
   sKey: string;
 begin
-  sKey := ExtractFileName(Paramstr(0));
+  sKey := ExtractFileName(ParamStr(0));
   Reg := TRegIniFile.Create(cHomePath);
   try
     if Reg.OpenKey(cFeatureBrowserEmulation, True) and
-      not (TRegistry(Reg).KeyExists(sKey) and (TRegistry(Reg).ReadInteger(sKey) = cIE11))
+      not(TRegistry(Reg).KeyExists(sKey) and (TRegistry(Reg).ReadInteger(sKey) = cIE11))
     then
       TRegistry(Reg).WriteInteger(sKey, cIE11);
   finally
@@ -114,68 +112,10 @@ begin
 end;
 {$ENDIF}
 
-procedure TMainForm.ArticlesListItemClick(const Sender: TObject;
-  const AItem: TListViewItem);
-begin
-  ArticlesBS.DataSet.RecNo := ArticlesList.ItemIndex + 1;
-
-{$IFDEF MSWINDOWS}
-  SetPermissions;
-{$ENDIF}
-  WebBrowser.LoadFromStrings('<meta charset="UTF-8" />' + #13#10 +
-    ArticlesBS.DataSet.FieldByName('content').AsString, TEncoding.UTF8, 'about:blank');
-
-  IsEmptyURL := False;
-end;
-
 procedure TMainForm.BeginLoad;
 begin
   StatusLabel.Text := 'Loading...';
-end;
-
-procedure TMainForm.ChannelsListItemClick(const Sender: TObject;
-  const AItem: TListViewItem);
-begin
-  LoadEmptyURL;
-  ChannelsBS.DataSet.RecNo := ChannelsList.ItemIndex + 1;
-  if ChannelsBS.DataSet.FieldByName('Id').AsInteger = 0 then
-    DM.ArticlesQuery.SQL.Text := SelectAllArticles
-  else begin
-    DM.ArticlesQuery.SQL.Text := SelectArticles;
-    DM.ArticlesQuery.ParamByName('channel').AsInteger := ChannelsBS.DataSet.FieldByName('Id').AsInteger;
-    DM.ArticlesQuery.Prepare;
-  end;
-    DM.ArticlesQuery.Open;
-end;
-
-procedure TMainForm.ChannelsListUpdateObjects(const Sender: TObject;
-  const AItem: TListViewItem);
-begin
-  if AItem.ImageIndex <> 0 then
-    AItem.ImageIndex := 0;
-end;
-
-procedure TMainForm.ConnectButtonClick(Sender: TObject);
-begin
-  with DM.FDConnection.Params as TFDPhysPGConnectionDefParams do begin
-    Server := ServerEdit.Text;
-    Port := StrToInt(PortEdit.Text);
-    UserName := UserEdit.Text;
-    Password := PasswordEdit.Text;
-    Database := DatabaseEdit.Text;
-  end;
-  DM.FDConnection.Connected := True;
-  DM.ChannelsQuery.Open;
-  DM.ArticlesQuery.Open;
-  MultiView.HideMaster;
-end;
-
-procedure TMainForm.ConnectionButtonClick(Sender: TObject);
-begin
-  if MultiView.IsShowed then
-    MultiView.HideMaster
-  else
-    MultiView.ShowMaster;
+  Application.ProcessMessages;
 end;
 
 procedure TMainForm.EndLoad;
@@ -183,56 +123,37 @@ begin
   StatusLabel.Text := '';
 end;
 
-procedure TMainForm.FormCreate(Sender: TObject);
-begin
-  LoadEmptyURL;
-end;
-
-procedure TMainForm.LoadEmptyURL;
+procedure TMainForm.LoadURL(IsEmpty: boolean = False);
+var
+  FontColor, StyleStr: string;
 begin
 {$IFDEF MSWINDOWS}
   SetPermissions;
 {$ENDIF}
-  if MainForm.StyleBook = BlackStyle then
-    WebBrowser.LoadFromStrings(DarkThemeURL, 'about:blanck')
-  else
-    WebBrowser.LoadFromStrings(LightThemeURL, 'about:blanck');
-  IsEmptyURL := True;
-end;
 
-procedure TMainForm.RefreshButtonClick(Sender: TObject);
-begin
-  ChannelsBS.DataSet.Open;
-  if (ChannelsList.ItemIndex <> -1) and (ChannelsBS.DataSet.FieldByName('link').AsString <> 'All feed') then begin
-    ChannelsBS.DataSet.RecNo := ChannelsList.ItemIndex + 1;
-    ArticlesBS.DataSet.Refresh;
-    ImportFeed(ChannelsBS.DataSet.FieldByName('Link').AsString, ChannelsBS.DataSet.FieldByName('Id').AsInteger);
+  if MainForm.StyleBook = BlackStyle then begin
+    FontColor := '"#ffffff"';
+    StyleStr := DarkThemeURL;
+  end
+  else begin
+    FontColor := '"#000000"';
+    StyleStr := LightThemeURL;
   end;
-end;
 
-procedure TMainForm.ThemeButtonClick(Sender: TObject);
-begin
-  if MainForm.StyleBook = LightStyle then
-    MainForm.StyleBook := BlackStyle
-  else
-    MainForm.StyleBook := LightStyle;
-  if IsEmptyURL then
-    LoadEmptyURL;
-end;
+  if not IsEmpty then begin
+    ArticlesBS.DataSet.RecNo := ArticlesList.ItemIndex + 1;
 
-procedure TMainForm.WebBrowserDidFailLoadWithError(ASender: TObject);
-begin
-  EndLoad;
-end;
+    WebBrowser.LoadFromStrings(StyleStr + #13#10 +
+      '<meta charset="UTF-8" />' + #13#10 + '<font color=' + FontColor + '>' +  #13#10 +
+      ArticlesBS.DataSet.FieldByName('content').AsString + '</font>',
+      TEncoding.UTF8, 'about:blank');
 
-procedure TMainForm.WebBrowserDidFinishLoad(ASender: TObject);
-begin
-  EndLoad;
-end;
-
-procedure TMainForm.WebBrowserDidStartLoad(ASender: TObject);
-begin
-  BeginLoad;
+    IsEmptyURL := False;
+  end
+  else begin
+    WebBrowser.LoadFromStrings(StyleStr, 'about:blank');
+    IsEmptyURL := True;
+  end;
 end;
 
 procedure TMainForm.ImportFeed(const Name: string; id: integer);
@@ -250,12 +171,12 @@ begin
     Stream.Position := 0;
     XMLDocument.LoadFromStream(Stream);
   finally
-    Stream.Free
+    Stream.Free;
   end;
 
   XMLDocument.Active := True;
 
-  StartItemNode := XMLDocument.DocumentElement.ChildNodes.First.ChildNodes.FindNode('item');
+  StartItemNode := XMLDocument.DocumentElement.ChildNodes.First.ChildNodes.FindNode('item') ;
   Node := StartItemNode;
   repeat
     Title := Node.ChildNodes['title'].Text;
@@ -263,12 +184,110 @@ begin
     Desc := Node.ChildNodes['description'].Text;
     Content := Node.ChildNodes['content:encoded'].Text;
 
-    if VarIsNull(ArticlesBS.DataSet.Lookup('Link', VarArrayOf([Link]), 'id')) then
-      ArticlesBS.DataSet.AppendRecord([nil, Title, Desc, Content, Link, nil, StrInternetToDateTime(Node.ChildNodes['pubDate'].Text), id]);
+    if VarIsNull(ArticlesBS.DataSet.Lookup('Link', VarArrayOf([Link]), 'Id')) then
+      ArticlesBS.DataSet.AppendRecord([nil, Title, Desc, Content, Link,  nil, StrInternetToDateTime(Node.ChildNodes['pubDate'].Text), id]);
     Node := Node.NextSibling;
   until Node = nil;
 
   EndLoad;
+end;
+
+procedure TMainForm.ArticlesListUpdateObjects(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+  if AItem.ImageIndex <> 0 then
+    AItem.ImageIndex := 0;
+end;
+
+procedure TMainForm.ConnectionButtonClick(Sender: TObject);
+begin
+  if MultiView.IsShowed then
+    MultiView.HideMaster
+  else
+    MultiView.ShowMaster;
+end;
+
+procedure TMainForm.ConnectButtonClick(Sender: TObject);
+begin
+  with DM.FDConnection1.Params as TFDPhysPgConnectionDefParams do begin
+    Server := Edit1.Text;
+    Port := StrToInt(Edit2.Text);
+    UserName := Edit3.Text;
+    Password := Edit4.Text;
+    Database := Edit5.Text;
+  end;
+  DM.FDConnection1.Connected := True;
+  DM.ChannelsQuery.Open;
+  DM.ArticlesQuery.Open;
+  MultiView.HideMaster;
+end;
+
+procedure TMainForm.ColorButtonClick(Sender: TObject);
+begin
+  BeginLoad;
+  try
+    if MainForm.StyleBook = LightStyle then
+      MainForm.StyleBook := BlackStyle
+    else
+      MainForm.StyleBook := LightStyle;
+    if IsEmptyURL then
+      LoadURL(True)
+    else
+      LoadURL;
+  finally
+    EndLoad;
+  end;
+end;
+
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  LoadURL(True);
+end;
+
+procedure TMainForm.ChannelsListItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+  BeginLoad;
+  try
+    LoadURL(True);
+    ChannelsBS.DataSet.RecNo := ChannelsList.ItemIndex + 1;
+    if ChannelsBS.DataSet.FieldByName('Id').AsInteger = 0 then
+      dm.ArticlesQuery.SQL.Text := SelectAllArticles
+    else begin
+      dm.ArticlesQuery.SQL.Text := SelectArticles;
+      dm.ArticlesQuery.ParamByName('channel').AsInteger := ChannelsBS.DataSet.FieldByName('Id').AsInteger;
+      dm.ArticlesQuery.Prepare;
+    end;
+    dm.ArticlesQuery.Open;
+  finally
+    EndLoad;
+  end;
+end;
+
+procedure TMainForm.ArticlesListItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+  BeginLoad;
+  try
+    LoadURL;
+  finally
+    EndLoad;
+  end;
+end;
+
+procedure TMainForm.RefreshButtonClick(Sender: TObject);
+begin
+  BeginLoad;
+  try
+    ChannelsBS.DataSet.Open;
+    if (ChannelsList.ItemIndex <> -1) and (ChannelsBS.DataSet.FieldByName('Link').AsString <> 'All feed') then begin
+      ChannelsBS.DataSet.RecNo := ChannelsList.ItemIndex  + 1;
+      ArticlesBS.DataSet.Refresh;
+      ImportFeed(ChannelsBS.DataSet.FieldByName('Link').AsString, ChannelsBS.DataSet.FieldByName('Id').AsInteger);
+    end;
+  finally
+    EndLoad;
+  end;
 end;
 
 end.
