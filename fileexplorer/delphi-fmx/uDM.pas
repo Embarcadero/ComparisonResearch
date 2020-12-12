@@ -10,7 +10,6 @@ type
   Tdm = class(TDataModule)
     ActionList1: TActionList;
     FileExit1: TFileExit;
-    procedure DataModuleDestroy(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
   private
     FTmpFilename: string;
@@ -49,19 +48,9 @@ uses
 
 {$R *.dfm}
 
-procedure Tdm.DataModuleDestroy(Sender: TObject);
-begin
-  try
-    CloseFile(FTmpFile);
-  finally
-    Erase(FTmpFile);
-  end;
-end;
-
 procedure Tdm.DataModuleCreate(Sender: TObject);
 begin
   FTmpFileName := TPath.GetTempFileName;
-  AssignFile(FTmpFile, FTmpFileName);
 end;
 
 { TDataModule2 }
@@ -90,12 +79,10 @@ function Tdm.GetSubFolders(Path: string): TArray<string>;
 begin
   Assert(Path.Length > 0);
   if (TOsVersion.Platform <> pfWindows) or (Path.Length <> 1) or not IsPathDelimiter(Path, High(Path)) then
-    try
-      Result := TDirectory.GetDirectories(Path);
-    except
-      on E: EDirectoryNotFoundException do
-        Result := nil
-    end
+    if TDirectory.Exists(Path) then
+      Result := TDirectory.GetDirectories(Path)
+    else
+      Result := nil
   else
   begin
     {$IFDEF MSWINDOWS}
