@@ -4,7 +4,9 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   uMain in 'uMain.pas' {Form3},
-  uDM in 'uDM.pas' {dm: TDataModule};
+  uDM in 'uDM.pas' {dm: TDataModule},
+  uPlatform in 'uPlatform.pas',
+  uTypes in 'uTypes.pas';
 
 {$R *.res}
 
