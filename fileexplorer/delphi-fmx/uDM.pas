@@ -13,7 +13,6 @@ type
     procedure DataModuleCreate(Sender: TObject);
   private
     FTmpFilename: string;
-    FTmpFile: TextFile;
     function IsWindowsDrivePath(Path: string): Boolean;
     function SearchTextToFilePattern(SearchText: string): string;
   public

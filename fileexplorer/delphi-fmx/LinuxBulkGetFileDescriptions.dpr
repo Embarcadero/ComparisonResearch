@@ -1,26 +1,13 @@
-unit uPlatform;
-
-interface
-
-uses
-  System.Types,
-  uTypes;
-
-procedure BulkObtainFiletypes(const Names: TStringDynArray; var FilesData: TFilesData; TmpFilename: string);
-
-implementation
+program LinuxBulkGetFileDescriptions;
+{$APPTYPE CONSOLE}
+{$R *.res}
 
 uses
-{$IFDEF LINUX}
-  FMX.Types,
+  System.Diagnostics,
+  System.SysUtils,
   Posix.Base,
-  Posix.Errno,
-  Posix.Fcntl,
-{$ENDIF}
-  System.IOUtils,
-  System.SysUtils;
+  Posix.Fcntl;
 
-{$IFDEF LINUX}
 type
   TStreamHandle = pointer;
 
@@ -42,7 +29,7 @@ function fgets(buffer: pointer; size: int32; Stream: TStreamHAndle): pointer; cd
 ///  <summary>
 ///    Utility function to return a buffer of ASCII-Z data as a string.
 ///  </summary>
-function BufferToString(Buffer: Pointer; MaxSize: Uint32 ): string;
+function BufferToString( Buffer: pointer; MaxSize: uint32 ): string;
 var
   cursor: ^uint8;
   EndOfBuffer: nativeuint;
@@ -74,20 +61,24 @@ begin
     pclose(Handle);
   end;
   Result := Output.Split([sLineBreak]);
-  if Result[High(Result)] = '' then
-    SetLength(Result, Length(Result) - 1);
 end;
-{$ENDIF}
 
-procedure BulkObtainFiletypes(const Names: TStringDynArray; var FilesData: TFilesData; TmpFilename: string);
+var Stopwatch: TStopwatch;
+const Times = 10;
 begin
-{$IFDEF LINUX}
-  TFile.WriteAllLines(TmpFilename, Names);
-  var Types := GetFileTypes(TmpFilename);
-  Assert(High(FilesData) = High(Types));
-  for var i := Low(Types) to High(Types) do
-    FilesData[i].Filetype := Types[i];
-{$ENDIF}
-end;
-
+  try
+    Stopwatch := TStopwatch.StartNew;
+    for var i := 1 to Times do
+    begin
+      Writeln(i);
+      GetFileTypes('~/bin_filelist');
+    end;
+    Stopwatch.Stop;
+    Write('******************** ', Stopwatch.Elapsed.Seconds / Times:1:1);
+    for var s in GetFileTypes('~/bin_filelist') do
+      Writeln(s);
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
 end.
