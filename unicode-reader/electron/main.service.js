@@ -88,13 +88,6 @@ class MainService {
 
 }
 
-// const { DbConnection } = require('./db.connection');
-// let dbConnection = new DbConnection();
-// let msvc = new MainService(dbConnection, null);
-// msvc.readRSS();
-// msvc.updateChannels();
-// delete msvc;
-
 module.exports = {
     MainService: MainService
 }
