@@ -54,8 +54,8 @@
         </BuildGroupProject>
         <BuildGroupProject Include="FMXFileExplorer.dproj">
             <ProjectGuid>{9F6F4DB4-C92B-4DD2-96F5-DB3E5152B0EB}</ProjectGuid>
-            <Configurations>Debug</Configurations>
-            <Platforms>OSX64;Win32;Win64</Platforms>
+            <Configurations>Debug;Release</Configurations>
+            <Platforms>Linux64;OSX64;Win32;Win64</Platforms>
             <Enabled>True</Enabled>
         </BuildGroupProject>
     </ItemGroup>
