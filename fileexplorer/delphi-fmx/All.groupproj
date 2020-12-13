@@ -9,9 +9,6 @@
         <Projects Include="FMXFileExplorer.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="LinuxBulkGetFileDescriptions.dproj">
-            <Dependencies/>
-        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -38,23 +35,14 @@
     <Target Name="FMXFileExplorer:Make">
         <MSBuild Projects="FMXFileExplorer.dproj" Targets="Make"/>
     </Target>
-    <Target Name="LinuxBulkGetFileDescriptions">
-        <MSBuild Projects="LinuxBulkGetFileDescriptions.dproj"/>
-    </Target>
-    <Target Name="LinuxBulkGetFileDescriptions:Clean">
-        <MSBuild Projects="LinuxBulkGetFileDescriptions.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="LinuxBulkGetFileDescriptions:Make">
-        <MSBuild Projects="LinuxBulkGetFileDescriptions.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Build">
-        <CallTarget Targets="FileExplorer;FMXFileExplorer;LinuxBulkGetFileDescriptions"/>
+        <CallTarget Targets="FileExplorer;FMXFileExplorer"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="FileExplorer:Clean;FMXFileExplorer:Clean;LinuxBulkGetFileDescriptions:Clean"/>
+        <CallTarget Targets="FileExplorer:Clean;FMXFileExplorer:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="FileExplorer:Make;FMXFileExplorer:Make;LinuxBulkGetFileDescriptions:Make"/>
+        <CallTarget Targets="FileExplorer:Make;FMXFileExplorer:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
     <ItemGroup Condition="'$(BuildGroup)'=='FMXFileExplorer all'">
@@ -62,12 +50,6 @@
             <ProjectGuid>{07E05326-4261-4A39-B6AC-4CC3195A96C5}</ProjectGuid>
             <Configurations>Debug</Configurations>
             <Platforms>Win32</Platforms>
-            <Enabled>False</Enabled>
-        </BuildGroupProject>
-        <BuildGroupProject Include="LinuxBulkGetFileDescriptions.dproj">
-            <ProjectGuid>{7B80BE7E-EED2-4874-8224-CD84C5A706C3}</ProjectGuid>
-            <Configurations>Debug</Configurations>
-            <Platforms>OSX64</Platforms>
             <Enabled>False</Enabled>
         </BuildGroupProject>
         <BuildGroupProject Include="FMXFileExplorer.dproj">

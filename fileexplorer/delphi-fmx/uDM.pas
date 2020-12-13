@@ -4,15 +4,26 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.Actions,
-  FMX.ActnList, FMX.StdActns, uTypes;
+  FMX.ActnList, FMX.StdActns;
 
 type
+  TFileData = record
+    FullFilename: string;
+    Filename: string;
+    DateModified: TDateTime;
+    Filetype: string;
+    Size: Int64;
+    const
+      NoSizeInfo = -1;
+    procedure ObtainInfo(const AFullFilename: string);
+  end;
+
+  TFilesData = TArray<TFileData>;
+
   Tdm = class(TDataModule)
     ActionList1: TActionList;
     FileExit1: TFileExit;
-    procedure DataModuleCreate(Sender: TObject);
   private
-    FTmpFilename: string;
     function IsWindowsDrivePath(Path: string): Boolean;
     function SearchTextToFilePattern(SearchText: string): string;
   public
@@ -42,17 +53,11 @@ uses
   Macapi.ObjectiveC,
   Posix.Stdlib,
 {$ENDIF}
-  uPlatform,
   System.IOUtils;
 
 {$R *.dfm}
 
-procedure Tdm.DataModuleCreate(Sender: TObject);
-begin
-  FTmpFileName := TPath.GetTempFileName;
-end;
-
-{ TDataModule2 }
+{ Tdm }
 
 function Tdm.GetFilesData(Path, SearchText: string): TFilesData;
 begin
@@ -60,7 +65,6 @@ begin
   SetLength(Result, Length(Names));
   for var i := Low(Names) to High(Names) do
     Result[i].ObtainInfo(Names[i]);
-  uPlatform.BulkObtainFiletypes(Names, Result, FTmpFilename);
 end;
 
 function Tdm.GetFolderName(FolderPath: string): string;
@@ -136,6 +140,8 @@ begin
 
     Pasteboard.clearContents;
     Pasteboard.writeObjects(fileArray);
+{$ELSEIF Defined(LINUX)}
+//TODO: imlement copy file to clipboard on Linux
 {$ENDIF}
 end;
 
@@ -157,6 +163,50 @@ begin
 {$ELSEIF Defined(MACOS)}
   _system(PAnsiChar('open ' + AnsiString(WhatToOpen)));
 {$ENDIF}
+end;
+
+{ TFileData }
+
+procedure TFileData.ObtainInfo(const AFullFilename: string);
+
+  function GetFileSize: Int64;
+  var S: TSearchRec;
+  begin
+    if FindFirst(FullFilename, faAnyFile, S) = 0 then
+      Result := S.Size
+    else
+      Result := NoSizeInfo;
+  end;
+
+  function GetFileTypeDescription: string;
+  begin
+    {$IFDEF MSWINDOWS}
+      var FileInfo : SHFILEINFO;
+        SHGetFileInfo(PChar(ExtractFileExt(FullFileName)),
+                      FILE_ATTRIBUTE_NORMAL,
+                      FileInfo,
+                      SizeOf(FileInfo),
+                      SHGFI_TYPENAME or SHGFI_USEFILEATTRIBUTES
+                      );
+        Result := FileInfo.szTypeName;
+    {$ELSEIF Defined(MACOS)}
+      var pnsstr: Pointer;
+      var URL := TNSUrl.Wrap(TNSUrl.OCCLass.fileURLWithPath(StrToNSStr(FullFilename)));
+
+      if URL.getResourceValue(@pnsstr, NSURLLocalizedTypeDescriptionKey, nil) then
+        Result := NSStrToStr(TNSString.Wrap(pnsstr))
+      else
+        Result := '';
+    {$ELSEIF Defined(LINUX)}
+      Result := ''; //TODO: implement getting file type on Linux
+    {$ENDIF}
+  end;
+begin
+  FullFilename := TPath.GetFullPath(AFullFilename);
+  Filename := TPath.GetFileName(FullFilename);
+  DateModified := TFile.GetLastWriteTime(FullFilename);
+  Size := GetFileSize;
+  Filetype := GetFileTypeDescription;
 end;
 
 end.
