@@ -2,25 +2,48 @@ const fs = require('fs');
 
 class FileService {
 
-    constructor() {}
+    constructor(ipcMain) {
+        this.ipcMain = ipcMain;
+    }
+
+    async runEvent() {
+        this.ipcMain.on('getDirTree', (event, path)=> {
+            let dirList = await this.getFileDirs(path);
+            event.returnValue = dirList;
+        })
+    }
 
     async getFileDirs(dir) {
+        let res = [];
         try {
             let items = await fs.readdirSync(dir);
-            for (var i=0; i<items.length; i++) {
+            for (var i=0; i < items.length; i++) {
                 var file = dir + '/' + items[i];
                 let stats = await fs.statSync(file);
-                console.log(file, ' - ' ,stats["size"], ' - ',stats.isDirectory());
+                // console.log(file, ' - ' ,stats["size"], ' - ',stats.isDirectory());
+                let item = {
+                    file: file, 
+                    size: stats.size, 
+                    modified: stats.ctime, 
+                    isDirectory: stats.isDirectory(), 
+                    isFile: stats.isFile()};
+                res.push(item);
             }       
         } catch (error) {
             console.log('error: ', error);
         }
+        return res;
     }
 
 }
 
-let  fileService = new FileService();
-fileService.getFileDirs('/Users/herux/Downloads');
+let getList = async () => {
+    let  fileService = new FileService();
+    let res = await fileService.getFileDirs('/Users/herux/Downloads');
+    console.log('res: ', res);
+}
+
+getList();
 
 module.exports = {
     FileService: FileService

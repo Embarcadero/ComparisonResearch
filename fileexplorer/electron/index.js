@@ -1,4 +1,5 @@
 const { app, ipcMain, BrowserWindow } = require('electron');
+const { FileService } = require('./file.services');
 const path = require('path');
 const url = require("url");
 
@@ -21,7 +22,8 @@ const createWindow = async () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
-
+  let fileService = new FileService(ipcMain);
+  fileService.runEvent();
 };
 
 app.on('ready', createWindow);
