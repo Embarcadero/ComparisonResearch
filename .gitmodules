@@ -1,0 +1,3 @@
+[submodule "calculator/delphi-fmx/monien/Engine"]
+	path = calculator/delphi-fmx/monien/Engine
+	url = https://github.com/omonien/CalculatorEngine.git
