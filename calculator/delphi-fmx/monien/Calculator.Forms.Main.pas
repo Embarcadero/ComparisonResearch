@@ -66,9 +66,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
-    procedure SpeedButton2Click(Sender: TObject);
   private
-    FCalculator: TCalcEngine;
+    FCalculator: TCalculatorEngine;
     procedure UpdateDisplay;
   public
     { Public declarations }
@@ -90,26 +89,20 @@ end;
 procedure TFormMain.FormCreate(Sender: TObject);
 begin
   AlphaBlendValue := 240; // Just a little bit of trancparency. 255 would be no transparency.
-  FCalculator := TCalcEngine.Create;
+  FCalculator := TCalculatorEngine.Create;
   UpdateDisplay;
 end;
 
 procedure TFormMain.SpeedButton1Click(Sender: TObject);
 begin
-  FCalculator.Calc((Sender as TSpeedButton).Text);
-  UpdateDisplay;
-end;
-
-procedure TFormMain.SpeedButton2Click(Sender: TObject);
-begin
-  FCalculator.Clear;
+  FCalculator.SendKey((Sender as TSpeedButton).Hint[1]);
   UpdateDisplay;
 end;
 
 procedure TFormMain.UpdateDisplay;
 begin
-  LabelValue.Text := FormatFloat('0.0', FCalculator.Value);
-  LabelOperation.Text := FCalculator.Operation;
+  LabelValue.Text := FCalculator.ValueString;
+  LabelOperation.Text := FCalculator.CurrentOperation;
 end;
 
 end.
