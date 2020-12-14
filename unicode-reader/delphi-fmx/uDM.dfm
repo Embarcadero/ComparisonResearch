@@ -16,8 +16,7 @@ object DM: TDM
   end
   object FDScript: TFDScript
     SQLScriptFileName = 
-      'C:\Users\ViktorV\Documents\Embarcadero\Studio\Projects\UnicodeRe' +
-      'ader\create.sql'
+      'create.sql'
     SQLScripts = <>
     Connection = FDConnection
     Params = <>

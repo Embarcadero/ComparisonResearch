@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Article } from '../article';
 
 @Component({
   selector: 'app-listview',
@@ -7,9 +8,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListviewComponent implements OnInit {
 
-  @Input() Articles: any[];
+  @Input() articles: any[];
+  @Output() selectedArticle = new EventEmitter<Article>();
 
   constructor() { }
+
+  readArticle(article: Article) {
+    this.selectedArticle.emit(article);
+  }
 
   ngOnInit(): void {
   }

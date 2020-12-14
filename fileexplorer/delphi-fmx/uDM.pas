@@ -48,15 +48,16 @@ uses
   WinAPI.Windows,
 {$ELSEIF Defined(MACOS)}
   Macapi.AppKit,
-  Macapi.Helpers,
   Macapi.Foundation,
+  Macapi.Helpers,
+  Macapi.ObjectiveC,
   Posix.Stdlib,
 {$ENDIF}
   System.IOUtils;
 
 {$R *.dfm}
 
-{ TDataModule2 }
+{ Tdm }
 
 function Tdm.GetFilesData(Path, SearchText: string): TFilesData;
 begin
@@ -81,12 +82,10 @@ function Tdm.GetSubFolders(Path: string): TArray<string>;
 begin
   Assert(Path.Length > 0);
   if (TOsVersion.Platform <> pfWindows) or (Path.Length <> 1) or not IsPathDelimiter(Path, High(Path)) then
-    try
-      Result := TDirectory.GetDirectories(Path);
-    except
-      on E: EDirectoryNotFoundException do
-        Result := nil
-    end
+    if TDirectory.Exists(Path) then
+      Result := TDirectory.GetDirectories(Path)
+    else
+      Result := nil
   else
   begin
     {$IFDEF MSWINDOWS}
@@ -141,6 +140,8 @@ begin
 
     Pasteboard.clearContents;
     Pasteboard.writeObjects(fileArray);
+{$ELSEIF Defined(LINUX)}
+//TODO: imlement copy file to clipboard on Linux
 {$ENDIF}
 end;
 
@@ -167,6 +168,7 @@ end;
 { TFileData }
 
 procedure TFileData.ObtainInfo(const AFullFilename: string);
+
   function GetFileSize: Int64;
   var S: TSearchRec;
   begin
@@ -175,6 +177,7 @@ procedure TFileData.ObtainInfo(const AFullFilename: string);
     else
       Result := NoSizeInfo;
   end;
+
   function GetFileTypeDescription: string;
   begin
     {$IFDEF MSWINDOWS}
@@ -194,8 +197,8 @@ procedure TFileData.ObtainInfo(const AFullFilename: string);
         Result := NSStrToStr(TNSString.Wrap(pnsstr))
       else
         Result := '';
-    {$ELSE}
-      {$MESSAGE ERROR 'TODO : implement for other platforms'}
+    {$ELSEIF Defined(LINUX)}
+      Result := ''; //TODO: implement getting file type on Linux
     {$ENDIF}
   end;
 begin

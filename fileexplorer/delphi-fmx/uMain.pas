@@ -22,7 +22,7 @@ type
       property OnExpanded: TNotifyEvent read FOnExpanded write FOnExpanded;
   end;
 
-  TForm3 = class(TForm)
+  TForm1 = class(TForm)
     WinMenu: TMenuBar;
     WinMenuFile: TMenuItem;
     WinMenuRun: TMenuItem;
@@ -71,7 +71,7 @@ type
   end;
 
 var
-  Form3: TForm3;
+  Form1: TForm1;
 
 implementation
 
@@ -92,7 +92,7 @@ begin
       OnExpanded(Self);
 end;
 
-function TForm3.AddFolderToTreeView(APath: string;
+function TForm1.AddFolderToTreeView(APath: string;
   AParent: TFmxObject; IsSubItem: boolean): TTreeViewItem;
 begin
   var Item:= TExpandableTreeViewItem.Create(Folders);
@@ -110,7 +110,7 @@ begin
   Result := Item;
 end;
 
-procedure TForm3.AddSubItems(Item: TExpandableTreeViewItem);
+procedure TForm1.AddSubItems(Item: TExpandableTreeViewItem);
   procedure RemoveFromParent(Parent, SubItem: TTreeViewItem);
   begin
     SubItem.Parent := nil;
@@ -126,7 +126,7 @@ begin
       AddFolderToTreeView(OneFolder, Item, True);
 end;
 
-procedure TForm3.btnNewTabClick(Sender: TObject);
+procedure TForm1.btnNewTabClick(Sender: TObject);
 begin
   var NewTab := Tabs.Add;
   NewTab.TagString := FolderEdit.Text;
@@ -134,7 +134,7 @@ begin
   Tabs.ActiveTab := NewTab;
 end;
 
-procedure TForm3.ExpandTreeViewItem(Sender: TObject);
+procedure TForm1.ExpandTreeViewItem(Sender: TObject);
 begin
   if (Sender <> nil) and (Sender is TExpandableTreeViewItem) then
   begin
@@ -149,7 +149,7 @@ begin
   end;
 end;
 
-procedure TForm3.FilesGetValue(Sender: TObject; const ACol, ARow: Integer; var
+procedure TForm1.FilesGetValue(Sender: TObject; const ACol, ARow: Integer; var
     Value: TValue);
 begin
   if FFilesData <> nil then
@@ -165,12 +165,12 @@ begin
   end;
 end;
 
-procedure TForm3.FolderEditChange(Sender: TObject);
+procedure TForm1.FolderEditChange(Sender: TObject);
 begin
   FoldersTryOpen(FolderEdit.Text);
 end;
 
-procedure TForm3.FoldersChange(Sender: TObject);
+procedure TForm1.FoldersChange(Sender: TObject);
 begin
   if not FFoldersChangeActive and (Folders.Selected is TExpandableTreeViewItem) then
   begin
@@ -188,7 +188,7 @@ begin
   end;
 end;
 
-procedure TForm3.FoldersTryOpen(Path: string);
+procedure TForm1.FoldersTryOpen(Path: string);
 
   function CouldDescend(var Node: TTreeViewItem; const Folder: string): Boolean;
   var i: Integer;
@@ -240,19 +240,19 @@ begin
   end;
 end;
 
-procedure TForm3.FormCreate(Sender: TObject);
+procedure TForm1.FormCreate(Sender: TObject);
 begin
   AddFolderToTreeView(PathDelim, Folders, False);
   Folders.Items[0].Select;
 end;
 
-procedure TForm3.TabsChange(Sender: TObject);
+procedure TForm1.TabsChange(Sender: TObject);
 begin
   Assert(Tabs.ActiveTab <> nil);
   FolderEdit.Text := Tabs.ActiveTab.TagString;
 end;
 
-procedure TForm3.UpdateFilesPath(Path: string);
+procedure TForm1.UpdateFilesPath(Path: string);
 begin
   Files.BeginUpdate;
   try
@@ -263,19 +263,19 @@ begin
   end;
 end;
 
-procedure TForm3.WinMenuBrowseForFolderClick(Sender: TObject);
+procedure TForm1.WinMenuBrowseForFolderClick(Sender: TObject);
 var Directory: string;
 begin
   if SelectDirectory('Select a folder to open', PathDelim, Directory) then
     FolderEdit.Text := Directory;
 end;
 
-procedure TForm3.WinMenuCopyClick(Sender: TObject);
+procedure TForm1.WinMenuCopyClick(Sender: TObject);
 begin
   dm.PutFileToClipboard(FFilesData[Files.Row].FullFilename);
 end;
 
-procedure TForm3.WinMenuRunClick(Sender: TObject);
+procedure TForm1.WinMenuRunClick(Sender: TObject);
 begin
   TDialogService.InputQuery('Run', ['Type the name of a program folder, document or Internet resource to open:'], [''],
     procedure(const AResult: TModalResult; const AValues: array of string)
