@@ -6,8 +6,8 @@ class FileService {
         this.ipcMain = ipcMain;
     }
 
-    async runEvent() {
-        this.ipcMain.on('getDirTree', (event, path)=> {
+    runEvent() {
+        this.ipcMain.on('getDirTree', async (event, path)=> {
             let dirList = await this.getFileDirs(path);
             event.returnValue = dirList;
         })

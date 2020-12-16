@@ -5,16 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MenubarComponent } from './menubar/menubar.component';
 import { AppComponent } from './app.component';
+import { HxtreeviewComponent } from './hxtreeview/hxtreeview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     MenubarComponent,
+    HxtreeviewComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
