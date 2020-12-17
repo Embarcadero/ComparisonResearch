@@ -39,16 +39,25 @@ Please provide feedback to us during the development process so we can help spee
 ### Delphi Specific
 
 Screenshot:
+
 <https://stackoverflow.com/questions/22430706/delphi-7-screenshot-without-capturing-form-windows-8-dwm-exe>
+
 Store images in TFDMemTable Blob:
-https://stackoverflow.com/questions/13863169/load-and-save-image-from-blob-field-in-delphi-using-firebird
+
+<https://stackoverflow.com/questions/13863169/load-and-save-image-from-blob-field-in-delphi-using-firebird>
 
 Crop Image:
+
 <https://stackoverflow.com/questions/34226133/how-to-draw-a-selection-rectangle-between-onmousedown-and-onmouseup>
+
 <https://stackoverflow.com/questions/9183524/delphi-how-do-i-crop-a-bitmap-in-place>
+
 Resize Image:
+
 <https://www.thoughtco.com/resize-an-image-creating-thumbnail-graphics-1058071>
+
 Save To File:
+
 <http://docwiki.embarcadero.com/Libraries/Sydney/en/Vcl.ExtDlgs.TSavePictureDialog>
 
 ### Electron Specific
