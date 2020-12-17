@@ -8,13 +8,13 @@ const createWindow = async () => {
     webPreferences: {
       nodeIntegration: true
     },
-    width: 1500,
-    height: 850,
+    width: 1000,
+    height: 800,
   });
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, './dist/file-explorer/index.html'),
+      pathname: path.join(__dirname, './dist/fileexplorer/index.html'),
       protocol: "file:",
       slashes: true
     })

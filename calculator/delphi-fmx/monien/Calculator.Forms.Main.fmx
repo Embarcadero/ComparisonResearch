@@ -236,6 +236,8 @@ object FormMain: TFormMain
       Size.Height = 375.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
+      ParentShowHint = False
+      ShowHint = False
       ColumnCollection = <
         item
           Value = 25.000000000000000000
@@ -391,6 +393,7 @@ object FormMain: TFormMain
         end>
       object Panel1: TPanel
         Align = Client
+        Hint = '%'
         Size.Width = 100.000000000000000000
         Size.Height = 62.500000000000000000
         Size.PlatformDefault = False
@@ -417,6 +420,7 @@ object FormMain: TFormMain
         TabOrder = 57
         object SpeedButton2: TSpeedButton
           Align = Client
+          Hint = 'c'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -424,7 +428,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = 'CE'
-          OnClick = SpeedButton2Click
+          OnClick = SpeedButton1Click
         end
       end
       object Panel3: TPanel
@@ -436,6 +440,7 @@ object FormMain: TFormMain
         TabOrder = 56
         object SpeedButton3: TSpeedButton
           Align = Client
+          Hint = 'c'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -443,7 +448,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = 'C'
-          OnClick = SpeedButton2Click
+          OnClick = SpeedButton1Click
         end
       end
       object Panel4: TPanel
@@ -531,6 +536,7 @@ object FormMain: TFormMain
         TabOrder = 51
         object SpeedButton8: TSpeedButton
           Align = Client
+          Hint = '/'
           Scale.X = 2.500000000000000000
           Scale.Y = 2.500000000000000000
           Size.Width = 40.000000000000000000
@@ -550,6 +556,7 @@ object FormMain: TFormMain
         TabOrder = 50
         object SpeedButton9: TSpeedButton
           Align = Client
+          Hint = '7'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -569,6 +576,7 @@ object FormMain: TFormMain
         TabOrder = 49
         object SpeedButton10: TSpeedButton
           Align = Client
+          Hint = '8'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -588,6 +596,7 @@ object FormMain: TFormMain
         TabOrder = 48
         object SpeedButton11: TSpeedButton
           Align = Client
+          Hint = '9'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -607,6 +616,7 @@ object FormMain: TFormMain
         TabOrder = 47
         object SpeedButton12: TSpeedButton
           Align = Client
+          Hint = '*'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -626,6 +636,7 @@ object FormMain: TFormMain
         TabOrder = 46
         object SpeedButton13: TSpeedButton
           Align = Client
+          Hint = '4'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -645,6 +656,7 @@ object FormMain: TFormMain
         TabOrder = 45
         object SpeedButton14: TSpeedButton
           Align = Client
+          Hint = '5'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -664,6 +676,7 @@ object FormMain: TFormMain
         TabOrder = 44
         object SpeedButton15: TSpeedButton
           Align = Client
+          Hint = '6'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -683,6 +696,7 @@ object FormMain: TFormMain
         TabOrder = 43
         object SpeedButton16: TSpeedButton
           Align = Client
+          Hint = '-'
           Scale.X = 2.500000000000000000
           Scale.Y = 2.500000000000000000
           Size.Width = 40.000000000000000000
@@ -702,6 +716,7 @@ object FormMain: TFormMain
         TabOrder = 42
         object SpeedButton17: TSpeedButton
           Align = Client
+          Hint = '1'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -721,6 +736,7 @@ object FormMain: TFormMain
         TabOrder = 41
         object SpeedButton18: TSpeedButton
           Align = Client
+          Hint = '2'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -740,6 +756,7 @@ object FormMain: TFormMain
         TabOrder = 40
         object SpeedButton19: TSpeedButton
           Align = Client
+          Hint = '3'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -759,6 +776,7 @@ object FormMain: TFormMain
         TabOrder = 39
         object SpeedButton20: TSpeedButton
           Align = Client
+          Hint = '+'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -778,6 +796,7 @@ object FormMain: TFormMain
         TabOrder = 38
         object SpeedButton21: TSpeedButton
           Align = Client
+          Hint = 'p'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -797,6 +816,7 @@ object FormMain: TFormMain
         TabOrder = 37
         object SpeedButton22: TSpeedButton
           Align = Client
+          Hint = '0'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -816,6 +836,7 @@ object FormMain: TFormMain
         TabOrder = 36
         object SpeedButton23: TSpeedButton
           Align = Client
+          Hint = '.'
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
@@ -835,6 +856,7 @@ object FormMain: TFormMain
         TabOrder = 35
         object SpeedButton24: TSpeedButton
           Align = Client
+          Hint = '='
           Scale.X = 2.000000000000000000
           Scale.Y = 2.000000000000000000
           Size.Width = 50.000000000000000000
