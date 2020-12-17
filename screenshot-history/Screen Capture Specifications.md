@@ -19,7 +19,7 @@ The Screenshot App will show available screens to capture on the top third of th
 ### Theme
 The Screenshot App should look similar to the window shown below. 
 
-![](https://github.com/Embarcadero/ComparisonResearch/blob/main/screenshot-history/screenCaptureApp.png)
+![](https://github.com/Embarcadero/ComparisonResearch/blob/main/screenshot-history/screencap.png)
 
 
 ## Deliverables
