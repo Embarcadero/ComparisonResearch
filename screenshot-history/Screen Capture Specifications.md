@@ -35,6 +35,22 @@ The Screenshot App should look similar to the window shown below.
 Please provide feedback to us during the development process so we can help speed up the development. We have many many years of experience and are here to help you get the project done as fast as possible.
 
 ## Helpful Tips
+
+### Delphi Specific
+
+Screenshot:
+<https://stackoverflow.com/questions/22430706/delphi-7-screenshot-without-capturing-form-windows-8-dwm-exe>
+Store images in TFDMemTable Blob:
+https://stackoverflow.com/questions/13863169/load-and-save-image-from-blob-field-in-delphi-using-firebird
+
+Crop Image:
+<https://stackoverflow.com/questions/34226133/how-to-draw-a-selection-rectangle-between-onmousedown-and-onmouseup>
+<https://stackoverflow.com/questions/9183524/delphi-how-do-i-crop-a-bitmap-in-place>
+Resize Image:
+<https://www.thoughtco.com/resize-an-image-creating-thumbnail-graphics-1058071>
+Save To File:
+<http://docwiki.embarcadero.com/Libraries/Sydney/en/Vcl.ExtDlgs.TSavePictureDialog>
+
 ### Electron Specific
 
 The data layer of this application should be implemented with the main process and a renderer process in mind.
