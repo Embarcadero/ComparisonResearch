@@ -44,6 +44,7 @@ type
     StyleBook1: TStyleBook;
     Tabs: TTabControl;
     SpeedButton1: TSpeedButton;
+    TabItem1: TTabItem;
     procedure FormCreate(Sender: TObject);
     procedure FilesGetValue(Sender: TObject; const ACol, ARow: Integer; var Value:
         TValue);
