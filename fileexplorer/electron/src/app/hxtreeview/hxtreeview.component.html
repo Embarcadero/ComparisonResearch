@@ -1,6 +1,6 @@
 <ul id="myUL">
-    <li><span  class="caret-down" (click)="clickNode($event)">Beverages</span>
-      <ul [className]="treeActive ? 'nested':'active' ">
+    <li *ngFor="let ifile of ifiles"><span  class="caret-down" (click)="clickNode($event)">{{ifile.name}}</span>
+      <!-- <ul [className]="treeActive ? 'nested':'active' ">
         <li>Water</li>
         <li>Coffee</li>
         <li><span class="caret">Tea</span>
@@ -17,6 +17,6 @@
             </li>
           </ul>
         </li>  
-      </ul>
+      </ul> -->
     </li>
   </ul>
