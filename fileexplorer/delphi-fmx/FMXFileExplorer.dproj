@@ -5,7 +5,7 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">OSX64</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>4227</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>FMXFileExplorer.dpr</MainSource>
@@ -272,7 +272,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="uMain.pas">
-            <Form>Form3</Form>
+            <Form>Form1</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="uDM.pas">
@@ -280,8 +280,6 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="uPlatform.pas"/>
-        <DCCReference Include="uTypes.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
