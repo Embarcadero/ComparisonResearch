@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require("path");
 
 class FileService {
 
@@ -8,7 +9,7 @@ class FileService {
 
     runEvent() {
         this.ipcMain.on('getDirTree', async (event, path)=> {
-            let dirList = await this.getDirs(path);
+            let dirList = getDirsWithChild(path);
             console.log('dirList: ', dirList);
             event.returnValue = dirList;
         })
@@ -16,6 +17,29 @@ class FileService {
             let dirList = await this.getFileDirs(path);
             event.returnValue = dirList;
         })
+    }
+
+    getDirsWithChild(rootDir, listDir) {
+        listDir = listDir || [];
+        let files = fs.readdirSync(rootDir);
+        files.forEach((file) => {
+            let fileStat = fs.statSync(rootDir + '/' + file);
+            if (fileStat.isDirectory()) {
+                let item = {
+                    name: file,
+                    file: rootDir + '/' + file, 
+                    size: fileStat.size, 
+                    modified: fileStat.ctime, 
+                    isDirectory: fileStat.isDirectory(), 
+                    isFile: fileStat.isFile()
+                };
+                listDir.push(item);
+                listDir = this.getDirsWithChild(rootDir + '/' + file, listDir);
+            } /*else {
+                listDir.push(path.join(__dirname, rootDir, "/", file));
+            }*/
+        })
+        return listDir;
     }
 
     async getDirs(dir) {
@@ -32,8 +56,10 @@ class FileService {
                     modified: stats.ctime, 
                     isDirectory: stats.isDirectory(), 
                     isFile: stats.isFile()};
-                if (stats.isDirectory()) 
+                if (stats.isDirectory()) {
                     res.push(item);
+                    this.getDirs()
+                }
             }       
         } catch (error) {
             console.log('error: ', error);
@@ -67,7 +93,7 @@ class FileService {
 
 let getList = async () => {
     let  fileService = new FileService();
-    let res = await fileService.getFileDirs('/Users/herux/Downloads');
+    let res = await fileService.getDirsWithChild('/Users/herux/Downloads');
     console.log('res: ', res);
 }
 

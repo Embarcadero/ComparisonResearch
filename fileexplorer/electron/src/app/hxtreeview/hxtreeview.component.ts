@@ -12,11 +12,12 @@ export class HxtreeviewComponent implements OnInit {
 
   constructor() { }
 
-  clickNode(event) {
-    if (this.treeActive) {
-      this.treeActive = false;
-    } else {
-      this.treeActive = true;
+  clickFolder(event, index) {
+    let iconElem = event.target.querySelector('i');
+    if (iconElem.className == 'fas fa-folder') {
+      iconElem.className = 'fas fa-folder-open';
+    }else{
+      iconElem.className = 'fas fa-folder';
     }
   }
 
