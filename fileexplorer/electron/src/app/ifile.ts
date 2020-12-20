@@ -6,7 +6,7 @@ export interface Ifile {
     name: string,
     size: number,
     extension: string,
-    type: string
+    type: string,
     children: []
     
 }

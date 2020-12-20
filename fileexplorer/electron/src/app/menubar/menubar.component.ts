@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-// import { faFolder, faFolderOpen, faSquare, faCheckSquare, faCheck, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComService } from '../com.service';
 import { Ifile } from '../ifile';
+import { HxtreeviewComponent } from '../hxtreeview/hxtreeview.component';
 
 @Component({
   selector: 'app-menubar',
@@ -10,22 +10,20 @@ import { Ifile } from '../ifile';
 })
 export class MenubarComponent implements OnInit {
   ifiles: Array<Ifile> = [];
-  // public faFolder = faFolder;
-  // public faFolderOpen = faFolderOpen;
-  // public faSquare = faSquare;
-  // public faCheckSquare = faCheckSquare;
-  // public faMinus = faMinus;
-  // public faCheck = faCheck;
+  @ViewChild(HxtreeviewComponent) treeview: HxtreeviewComponent;
 
-  constructor(public comSvc: ComService) { }
+  constructor(public comSvc: ComService) {}
 
-  getDirs() {
-    this.ifiles = this.comSvc.sendSync('getDirTree', '/Users/herux/Downloads/AdminLTE-3.0.5/build/').children;
+  clickDirTree(ev) {
+    this.getDirs('/Users/herux');
+    this.treeview.setLoadData(this.ifiles);
+  }
+
+  getDirs(path) {
+    this.ifiles = this.comSvc.sendSync('getDirTree', path).children;
   }
 
   ngOnInit(): void {
-    this.getDirs();
-    console.log('ifiles: ', this.ifiles);
   }
 
 }

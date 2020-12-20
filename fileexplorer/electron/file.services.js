@@ -10,6 +10,7 @@ class FileService {
 
     runEvent() {
         this.ipcMain.on('getDirTree', async (event, path)=> {
+            console.log('dirList loading ..');
             let dirList = await this.getDirTree(path);
             console.log('dirList: ', dirList);
             event.returnValue = dirList;
