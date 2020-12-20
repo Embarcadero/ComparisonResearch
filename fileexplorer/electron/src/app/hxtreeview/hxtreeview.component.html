@@ -1,10 +1,24 @@
-<ul id="myUL">
-    <li class="caret" *ngFor="let ifile of ifiles">
-      <span (click)="clickFolder($event, $index)">
-        <i class="fas fa-folder"></i>
-        {{ifile.name}}
-      </span>
-      <!-- <ul [className]="treeActive ? 'nested':'active' ">
+<ul>
+  <ng-container
+    *ngTemplateOutlet="recursiveListTmpl; context:{ namalist: list }">
+  </ng-container>
+</ul>
+
+<ng-template #recursiveListTmpl let-list="namalist">
+  <li (click)="clickFolder($event, $index)" class="caret" *ngFor="let item of list">
+    <span>
+      <i class="fas fa-folder"></i>
+      {{item.name}}
+    </span>
+    <ul id="ulchild+''" [className]="treeActive ? 'nested':'active' " *ngIf="item.children.length > 0">
+      <ng-container
+        *ngTemplateOutlet="recursiveListTmpl; context:{ namalist: (item.children | showOnlyDir) }"
+      ></ng-container>
+    </ul>
+  </li>
+</ng-template>
+
+  <!-- <ul [className]="treeActive ? 'nested':'active' ">
         <li>Water</li>
         <li>Coffee</li>
         <li><span class="caret">Tea</span>
@@ -22,5 +36,3 @@
           </ul>
         </li>  
       </ul> -->
-    </li>
-  </ul>

@@ -1,10 +1,12 @@
 import { Time } from "@angular/common";
 
 export interface Ifile {
+    
+    path: string,
     name: string,
-    file: string, 
-    size: number, 
-    modified: Time, 
-    isDirectory: boolean, 
-    isFile: boolean
+    size: number,
+    extension: string,
+    type: string
+    children: []
+    
 }

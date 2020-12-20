@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require("path");
+const dirTree = require("directory-tree");
 
 class FileService {
 
@@ -9,7 +10,7 @@ class FileService {
 
     runEvent() {
         this.ipcMain.on('getDirTree', async (event, path)=> {
-            let dirList = getDirsWithChild(path);
+            let dirList = await this.getDirTree(path);
             console.log('dirList: ', dirList);
             event.returnValue = dirList;
         })
@@ -17,6 +18,11 @@ class FileService {
             let dirList = await this.getFileDirs(path);
             event.returnValue = dirList;
         })
+    }
+
+    async getDirTree(rootDir) {
+        const dirtree = await dirTree(rootDir);
+        return dirtree; 
     }
 
     getDirsWithChild(rootDir, listDir) {
@@ -31,13 +37,12 @@ class FileService {
                     size: fileStat.size, 
                     modified: fileStat.ctime, 
                     isDirectory: fileStat.isDirectory(), 
-                    isFile: fileStat.isFile()
+                    isFile: fileStat.isFile(),
+                    child: []
                 };
                 listDir.push(item);
                 listDir = this.getDirsWithChild(rootDir + '/' + file, listDir);
-            } /*else {
-                listDir.push(path.join(__dirname, rootDir, "/", file));
-            }*/
+            }
         })
         return listDir;
     }
@@ -58,7 +63,6 @@ class FileService {
                     isFile: stats.isFile()};
                 if (stats.isDirectory()) {
                     res.push(item);
-                    this.getDirs()
                 }
             }       
         } catch (error) {
@@ -91,13 +95,13 @@ class FileService {
 
 }
 
-let getList = async () => {
-    let  fileService = new FileService();
-    let res = await fileService.getDirsWithChild('/Users/herux/Downloads');
-    console.log('res: ', res);
-}
+// let getList = async () => {
+//     let  fileService = new FileService();
+//     let res = await fileService.getDirTree('/Users/herux/Downloads');
+//     console.log('res: ', JSON.stringify(res));
+// }
 
-getList();
+// getList();
 
 module.exports = {
     FileService: FileService

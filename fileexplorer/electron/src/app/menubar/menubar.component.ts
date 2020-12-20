@@ -19,17 +19,13 @@ export class MenubarComponent implements OnInit {
 
   constructor(public comSvc: ComService) { }
 
-  ngAfterViewInit(): void {
-    console.log('ngAfterViewInit');
-  }
-
   getDirs() {
-    this.ifiles = this.comSvc.sendSync('getDirTree', '/Users/herux/Downloads');
-    console.log('ifiles: ', this.ifiles);
+    this.ifiles = this.comSvc.sendSync('getDirTree', '/Users/herux/Downloads/AdminLTE-3.0.5/build/').children;
   }
 
   ngOnInit(): void {
     this.getDirs();
+    console.log('ifiles: ', this.ifiles);
   }
 
 }
