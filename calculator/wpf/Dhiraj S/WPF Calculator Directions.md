@@ -4,6 +4,8 @@
    Either Visual Studio 2017 or 2019
    <br/>.NET Version 5 or above 
 
+Running the compiled binary requires GalaSoftMvvmLight.dll in the same folder as the Calculator.exe file.
+
 ## Initial Setup
 - Open Visual studio Editor.
 - Go to "File" => "New" => "Project".
