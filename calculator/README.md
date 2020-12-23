@@ -8,7 +8,7 @@ Each framework sub-folder contains implementation source code, executable binari
 Reference [Calculator Specification.md](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/Calculator%20Specification.md).  This project sought to emulate the [Windows 10 calculator](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/win10calculator.png).
 
 # Analysis
-***Discovering the Best Developer Framework Through Benchmarking*** is saved to this repository and can also be downloaded from the [Embarcadero website](https://lp.embarcadero.com/Discovering_the_best_framework).
+***Discovering the Best Developer Framework Through Benchmarking*** is saved to this [repository](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/Discovering%20the%20Best%20Developer%20Framework%20Through%20Benchmarking%2012232020.pdf) and can also be downloaded from the [Embarcadero website](https://lp.embarcadero.com/Discovering_the_best_framework).
 
 
 ## Executive Summary
