@@ -1,5 +1,5 @@
 # Academic Resources
-These sources are referenced in the white paper series published by Embarcadero Technologies.  They were freely available through Google Scholar at the time of writing.  Our thanks to the authors and academics who's work supported our comparison evaluations and criteria.
+These sources are referenced in the white paper series published by Embarcadero Technologies.  They were freely available through Google Scholar or Google Books at the time of writing.  Our thanks to the authors and academics who's work supported our comparison evaluations and criteria.
 
 ## Sources - Discovering the BEST Developer Framework through Benchmarking
 Biørn-Hansen, Andreas, Tim A. Majchrzak, and Tor-Morten Grønli. ***"Progressive web apps: The possible web-native unifier for mobile development."*** In International Conference on Web Information Systems and Technologies, vol. 2, pp. 344-351. SCITEPRESS, 2017.
