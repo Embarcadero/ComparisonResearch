@@ -30,13 +30,13 @@ Please read the paper, examine the source code, and engage!  If you find flaws o
 
 # Contributors
 ## Embarcadero Technologies, Inc. 
-Marco Cantù	      RAD Studio Senior Product Manager
+Marco Cantù, RAD Studio Senior Product Manager
 
-Adam Leone	      Software Development Intern
+Adam Leone, Software Development Intern
 
-Jim McKeeth	      Chief Developer Advocate & Engineer
+Jim McKeeth, Chief Developer Advocate & Engineer
 
-David Millington	RAD Studio Senior Product Manager
+David Millington, RAD Studio Senior Product Manager
 
 
 ## Embarcadero Most Valuable Professionals (MVPs)
