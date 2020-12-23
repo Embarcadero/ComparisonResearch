@@ -1,6 +1,6 @@
 # Overview
 
-This folder contains the implementations of the calculator benchmark application in Delphi VCL, Delphi FMX, WPF with .NET Framework, and Electron.  These applications are the source material for Emberacadero Technologies' analyis of each framework in its whitepaper ***Discovering the Best Developer Framework Through Benchmarking***. The whitepaper is introduced in this [blog post](https://blogs.embarcadero.com/published-discovering-the-best-developer-framework-through-benchmarking/) and can be downloaded for free from this repository or through [this form](https://lp.embarcadero.com/Discovering_the_best_framework).
+This folder contains the implementations of the calculator benchmark application in Delphi VCL, Delphi FMX, WPF with .NET Framework, and Electron.  These applications are the source material for Emberacadero Technologies' analyis of each framework in its whitepaper ***Discovering the Best Developer Framework Through Benchmarking***. The whitepaper is introduced in this [blog post](https://blogs.embarcadero.com/published-discovering-the-best-developer-framework-through-benchmarking/) and can be downloaded for free from this [repository](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/Discovering%20the%20Best%20Developer%20Framework%20Through%20Benchmarking%2012232020.pdf) or through [this form](https://lp.embarcadero.com/Discovering_the_best_framework).
 
 Each framework sub-folder contains implementation source code, executable binaries, and an analysis of that implementation against the specification.
 
