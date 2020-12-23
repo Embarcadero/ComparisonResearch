@@ -6,6 +6,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MenubarComponent } from './menubar/menubar.component';
 import { AppComponent } from './app.component';
 import { HxtreeviewComponent } from './hxtreeview/hxtreeview.component';
+import { OnlydirPipe } from './onlydir';
 
 @NgModule({
   declarations: [
@@ -13,12 +14,13 @@ import { HxtreeviewComponent } from './hxtreeview/hxtreeview.component';
     ToolbarComponent,
     MenubarComponent,
     HxtreeviewComponent,
+    OnlydirPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [OnlydirPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

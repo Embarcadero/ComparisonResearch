@@ -1,24 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Ifile } from '../ifile';
+import { OnlydirPipe } from '../onlydir';
 
 @Component({
   selector: 'hxtreeview',
   templateUrl: './hxtreeview.component.html',
   styleUrls: ['./hxtreeview.component.css']
 })
-export class HxtreeviewComponent implements OnInit {
-  treeActive: boolean = false;
+export class HxtreeviewComponent {
+  ifiles: Array<Ifile> = [];
+  list: Array<Ifile> = [];
 
-  constructor() { }
+  constructor(private onlyDir: OnlydirPipe) { }
 
-  clickNode(event) {
-    if (this.treeActive) {
-      this.treeActive = false;
-    } else {
-      this.treeActive = true;
+  clickFolder(event, index) {
+    let ulElem = event.target.nextSibling;
+    let iconElem = event.target.querySelector('i');
+    if (iconElem.className == 'fas fa-folder') {
+      iconElem.className = 'fas fa-folder-open';
+      ulElem.className = 'active';
+    }else{
+      iconElem.className = 'fas fa-folder';
+      ulElem.className = 'nested';
     }
   }
 
-  ngOnInit(): void {
+  setLoadData(ifiles: Ifile[]) {
+    this.ifiles = ifiles;
+    this.list = this.onlyDir.transform(this.ifiles);
   }
 
 }
