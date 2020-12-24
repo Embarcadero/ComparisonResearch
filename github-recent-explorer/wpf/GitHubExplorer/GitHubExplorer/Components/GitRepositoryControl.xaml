@@ -21,8 +21,8 @@
             <ColumnDefinition Width="50"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="60"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <!--<ColumnDefinition Width="*"></ColumnDefinition>-->
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1"  VerticalAlignment="Stretch">
             <Image Width="16" Height="16" Source="pack://application:,,,/Resources/repos_image.png"></Image>
