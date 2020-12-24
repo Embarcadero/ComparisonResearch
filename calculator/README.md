@@ -1,6 +1,6 @@
 # Overview
 
-This folder contains the implementations of the calculator benchmark application in Delphi VCL, Delphi FMX, WPF with .NET Framework, and Electron.  These applications are the source material for Emberacadero Technologies' analyis of each framework in its whitepaper ***Discovering the Best Developer Framework Through Benchmarking***. The whitepaper is introduced in this [blog post](https://blogs.embarcadero.com/published-discovering-the-best-developer-framework-through-benchmarking/) and can be downloaded for free from this repository or through [this form](https://lp.embarcadero.com/Discovering_the_best_framework).
+This folder contains the implementations of the calculator benchmark application in Delphi VCL, Delphi FMX, WPF with .NET Framework, and Electron.  These applications are the source material for Emberacadero Technologies' analyis of each framework in its whitepaper ***Discovering the Best Developer Framework Through Benchmarking***. The whitepaper is introduced in this [blog post](https://blogs.embarcadero.com/published-discovering-the-best-developer-framework-through-benchmarking/) and can be downloaded for free from this [repository](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/Discovering%20the%20Best%20Developer%20Framework%20Through%20Benchmarking%2012232020.pdf) or through [this form](https://lp.embarcadero.com/Discovering_the_best_framework).
 
 Each framework sub-folder contains implementation source code, executable binaries, and an analysis of that implementation against the specification.
 
@@ -8,7 +8,7 @@ Each framework sub-folder contains implementation source code, executable binari
 Reference [Calculator Specification.md](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/Calculator%20Specification.md).  This project sought to emulate the [Windows 10 calculator](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/win10calculator.png).
 
 # Analysis
-***Discovering the Best Developer Framework Through Benchmarking*** is saved to this repository and can also be downloaded from the [Embarcadero website](https://lp.embarcadero.com/Discovering_the_best_framework).
+***Discovering the Best Developer Framework Through Benchmarking*** is saved to this [repository](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/Discovering%20the%20Best%20Developer%20Framework%20Through%20Benchmarking%2012232020.pdf) and can also be downloaded from the [Embarcadero website](https://lp.embarcadero.com/Discovering_the_best_framework).
 
 
 ## Executive Summary
@@ -30,13 +30,13 @@ Please read the paper, examine the source code, and engage!  If you find flaws o
 
 # Contributors
 ## Embarcadero Technologies, Inc. 
-Marco Cantù	      RAD Studio Senior Product Manager
+Marco Cantù, RAD Studio Senior Product Manager
 
-Adam Leone	      Software Development Intern
+Adam Leone, Software Development Intern
 
-Jim McKeeth	      Chief Developer Advocate & Engineer
+Jim McKeeth, Chief Developer Advocate & Engineer
 
-David Millington	RAD Studio Senior Product Manager
+David Millington, RAD Studio Senior Product Manager
 
 
 ## Embarcadero Most Valuable Professionals (MVPs)
