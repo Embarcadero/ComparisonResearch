@@ -7,6 +7,7 @@ import { MenubarComponent } from './menubar/menubar.component';
 import { AppComponent } from './app.component';
 import { HxtreeviewComponent } from './hxtreeview/hxtreeview.component';
 import { OnlydirPipe } from './onlydir';
+import { ListviewComponent } from './listview/listview.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { OnlydirPipe } from './onlydir';
     ToolbarComponent,
     MenubarComponent,
     HxtreeviewComponent,
-    OnlydirPipe
+    OnlydirPipe,
+    ListviewComponent
   ],
   imports: [
     BrowserModule,
