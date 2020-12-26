@@ -15,7 +15,7 @@ export class MenubarComponent implements OnInit {
   constructor(public comSvc: ComService) {}
 
   clickDirTree(ev) {
-    this.getDirs('/Users/herux/Documents');
+    this.getDirs('/Users/herux/Documents/adPlayerAndro');
     this.treeview.setLoadData(this.ifiles);
   }
 

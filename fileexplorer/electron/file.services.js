@@ -28,7 +28,7 @@ class FileService {
     }
 
     async getDirTree(rootDir) {
-        const dirtree = await dirTree(rootDir, 2);
+        const dirtree = await dirTree(rootDir);
         return dirtree; 
     }
 
