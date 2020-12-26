@@ -16,7 +16,6 @@ export class ListviewComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
           this.ifiles = this.comSvc.sendSync('getFileDir', params.path);
-          console.log('this.ifiles: ', this.ifiles);
       });
   }
 

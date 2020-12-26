@@ -11,18 +11,11 @@ class FileService {
 
     runEvent() {
         this.ipcMain.on('getDirTree', async (event, path)=> {
-            console.log('dirList loading ..');
             let dirList = await this.getDirTree(path);
-            // console.log('dirList: ', dirList);
             event.returnValue = dirList;
-            // this.getDirTree2(path, (files)=>{
-            //     console.log('dirList loading ..', files);
-            //     event.returnValue = files;
-            // })
         })
         this.ipcMain.on('getFileDir', async (event, path)=> {
             let dirList = await this.getFileDirs(path);
-            // console.log('dirList: ', dirList);
             event.returnValue = dirList;
         })
     }
@@ -35,8 +28,7 @@ class FileService {
     }
 
     async getDirTree(rootDir) {
-        let depth = 0;
-        const dirtree = await dirTree(rootDir, depth);
+        const dirtree = await dirTree(rootDir, 2);
         return dirtree; 
     }
 

@@ -15,7 +15,7 @@ export class MenubarComponent implements OnInit {
   constructor(public comSvc: ComService) {}
 
   clickDirTree(ev) {
-    this.getDirs('/Users/herux/Documents/amgOS-daemon');
+    this.getDirs('/Users/herux/Documents');
     this.treeview.setLoadData(this.ifiles);
   }
 
