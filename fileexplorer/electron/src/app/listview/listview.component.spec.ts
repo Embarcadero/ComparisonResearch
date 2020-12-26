@@ -10,7 +10,7 @@ describe('ListviewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ListviewComponent ]
     })
-    .compileComponents();
+    .compileComponents(); 
   }));
 
   beforeEach(() => {

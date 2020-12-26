@@ -42,7 +42,7 @@ export class ListviewComponent implements OnInit {
       size: 27,
       extension: '',
       type: 'directory',
-      children: []
+      children: [] 
     }
   ];
 
