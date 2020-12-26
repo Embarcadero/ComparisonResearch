@@ -13,7 +13,7 @@ class FileService {
         this.ipcMain.on('getDirTree', async (event, path)=> {
             console.log('dirList loading ..');
             let dirList = await this.getDirTree(path);
-            console.log('dirList: ', dirList);
+            // console.log('dirList: ', dirList);
             event.returnValue = dirList;
             // this.getDirTree2(path, (files)=>{
             //     console.log('dirList loading ..', files);
@@ -22,6 +22,7 @@ class FileService {
         })
         this.ipcMain.on('getFileDir', async (event, path)=> {
             let dirList = await this.getFileDirs(path);
+            // console.log('dirList: ', dirList);
             event.returnValue = dirList;
         })
     }
@@ -101,18 +102,18 @@ class FileService {
                 var file = dir + '/' + items[i];
                 let stats = await fs.statSync(file);
                 // console.log(file, ' - ' ,stats["size"], ' - ',stats.isDirectory());
+                let filetype = '';
+                if (stats.isDirectory())
+                    filetype = 'directory';
+                if (stats.isFile())
+                    filetype = 'file';
                 let item = {
                     path: file, 
                     name: items[i],
                     size: stats.size, 
                     modified: stats.ctime, 
                     extension: '',
-                    type: () => {
-                        if (stats.isDirectory())
-                            return 'directory';
-                        else
-                            return 'file';
-                    },
+                    type: filetype,
                     isDirectory: stats.isDirectory(), 
                     isFile: stats.isFile(),
                     children: []

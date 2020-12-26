@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ComService } from '../com.service';
 import { Ifile } from '../ifile';
 import { OnlydirPipe } from '../onlydir';
@@ -12,11 +13,10 @@ export class HxtreeviewComponent {
   ifiles: Array<Ifile> = [];
   list: Array<Ifile> = [];
 
-  constructor(private onlyDir: OnlydirPipe, public comSvc: ComService) { }
+  constructor(private onlyDir: OnlydirPipe, private router: Router) { }
 
-  clickFolder(event, index) {
+  clickFolder(event, item) {
     let ulElem = event.target.nextSibling;
-    console.log('event: ', event);
     let iconElem = event.target.querySelector('i');
     if (iconElem.className == 'fas fa-folder') {
       iconElem.className = 'fas fa-folder-open';
@@ -25,7 +25,7 @@ export class HxtreeviewComponent {
       iconElem.className = 'fas fa-folder';
       ulElem.className = 'nested';
     }
-    // this.comSvc.sendSync('getDirTree', path);
+    this.router.navigate(['listfile'], {queryParams: {path: item.path}});
   }
 
   setLoadData(ifiles: Ifile[]) {

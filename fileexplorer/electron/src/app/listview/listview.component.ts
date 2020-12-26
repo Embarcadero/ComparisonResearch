@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ComService } from '../com.service';
 import { Ifile } from '../ifile';
 
 @Component({
@@ -7,49 +9,15 @@ import { Ifile } from '../ifile';
   styleUrls: ['./listview.component.css']
 })
 export class ListviewComponent implements OnInit {
-  ifiles: Array<Ifile> = [
-    {
-      path: '/path/1',
-      name: 'name1',
-      modified: Date.parse('12/12/2020 9:00'),  
-      size: 27,
-      extension: '',
-      type: 'directory',
-      children: []
-    },
-    {
-      path: '/path/2',
-      name: 'name2',
-      modified: Date.parse('12/12/2020 9:00'),  
-      size: 27,
-      extension: '',
-      type: 'directory',
-      children: []
-    },
-    {
-      path: '/path/3',
-      name: 'name3',
-      modified: Date.parse('12/12/2020 9:00'),  
-      size: 27,
-      extension: '',
-      type: 'directory',
-      children: []
-    },
-    {
-      path: '/path/4',
-      name: 'name4',
-      modified: Date.parse('12/12/2020 9:00'),  
-      size: 27,
-      extension: '',
-      type: 'directory',
-      children: [] 
-    }
-  ];
-
-
-  constructor() { }
+  ifiles: Array<Ifile>;
+  constructor(private route: ActivatedRoute, public comSvc: ComService) { }
 
   ngOnInit(): void {
+    this.route.queryParams
+      .subscribe(params => {
+          this.ifiles = this.comSvc.sendSync('getFileDir', params.path);
+          console.log('this.ifiles: ', this.ifiles);
+      });
   }
 
 }
