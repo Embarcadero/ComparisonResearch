@@ -11,6 +11,7 @@ object FormMain: TFormMain
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyUp = FormKeyUp
   DesignerMasterStyle = 0
   object StyleBookCalculator: TStyleBook
     Styles = <
@@ -374,22 +375,22 @@ object FormMain: TFormMain
         end>
       RowCollection = <
         item
-          Value = 16.666666666666660000
+          Value = 16.666666666666670000
         end
         item
-          Value = 16.666666666666660000
+          Value = 16.666666666666670000
         end
         item
-          Value = 16.666666666666660000
+          Value = 16.666666666666670000
         end
         item
-          Value = 16.666666666666660000
+          Value = 16.666666666666670000
         end
         item
-          Value = 16.666666666666660000
+          Value = 16.666666666666670000
         end
         item
-          Value = 16.666666666666660000
+          Value = 16.666666666666670000
         end>
       object Panel1: TPanel
         Align = Client
