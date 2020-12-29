@@ -65,7 +65,7 @@ type
     SpeedButton24: TSpeedButton;
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure SendKey(Sender: TObject);
   private
     FCalculator: TCalculatorEngine;
     procedure UpdateDisplay;
@@ -93,7 +93,7 @@ begin
   UpdateDisplay;
 end;
 
-procedure TFormMain.SpeedButton1Click(Sender: TObject);
+procedure TFormMain.SendKey(Sender: TObject);
 begin
   FCalculator.SendKey((Sender as TSpeedButton).Hint[1]);
   UpdateDisplay;
