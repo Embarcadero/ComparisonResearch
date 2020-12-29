@@ -1,0 +1,19 @@
+<ul>
+  <ng-container
+    *ngTemplateOutlet="recursiveListTmpl; context:{ namalist: list }">
+  </ng-container>
+</ul>
+
+<ng-template #recursiveListTmpl let-list="namalist">
+  <li (click)="clickFolder($event, item)" class="caret" *ngFor="let item of list;let i = index">
+    <span>
+      <i class="fas fa-folder"></i>
+      {{item.name}}
+    </span>
+    <ul id="{{'ulchild' + i}}" class="nested" *ngIf="item.children.length > 0">
+      <ng-container
+        *ngTemplateOutlet="recursiveListTmpl; context:{ namalist: (item.children | showOnlyDir) }"
+      ></ng-container>
+    </ul>
+  </li>
+</ng-template>
