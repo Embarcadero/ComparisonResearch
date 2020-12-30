@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="GitHubExplorer.Components.GitRepositoryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GitHubExplorer.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    
+    <Grid MaxHeight="150" MaxWidth="720">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"></ColumnDefinition>
+            <ColumnDefinition Width="24"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <!--<ColumnDefinition Width="*"></ColumnDefinition>-->
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1"  VerticalAlignment="Stretch">
+            <Image Width="16" Height="16" Source="pack://application:,,,/Resources/repos_image.png"></Image>
+        </Grid>
+        <Grid Grid.Column="2"  Grid.ColumnSpan="7" HorizontalAlignment="Left" >
+            <Button Click="Title_Click" Content="{Binding Title}">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <TextBlock  Cursor="Hand" Foreground="#0366d6" FontSize="13"  TextWrapping="Wrap"  Text="{TemplateBinding Content}" MaxHeight="42" VerticalAlignment="Stretch" TextTrimming="CharacterEllipsis"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="7">
+            <TextBlock Foreground="#24292e" FontSize="12" TextWrapping="Wrap" Text="{Binding Description}" MaxHeight="44" VerticalAlignment="Stretch" TextTrimming="CharacterEllipsis"/>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+            <Image Width="15" Source="pack://application:,,,/Resources/repos_star.png"></Image>
+            <TextBlock Foreground="#586069" Margin="5 0 0 0" FontSize="10" TextWrapping="Wrap" Text="{Binding Stars}" MaxHeight="54" TextTrimming="CharacterEllipsis"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Horizontal">
+            <Rectangle RadiusX="15" RadiusY="15" Width="13" Height="13" Fill="{Binding CircleColor}"/>
+            <TextBlock Foreground="#586069" Margin="5 0 0 0" FontSize="10" TextWrapping="Wrap" Text="{Binding Language}" MaxHeight="54" TextTrimming="CharacterEllipsis"/>
+        </StackPanel>
+        
+        <!--<Grid Grid.Row="2" Grid.Column="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12"></ColumnDefinition>
+                <ColumnDefinition Width="13"></ColumnDefinition>
+                <ColumnDefinition Width="5"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+           
+            <Grid VerticalAlignment="Center" Grid.Column="1">
+                <Rectangle RadiusX="15" RadiusY="15" Width="13" Height="13" Fill="{Binding CircleColor}"></Rectangle>
+            </Grid>
+            <Grid Grid.Column="3" VerticalAlignment="Center">
+                <TextBlock Foreground="#586069" FontSize="10" TextWrapping="Wrap" Text="{Binding Language}" MaxHeight="54" VerticalAlignment="Stretch" TextTrimming="CharacterEllipsis"></TextBlock>
+            </Grid>
+
+        </Grid>-->
+
+        <TextBlock Grid.Column="4" Grid.Row="2" Margin="15 0 0 0" Foreground="#586069" FontSize="10" TextWrapping="Wrap" Text="{Binding License}" MaxHeight="54" TextTrimming="CharacterEllipsis"/>
+
+        <TextBlock Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="2" Margin="15 0 0 0" Foreground="#586069" FontSize="10" Text="{Binding LastUpdate}" MaxHeight="54" TextTrimming="CharacterEllipsis"/>
+        
+        
+        <!--<Grid Grid.Column="4" Grid.Row="2" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Foreground="#586069" FontSize="10" TextWrapping="Wrap" Text="{Binding License}" MaxHeight="54" VerticalAlignment="Stretch" TextTrimming="CharacterEllipsis"></TextBlock>
+            </Grid>
+        </Grid>-->
+        
+        <!--<Grid Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="2" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <TextBlock Foreground="#586069" FontSize="10" Text="{Binding LastUpdate}" MaxHeight="54" VerticalAlignment="Stretch" TextTrimming="CharacterEllipsis"></TextBlock>
+            </Grid>
+
+        </Grid>-->
+        <Separator Opacity="0.5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="7"/>
+    </Grid>
+</UserControl>

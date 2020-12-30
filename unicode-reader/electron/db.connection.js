@@ -19,6 +19,8 @@ class DbConnection {
     }
 
     query(sql, params, callback) {
+        this.client = new Client(config);
+        this.client.connect();
         this.client.query(sql, params, (err, res) => {
             this.client.end();
             callback(err, res);

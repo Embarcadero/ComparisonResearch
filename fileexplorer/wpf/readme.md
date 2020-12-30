@@ -139,7 +139,7 @@ Follow the below instruction to create the enum class files.
 
 - Create Folder "UserControls"
     ##### ( Note - follow the same instruction to create folder what we used to create the enum folder )
-- Create new Xaml haing name ***"ExplorerControl.xaml"*** <br/><div style="text-align:center"><a href="https://ibb.co/CvGRgJ2"><img src="https://i.ibb.co/CvGRgJ2/User-Control.png" alt="User-Control" border="0"></a></div>
+- Create new Xaml having name ***"ExplorerControl.xaml"*** <br/><div style="text-align:center"><a href="https://ibb.co/CvGRgJ2"><img src="https://i.ibb.co/CvGRgJ2/User-Control.png" alt="User-Control" border="0"></a></div>
 
 
 
@@ -290,6 +290,13 @@ Create two columns inside above grid.
     <ColumnDefinition Width="3*"/>
     <ColumnDefinition Width="7*"/>
 </Grid.ColumnDefinitions>
+```
+
+Add following namespace inside "UserControl"
+```
+xmlns:classes="clr-namespace:FileExplorerApp.Models" 
+xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+xmlns:cmd="http://www.galasoft.ch/mvvmlight"
 ```
 
 - Add the tree view inside the first column
@@ -548,6 +555,13 @@ Add below code inside Datagrid columns
 ```
 
 ## In Third Row of Main Grid
+
+Add StackPanel inside Main grid
+```
+<StackPanel>
+
+</StackPanel>
+```
 Add 2 Textblock inside the Stackpanel
 
 1. To display number of detail Items
@@ -690,6 +704,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -896,7 +911,25 @@ namespace FileExplorerApp.Models
     }
 }
 ```
+Here is the code for ***"DummyFileSystemObjectInfo.cs"***
+```
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace FileExplorerApp.Models
+{
+    internal class DummyFileSystemObjectInfo : FileSystemObjectInfo
+    {
+        public DummyFileSystemObjectInfo() : base(new DirectoryInfo("DummyFileSystemObjectInfo"))
+        {
+        }
+    }
+}
+```
 Here is the code for ***"FileSystemObjectInfo.cs"***
 ```
 using FileExplorerApp.Enums;
@@ -1194,26 +1227,17 @@ namespace FileExplorerApp.Models
     }
 }
 ```
+---
+### Add  Icons 
 
-Here is the code for ***"DummyFileSystemObjectInfo.cs"***
-```
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+- Create Folder "Icons"
+    ##### ( Note - follow the same instruction to create folder what we used to create the enum folder )
 
-namespace FileExplorerApp.Models
-{
-    internal class DummyFileSystemObjectInfo : FileSystemObjectInfo
-    {
-        public DummyFileSystemObjectInfo() : base(new DirectoryInfo("DummyFileSystemObjectInfo"))
-        {
-        }
-    }
-}
-```
+Add the image inside this folder with below instructions
+
+<br/><div style="text-align:center"><a href="https://ibb.co/pJqdNXH"><img src="https://i.ibb.co/pJqdNXH/Icons.png" alt="Icons" border="0"></a></div> 
+
+Paste icons in the folder and go to visual studio and follow instructions <br/><div style="text-align:center"><a href="https://ibb.co/MshRrw4"><img src="https://i.ibb.co/MshRrw4/Include-Icons.png" alt="Include-Icons" border="0"></a></div>
 
 ---
 
@@ -1738,18 +1762,6 @@ namespace FileExplorerApp.ViewModels
 }
 ```
 ---
-### Add  Icons 
-
-- Create Folder "Icons"
-    ##### ( Note - follow the same instruction to create folder what we used to create the enum folder )
-
-Add the image inside this folder with below instructions
-
-<br/><div style="text-align:center"><a href="https://ibb.co/pJqdNXH"><img src="https://i.ibb.co/pJqdNXH/Icons.png" alt="Icons" border="0"></a></div> 
-
-Paste icons in the folder and go to visual studio and follow instructions <br/><div style="text-align:center"><a href="https://ibb.co/MshRrw4"><img src="https://i.ibb.co/MshRrw4/Include-Icons.png" alt="Include-Icons" border="0"></a></div>
-
----
 ## MainWindow.xaml
 
 Add a namespace for datacontext class in MainWindow: 
@@ -1795,7 +1807,7 @@ Create a TabControl in First row.
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding DataContext.HeaderText}"/>
                 <Button Content="X" Cursor="Hand" DockPanel.Dock="Right" Focusable="False" FontFamily="Courier" FontSize="9" FontWeight="Bold"  Margin="8,1,0,0" Padding="0" 
-            VerticalContentAlignment="Bottom" Width="16" Height="16" Background="Transparent" Command="{Binding DataContext.CloseTabCommand,RelativeSource={RelativeSource AncestorType={x:Type Window}}}"CommandParameter="{Binding}"/>
+            VerticalContentAlignment="Bottom" Width="16" Height="16" Background="Transparent" Command="{Binding DataContext.CloseTabCommand,RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding}"/>
             </StackPanel>
         </DataTemplate>
     </TabControl.ItemTemplate>

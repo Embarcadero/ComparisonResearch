@@ -65,10 +65,11 @@ type
     SpeedButton24: TSpeedButton;
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
-    procedure SpeedButton2Click(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift:
+      TShiftState);
+    procedure SendKey(Sender: TObject);
   private
-    FCalculator: TCalcEngine;
+    FCalculator: TCalculatorEngine;
     procedure UpdateDisplay;
   public
     { Public declarations }
@@ -90,26 +91,40 @@ end;
 procedure TFormMain.FormCreate(Sender: TObject);
 begin
   AlphaBlendValue := 240; // Just a little bit of trancparency. 255 would be no transparency.
-  FCalculator := TCalcEngine.Create;
+  FCalculator := TCalculatorEngine.Create;
   UpdateDisplay;
 end;
 
-procedure TFormMain.SpeedButton1Click(Sender: TObject);
+procedure TFormMain.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar:
+  Char; Shift: TShiftState);
+var
+  LKey: Char;
 begin
-  FCalculator.Calc((Sender as TSpeedButton).Text);
+  if Key > 0 then
+  begin
+    LKey := Char(Key);
+  end
+  else
+  begin
+    LKey := KeyChar;
+  end;
+  FCalculator.SendKey(LKey);
   UpdateDisplay;
 end;
 
-procedure TFormMain.SpeedButton2Click(Sender: TObject);
+procedure TFormMain.SendKey(Sender: TObject);
 begin
-  FCalculator.Clear;
-  UpdateDisplay;
+  if (Sender is TSpeedButton) and (TSpeedButton(Sender).Hint > '') then
+  begin
+    FCalculator.SendKey(TSpeedButton(Sender).Hint[1]);
+    UpdateDisplay;
+  end;
 end;
 
 procedure TFormMain.UpdateDisplay;
 begin
-  LabelValue.Text := FormatFloat('0.0', FCalculator.Value);
-  LabelOperation.Text := FCalculator.Operation;
+  LabelValue.Text := FCalculator.ValueString;
+  LabelOperation.Text := FCalculator.CurrentOperation;
 end;
 
 end.
