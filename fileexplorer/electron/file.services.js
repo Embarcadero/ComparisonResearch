@@ -18,6 +18,11 @@ class FileService {
             let dirList = await this.getFileDirs(path);
             event.returnValue = dirList;
         })
+        this.ipcMain.on('getUserDir', async (event)=> {
+            const homedir = require('os').homedir();
+            console.log('homedir: ', homedir);
+            event.returnValue = homedir;
+        })
     }
 
     getDirTree2(rootDir, callback) {

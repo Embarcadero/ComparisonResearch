@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HxtreeviewComponent } from './hxtreeview/hxtreeview.component';
 import { OnlydirPipe } from './onlydir';
 import { ListviewComponent } from './listview/listview.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ListviewComponent } from './listview/listview.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [OnlydirPipe],
   bootstrap: [AppComponent]
