@@ -65,7 +65,9 @@ type
     SpeedButton24: TSpeedButton;
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift:
+      TShiftState);
+    procedure SendKey(Sender: TObject);
   private
     FCalculator: TCalculatorEngine;
     procedure UpdateDisplay;
@@ -93,10 +95,30 @@ begin
   UpdateDisplay;
 end;
 
-procedure TFormMain.SpeedButton1Click(Sender: TObject);
+procedure TFormMain.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar:
+  Char; Shift: TShiftState);
+var
+  LKey: Char;
 begin
-  FCalculator.SendKey((Sender as TSpeedButton).Hint[1]);
+  if Key > 0 then
+  begin
+    LKey := Char(Key);
+  end
+  else
+  begin
+    LKey := KeyChar;
+  end;
+  FCalculator.SendKey(LKey);
   UpdateDisplay;
+end;
+
+procedure TFormMain.SendKey(Sender: TObject);
+begin
+  if (Sender is TSpeedButton) and (TSpeedButton(Sender).Hint > '') then
+  begin
+    FCalculator.SendKey(TSpeedButton(Sender).Hint[1]);
+    UpdateDisplay;
+  end;
 end;
 
 procedure TFormMain.UpdateDisplay;

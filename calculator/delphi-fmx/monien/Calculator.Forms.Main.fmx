@@ -11,6 +11,7 @@ object FormMain: TFormMain
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyUp = FormKeyUp
   DesignerMasterStyle = 0
   object StyleBookCalculator: TStyleBook
     Styles = <
@@ -399,6 +400,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 58
+        OnClick = SendKey
         object SpeedButton1: TSpeedButton
           Align = Client
           Scale.X = 2.000000000000000000
@@ -408,7 +410,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '%'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel2: TPanel
@@ -418,6 +420,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 57
+        OnClick = SendKey
         object SpeedButton2: TSpeedButton
           Align = Client
           Hint = 'c'
@@ -428,7 +431,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = 'CE'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel3: TPanel
@@ -438,6 +441,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 56
+        OnClick = SendKey
         object SpeedButton3: TSpeedButton
           Align = Client
           Hint = 'c'
@@ -448,7 +452,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = 'C'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel4: TPanel
@@ -458,6 +462,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 55
+        OnClick = SendKey
         object SpeedButton4: TSpeedButton
           Align = Client
           Scale.X = 2.000000000000000000
@@ -467,7 +472,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = #9003
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel5: TPanel
@@ -477,6 +482,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 54
+        OnClick = SendKey
         object SpeedButton5: TSpeedButton
           Align = Client
           Scale.X = 2.000000000000000000
@@ -486,7 +492,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = #185'/x'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel6: TPanel
@@ -496,6 +502,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 53
+        OnClick = SendKey
         object SpeedButton6: TSpeedButton
           Align = Client
           Scale.X = 2.000000000000000000
@@ -505,7 +512,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = 'x'#178
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel7: TPanel
@@ -515,6 +522,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 52
+        OnClick = SendKey
         object SpeedButton7: TSpeedButton
           Align = Client
           Scale.X = 2.000000000000000000
@@ -524,7 +532,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = #178#8730'x'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel8: TPanel
@@ -534,6 +542,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 51
+        OnClick = SendKey
         object SpeedButton8: TSpeedButton
           Align = Client
           Hint = '/'
@@ -544,7 +553,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = #247
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel9: TPanel
@@ -554,6 +563,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 50
+        OnClick = SendKey
         object SpeedButton9: TSpeedButton
           Align = Client
           Hint = '7'
@@ -564,7 +574,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '7'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel10: TPanel
@@ -574,6 +584,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 49
+        OnClick = SendKey
         object SpeedButton10: TSpeedButton
           Align = Client
           Hint = '8'
@@ -584,7 +595,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '8'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel11: TPanel
@@ -594,6 +605,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 48
+        OnClick = SendKey
         object SpeedButton11: TSpeedButton
           Align = Client
           Hint = '9'
@@ -604,7 +616,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '9'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel12: TPanel
@@ -614,6 +626,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 47
+        OnClick = SendKey
         object SpeedButton12: TSpeedButton
           Align = Client
           Hint = '*'
@@ -624,7 +637,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = 'X'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel13: TPanel
@@ -634,6 +647,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 46
+        OnClick = SendKey
         object SpeedButton13: TSpeedButton
           Align = Client
           Hint = '4'
@@ -644,7 +658,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '4'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel14: TPanel
@@ -654,6 +668,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 45
+        OnClick = SendKey
         object SpeedButton14: TSpeedButton
           Align = Client
           Hint = '5'
@@ -664,7 +679,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '5'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel15: TPanel
@@ -674,6 +689,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 44
+        OnClick = SendKey
         object SpeedButton15: TSpeedButton
           Align = Client
           Hint = '6'
@@ -684,7 +700,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '6'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel16: TPanel
@@ -694,6 +710,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 43
+        OnClick = SendKey
         object SpeedButton16: TSpeedButton
           Align = Client
           Hint = '-'
@@ -704,7 +721,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '-'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel17: TPanel
@@ -714,6 +731,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 42
+        OnClick = SendKey
         object SpeedButton17: TSpeedButton
           Align = Client
           Hint = '1'
@@ -724,7 +742,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '1'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel18: TPanel
@@ -734,6 +752,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 41
+        OnClick = SendKey
         object SpeedButton18: TSpeedButton
           Align = Client
           Hint = '2'
@@ -744,7 +763,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '2'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel19: TPanel
@@ -754,6 +773,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 40
+        OnClick = SendKey
         object SpeedButton19: TSpeedButton
           Align = Client
           Hint = '3'
@@ -764,7 +784,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '3'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel20: TPanel
@@ -774,6 +794,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 39
+        OnClick = SendKey
         object SpeedButton20: TSpeedButton
           Align = Client
           Hint = '+'
@@ -784,7 +805,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '+'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel21: TPanel
@@ -794,6 +815,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 38
+        OnClick = SendKey
         object SpeedButton21: TSpeedButton
           Align = Client
           Hint = 'p'
@@ -804,7 +826,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = #8314#8725'-'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel22: TPanel
@@ -814,6 +836,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 37
+        OnClick = SendKey
         object SpeedButton22: TSpeedButton
           Align = Client
           Hint = '0'
@@ -824,7 +847,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '0'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel23: TPanel
@@ -834,6 +857,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelLight'
         TabOrder = 36
+        OnClick = SendKey
         object SpeedButton23: TSpeedButton
           Align = Client
           Hint = '.'
@@ -844,7 +868,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '.'
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
       object Panel24: TPanel
@@ -854,6 +878,7 @@ object FormMain: TFormMain
         Size.PlatformDefault = False
         StyleLookup = 'PanelMedium'
         TabOrder = 35
+        OnClick = SendKey
         object SpeedButton24: TSpeedButton
           Align = Client
           Hint = '='
@@ -864,7 +889,7 @@ object FormMain: TFormMain
           Size.PlatformDefault = False
           StyleLookup = 'SpeedButton1Style1'
           Text = '='
-          OnClick = SpeedButton1Click
+          OnClick = SendKey
         end
       end
     end

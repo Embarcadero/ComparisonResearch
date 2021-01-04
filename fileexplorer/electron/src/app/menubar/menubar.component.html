@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <div class="form-inline">
         <div class="input-group left-search" data-widget="sidebar-search">
-          <input value="/Users/herux/Downloads" class="form-control form-control-sidebar" type="search" placeholder="" aria-label="Search">
+          <input [(ngModel)]="defaultPath" class="form-control form-control-sidebar" type="search" placeholder="" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-sidebar" (click)="clickDirTree($event)">
               <i class="fa fa-folder-open"></i>

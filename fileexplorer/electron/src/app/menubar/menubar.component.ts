@@ -11,11 +11,16 @@ import { HxtreeviewComponent } from '../hxtreeview/hxtreeview.component';
 export class MenubarComponent implements OnInit {
   ifiles: Array<Ifile> = [];
   @ViewChild(HxtreeviewComponent) treeview: HxtreeviewComponent;
+  defaultPath: string = '/Users/herux/Documents/adPlayerAndro';
 
   constructor(public comSvc: ComService) {}
 
   clickDirTree(ev) {
-    this.getDirs('/Users/herux');
+    this.loadData(this.defaultPath);
+  }
+
+  loadData(path: string) {
+    this.getDirs(path);
     this.treeview.setLoadData(this.ifiles);
   }
 
@@ -23,7 +28,17 @@ export class MenubarComponent implements OnInit {
     this.ifiles = this.comSvc.sendSync('getDirTree', path).children;
   }
 
+  getUserDir() {
+    this.defaultPath = this.comSvc.sendSync('getUserDir') + '/Downloads/';
+  }
+
+  ngAfterViewInit() {
+    this.getUserDir();
+    this.loadData(this.defaultPath);
+  }
+
   ngOnInit(): void {
+    
   }
 
 }

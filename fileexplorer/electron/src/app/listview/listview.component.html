@@ -1,0 +1,18 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th style="width: 200px">Date modified</th>
+        <th style="width: 180px">Type</th>
+        <th style="width: 40px">Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ifile of ifiles">
+        <td><i [ngClass]="(ifile.type == 'directory')? 'fas fa-folder':'fa fa-file'"></i> {{ifile.name}}</td>
+        <td>{{ifile.modified | date: 'dd/MM/yyyy hh:mm'}}</td>
+        <td>{{ifile.type}}</td>
+        <td>{{ifile.size}}</td> 
+      </tr>
+    </tbody>
+  </table>
