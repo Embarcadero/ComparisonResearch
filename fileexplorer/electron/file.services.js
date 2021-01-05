@@ -20,9 +20,20 @@ class FileService {
         })
         this.ipcMain.on('getUserDir', async (event)=> {
             const homedir = require('os').homedir();
-            console.log('homedir: ', homedir);
             event.returnValue = homedir;
         })
+        this.ipcMain.on('findFiles', async (event, path)=> {
+            this.findFiles(path, (file) => {
+                event.returnValue = file;
+            })
+        })
+    }
+
+    findFiles(path, callback) {
+        var finder = require('findit').find(path);
+        finder.on('file', (file) => {
+            callback(file);
+        });
     }
 
     getDirTree2(rootDir, callback) {
