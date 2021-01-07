@@ -11,7 +11,7 @@ import { HxtreeviewComponent } from '../hxtreeview/hxtreeview.component';
 export class MenubarComponent implements OnInit {
   ifiles: Array<Ifile> = [];
   @ViewChild(HxtreeviewComponent) treeview: HxtreeviewComponent;
-  defaultPath: string = '/Users/herux/Documents/adPlayerAndro';
+  defaultPath: string = '/Users/herux/Documents';
 
   constructor(public comSvc: ComService) {}
 

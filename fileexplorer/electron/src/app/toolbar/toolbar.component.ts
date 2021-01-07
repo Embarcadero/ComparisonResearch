@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ComService } from '../com.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
+  searchQ: string = '';
 
-  constructor() { }
+  constructor(public comSvc: ComService) { }
+
+  searchFile() {
+    this.comSvc.sendSync('findFiles', path);
+  }
 
   ngOnInit(): void {
   }
