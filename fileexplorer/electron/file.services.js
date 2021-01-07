@@ -22,7 +22,7 @@ class FileService {
             const homedir = require('os').homedir();
             event.returnValue = homedir;
         })
-        this.ipcMain.on('findFiles', async (event, path)=> {
+        this.ipcMain.on('findFiles', async (event, path, fileQry)=> {
             this.findFiles(path, (file) => {
                 event.returnValue = file;
             })

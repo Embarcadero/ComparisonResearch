@@ -28,7 +28,7 @@ export class MenubarComponent implements OnInit {
     this.ifiles = this.comSvc.sendSync('getDirTree', path).children;
   }
 
-  getUserDir() {
+  getUserDir() {                      
     this.defaultPath = this.comSvc.sendSync('getUserDir') + '/Downloads/';
   }
 

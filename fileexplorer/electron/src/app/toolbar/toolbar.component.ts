@@ -11,8 +11,9 @@ export class ToolbarComponent implements OnInit {
 
   constructor(public comSvc: ComService) { }
 
-  searchFile() {
-    this.comSvc.sendSync('findFiles', path);
+  clickSearch() {
+    console.log('clickSearch: ', this.searchQ);
+    // this.comSvc.sendSync('findFiles', path);
   }
 
   ngOnInit(): void {
