@@ -22,6 +22,48 @@ The GUI is **partially decoupled** from the calculator logic. Equation.pas descr
 ### Languages
 This calculator is written exclusively in Delphi.
 
+### Techniques
+#### State Machine
+In order to replicate the behavior of the Windows 10 caluclator, this calculator uses a state machine to adjust the behavior of the interface buttons depending on what input has already been provided.  State is defined in an enumerated type and tracked throughout the "controller" part of the MVC pattern.
+
+*FMXCalculatorLogic.pas*
+
+`State = (InputFirstDigit, InputFollowingDigits, Solved, Error);`
+`calcState : State;`
+
+State checks like `if calcState = State.Solved then` are in most functions responding to GUI inputs.
+
+#### Transparency
+GUI transparency was achieved by adjusting the alpha value of the main Calculator GUI window down 15 points from 255 (solid) to 240 (lightly transparent). 
+
+*FMXCalculatorLogic.pas*
+```
+{*
+  Make the calculator semi-transparent like the Windows Calculator
+*}
+procedure TForm1.FormCreate(Sender: TObject);
+var     h : HWND;
+        aStyle : integer;
+        alphaValue : byte;
+begin
+  h := WindowHandleToPlatform(self.Handle).Wnd;
+  AStyle := GetWindowLong(h, GWL_EXSTYLE);
+  SetWindowLong(h, GWL_EXSTYLE, AStyle or WS_EX_LAYERED);
+
+  AlphaValue := 240;
+  SetLayeredWindowAttributes(h, 0, alphaValue, LWA_ALPHA);
+end;
+```
+
+RAD Studio includes a Blur tool in its standard "Tool Palette" but it operates on all child objects and blurred the calculator buttons and displays rather than the background when tested.
+
+#### Enum Operations
+Rather than parsing an equation string to solve an equation, this calculator uses an enumerated type to represent operations and executes the relevant calculation according to the stored Operations value.
+
+*Equation.pas*
+
+`Operations = (Addition, Subtraction, Multiplication, Division, Reciprocal, Square, SquareRoot, Percentage, Nothing);`
+
 
 ## Metrics
 
