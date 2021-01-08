@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComService } from '../com.service';
 import { Ifile } from '../ifile';
 import { HxtreeviewComponent } from '../hxtreeview/hxtreeview.component';
+import { SharedService } from '../sharedservice';
 
 @Component({
   selector: 'app-menubar',
@@ -11,9 +12,9 @@ import { HxtreeviewComponent } from '../hxtreeview/hxtreeview.component';
 export class MenubarComponent implements OnInit {
   ifiles: Array<Ifile> = [];
   @ViewChild(HxtreeviewComponent) treeview: HxtreeviewComponent;
-  defaultPath: string = '/Users/herux/Documents';
+  defaultPath: string = '';
 
-  constructor(public comSvc: ComService) {}
+  constructor(public comSvc: ComService, private sharedSvc: SharedService) {}
 
   clickDirTree(ev) {
     this.loadData(this.defaultPath);
@@ -30,6 +31,7 @@ export class MenubarComponent implements OnInit {
 
   getUserDir() {                      
     this.defaultPath = this.comSvc.sendSync('getUserDir') + '/Downloads/';
+    this.sharedSvc.selectedPath = this.defaultPath;
   }
 
   ngAfterViewInit() {
@@ -37,8 +39,6 @@ export class MenubarComponent implements OnInit {
     this.loadData(this.defaultPath);
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
 }

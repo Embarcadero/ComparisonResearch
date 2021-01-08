@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComService } from '../com.service';
+import { SharedService } from '../sharedservice';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,10 +10,10 @@ import { ComService } from '../com.service';
 export class ToolbarComponent implements OnInit {
   searchQ: string = '';
 
-  constructor(public comSvc: ComService) { }
+  constructor(public comSvc: ComService, private sharedSvc: SharedService) { }
 
   clickSearch() {
-    console.log('clickSearch: ', this.searchQ);
+    console.log('clickSearch: ', this.searchQ, ' - ', this.sharedSvc.selectedPath);
     // this.comSvc.sendSync('findFiles', path);
   }
 

@@ -9,6 +9,7 @@ import { HxtreeviewComponent } from './hxtreeview/hxtreeview.component';
 import { OnlydirPipe } from './onlydir';
 import { ListviewComponent } from './listview/listview.component';
 import { FormsModule } from '@angular/forms';
+import { SharedService } from './sharedservice';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [OnlydirPipe],
+  providers: [OnlydirPipe, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
