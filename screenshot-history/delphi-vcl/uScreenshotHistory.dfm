@@ -134,7 +134,7 @@ object MainForm: TMainForm
       ExplicitLeft = -256
       ExplicitTop = -80
     end
-    object SplitView1: TSplitView
+    object SplitView: TSplitView
       Left = 1090
       Top = 3
       Width = 0
@@ -146,7 +146,7 @@ object MainForm: TMainForm
       ParentColor = True
       Placement = svpRight
       TabOrder = 0
-      OnResize = SplitView1Resize
+      OnResize = SplitViewResize
       object Label1: TLabel
         AlignWithMargins = True
         Left = 10
@@ -184,7 +184,7 @@ object MainForm: TMainForm
         ParentFont = False
         ExplicitWidth = 24
       end
-      object TrackBar1: TTrackBar
+      object TrackBar: TTrackBar
         AlignWithMargins = True
         Left = 3
         Top = 42
@@ -197,7 +197,8 @@ object MainForm: TMainForm
         Frequency = 10
         Position = 1
         TabOrder = 0
-        OnChange = TrackBar1Change
+        OnChange = TrackBarChange
+        ExplicitWidth = 194
       end
     end
   end

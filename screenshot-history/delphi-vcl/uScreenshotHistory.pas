@@ -35,10 +35,10 @@ type
     MainImage: TImage;
     PopupMenu: TPopupMenu;
     Delete1: TMenuItem;
-    SplitView1: TSplitView;
+    SplitView: TSplitView;
     btResize: TButton;
     btSave: TButton;
-    TrackBar1: TTrackBar;
+    TrackBar: TTrackBar;
     Label1: TLabel;
     lbZoomValue: TLabel;
     SavePictureDialog: TSavePictureDialog;
@@ -54,9 +54,9 @@ type
       Y: Integer);
     procedure btCropClick(Sender: TObject);
     procedure Delete1Click(Sender: TObject);
-    procedure TrackBar1Change(Sender: TObject);
+    procedure TrackBarChange(Sender: TObject);
     procedure btResizeClick(Sender: TObject);
-    procedure SplitView1Resize(Sender: TObject);
+    procedure SplitViewResize(Sender: TObject);
     procedure btSaveClick(Sender: TObject);
   private
     { Private declarations }
@@ -72,6 +72,7 @@ type
   public
     { Public declarations }
   end;
+
 const
   SQLInsert = 'INSERT INTO SCREENSHOTTABLE (DATE, SCREENSHOT) VALUES (:DATE, :SCREENSHOT)';
   SQLDelete= 'DELETE FROM SCREENSHOTTABLE WHERE ID = :ID';
@@ -397,11 +398,11 @@ begin
     Exit;
 
   if btResize.Caption = 'Resize' then begin
-    SplitView1.Open;
+    SplitView.Open;
     btResize.Caption := 'Resize It';
   end
   else begin
-    SplitView1.Close;
+    SplitView.Close;
     if Scale <> 0  then begin
       SourceJpg.Assign(MainImage.Picture.Graphic);
       ResizeBitmap;
@@ -424,18 +425,18 @@ begin
 
 end;
 
-procedure TMainForm.SplitView1Resize(Sender: TObject);
+procedure TMainForm.SplitViewResize(Sender: TObject);
 begin
-  SplitView1.Height := MainImage.Height;
+  SplitView.Height := MainImage.Height;
 end;
 
-procedure TMainForm.TrackBar1Change(Sender: TObject);
+procedure TMainForm.TrackBarChange(Sender: TObject);
 begin
-  Scale :=  Math.RoundTo(TrackBar1.Position/100, -1);
+  Scale :=  Math.RoundTo(TrackBar.Position/100, -1);
   if (Scale >= 0) then
-    Scale := TrackBar1.Position/100 + 1
+    Scale := TrackBar.Position/100 + 1
   else
-    Scale := TrackBar1.Position/100 - 1;
+    Scale := TrackBar.Position/100 - 1;
   Scale := Math.RoundTo(Scale, -1);
   lbZoomValue.Caption := FloatToStrF(Scale, ffFixed, 1, 1) + 'X';
 end;
