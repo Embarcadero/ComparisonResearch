@@ -42,24 +42,19 @@ object MainForm: TMainForm
     Top = 0
     Width = 1095
     Height = 241
-    VertScrollBar.Range = 300
     Align = alTop
     AutoScroll = False
     TabOrder = 0
-    ExplicitLeft = -176
-    ExplicitTop = 4
     object FP: TFlowPanel
       Left = 0
       Top = 0
-      Width = 1074
-      Height = 300
+      Width = 1091
+      Height = 237
       Align = alClient
       BevelWidth = 2
       BorderWidth = 2
       TabOrder = 0
       OnResize = FPResize
-      ExplicitLeft = -232
-      ExplicitTop = -2
     end
   end
   object Panel1: TPanel
@@ -70,7 +65,6 @@ object MainForm: TMainForm
     Height = 47
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = -2
     object btCrop: TButton
       AlignWithMargins = True
       Left = 276
@@ -124,8 +118,6 @@ object MainForm: TMainForm
     Align = alClient
     AutoScroll = False
     TabOrder = 2
-    ExplicitLeft = -200
-    ExplicitTop = 283
     DesignSize = (
       1091
       343)
@@ -250,10 +242,7 @@ object MainForm: TMainForm
   object Connection: TFDConnection
     Params.Strings = (
       'LockingMode=Normal'
-      'DriverID=SQLite'
-      
-        'Database=F:\Work\FMXResearch\ScreenshotHistory\Win32\Debug\Scree' +
-        'nShot.db')
+      'DriverID=SQLite')
     LoginPrompt = False
     Left = 800
     Top = 112
