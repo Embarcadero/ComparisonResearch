@@ -17,6 +17,7 @@ Reference [Unicode Reader Specification.md](https://github.com/Embarcadero/Compa
 
 4. Right click the PostgreSQL 10 server, select "Connect Server", and enter the password you established when you installed PostgreSQL.
 
+
 ### Troubleshooting: pgAdmin stuck at loading screen (Windows)
 
 If pgAdmin hangs at the loading screen, there are Windows settings blocking its scripts.  [To fix](https://stackoverflow.com/questions/64891592/pgadmin-for-windows-in-the-latest-version-4-28-doesnt-start-anymore-hangs-in):
@@ -30,10 +31,13 @@ If pgAdmin hangs at the loading screen, there are Windows settings blocking its 
   - Search "Environmental Variables" in the start menu, open and select the "Environmental Variables" button, then double-click on the Path entry in the user variables table.
   - Find your PostgreSQL installation location.  Should look similar to **C:\Program Files (x86)\PostgreSQL\10\bin**.
   - Add the PostgreSQL 10 bin location as a new Path entry and apply in all windows.
+
 2. If not present, add [five .dll files and one .dylib file](https://github.com/Embarcadero/ComparisonResearch/tree/main/unicode-reader/library-and-setup-files) to the PostgreSQL 10 bin folder.
 3. Download the **create.sql** script.
 4. Open a console window (CMD or PowerShell), navigate to the **create.sql** script, and enter the following command:
+
 ```psql -U postgres -f .\create.sql```
+
 5. Enter your PostgreSQL password when prompted.  You should see output from the script as a result.
 
     ![create.sql Script Output](https://github.com/Embarcadero/ComparisonResearch/blob/main/unicode-reader/documentation/createSQLScriptOutput.PNG)
