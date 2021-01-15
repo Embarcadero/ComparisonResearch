@@ -14,9 +14,9 @@ export class AppComponent implements OnInit {
   values: Array<number> = [];
   ce_clicked: boolean = false;
 
-  // 10 + 5 + 2 - 1 = 16
   number_click(newNumber: number) {
     this.calc_result = parseFloat(this.calc_result.toString() + newNumber.toString()); 
+    console.log(newNumber);
     // console.log('this.operator: ', this.operator);
     // if (this.operators.length == 0) {
     //   if (this.calc_result == 0 && newNumber == 0) {
@@ -72,9 +72,13 @@ export class AppComponent implements OnInit {
   }
 
   samadengan_click() {
+    // 10 + 5 + 2 - 1 = 16
+    let g = '';
     for (let i = 0; i < this.values.length; i++) {
       const value = this.values[i];
       let opr = this.operators[i];
+      g = g + opr + value;
+      console.log('==> ', g)
       switch (opr) {
         case '÷':
           this.calc_result = value / this.calc_result;
