@@ -84,7 +84,9 @@ class MainService {
         this.loaded = true;
     }
 
-    
+    async createDatabaseSchema() {
+        
+    }
 
 }
 

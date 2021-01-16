@@ -2,7 +2,40 @@ const { Client } = require('pg');
 const { config } = require('./db.config.json');
 
 class DbConnection {
-    constructor() {}
+    constructor() {
+        this.checkCreateSchema();
+    }
+
+    async checkCreateSchema() {
+        // create table channels
+        await this.queryAsync(
+            'create table channels ( '+
+            'id serial, '+
+            'title varchar(1024) not null, '+
+            'description text not null, '+
+            'link varchar(2048) not null, '+
+            'constraint channels_pk primary key (id) );'
+        , '');
+        // create table articles
+        // insert into articles(title, content, contentSnippet, categories, 
+        // link, pubDate, content_encoded, creator, is_read, channel)
+        await this.queryAsync(
+            'create table articles ( '+
+            '    id serial, '+
+            '    title varchar(1024) not null, '+
+            '    content text not null, '+
+            '    contentSnippet text, '+
+            '    categories varchar(512), '+
+            '    link varchar(2048) not null, '+
+            '    is_read boolean default false, '+
+            '    timestamp timestamp default now(), '+
+            '    channel integer not null, '+
+            '    constraint articles_pk primary key (id), '+
+            '    constraint channels_fk foreign key (channel) '+
+            '        references channels (id) '+
+            '        on delete cascade); ',
+        '');
+    }
 
     async queryAsync(sql, params) {
         let result;
@@ -28,6 +61,9 @@ class DbConnection {
     }
 
 } 
+
+let con = new DbConnection();
+// con.checkCreateDatabase_schema();
 
 module.exports = {
     DbConnection: DbConnection
