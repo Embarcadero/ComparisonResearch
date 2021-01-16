@@ -19,7 +19,6 @@ type
     StatusBar1: TStatusBar;
     StatusLabel: TLabel;
     RefreshButton: TButton;
-    ColorButton: TButton;
     BlackStyle: TStyleBook;
     LightStyle: TStyleBook;
     XMLDocument: TXMLDocument;
@@ -34,15 +33,13 @@ type
     ChannelsBS: TBindSourceDB;
     MultiView: TMultiView;
     ConnectButton: TButton;
-    Label7: TLabel;
-    Edit5: TEdit;
-    Edit4: TEdit;
-    Label6: TLabel;
     Label5: TLabel;
-    Edit3: TEdit;
-    Edit2: TEdit;
     Label4: TLabel;
-    Edit1: TEdit;
+    ServerEdit: TEdit;
+    PortEdit: TEdit;
+    UserEdit: TEdit;
+    PasswordEdit: TEdit;
+    DatabaseEdit: TEdit;
     Label3: TLabel;
     ConnectionButton: TButton;
     LinkListControlToField1: TLinkListControlToField;
@@ -209,14 +206,14 @@ end;
 
 procedure TMainForm.ConnectButtonClick(Sender: TObject);
 begin
-  with DM.FDConnection1.Params as TFDPhysPgConnectionDefParams do begin
-    Server := Edit1.Text;
-    Port := StrToInt(Edit2.Text);
-    UserName := Edit3.Text;
-    Password := Edit4.Text;
-    Database := Edit5.Text;
+  with DM.FDConnection.Params as TFDPhysPgConnectionDefParams do begin
+    Server := ServerEdit.Text;
+    Port := StrToInt(PortEdit.Text);
+    UserName := UserEdit.Text;
+    Password := PasswordEdit.Text;
+    Database := DatabaseEdit.Text;
   end;
-  DM.FDConnection1.Connected := True;
+  DM.FDConnection.Connected := True;
   DM.ChannelsQuery.Open;
   DM.ArticlesQuery.Open;
   MultiView.HideMaster;
