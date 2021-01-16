@@ -37,6 +37,11 @@ class DbConnection {
         '');
     }
 
+    async dropTables() {
+        await this.queryAsync('DROP TABLE articles');
+        await this.queryAsync('DROP TABLE channels');
+    }
+
     async queryAsync(sql, params) {
         let result;
         try {

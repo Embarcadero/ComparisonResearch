@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ComService } from '../com.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
+  deletedDB: boolean = false;
 
-  constructor() { }
+  constructor(public comSvc: ComService) { }
+
+  dropTables() {
+    this.deletedDB = this.comSvc.sendSync('dropTables');
+  }
 
   ngOnInit(): void {
   }

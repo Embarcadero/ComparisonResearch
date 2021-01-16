@@ -5,11 +5,11 @@
       </li>
       <span class="nav-link">|</span>
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="" role="button"><i class="fas fa-trash"></i> Delete DB</a>
+        <a class="nav-link toolbar_btn {{deletedDB ? 'disabled':''}}" role="button" (click)="dropTables()"><i class="fas fa-trash"></i> {{'Delete' + (deletedDB ? 'd' : '') + ' DB'}}</a>
       </li>
       <span class="nav-link">|</span>
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="" role="button">
+        <a class="nav-link" href="" role="button">
           <i class="fas fa-archive"></i> 
           Run Storage Test
           <i class="fas fa-arrow-right"></i>

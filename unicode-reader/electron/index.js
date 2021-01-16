@@ -25,9 +25,9 @@ const createWindow = async () => {
   mainWindow.webContents.openDevTools();
 
   let dbConnection = new DbConnection();
-  // let mainService = new MainService(dbConnection, ipcMain);
+  let mainService = new MainService(dbConnection, ipcMain);
   // mainService.reload();
-  // mainService.runEvent();
+  mainService.runEvent();
 };
 
 app.on('ready', createWindow);

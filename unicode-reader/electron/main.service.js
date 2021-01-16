@@ -36,6 +36,11 @@ class MainService {
                     event.returnValue = [];
             });
         });
+
+        this.ipcMain.on('dropTables', (event) => {
+            this.dbConnection.dropTables();
+            event.returnValue = true;
+        });
     }
 
     async readRSS(url){
@@ -85,7 +90,7 @@ class MainService {
     }
 
     async createDatabaseSchema() {
-        
+
     }
 
 }
