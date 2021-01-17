@@ -3,7 +3,6 @@ const { config } = require('./db.config.json');
 
 class DbConnection {
     constructor() {
-        this.checkCreateSchema();
     }
 
     async checkCreateSchema() {
@@ -17,8 +16,6 @@ class DbConnection {
             'constraint channels_pk primary key (id) );'
         , '');
         // create table articles
-        // insert into articles(title, content, contentSnippet, categories, 
-        // link, pubDate, content_encoded, creator, is_read, channel)
         await this.queryAsync(
             'create table articles ( '+
             '    id serial, '+
@@ -27,6 +24,9 @@ class DbConnection {
             '    contentSnippet text, '+
             '    categories varchar(512), '+
             '    link varchar(2048) not null, '+
+            '    pubDate date, '+
+            '    content_encoded text, '+
+            '    creator varchar(150), '+
             '    is_read boolean default false, '+
             '    timestamp timestamp default now(), '+
             '    channel integer not null, '+
@@ -40,6 +40,11 @@ class DbConnection {
     async dropTables() {
         await this.queryAsync('DROP TABLE articles');
         await this.queryAsync('DROP TABLE channels');
+    }
+
+    async dropCreate() {
+        await this.dropTables();
+        await this.checkCreateSchema();
     }
 
     async queryAsync(sql, params) {
