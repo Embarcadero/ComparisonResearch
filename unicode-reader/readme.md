@@ -42,3 +42,33 @@ If pgAdmin hangs at the loading screen, there are Windows settings blocking its 
 
     ![create.sql Script Output](https://github.com/Embarcadero/ComparisonResearch/blob/main/unicode-reader/documentation/createSQLScriptOutput.PNG)
     
+
+
+# Measurement Tools
+
+## Fiddler
+**[Fiddler](https://www.telerik.com/fiddler)** is a web-debugging proxy that captures network traffic for analysis. It can be used to view the HTTP requests and responses and measure their duration.  The total elapsed time of an RSS feed refresh should be roughly the same for all frameworks and implementations of the Unicode Reader assuming the network is stable and untaxed by other processes because it measures only network time rather than internal processing time.  This is useful because differences in the total elapsed time from the user clicking "refresh" to the application displaying fresh data can be attributed to the frameworks and their internal processes rather than other causes.
+
+To set up Fiddler to view network time:
+1. [Download](https://www.telerik.com/fiddler) and install.
+2. Select *View* -> *Preferences*. 
+    - Check *Capture HTTPS traffic* and install/trust root certificate.
+    - In the *Connections* tab, make sure *Act as system proxy on startup* is selected.
+    - Exit *Preferences* and restart.
+3. Select the *Live Traffic (Capturing)* tab.
+4. Click the hamburger-like symbol directly underneath the "eye" of the *Live Traffic* tab.  The hovertext says **Stream - responses are streamed to the client as they are read from the server, if enabled**. This will prevent Fiddler from interrupting traffic or causing delays that impact the message timing.
+5. Start an instance of the Unicode Reader.  Open the Task Manager (or OS equivalent) and note the process name and process ID.
+6. Click the three dots on the right side of the *Process* column header and type the process name under the "Contains" field.  Click *Enable* to add the filter and only see traffic from the Unicode Reader application.
+7. Click the three dots on the right side of any column header and select **Columns** at the bottom.  Check the *Time* and *Duration* boxes.  Uncheck *Comments* or any other undesired columns.
+8. In the Unicode Reader application, connect to the database and refresh an RSS feed.  You should see an HTTP CONNECT and a GET message appear in Fiddler.  The *Time* column will list the start times of each traffic.  
+
+**Total elapsed network time is found by subtracting the CONNECT time from the GET time (giving milliseconds between messages) and adding the GET message duration.**
+
+## Internal Application Timers
+The Delphi and Electron applications created by Embarcadero Technologies incorporate two timers as a way to measure the duration of internal processes.  These timers start when the user clicks a button and are stopped after the result is rendered to the user.  They will be used for two tests that fully exercise two aspects of framework database liraries.
+
+### Test 1 - Database Storage
+Starting with an empty (but configured) database, this test will iterate over every RSS feed and store every article returned (ideally over 200).  Because these tests will be run on the same computer (per OS), same network, and with the same PostgreSQL database server, differences in test duration between applications highlight efficiencies or extra overhead in their respective framework libraries.
+
+### Test 2 - Database Retreival
+Starting with an "full" database from the Database Storage test, this test will iterate over every article returned (ideally over 200) and concatenate them into a flat .html file with some simple formatting for viewing in a web browser.  The purpose of this test is to exercise each framework's database retrieval functions and tease out the efficiency differences in each as measured by test duration.  The concatenation of files is intended to be minimally intensive and merely provides a reason to touch every file in the database.
