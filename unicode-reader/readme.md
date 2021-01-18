@@ -72,3 +72,65 @@ Starting with an empty (but configured) database, this test will iterate over ev
 
 ### Test 2 - Database Retreival
 Starting with an "full" database from the Database Storage test, this test will iterate over every article returned (ideally over 200) and concatenate them into a flat .html file with some simple formatting for viewing in a web browser.  The purpose of this test is to exercise each framework's database retrieval functions and tease out the efficiency differences in each as measured by test duration.  The concatenation of files is intended to be minimally intensive and merely provides a reason to touch every file in the database.
+
+
+## AppTimer
+Passmark Software's (AppTimer)[https://www.passmark.com/products/apptimer/] for Windows runs an executable defined by the user and measures startup time over a number of iterations.  The user can define the number of iterations, the conditions that must be met before the application is "running", and the method of shutting down the app.  Results are logged in a text file.
+
+   ![AppTimer](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/AppTimer%20Setup.PNG)
+
+To set up AppTimer:
+1. (Download)[https://www.passmark.com/products/apptimer/] and unzip.
+2. Click the three dots to the right of the *Application* field and navigate to the **.exe** file you want to test.
+3. Click the three dots to the right of the *Log File* field, navigate folder you want the log file in, and name your file.
+4. Enter the application name in the Window Name (run the application and see what the top bar says).
+5. Enter a number of executions - this paper averaged 100 executions with a 10ms delay.
+6. Check *New windows only*, *Input idle*, *Window Name*, *Visible*, and *WM_CLOSE*.  These settings ensure the most complete application startup and normal exit.
+7. Click **Run App**, wait, and examine the log file for results.
+
+## Task Manager Deluxe
+MiTeC's (Task Manager Deluxe)[https://www.mitec.cz/tmx.html#:~:text=Task%20Manager%20DeLuxe%20(TMX)%20is%20based%20on%20MiTeC,can%20be%20easily%20used%20as%20portable%20application%20everywhere.] is a richly featured task manager alternative that provides more granular data about individual processes.
+
+  ![TMX](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/TMX%20Setup.PNG)
+ 
+To set up Task Manager Deluxe:
+1. (Download)[https://www.mitec.cz/tmx.html#:~:text=Task%20Manager%20DeLuxe%20(TMX)%20is%20based%20on%20MiTeC,can%20be%20easily%20used%20as%20portable%20application%20everywhere.] and install.
+2. Open the application to examine.
+3. Start TMX64.exe
+4. Search for the window name of your application in the TMX search bar.
+5. Double click on the process for your application.
+6. Examine the process details in the window that appeared.  The left sidebar provides data on CPU and Memory use among other performance metrics.
+  
+
+# Analysis
+
+
+
+## Executive Summary
+
+
+# Community Involvement
+Please read the paper, examine the source code, and engage!  If you find flaws or missed implrevements, submit an Issue.  Embarcadero plans to update this paper and repository a few times as we refine our techniques and understanding of each framework assessed.
+
+
+# Contributors
+## Embarcadero Technologies, Inc. 
+Jim McKeeth, Chief Developer Advocate & Engineer
+
+
+
+## Embarcadero Most Valuable Professionals (MVPs)
+
+
+## Independent Contractors
+[Serhii K.](https://www.upwork.com/fl/serhiik)
+
+[Adam Leone](https://github.com/ildrummer)
+
+[Eli M.](https://www.upwork.com/freelancers/~015a0a19afc2593d77)
+
+[Martin P.](https://github.com/martin-pettersson)
+
+[Heru S.](https://www.upwork.com/freelancers/~0195227b473e36e942)
+
+[Victor V.](https://www.upwork.com/freelancers/~01393e5253b24c66e9)
