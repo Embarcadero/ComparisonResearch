@@ -10,12 +10,12 @@ Reference [Calculator Specification.md](https://github.com/Embarcadero/Compariso
 # Measuring Tools
 
 ## AppTimer
-Passmark Software's (AppTimer)[https://www.passmark.com/products/apptimer/] for Windows runs an executable defined by the user and measures startup time over a number of iterations.  The user can define the number of iterations, the conditions that must be met before the application is "running", and the method of shutting down the app.  Results are logged in a text file.
+Passmark Software's [AppTimer](https://www.passmark.com/products/apptimer/) for Windows runs an executable defined by the user and measures startup time over a number of iterations.  The user can define the number of iterations, the conditions that must be met before the application is "running", and the method of shutting down the app.  Results are logged in a text file.
 
    ![AppTimer](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/AppTimer%20Setup.PNG)
 
 To set up AppTimer:
-1. (Download)[https://www.passmark.com/products/apptimer/] and unzip.
+1. [Download](https://www.passmark.com/products/apptimer/) and unzip.
 2. Click the three dots to the right of the *Application* field and navigate to the **.exe** file you want to test.
 3. Click the three dots to the right of the *Log File* field, navigate folder you want the log file in, and name your file.
 4. Enter the application name in the Window Name (run the application and see what the top bar says).
@@ -24,12 +24,12 @@ To set up AppTimer:
 7. Click **Run App**, wait, and examine the log file for results.
 
 ## Task Manager Deluxe
-MiTeC's (Task Manager Deluxe)[https://www.mitec.cz/tmx.html#:~:text=Task%20Manager%20DeLuxe%20(TMX)%20is%20based%20on%20MiTeC,can%20be%20easily%20used%20as%20portable%20application%20everywhere.] is a richly featured task manager alternative that provides more granular data about individual processes.
+MiTeC's [Task Manager Deluxe](https://www.mitec.cz/tmx.html#:~:text=Task%20Manager%20DeLuxe%20(TMX)%20is%20based%20on%20MiTeC,can%20be%20easily%20used%20as%20portable%20application%20everywhere.) is a richly featured task manager alternative that provides more granular data about individual processes.
 
   ![TMX](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/TMX%20Setup.PNG)
  
 To set up Task Manager Deluxe:
-1. (Download)[https://www.mitec.cz/tmx.html#:~:text=Task%20Manager%20DeLuxe%20(TMX)%20is%20based%20on%20MiTeC,can%20be%20easily%20used%20as%20portable%20application%20everywhere.] and install.
+1. [Download](https://www.mitec.cz/tmx.html#:~:text=Task%20Manager%20DeLuxe%20(TMX)%20is%20based%20on%20MiTeC,can%20be%20easily%20used%20as%20portable%20application%20everywhere.) and install.
 2. Open the application to examine.
 3. Start TMX64.exe
 4. Search for the window name of your application in the TMX search bar.
