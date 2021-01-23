@@ -18,7 +18,7 @@ class MainService {
             {id: 11, title: 'VentureBeat', description: 'Transformative tech coverage that matters', link: 'https://venturebeat.com/feed/'},
             {id: 12, title: 'Machine Learning Mastery', description: 'Making developers awesome at machine learning', link: 'https://machinelearningmastery.com/feed/'},
             {id: 13, title: 'JavaScript Scene - Medium', description: 'JavaScript, software leadership, software development, and related technologies. - Medium', link: 'https://medium.com/feed/javascript-scene'},
-            {id: 14, title: 'DailyJS - Medium', description: 'JavaScript news and opinion. - Medium', link: 'https://medium.com/feed/dailyjs'},
+            // {id: 14, title: 'DailyJS - Medium', description: 'JavaScript news and opinion. - Medium', link: 'https://medium.com/feed/dailyjs'},
             {id: 15, title: 'Effective Software Design', description: 'Doing the right thing.', link: 'https://effectivesoftwaredesign.com/feed/'},
             {id: 16, title: 'Datanami', description: 'Data Science • AI • Advanced Analytics', link: 'https://www.datanami.com/feed/'},
             {id: 17, title: 'Communications of the ACM: Artificial Intelligence', description: 'The latest news, opinion and research in artificial intelligence, from Communications online.', link: 'https://cacm.acm.org/browse-by-subject/artificial-intelligence.rss'},
@@ -26,11 +26,11 @@ class MainService {
             {id: 19, title: 'BleepingComputer', description: 'BleepingComputer - All Stories', link: 'https://www.bleepingcomputer.com/feed/'},
             {id: 20, title: 'Microsoft Security', description: 'Expert coverage of cybersecurity topics', link: 'https://www.microsoft.com/security/blog/feed/'},
             {id: 21, title: 'The Hacker News', description: 'Most trusted, widely-read independent cybersecurity news source for everyone; supported by hackers and IT professionals ', link: 'http://feeds.feedburner.com/TheHackersNews?format=xml'},
-            {id: 22, title: 'SmartData Collective', description: 'News & Analysis on Big Data, the Cloud, BI and Analytics', link: 'https://www.smartdatacollective.com/feed/'},
-            {id: 23, title: 'Artificial Intelligence News -- ScienceDaily', description: 'Artificial Intelligence News. Everything on AI including futuristic robots with artificial intelligence, computer models of human intelligence and more.', link: 'https://www.sciencedaily.com/rss/computers_math/artificial_intelligence.xml'},
-            {id: 24, title: 'Hacking News -- ScienceDaily', description: 'Hacking and computer security. Read today s research news on hacking and protecting against codebreakers. New software, secure data sharing, and more.', link: 'https://www.sciencedaily.com/rss/computers_math/hacking.xml'},
-            {id: 25, title: 'Quantum Computers News -- ScienceDaily', description: 'Quantum Computer Research. Read the latest news in developing quantum computers.', link: 'https://www.sciencedaily.com/rss/computers_math/quantum_computers.xml'},
-            {id: 26, title: 'Distributed Computing News -- ScienceDaily', description: 'Distributed computing and computer grids. From supercomputers to computer grids, browse innovations from computer programmers and scientists around the world.', link: 'https://www.sciencedaily.com/rss/computers_math/distributed_computing.xml'},
+            // {id: 22, title: 'SmartData Collective', description: 'News & Analysis on Big Data, the Cloud, BI and Analytics', link: 'https://www.smartdatacollective.com/feed/'},
+            // {id: 23, title: 'Artificial Intelligence News -- ScienceDaily', description: 'Artificial Intelligence News. Everything on AI including futuristic robots with artificial intelligence, computer models of human intelligence and more.', link: 'https://www.sciencedaily.com/rss/computers_math/artificial_intelligence.xml'},
+            // {id: 24, title: 'Hacking News -- ScienceDaily', description: 'Hacking and computer security. Read today s research news on hacking and protecting against codebreakers. New software, secure data sharing, and more.', link: 'https://www.sciencedaily.com/rss/computers_math/hacking.xml'},
+            // {id: 25, title: 'Quantum Computers News -- ScienceDaily', description: 'Quantum Computer Research. Read the latest news in developing quantum computers.', link: 'https://www.sciencedaily.com/rss/computers_math/quantum_computers.xml'},
+            // {id: 26, title: 'Distributed Computing News -- ScienceDaily', description: 'Distributed computing and computer grids. From supercomputers to computer grids, browse innovations from computer programmers and scientists around the world.', link: 'https://www.sciencedaily.com/rss/computers_math/distributed_computing.xml'},
             {id: 27, title: 'SANS Internet Storm Center, InfoCON: green', description: 'SANS Internet Storm Center - Cooperative Cyber Security Monitor', link: 'https://isc.sans.edu/rssfeed_full.xml'},
             {id: 28, title: 'Cary Jensen "Lets Get Technical"', description: 'Technical discussions related to software development. Particular attention is paid to Delphi development. Also expect a healthy dose of database-related content, including SQL, data modeling, and general database design.', link: 'http://feeds.feedburner.com/CaryJensenLetsGetTechnical?format=xml'},
             {id: 29, title: 'Coding Is Like Cooking', description: 'by Emily Bache', link: 'http://coding-is-like-cooking.info/feed/'},
@@ -71,6 +71,12 @@ class MainService {
             this.dbConnection.dropTables();
             event.returnValue = true;
         });
+
+        this.ipcMain.on('fetchRSSnSave', async (event) => {
+            let hrRes = await this.updateChannels();
+            // event.returnValue = hrRes;
+            event.reply('fetchRSSnSaveReply', hrRes);
+        });
     }
 
     async readRSS(url){
@@ -81,13 +87,22 @@ class MainService {
 
     async updateArticles(item, channelId){
         let result = await this.dbConnection
-                .queryAsync('insert into articles(title, content, contentSnippet, categories, link, pubDate, content_encoded, creator, is_read, channel) '+
-                        'values ($1::text, $2::text, $3::text, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
-                        [item.title, item.content, item.contentSnippet, JSON.stringify(item.categories), item.link, item.pubDate, item['content:encoded'], item.creator, false, channelId]);
+                .queryAsync('insert into articles(title, description, content, link, timestamp, is_read, channel) '+
+                        'values ($1::text, $2::text, $3::text, $4::text, $5, $6, $7) RETURNING *',
+                        [item.title, item.content || '', item['content:encoded'] || '', item.link, item.pubDate, false, channelId]);
         return result;
     }
 
+    // async updateArticles(item, channelId){
+    //     let result = await this.dbConnection
+    //             .queryAsync('insert into articles(title, content, contentSnippet, categories, link, pubDate, content_encoded, creator, is_read, channel) '+
+    //                     'values ($1::text, $2::text, $3::text, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
+    //                     [item.title, item.content, item.contentSnippet, JSON.stringify(item.categories), item.link, item.pubDate, item['content:encoded'], item.creator, false, channelId]);
+    //     return result;
+    // }
+
     async updateChannels() {
+        let hrstart = process.hrtime();
         for (let index = 0; index < this.feeds.length; index++) {
             const feed = this.feeds[index];
             console.log(index, ' link: ', feed.link, ' desc: ', feed.description, ' title: ', feed.title);
@@ -97,14 +112,16 @@ class MainService {
                         'values ($1::text, $2::text, $3::text) RETURNING *',
                         [feed.title, feed.description, feed.link]);
             let f = await this.readRSS(feed.link);
-            let id = result;
+            let id = result.rows[0].id;
             console.log('article of ', id);
             for (let j = 0; j < f.items.length; j++) {
                 const item = f.items[j];
                 console.log('item: ', item);
-                // await this.updateArticles(item, id);
+                await this.updateArticles(item, id);
             }
         }
+        let hrend = process.hrtime(hrstart);
+        return hrend;
     }
 
     async clearChannels() {
@@ -120,17 +137,17 @@ class MainService {
         this.loaded = true;
     }
 
-    async createDatabaseSchema() {
-
-    }
-
 }
 
-const { DbConnection } = require('./db.connection');
-let dbConnection = new DbConnection();
-let mainService = new MainService(dbConnection, null);
-dbConnection.dropCreate();
-mainService.reload();
+// const { DbConnection } = require('./db.connection');
+// let dbConnection = new DbConnection();
+// let mainService = new MainService(dbConnection, null);
+// let init = async () => {
+//     await dbConnection.dropCreate();
+//     await mainService.reload();
+// }
+
+// init();
 
 module.exports = {
     MainService: MainService

@@ -18,28 +18,44 @@ class DbConnection {
         // create table articles
         await this.queryAsync(
             'create table articles ( '+
-            '    id serial, '+
-            '    title varchar(1024) not null, '+
-            '    content text not null, '+
-            '    contentSnippet text, '+
-            '    categories varchar(512), '+
-            '    link varchar(2048) not null, '+
-            '    pubDate date, '+
-            '    content_encoded text, '+
-            '    creator varchar(150), '+
-            '    is_read boolean default false, '+
-            '    timestamp timestamp default now(), '+
-            '    channel integer not null, '+
-            '    constraint articles_pk primary key (id), '+
-            '    constraint channels_fk foreign key (channel) '+
-            '        references channels (id) '+
-            '        on delete cascade); ',
-        '');
+            '   id serial, '+
+            '   title varchar(1024) not null, '+
+            '   description text not null, '+
+            '   content text not null, '+
+            '   link varchar(2048) not null, '+
+            '   is_read boolean default false, '+
+            '   timestamp timestamp default now(), '+
+            '   channel integer not null, '+
+            '   constraint articles_pk primary key (id), '+
+            '   constraint channels_fk foreign key (channel) '+
+            '   references channels (id) '+
+            '   on delete cascade ); '
+        , '');
+        // create table articles
+        // await this.queryAsync(
+        //     'create table articles ( '+
+        //     '    id serial, '+
+        //     '    title varchar(1024) not null, '+
+        //     '    content text not null, '+
+        //     '    contentSnippet text, '+
+        //     '    categories varchar(512), '+
+        //     '    link varchar(2048) not null, '+
+        //     '    pubDate date, '+
+        //     '    content_encoded text, '+
+        //     '    creator varchar(150), '+
+        //     '    is_read boolean default false, '+
+        //     '    timestamp timestamp default now(), '+
+        //     '    channel integer not null, '+
+        //     '    constraint articles_pk primary key (id), '+
+        //     '    constraint channels_fk foreign key (channel) '+
+        //     '        references channels (id) '+
+        //     '        on delete cascade); ',
+        // '');
     }
 
     async dropTables() {
-        await this.queryAsync('DROP TABLE articles');
-        await this.queryAsync('DROP TABLE channels');
+        await this.queryAsync('DROP TABLE IF EXISTS articles');
+        await this.queryAsync('DROP TABLE IF EXISTS channels');
     }
 
     async dropCreate() {

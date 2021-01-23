@@ -26,8 +26,12 @@ const createWindow = async () => {
 
   let dbConnection = new DbConnection();
   let mainService = new MainService(dbConnection, ipcMain);
-  mainService.reload();
   mainService.runEvent();
+  let init = async () => {
+      await dbConnection.dropCreate();
+      // await mainService.reload();
+  }  
+  init();
 };
 
 app.on('ready', createWindow);
