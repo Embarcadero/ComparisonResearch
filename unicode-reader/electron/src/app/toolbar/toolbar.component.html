@@ -16,7 +16,7 @@
       </li>
       <span class="nav-link">|</span>
       <li class="nav-item">
-        <a class="nav-link toolbar_btn" role="button" (click)="fetchData()">
+        <a class="nav-link toolbar_btn" role="button" (click)="runStorageTest()">
           <i class="fas fa-archive"></i> 
           Run Storage Test
           <i class="fas fa-arrow-right"></i>
@@ -25,11 +25,11 @@
       </li>
       <span class="nav-link">|</span>
       <li class="nav-item">
-        <a class="nav-link toolbar_btn" role="button">
+        <a class="nav-link toolbar_btn" role="button" (click)="runRetrievalTest()">
           <i class="fas fa-neuter"></i> 
           Run Retrieval Test
           <i class="fas fa-arrow-right"></i>
-          0.000sec
+          {{retrievalResult+'sec'}}
         </a>
       </li>
     </ul>

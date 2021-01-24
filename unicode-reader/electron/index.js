@@ -29,7 +29,6 @@ const createWindow = async () => {
   mainService.runEvent();
   let init = async () => {
       await dbConnection.dropCreate();
-      // await mainService.reload();
   }  
   init();
 };

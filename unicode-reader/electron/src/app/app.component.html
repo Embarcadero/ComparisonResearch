@@ -1,4 +1,4 @@
 <div class="wrapper">
-  <app-toolbar></app-toolbar>
-  <app-menubar></app-menubar>
+  <app-toolbar (onAfterGetData)="toolbarGetData($event)"></app-toolbar>
+  <app-menubar [dataChannels]="channels"></app-menubar>
 </div>

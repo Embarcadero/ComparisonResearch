@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   selectedArticle(article){
     this.article = article;
-    this.content_encoded = this.article.content_encoded;
+    this.content_encoded = this.article.content;
   }
 
   ngOnInit(): void {

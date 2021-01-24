@@ -26,7 +26,7 @@ class MainService {
             {id: 19, title: 'BleepingComputer', description: 'BleepingComputer - All Stories', link: 'https://www.bleepingcomputer.com/feed/'},
             {id: 20, title: 'Microsoft Security', description: 'Expert coverage of cybersecurity topics', link: 'https://www.microsoft.com/security/blog/feed/'},
             {id: 21, title: 'The Hacker News', description: 'Most trusted, widely-read independent cybersecurity news source for everyone; supported by hackers and IT professionals ', link: 'http://feeds.feedburner.com/TheHackersNews?format=xml'},
-            // {id: 22, title: 'SmartData Collective', description: 'News & Analysis on Big Data, the Cloud, BI and Analytics', link: 'https://www.smartdatacollective.com/feed/'},
+            // // {id: 22, title: 'SmartData Collective', description: 'News & Analysis on Big Data, the Cloud, BI and Analytics', link: 'https://www.smartdatacollective.com/feed/'},
             // {id: 23, title: 'Artificial Intelligence News -- ScienceDaily', description: 'Artificial Intelligence News. Everything on AI including futuristic robots with artificial intelligence, computer models of human intelligence and more.', link: 'https://www.sciencedaily.com/rss/computers_math/artificial_intelligence.xml'},
             // {id: 24, title: 'Hacking News -- ScienceDaily', description: 'Hacking and computer security. Read today s research news on hacking and protecting against codebreakers. New software, secure data sharing, and more.', link: 'https://www.sciencedaily.com/rss/computers_math/hacking.xml'},
             // {id: 25, title: 'Quantum Computers News -- ScienceDaily', description: 'Quantum Computer Research. Read the latest news in developing quantum computers.', link: 'https://www.sciencedaily.com/rss/computers_math/quantum_computers.xml'},
@@ -49,21 +49,35 @@ class MainService {
     }
 
     runEvent(){
+        // only for testing purpose
+        // load all data from databases, and measure the speed
+        this.ipcMain.on('qryGetChannelsAndArticles', (event) => {
+            let hrstart = process.hrtime();
+            this.dbConnection.query('select * from channels', [], (err, result)=>{
+                let  channels = [];
+                channels = result.rows;
+                this.dbConnection.query('select * from articles', [], (err, result)=>{
+                    let hrend = process.hrtime(hrstart);
+                    let retObj = {};
+                    let articles = [];
+                    articles = result.rows;
+                    retObj.channels = channels;
+                    retObj.articles = articles;
+                    retObj.hrtime = hrend;
+                    event.returnValue = retObj;
+                });
+            });
+        });
+
         this.ipcMain.on('qryGetChannels', (event) => {
             this.dbConnection.query('select * from channels', [], (err, result)=>{
-                if (this.loaded && result) 
-                    event.returnValue = result.rows;
-                else
-                    event.returnValue = [];
+                event.returnValue = result.rows;
             });
         });
 
         this.ipcMain.on('qryGetArticles', (event, channelId) => {
             this.dbConnection.query('select * from articles where channel=$1', [channelId], (err, result)=>{
-                if (this.loaded) 
-                    event.returnValue = result.rows;
-                else
-                    event.returnValue = [];
+                event.returnValue = result.rows;
             });
         });
 
