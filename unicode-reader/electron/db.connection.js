@@ -88,7 +88,7 @@ class DbConnection {
 
 } 
 
-let con = new DbConnection();
+// let con = new DbConnection();
 // con.checkCreateDatabase_schema();
 
 module.exports = {
