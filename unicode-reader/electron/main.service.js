@@ -77,7 +77,11 @@ class MainService {
 
         this.ipcMain.on('qryGetArticles', (event, channelId) => {
             this.dbConnection.query('select * from articles where channel=$1', [channelId], (err, result)=>{
-                event.returnValue = result.rows;
+                if (channelId) {
+                    event.returnValue = result.rows;
+                }else{
+                    event.returnValue = [];
+                }
             });
         });
 

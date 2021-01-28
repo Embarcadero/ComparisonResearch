@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
       .subscribe(params => {
         console.log(params);
         this.articles = this.comSvc.sendSync('qryGetArticles', params.channel);
-        console.log('articles: ', this.articles);
+        // console.log('articles: ', this.articles);
       })
   }
 
