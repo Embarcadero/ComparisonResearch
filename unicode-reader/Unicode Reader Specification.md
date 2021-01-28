@@ -113,3 +113,65 @@ To get started:
 ```sh
 npx create-electron-app unicode-reader
 ```
+
+
+---
+# Post-development Modifications
+
+After working Unicode Readers were finished and analysis began, Embarcadero project managers realized they were unable to test important aspects of each framework’s database implementation performance.  The following tests were specified to measure framework speed in database storage and retrieval assuming the PostgreSQL database performance remained constant between applications.   
+
+## Test #1 - Database Storage
+This test will measure the performance of the framework’s database storage implementation.  Network usage time will be eliminated by monitoring using a separate network monitoring tool and the database performance will be assumed equivalent for each application.
+The test will start with a database configured with many RSS channels (20+) and an empty articles table. 
+
+Test steps:
+1. Start a timer.
+2. Download and store all articles available from all RSS feeds in the database.
+3. Stop the timer and display the elapsed time.
+ 
+## Test #2 - Database Retrieval
+This test will measure the performance of the framework’s database query implementation by touching each record in the articles table and saving them to a flat file with simple HTML.  The database performance is assumed to be equivalent for each application and the output file operations are basic in order to reveal differences in database access implementation efficiency through completion time disparities.
+
+The output file should be named combinedRSS.html and adhere to the following format:
+```
+<!DOCTYPE html>
+<html>
+<head>
+<title>Combined RSS Feeds</title>
+</head>
+ 
+<body>
+<h2><a href="channel link">Channel Name</a> - <a href="article link">Article Title</a></h2>
+<h3>Date</h3>
+<p>Article content</p>
+<br>
+<hr>
+ 
+<h2><a href="channel link">Channel Name</a> - <a href="article link">Article Title</a></h2>
+<h3>Date</h3>
+<p>Article content</p>
+<br>
+<hr>
+ 
+<h2><a href="channel link">Channel Name</a> - <a href="article link">Article Title</a></h2>
+<h3>Date</h3>
+<p>Article content</p>
+<br>
+<hr>
+</body>
+</html>
+```
+
+The test will start with a database configured with many RSS channels (20+) and a populated articles table from Test 1. 
+
+Test steps:
+1. Start a timer.
+2. Access each article in the database.
+3. Sort articles in reverse chronological order.
+4. Concatenate articles and save as combinedRSS.html in the executable directory.
+5. Stop the timer and display the elapsed time.
+ 
+## GUI Modifications
+Add a button and timer for each test to the top bar of the application.  If able in less than an hour, add a button to “reset” the database according to the given SQL script that drops and re-initiates tables.  See the following image for a mockup of the modified Unicode Reader.
+
+![Unicode Reader with Tests](https://github.com/Embarcadero/ComparisonResearch/blob/main/unicode-reader/Unicode%20Reader%20mockup%20with%20test%20buttons.PNG)
