@@ -24,7 +24,7 @@ This calculator is written exclusively in Delphi.
 
 ### Techniques
 #### State Machine
-In order to replicate the behavior of the Windows 10 caluclator, this calculator uses a state machine to adjust the behavior of the interface buttons depending on what input has already been provided.  State is defined in an enumerated type and tracked throughout the "controller" part of the MVC pattern.
+In order to replicate the behavior of the Windows 10 calculator, this calculator uses a state machine to adjust the behavior of the interface buttons depending on what input has already been provided.  State is defined in an enumerated type and tracked throughout the "controller" part of the MVC pattern.
 
 *FMXCalculatorLogic.pas*
 
