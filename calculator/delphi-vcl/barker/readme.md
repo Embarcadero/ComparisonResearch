@@ -39,7 +39,7 @@ Rather than parsing an equation string to solve an equation, this calculator use
 
 It also uses an enumerated type to define how to update the equation display.  This type is passed from the GUI according to which TPanel button is pressed.
 
-'type TUpdateCalcDisplay = procedure of object;'
+`type TUpdateCalcDisplay = procedure of object;`
 
 ## Metrics
 
