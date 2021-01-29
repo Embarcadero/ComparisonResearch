@@ -13,7 +13,7 @@ class MainService {
             // 
             {id: 7, title: 'DelphiFeeds.com', description: 'All Delphi blogs in one place', link: 'https://www.delphifeeds.com/feed/'},
             {id: 8, title: 'BeginEnd.net Recent Posts', description: 'BeginEnd.net aggregated posts for the last 7 days', link: 'https://www.beginend.net/api/recent.rss.dws'},
-            {id: 9, title: 'AI Trends', description: 'The Business and Technology of Enterprise AI', link: 'https://www.aitrends.com/feed/'},
+            // {id: 9, title: 'AI Trends', description: 'The Business and Technology of Enterprise AI', link: 'https://www.aitrends.com/feed/'},
             {id: 10, title: 'TechCrunch', description: 'Startup and Technology News', link: 'https://techcrunch.com/feed/'},
             {id: 11, title: 'VentureBeat', description: 'Transformative tech coverage that matters', link: 'https://venturebeat.com/feed/'},
             {id: 12, title: 'Machine Learning Mastery', description: 'Making developers awesome at machine learning', link: 'https://machinelearningmastery.com/feed/'},

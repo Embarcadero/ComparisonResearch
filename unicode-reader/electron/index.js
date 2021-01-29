@@ -12,6 +12,7 @@ const createWindow = async () => {
     width: 1500,
     height: 850,
   });
+  mainWindow.setMenu(null);
 
   mainWindow.loadURL(
     url.format({
