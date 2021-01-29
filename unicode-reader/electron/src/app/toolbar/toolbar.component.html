@@ -16,7 +16,7 @@
       </li>
       <span class="nav-link">|</span>
       <li class="nav-item">
-        <a class="nav-link toolbar_btn" role="button" (click)="runStorageTest()">
+        <a class="nav-link toolbar_btn {{storageBtn ? 'disabled':''}}" role="button" (click)="runStorageTest()">
           <i class="fas fa-archive"></i> 
           Run Storage Test
           <i class="fas fa-arrow-right"></i>
@@ -25,7 +25,7 @@
       </li>
       <span class="nav-link">|</span>
       <li class="nav-item">
-        <a class="nav-link toolbar_btn" role="button" (click)="runRetrievalTest()">
+        <a class="nav-link toolbar_btn {{retrBtn ? 'disabled':''}}" role="button" (click)="runRetrievalTest()">
           <i class="fas fa-neuter"></i> 
           Run Retrieval Test
           <i class="fas fa-arrow-right"></i>
