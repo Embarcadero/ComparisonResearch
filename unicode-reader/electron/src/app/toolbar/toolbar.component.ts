@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { ComService } from '../com.service';
+import { environment } from './../../environments/environment.normal';
 // import { NgxSpinnerService } from "ngx-spinner";
 import { NgxLoadingSpinnerService } from '@k-adam/ngx-loading-spinner';
 
@@ -18,7 +19,9 @@ export class ToolbarComponent implements OnInit {
   channels = [];
   @Output() onAfterGetData = new EventEmitter<any>();
 
-  constructor(public comSvc: ComService, private cdr: ChangeDetectorRef, private spinnerService: NgxLoadingSpinnerService) { }
+  constructor(public comSvc: ComService, private cdr: ChangeDetectorRef, private spinnerService: NgxLoadingSpinnerService) { 
+    
+  }
 
   dropTables() {
     this.deletedDB = this.comSvc.sendSync('dropTables');
@@ -54,6 +57,8 @@ export class ToolbarComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log( 'environment: ', environment );
+   }
 
 }
