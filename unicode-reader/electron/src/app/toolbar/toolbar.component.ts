@@ -4,6 +4,11 @@ import { environment } from './../../environments/environment.normal';
 // import { NgxSpinnerService } from "ngx-spinner";
 import { NgxLoadingSpinnerService } from '@k-adam/ngx-loading-spinner';
 
+interface IEnvironment {
+  production: boolean, 
+  testbutton: boolean
+}
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -18,9 +23,11 @@ export class ToolbarComponent implements OnInit {
   spinnerTitle: string;
   channels = [];
   @Output() onAfterGetData = new EventEmitter<any>();
+  environment:  IEnvironment;
 
   constructor(public comSvc: ComService, private cdr: ChangeDetectorRef, private spinnerService: NgxLoadingSpinnerService) { 
-    
+    this.environment = environment;
+    console.log( 'environment: ', this.environment );
   }
 
   dropTables() {
@@ -58,7 +65,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log( 'environment: ', environment );
+    
    }
 
 }

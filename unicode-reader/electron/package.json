@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "ng build --base-href ./ && electron ."
+    "electron": "ng build --configuration=normal --base-href ./ && electron .",
+    "electron-testbutton": "ng build --configuration=test_button --base-href ./ && electron ."
   },
   "private": true,
   "dependencies": {
