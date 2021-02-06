@@ -30,6 +30,13 @@ export class ToolbarComponent implements OnInit {
     console.log( 'environment: ', this.environment );
   }
 
+  reloadData() {
+    this.comSvc.send('fetchRSSnSave');
+    this.comSvc.on('fetchRSSnSaveReply', (event) => {
+
+    });
+  }
+
   dropTables() {
     this.deletedDB = this.comSvc.sendSync('dropTables');
   }
