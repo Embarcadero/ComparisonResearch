@@ -96,6 +96,7 @@ class MainService {
         });
 
         this.ipcMain.on('fetchRSSnSave', async (event) => {
+            await dbConnection.dropCreate();
             let hrRes = await this.updateChannels();
             // event.returnValue = hrRes;
             event.reply('fetchRSSnSaveReply', hrRes);
