@@ -56,7 +56,10 @@ class MainService {
             this.dbConnection.query('select * from channels', [], (err, result)=>{
                 let  channels = [];
                 channels = result.rows;
-                this.dbConnection.query('select * from articles', [], (err, result)=>{
+                this.dbConnection.query('select  articles.id, articles.title, articles.description, articles.content, '+
+                ' articles.link, articles.is_read, articles.timestamp, articles.channel, channels.link as channel_link, '+
+                ' channels.title as channel_title from articles inner join channels ON channels.id = articles.channel '+
+                ' order by articles.timestamp desc ', [], (err, result)=>{
                     let hrend = process.hrtime(hrstart);
                     let retObj = {};
                     let articles = [];
@@ -64,6 +67,8 @@ class MainService {
                     retObj.channels = channels;
                     retObj.articles = articles;
                     retObj.hrtime = hrend;
+                    console.log('retObj.articles: ', retObj.articles);
+                    this.createCombinedRSS(retObj.articles);
                     event.returnValue = retObj;
                 });
             });
@@ -155,11 +160,67 @@ class MainService {
         this.loaded = true;
     }
 
+    createCombinedRSS (articles) {
+        let path = require('path');
+        let dirname = path.resolve(__dirname);
+        let fs = require('fs');
+        let fileName = dirname + '/combinedRSS.html';
+        const htmlCreator = require('html-creator');
+        const html = new htmlCreator([
+            {
+              type: 'head',
+              content: [{ type: 'title', content: 'Combined RSS Feeds' }]
+            },
+            {
+              type: 'body'
+            }
+          ]);
+        for (let i = 0; i < articles.length; i++) {
+            const article = articles[i];
+            html.document.addElementToType('body', {
+                type: 'h2',
+                content: [
+                    {
+                    type: 'a',
+                    attributes: { href: article.channel_link },
+                    content: article.channel_name
+                    },
+                    {
+                        type: '',
+                        content: ' - '
+                    },
+                    {
+                        type: 'a',
+                        attributes: { href: article.link },
+                        content: article.title
+                    }
+                ]
+            });
+            html.document.addElementToType('body', {
+                type: 'h3',
+                content: article.timestamp
+            });
+            html.document.addElementToType('body', {
+                type: 'p',
+                content: article.content
+            });
+            html.document.addElementToType('body', {
+                type: 'br'
+            });
+            html.document.addElementToType('body', {
+                type: 'hr'
+            })            
+        }
+
+        html.renderHTMLToFile(fileName);
+    }
+
 }
 
 // const { DbConnection } = require('./db.connection');
 // let dbConnection = new DbConnection();
 // let mainService = new MainService(dbConnection, null);
+// mainService.createCombinedRSS();
 // let init = async () => {
 //     await dbConnection.dropCreate();
 //     await mainService.reload();
