@@ -96,7 +96,7 @@ class MainService {
         });
 
         this.ipcMain.on('fetchRSSnSave', async (event) => {
-            await dbConnection.dropCreate();
+            await this.dbConnection.dropCreate();
             let hrRes = await this.updateChannels();
             // event.returnValue = hrRes;
             event.reply('fetchRSSnSaveReply', hrRes);
@@ -163,7 +163,7 @@ class MainService {
 
     createCombinedRSS (articles) {
         let path = require('path');
-        let dirname = path.resolve(__dirname);
+        let dirname = path.join(__dirname, '../../');
         let fs = require('fs');
         let fileName = dirname + '/combinedRSS.html';
         const htmlCreator = require('html-creator');
