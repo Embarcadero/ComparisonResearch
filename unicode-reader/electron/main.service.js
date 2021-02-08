@@ -163,7 +163,14 @@ class MainService {
 
     createCombinedRSS (articles) {
         let path = require('path');
-        let dirname = path.join(__dirname, '../../');
+        let dirname = '';
+        if (process.platform === 'darwin') {
+            dirname = path.join(__dirname, '../../../../');
+        }{
+            dirname = path.join(__dirname, '../../');
+        }
+        
+
         let fs = require('fs');
         let fileName = dirname + '/combinedRSS.html';
         const htmlCreator = require('html-creator');
