@@ -1,7 +1,6 @@
 let Parser = require('rss-parser');
 
 class MainService {
-
     constructor(dbConnection, ipcMain) {
         this.feeds = [
             {id: 1, title: 'All Articles', description: 'All Articles', link:'https://blogs.embarcadero.com/feed/'},
@@ -46,6 +45,7 @@ class MainService {
         this.dbConnection = dbConnection;
         this.ipcMain = ipcMain;
         this.loaded = false;
+        this.withTestBtn = false;
     }
 
     runEvent(){
@@ -68,7 +68,9 @@ class MainService {
                     retObj.articles = articles;
                     retObj.hrtime = hrend;
                     console.log('retObj.articles: ', retObj.articles);
-                    this.createCombinedRSS(retObj.articles);
+                    if (this.withTestBtn) {
+                        this.createCombinedRSS(retObj.articles);
+                    }
                     event.returnValue = retObj;
                 });
             });
@@ -95,11 +97,16 @@ class MainService {
             event.returnValue = true;
         });
 
-        this.ipcMain.on('fetchRSSnSave', async (event) => {
+        this.ipcMain.on('fetchRSSnSave', async (event, testBtn) => {
+            this.withTestBtn = testBtn;
             await this.dbConnection.dropCreate();
-            let hrRes = await this.updateChannels();
-            // event.returnValue = hrRes;
+            let hrRes = await this.updateChannels(this.withTestBtn);
             event.reply('fetchRSSnSaveReply', hrRes);
+            // if (this.withTestBtn) {
+                
+            // }else{
+            //     event.reply('fetchRSSnSaveReply', hrRes);
+            // }
         });
     }
 
@@ -127,7 +134,13 @@ class MainService {
 
     async updateChannels() {
         let hrstart = process.hrtime();
-        for (let index = 0; index < this.feeds.length; index++) {
+        let c = 0;
+        if (this.withTestBtn) {
+            c = this.feeds.length;
+        }else {
+            c = 6;
+        }
+        for (let index = 0; index < c; index++) {
             const feed = this.feeds[index];
             console.log(index, ' link: ', feed.link, ' desc: ', feed.description, ' title: ', feed.title);
             console.log('feed --> ', feed);

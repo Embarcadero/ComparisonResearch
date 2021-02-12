@@ -11,6 +11,7 @@ export class AppComponent {
 
   toolbarGetData(event) {
     this.channels = event;
+    console.log('toolbarGetData: ', this.channels);
   }
 
 }

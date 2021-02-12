@@ -13,6 +13,7 @@ export class MenuleftComponent implements OnInit {
   menus = [];
 
   @Input() set channelData(value: Array<any>){
+    console.log('menuleft channelData, ', value);
     this._channelData = value;
     for (let index = 0; index < this._channelData.length; index++) {
       const channel = this._channelData[index];

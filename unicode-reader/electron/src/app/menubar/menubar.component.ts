@@ -10,6 +10,7 @@ export class MenubarComponent implements OnInit {
   
   @Input() 
   set dataChannels(value: Array<any>) {
+    console.log('menubar dataChannels: ', value);
     this._dataChannels = value;
   }
 

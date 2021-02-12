@@ -23,7 +23,7 @@ const createWindow = async () => {
   );
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   let dbConnection = new DbConnection();
   let mainService = new MainService(dbConnection, ipcMain);

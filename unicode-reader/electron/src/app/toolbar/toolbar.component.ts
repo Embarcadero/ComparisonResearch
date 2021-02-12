@@ -31,9 +31,16 @@ export class ToolbarComponent implements OnInit {
   }
 
   reloadData() {
-    this.comSvc.send('fetchRSSnSave');
+    this.spinnerService.show();
+    this.comSvc.send('fetchRSSnSave', false);
     this.comSvc.on('fetchRSSnSaveReply', (event) => {
-
+      this.spinnerTitle = 'loading data SUCCESS!. ';
+      this.spinnerService.hide();
+      let dataResult = this.comSvc.sendSync('qryGetChannels');
+      this.channels = dataResult;
+      this.onAfterGetData.emit(this.channels);
+      console.log('this.channels: ', this.channels);
+      this.cdr.detectChanges();
     });
   }
 
@@ -47,7 +54,7 @@ export class ToolbarComponent implements OnInit {
     this.storageResult = 0;
     this.spinnerService.show();
     this.spinnerTitle = 'Running Storage Test ... ';
-    this.comSvc.send('fetchRSSnSave');
+    this.comSvc.send('fetchRSSnSave', true);
     this.comSvc.on('fetchRSSnSaveReply', (event, hrTime) => {
       this.spinnerTitle = 'Storage Test SUCCESS!. ';
       this.storageResult = hrTime[0] + hrTime[1] * 1.0E-9;
