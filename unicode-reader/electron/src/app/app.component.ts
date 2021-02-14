@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +7,20 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class AppComponent {
   title = 'unicode-reader';
-  channels: Array<any>;
+  _channels = Array<any>();
+  set channels(value: Array<any>) {
+    this._channels = value;
+  };
 
-  toolbarGetData(event) {
-    this.channels = event;
-    console.log('toolbarGetData: ', this.channels);
+  get channels(): Array<any> {
+    return this._channels;
+  }
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  toolbarGetData(channels) {
+    this.channels = channels;
+    this.cdr.detectChanges();
   }
 
 }

@@ -34,13 +34,13 @@ export class ToolbarComponent implements OnInit {
     this.spinnerService.show();
     this.comSvc.send('fetchRSSnSave', false);
     this.comSvc.on('fetchRSSnSaveReply', (event) => {
-      this.spinnerTitle = 'loading data SUCCESS!. ';
+      this.spinnerTitle = 'loading data.. ';
       this.spinnerService.hide();
       let dataResult = this.comSvc.sendSync('qryGetChannels');
       this.channels = dataResult;
       this.onAfterGetData.emit(this.channels);
-      console.log('this.channels: ', this.channels);
       this.cdr.detectChanges();
+      console.log('this.channels: ', this.channels);
     });
   }
 
