@@ -1,5 +1,6 @@
-const { Client } = require('pg');
+const { Client, Pool } = require('pg');
 const { config } = require('./db.config.json');
+const pool = new Pool(config);
 
 class DbConnection {
     constructor() {
@@ -7,6 +8,7 @@ class DbConnection {
 
     async checkCreateSchema() {
         // create table channels
+        console.log('creating channels table ..');
         await this.queryAsync(
             'create table channels ( '+
             'id serial, '+
@@ -15,7 +17,9 @@ class DbConnection {
             'link varchar(2048) not null, '+
             'constraint channels_pk primary key (id) );'
         , '');
+        console.log('Done.');
         // create table articles
+        console.log('creating articles table ..');
         await this.queryAsync(
             'create table articles ( '+
             '   id serial, '+
@@ -31,6 +35,7 @@ class DbConnection {
             '   references channels (id) '+
             '   on delete cascade ); '
         , '');
+        console.log('Done.');
         // create table articles
         // await this.queryAsync(
         //     'create table articles ( '+
@@ -84,6 +89,22 @@ class DbConnection {
             this.client.end();
             callback(err, res);
         })
+    }
+
+    async queryPool(sql, params) {
+        const client = await pool.connect()
+        try{
+            try {
+                const res = await client.query(sql, params)
+                console.log(res.rows[0])
+            } finally {
+                // Make sure to release the client before any error handling,
+                // just in case the error handling itself throws an error.
+                client.release()
+            }
+        }catch(err){
+            throw err;
+        }
     }
 
 } 

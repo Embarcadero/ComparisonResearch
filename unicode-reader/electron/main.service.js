@@ -124,13 +124,13 @@ class MainService {
         return result;
     }
 
-    // async updateArticles(item, channelId){
-    //     let result = await this.dbConnection
-    //             .queryAsync('insert into articles(title, content, contentSnippet, categories, link, pubDate, content_encoded, creator, is_read, channel) '+
-    //                     'values ($1::text, $2::text, $3::text, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
-    //                     [item.title, item.content, item.contentSnippet, JSON.stringify(item.categories), item.link, item.pubDate, item['content:encoded'], item.creator, false, channelId]);
-    //     return result;
-    // }
+    async updateArticles2(item, channelId){
+        let res = await this.dbConnection
+            .queryPool('insert into articles(title, description, content, link, timestamp, is_read, channel) '+
+                'values ($1::text, $2::text, $3::text, $4::text, $5, $6, $7) RETURNING *',
+                [item.title, item.content || '', item['content:encoded'] || '', item.link, item.pubDate, false, channelId]);
+        console.log('updateArticles2 res: ', res);    
+    }
 
     async updateChannels() {
         let hrstart = process.hrtime();
@@ -143,18 +143,20 @@ class MainService {
         for (let index = 0; index < c; index++) {
             const feed = this.feeds[index];
             console.log(index, ' link: ', feed.link, ' desc: ', feed.description, ' title: ', feed.title);
-            console.log('feed --> ', feed);
+            console.log('feed --> ', feed.title);
             let result = await this.dbConnection
                 .queryAsync('insert into channels(title, description, link) '+
                         'values ($1::text, $2::text, $3::text) RETURNING *',
                         [feed.title, feed.description, feed.link]);
             let f = await this.readRSS(feed.link);
-            let id = result.rows[0].id;
-            console.log('article of ', id);
-            for (let j = 0; j < f.items.length; j++) {
-                const item = f.items[j];
-                console.log('item: ', item);
-                await this.updateArticles(item, id);
+            if (typeof result != 'undefined') {
+                let id = result.rows[0].id;
+                console.log('article of ', id);
+                for (let j = 0; j < f.items.length; j++) {
+                    const item = f.items[j];
+                    console.log('item: ', item.title);
+                    this.updateArticles2(item, id);                
+                }
             }
         }
         let hrend = process.hrtime(hrstart);
