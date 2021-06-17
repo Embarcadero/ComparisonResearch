@@ -28,10 +28,10 @@ const createWindow = async () => {
   let dbConnection = new DbConnection();
   let mainService = new MainService(dbConnection, ipcMain);
   mainService.runEvent();
-  let init = async () => {
-      await dbConnection.dropCreate();
-  }  
-  init();
+  // let init = async () => {
+  //     await dbConnection.dropCreate();
+  // }  
+  // init();
 };
 
 if (process.platform === 'linux') {
