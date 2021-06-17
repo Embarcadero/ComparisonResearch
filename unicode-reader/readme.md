@@ -46,8 +46,20 @@ If pgAdmin hangs at the loading screen, there are Windows settings blocking its 
 
 # Measurement Tools
 
+## HTTP Toolkit
+**[Fiddler](https://httptoolkit.tech/)** is a web-debugging proxy that captures network traffic for analysis. It can be used to view the HTTP requests and responses and measure their duration.  The total elapsed time of an RSS feed refresh should be roughly the same for all frameworks and implementations of the Unicode Reader assuming the network is stable and untaxed by other processes because it measures only network time rather than internal processing time.  This is useful because differences in the total elapsed time from the user clicking "refresh" to the application displaying fresh data can be attributed to the frameworks and their internal processes rather than other causes.
+
+To set up HTTP Toolkit to view network time:
+1. [Download](https://httptoolkit.tech/).
+2. On the Intercept page, select the card that applies to your application start method (Terminal, Electron Application, etc.).
+3. Use the resulting terminal or dialog to navigate to the RSS Reader and start it.
+4. Select the View page and start the RSS Reader.
+5. Watch traffic flow in.
+
+Full network times are only availble in the Pro (paid) version of HTTP Toolkit.  The advantage of HTTP Toolkit is that it will capture both Delphi and Electron traffic on Windows and Linux.  
+
 ## Fiddler
-**[Fiddler](https://www.telerik.com/fiddler)** is a web-debugging proxy that captures network traffic for analysis. It can be used to view the HTTP requests and responses and measure their duration.  The total elapsed time of an RSS feed refresh should be roughly the same for all frameworks and implementations of the Unicode Reader assuming the network is stable and untaxed by other processes because it measures only network time rather than internal processing time.  This is useful because differences in the total elapsed time from the user clicking "refresh" to the application displaying fresh data can be attributed to the frameworks and their internal processes rather than other causes.
+**[Fiddler](https://www.telerik.com/fiddler)** is a web-debugging proxy that captures network traffic for analysis. It is a free alternative to HTTP Toolkit but this project was unable to capture Electron traffic on it.
 
 To set up Fiddler to view network time:
 1. [Download](https://www.telerik.com/fiddler) and install.
