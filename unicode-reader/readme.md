@@ -47,6 +47,8 @@ If pgAdmin hangs at the loading screen, there are Windows settings blocking its 
 # Measurement Tools
 
 ## HTTP Toolkit
+![HTTP Toolkit](https://github.com/Embarcadero/ComparisonResearch/blob/main/unicode-reader/documentation/HTTP%20Toolkit%20Electron%20UnicodeReader%20Capture.PNG)
+
 **[Fiddler](https://httptoolkit.tech/)** is a web-debugging proxy that captures network traffic for analysis. It can be used to view the HTTP requests and responses and measure their duration.  The total elapsed time of an RSS feed refresh should be roughly the same for all frameworks and implementations of the Unicode Reader assuming the network is stable and untaxed by other processes because it measures only network time rather than internal processing time.  This is useful because differences in the total elapsed time from the user clicking "refresh" to the application displaying fresh data can be attributed to the frameworks and their internal processes rather than other causes.
 
 To set up HTTP Toolkit to view network time:
