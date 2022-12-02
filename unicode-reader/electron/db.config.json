@@ -1,9 +1,9 @@
 {
     "config": {
-        "user": "",
+        "user": "postgres",
         "host": "localhost",
         "database": "unic_read_db",
-        "password": "",
+        "password": "postgres",
         "port": 5432
     }
 }

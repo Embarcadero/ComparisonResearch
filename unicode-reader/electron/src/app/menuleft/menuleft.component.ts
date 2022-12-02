@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ComService } from '../com.service';
 import { Menu } from '../menu';
 
@@ -8,27 +8,24 @@ import { Menu } from '../menu';
   styleUrls: ['./menuleft.component.css']
 })
 export class MenuleftComponent implements OnInit {
-
+  _channelData: Array<any>;
   channels = [];
   menus = [];
 
-  constructor(public comSvc: ComService) { }
+  @Input() set channelData(value: Array<any>){
+    console.log('menuleft channelData, ', value);
+    this._channelData = value;
+    for (let index = 0; index < this._channelData.length; index++) {
+      const channel = this._channelData[index];
+      this.menus.push(new Menu(channel.id, channel.title, '/home', 'Pascal', 'nav-icon fa fa-rss-square'));
+    }   
+  };
 
-  ngAfterViewInit(): void {
-    let comSvc = this.comSvc;
-    let menus = this.menus;
-    var refreshId = setInterval(function() {
-      this.channels = comSvc.sendSync('qryGetChannels');
-      console.log('this.channels: ', this.channels);
-      if (this.channels.length > 0) {
-        clearInterval(refreshId);
-        for (let index = 0; index < this.channels.length; index++) {
-          const channel = this.channels[index];
-          menus.push(new Menu(channel.id, channel.title, '/home', 'Pascal', 'nav-icon fa fa-rss-square'));
-        }   
-      }
-    }, 3000);
+  get channelData() {
+    return this._channelData;
   }
+
+  constructor(public comSvc: ComService) { }
 
   ngOnInit (): void {
     

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComService } from '../com.service';
 import { Article } from '../article';
@@ -13,19 +13,21 @@ export class HomeComponent implements OnInit {
   article: Article;
   content_encoded: string;
 
-  constructor(public comSvc: ComService, private route: ActivatedRoute) { }
+  constructor(public comSvc: ComService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 
   selectedArticle(article){
     this.article = article;
-    this.content_encoded = this.article.content_encoded;
+    this.content_encoded = this.article.content;
+    this.cdr.detectChanges();
   }
 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        console.log(params);
+        console.log('home.component: ', params);
         this.articles = this.comSvc.sendSync('qryGetArticles', params.channel);
-        console.log('articles: ', this.articles);
+        console.log('home.component -> articles: ', this.articles);
+        this.cdr.detectChanges();
       })
   }
 

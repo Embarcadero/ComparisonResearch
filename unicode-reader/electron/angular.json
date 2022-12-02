@@ -32,6 +32,62 @@
             ]
           },
           "configurations": {
+            "test_button": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.normal.ts",
+                  "with": "src/environments/environment.testbutton.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "normal": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.testbutton.ts",
+                  "with": "src/environments/environment.normal.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -68,6 +124,12 @@
             "browserTarget": "unicode-reader:build"
           },
           "configurations": {
+            "normal":{
+              "browserTarget": "unicode-reader:build:normal"
+            },
+            "test_button":{
+              "browserTarget": "unicode-reader:build:test_button"
+            },
             "production": {
               "browserTarget": "unicode-reader:build:production"
             }

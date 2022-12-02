@@ -7,6 +7,36 @@ Each framework sub-folder contains implementation source code, executable binari
 # Specification
 Reference [Calculator Specification.md](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/Calculator%20Specification.md).  This project sought to emulate the [Windows 10 calculator](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/win10calculator.png).
 
+# Measuring Tools
+
+## AppTimer
+Passmark Software's [AppTimer](https://www.passmark.com/products/apptimer/) for Windows runs an executable defined by the user and measures startup time over a number of iterations.  The user can define the number of iterations, the conditions that must be met before the application is "running", and the method of shutting down the app.  Results are logged in a text file.
+
+   ![AppTimer](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/AppTimer%20Setup.PNG)
+
+To set up AppTimer:
+1. [Download](https://www.passmark.com/products/apptimer/) and unzip.
+2. Click the three dots to the right of the *Application* field and navigate to the **.exe** file you want to test.
+3. Click the three dots to the right of the *Log File* field, navigate folder you want the log file in, and name your file.
+4. Enter the application name in the Window Name (run the application and see what the top bar says).
+5. Enter a number of executions - this paper averaged 100 executions with a 10ms delay.
+6. Check *New windows only*, *Input idle*, *Window Name*, *Visible*, and *WM_CLOSE*.  These settings ensure the most complete application startup and normal exit.
+7. Click **Run App**, wait, and examine the log file for results.
+
+## Task Manager Deluxe
+MiTeC's [Task Manager Deluxe](https://www.mitec.cz/tmx.html#:~:text=Task%20Manager%20DeLuxe%20(TMX)%20is%20based%20on%20MiTeC,can%20be%20easily%20used%20as%20portable%20application%20everywhere.) is a richly featured task manager alternative that provides more granular data about individual processes.
+
+  ![TMX](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/TMX%20Setup.PNG)
+ 
+To set up Task Manager Deluxe:
+1. [Download](https://www.mitec.cz/tmx.html#:~:text=Task%20Manager%20DeLuxe%20(TMX)%20is%20based%20on%20MiTeC,can%20be%20easily%20used%20as%20portable%20application%20everywhere.) and install.
+2. Open the application to examine.
+3. Start TMX64.exe
+4. Search for the window name of your application in the TMX search bar.
+5. Double click on the process for your application.
+6. Examine the process details in the window that appeared.  The left sidebar provides data on CPU and Memory use among other performance metrics.
+  
+
 # Analysis
 ***Discovering the Best Developer Framework Through Benchmarking*** is saved to this [repository](https://github.com/Embarcadero/ComparisonResearch/blob/main/calculator/Discovering%20the%20Best%20Developer%20Framework%20Through%20Benchmarking%2012232020.pdf) and can also be downloaded from the [Embarcadero website](https://lp.embarcadero.com/Discovering_the_best_framework).
 

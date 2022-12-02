@@ -9,60 +9,93 @@ export class AppComponent implements OnInit {
   title = 'Calculator';
   calc_result: number = 0;
   old_value: number = 0;
-  operator: string = '';
+  lastoperator: string = '';
+  operators: Array<string> = [];
+  values: Array<number> = [];
   ce_clicked: boolean = false;
 
   number_click(newNumber: number) {
-    if (this.operator == '') {
-      if (this.calc_result == 0 && newNumber == 0) {
-        this.calc_result = 0; 
-      }else {
-        this.calc_result = parseFloat(this.calc_result.toString() + newNumber.toString()); 
-      }
-    }else {
-      if (!this.ce_clicked) {
-        this.old_value = this.calc_result;
-        this.calc_result = newNumber;
-      }else{
-        this.calc_result = newNumber;
-      }
-    }
+    this.calc_result = parseFloat(this.calc_result.toString() + newNumber.toString()); 
+    console.log(newNumber);
+    // console.log('this.operator: ', this.operator);
+    // if (this.operators.length == 0) {
+    //   if (this.calc_result == 0 && newNumber == 0) {
+    //     this.calc_result = 0; 
+    //   }else {
+    //     this.calc_result = parseFloat(this.calc_result.toString() + newNumber.toString()); 
+    //   }
+    // }else {
+    //   if (!this.ce_clicked) {
+    //     this.old_value = this.calc_result;
+    //     console.log('this.old_value: ', this.old_value);
+    //     this.calc_result = newNumber;
+    //   }else{
+    //     this.calc_result = newNumber;
+    //   }
+    // }
   }
 
   kali_click() {
-    this.operator = 'x';
-  }
-
-  tambah_click() {
-    this.operator = '+';
-  }
-
-  min_click() {
-    this.operator = '-';
-  }
-
-  samadengan_click() {
-    console.log(this.calc_result + ' <> ' + this.old_value);
-    switch (this.operator) {
-      case '÷':
-        this.calc_result = this.old_value / this.calc_result;
-        break;
-      case 'x':
-          this.calc_result = this.old_value * this.calc_result;
-          break;
-      case '+':
-          this.calc_result = this.old_value + this.calc_result;
-          break;
-      case '-':
-          this.calc_result = this.old_value - this.calc_result;
-          break;
-      default:
-        break;
-    }
+    this.values.push(this.calc_result);
+    this.lastoperator = 'x';
+    this.operators.push(this.lastoperator);
+    this.calc_result = 0;
+    console.log('values: ', this.values);
+    console.log('operators: ', this.operators);
   }
 
   bagi_click() {
-    this.operator = '÷';
+    this.values.push(this.calc_result);
+    this.lastoperator = '÷';
+    this.operators.push(this.lastoperator);
+    this.calc_result = 0;
+    console.log('values: ', this.values);
+    console.log('operators: ', this.operators);
+  }
+
+  tambah_click() {
+    this.values.push(this.calc_result);
+    this.lastoperator = '+';
+    this.operators.push(this.lastoperator);
+    this.calc_result = 0;
+    console.log('values: ', this.values);
+    console.log('operators: ', this.operators);
+  }
+
+  min_click() {
+    this.values.push(this.calc_result);
+    this.lastoperator = '-';
+    this.operators.push(this.lastoperator);
+    this.calc_result = 0;
+    console.log('values: ', this.values);
+    console.log('operators: ', this.operators);
+  }
+
+  samadengan_click() {
+    // 10 + 5 + 2 - 1 = 16
+    let g = '';
+    for (let i = 0; i < this.values.length; i++) {
+      const value = this.values[i];
+      let opr = this.operators[i];
+      g = g + opr + value;
+      console.log('==> ', g)
+      switch (opr) {
+        case '÷':
+          this.calc_result = value / this.calc_result;
+          break;
+        case 'x':
+          this.calc_result = value * this.calc_result;
+          break;
+        case '+':
+          this.calc_result = value + this.calc_result;
+          break;
+        case '-':
+          this.calc_result = value - this.calc_result;
+          break;
+      }
+    }
+    this.operators = [];
+    this.values = [];
   }
 
   kuadrat_click() {
@@ -91,12 +124,16 @@ export class AppComponent implements OnInit {
 
   ce_click() {
     this.calc_result = 0;
+    this.operators = [];
+    this.values = [];
     this.ce_clicked = true;
   }
 
   c_click() {
+    this.operators = [];
+    this.values = [];
     this.calc_result = 0;
-    this.operator = '';
+    this.lastoperator = '';
   }
 
   back_click() {

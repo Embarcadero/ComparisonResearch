@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComService } from '../com.service';
 import { Ifile } from '../ifile';
@@ -16,8 +16,10 @@ export class HxtreeviewComponent {
   constructor(private onlyDir: OnlydirPipe, private router: Router) { }
 
   clickFolder(event, item) {
-    let ulElem = event.target.nextSibling;
-    let iconElem = event.target.querySelector('i');
+    event.stopPropagation();
+    let liElem = event.target.parentElement;
+    let iconElem = liElem.querySelector('i');
+    let ulElem = liElem.querySelector('ul');
     if (iconElem.className == 'fas fa-folder') {
       iconElem.className = 'fas fa-folder-open';
       ulElem.className = 'active';
@@ -32,5 +34,6 @@ export class HxtreeviewComponent {
     this.ifiles = ifiles;
     this.list = this.onlyDir.transform(this.ifiles);
   }
+  
 
 }

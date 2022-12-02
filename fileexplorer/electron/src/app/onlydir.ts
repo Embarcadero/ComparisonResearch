@@ -5,7 +5,9 @@ import { Ifile } from './ifile';
 export class OnlydirPipe implements PipeTransform {
 
     transform(dirTree: Ifile[]) {
-        return dirTree.filter(ifile => ifile.type == 'directory');
+        return dirTree.filter(ifile => {
+            return ifile.type == 'directory';
+        });
     }
 
 }

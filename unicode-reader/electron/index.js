@@ -12,6 +12,7 @@ const createWindow = async () => {
     width: 1500,
     height: 850,
   });
+  mainWindow.setMenu(null);
 
   mainWindow.loadURL(
     url.format({
@@ -22,14 +23,20 @@ const createWindow = async () => {
   );
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   let dbConnection = new DbConnection();
   let mainService = new MainService(dbConnection, ipcMain);
-  mainService.reload();
   mainService.runEvent();
+  // let init = async () => {
+  //     await dbConnection.dropCreate();
+  // }  
+  // init();
 };
 
+if (process.platform === 'linux') {
+  app.disableHardwareAcceleration();
+}
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
